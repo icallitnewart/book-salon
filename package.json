@@ -11,8 +11,8 @@
       "npm --prefix client run prettier"
     ],
     "server/**/*.{js,ts}": [
-      "npm --prefix server eslint --fix",
-      "npm --prefix server prettier --write"
+      "npm --prefix server run lint:fix",
+      "npm --prefix server run prettier"
     ]
   },
   "devDependencies": {
