@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 
 const Container = styled.header`
 	width: 100%;
+	min-width: var(--desktop-screen-width);
 	height: 100px;
 	border-bottom: 1px solid #eee;
 `;
