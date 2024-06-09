@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import GlobalStyles from './GlobalStyles';
 import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
 
 function App(): JSX.Element {
 	return (
@@ -12,6 +13,7 @@ function App(): JSX.Element {
 				<Routes>
 					<Route path="/" element={<div>Home</div>} />
 					<Route path="/user/register" element={<RegisterPage />} />
+					<Route path="/user/login" element={<LoginPage />} />
 				</Routes>
 			</BrowserRouter>
 		</div>
