@@ -36,6 +36,7 @@ module.exports = {
 	rules: {
 		'@typescript-eslint/no-unused-vars': 'warn',
 		'react/no-unused-prop-types': 'warn',
+		'react/require-default-props': 'off',
 		'import/prefer-default-export': 'off',
 		indent: ['warn', 'tab'],
 		'prettier/prettier': 'warn',
