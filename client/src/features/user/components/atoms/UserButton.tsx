@@ -4,6 +4,8 @@ import styled from 'styled-components';
 interface IButtonStyleProps {
 	$bgColor: string;
 	$textColor: string;
+	$hoverBgColor: string;
+	$hoverTextColor: string;
 }
 
 const Button = styled.button<IButtonStyleProps>`
@@ -11,6 +13,7 @@ const Button = styled.button<IButtonStyleProps>`
 	height: 50px;
 	cursor: pointer;
 
+	border: none;
 	border-radius: 5px;
 	color: ${({ $textColor }) => $textColor};
 	background-color: ${({ $bgColor }) => $bgColor};
@@ -18,9 +21,11 @@ const Button = styled.button<IButtonStyleProps>`
 	font-weight: 600;
 	font-size: 15px;
 	letter-spacing: -0.5px;
+	transition: all 500ms;
 
 	&:hover {
-		color: var(--sub-color-green);
+		background-color: ${({ $hoverBgColor }) => $hoverBgColor};
+		color: ${({ $hoverTextColor }) => $hoverTextColor};
 	}
 `;
 
@@ -29,6 +34,8 @@ interface IUserButtonProps {
 	text: string;
 	bgColor?: string;
 	textColor?: string;
+	hoverBgColor?: string;
+	hoverTextColor?: string;
 }
 
 function UserButton({
@@ -36,9 +43,17 @@ function UserButton({
 	text,
 	bgColor = '#000',
 	textColor = '#fff',
+	hoverBgColor = '#000',
+	hoverTextColor = 'var(--sub-color-green)',
 }: IUserButtonProps): JSX.Element {
 	return (
-		<Button $bgColor={bgColor} $textColor={textColor} type={type}>
+		<Button
+			$bgColor={bgColor}
+			$textColor={textColor}
+			$hoverBgColor={hoverBgColor}
+			$hoverTextColor={hoverTextColor}
+			type={type}
+		>
 			{text}
 		</Button>
 	);

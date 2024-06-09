@@ -12,7 +12,7 @@ const Container = styled.div`
 	padding: 70px 0px 100px;
 `;
 
-const FormContainer = styled.div`
+const Content = styled.div`
 	width: 350px;
 `;
 
@@ -25,7 +25,7 @@ function UserTemplate({ children, title }: IUserTemplateProps): JSX.Element {
 	return (
 		<Container>
 			<UserTitle title={title} />
-			<FormContainer>{children}</FormContainer>
+			<Content>{children}</Content>
 		</Container>
 	);
 }
