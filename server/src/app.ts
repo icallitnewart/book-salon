@@ -1,18 +1,28 @@
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
+import { config } from 'dotenv';
+
+import { errorMiddleware } from './middlewares';
+import swaggerSpec from './config/swagger';
+
+import sampleRouter from './domains/sample/sampleRouter';
 
 const app = express();
-
 const corsOptions = {
 	origin: ['http://localhost:3000'],
 	optionsSuccessStatus: 200,
 };
 
+config();
+
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-	res.send('Hello, TypeScript with Express!');
-});
+app.use('/api/samples', sampleRouter);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(errorMiddleware);
 
 export default app;
