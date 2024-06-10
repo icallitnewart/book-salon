@@ -27,8 +27,6 @@ const router = express.Router();
  *                 result:
  *                   type: string
  *                   example: 'success'
- *                 user:
- *                   $ref: '#/components/schemas/User'
  *       400:
  *         description: Bad Request
  *         content:
@@ -95,7 +93,14 @@ router.post('/register', asyncMiddleware(userController.registerUser));
  *                   type: string
  *                   example: 'success'
  *                 user:
- *                   $ref: '#/components/schemas/User'
+ *                   type: object
+ *                   properties:
+ *                     email:
+ *                       type: string
+ *                       example: 'john@example.com'
+ *                     nickname:
+ *                       type: string
+ *                       example: 'john_doe'
  *       401:
  *         description: Invalid email or password
  *         content:

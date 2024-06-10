@@ -6,17 +6,17 @@ import { HttpError } from '../../utils/HttpError';
 class UserController {
 	async registerUser(req: Request, res: Response) {
 		const userInput = req.body as IUserInput;
-		const newUser = await userService.registerUser(userInput);
+		await userService.registerUser(userInput);
 
 		res.status(201).json({
 			result: 'success',
-			user: newUser,
 		});
 	}
 
 	async loginUser(req: Request, res: Response) {
 		const { email, password } = req.body;
 		const { user, token } = await userService.loginUser(email, password);
+		const { password: pswd, ...userWithoutPassword } = user;
 
 		res.cookie('token', token, {
 			httpOnly: true,
@@ -27,7 +27,7 @@ class UserController {
 
 		res.json({
 			result: 'success',
-			user,
+			user: userWithoutPassword,
 		});
 	}
 
