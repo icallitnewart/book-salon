@@ -55,6 +55,43 @@ class UserService {
 			expiresIn: '1h',
 		});
 	}
+
+	async updateUser(
+		userId: string,
+		userData: Partial<IUserInput>,
+	): Promise<IUserModel> {
+		const { email, nickname, password, passwordConfirm } = userData;
+		if (password && password !== passwordConfirm) {
+			throw new HttpError('비밀번호가 일치하지 않습니다.', 400);
+		}
+
+		const newUserData: Partial<IUser> = {
+			email,
+			nickname,
+		};
+
+		try {
+			if (password) {
+				const hashedPassword = await bcrypt.hash(password, 10);
+				newUserData.password = hashedPassword;
+			}
+
+			const updatedUser = await userDAO.updateUser(userId, newUserData);
+			if (!updatedUser) {
+				throw new HttpError('사용자를 찾을 수 없습니다.', 404);
+			}
+
+			return updatedUser;
+
+			// TODO: type 수정 필요
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
+			if (error.errorResponse && error.code === 11000) {
+				throw new HttpError('이미 존재하는 이메일입니다.', 409);
+			}
+			throw error;
+		}
+	}
 }
 
 export const userService = new UserService();

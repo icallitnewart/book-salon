@@ -8,6 +8,13 @@ class UserDAO {
 	async findByEmail(email: string): Promise<IUserModel | null> {
 		return User.findOne({ email });
 	}
+
+	async updateUser(
+		userId: string,
+		userData: Partial<IUser>,
+	): Promise<IUserModel | null> {
+		return User.findByIdAndUpdate(userId, userData, { new: true });
+	}
 }
 
 export const userDAO = new UserDAO();

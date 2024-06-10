@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { IUserInput } from './userModel';
 import { userService } from './userService';
+import { HttpError } from '../../utils/HttpError';
 
 class UserController {
 	async registerUser(req: Request, res: Response) {
@@ -27,6 +28,22 @@ class UserController {
 		res.json({
 			result: 'success',
 			user,
+		});
+	}
+
+	async updateUser(req: Request, res: Response) {
+		const { userId } = req;
+		if (!userId) {
+			throw new HttpError('인증에 실패하였습니다.', 401);
+		}
+
+		const userData = req.body;
+		const updatedUser = await userService.updateUser(userId, userData);
+		const { password, ...userWithoutPassword } = updatedUser;
+
+		res.json({
+			result: 'success',
+			user: userWithoutPassword,
 		});
 	}
 }
