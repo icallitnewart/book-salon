@@ -7,6 +7,7 @@ import { errorMiddleware } from './middlewares';
 import swaggerSpec from './config/swagger';
 
 import sampleRouter from './domains/sample/sampleRouter';
+import userRouter from './domains/user/userRouter';
 
 const app = express();
 const corsOptions = {
@@ -20,7 +21,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/samples', sampleRouter);
+// app.use('/api/samples', sampleRouter);
+app.use('/api/users', userRouter);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(errorMiddleware);
