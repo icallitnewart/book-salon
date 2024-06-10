@@ -24,10 +24,11 @@ const router = express.Router();
  *             schema:
  *               type: object
  *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: 'success'
  *                 user:
  *                   $ref: '#/components/schemas/User'
- *                 token:
- *                   type: string
  *       400:
  *         description: Bad Request
  *         content:
@@ -64,5 +65,55 @@ const router = express.Router();
  *                   message: '이미 존재하는 이메일입니다.'
  */
 router.post('/register', asyncMiddleware(userController.registerUser));
+
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: User login
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Successful login
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: 'success'
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *       401:
+ *         description: Invalid email or password
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *             examples:
+ *               requestError:
+ *                 summary: Invalid email or password
+ *                 value:
+ *                   result: 'error'
+ *                   message: '이메일 혹은 비밀번호가 일치하지 않습니다.'
+ */
+router.post('/login', asyncMiddleware(userController.loginUser));
 
 export default router;

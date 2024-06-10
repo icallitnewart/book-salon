@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 import { IUser, IUserInput, IUserModel } from './userModel';
 import { userDAO } from './userDAO';
@@ -29,6 +30,30 @@ class UserService {
 			}
 			throw error;
 		}
+	}
+
+	async loginUser(
+		email: string,
+		password: string,
+	): Promise<{ user: IUserModel; token: string }> {
+		const user = await userDAO.findByEmail(email);
+		if (!user) {
+			throw new HttpError('이메일 혹은 비밀번호가 일치하지 않습니다.', 401);
+		}
+
+		const isPasswordValid = await bcrypt.compare(password, user.password);
+		if (!isPasswordValid) {
+			throw new HttpError('이메일 혹은 비밀번호가 일치하지 않습니다.', 401);
+		}
+
+		const token = this.generateToken(user);
+		return { user, token };
+	}
+
+	generateToken(user: IUserModel): string {
+		return jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
+			expiresIn: '1h',
+		});
 	}
 }
 
