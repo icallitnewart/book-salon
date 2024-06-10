@@ -9,9 +9,13 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
+  "ts-node": {
+    "files": true
+  },
   "include": [
     "src", 
-    "./.eslintrc.js"
+    "./.eslintrc.js",
+    "./express.d.ts"
   ],
   "exclude": ["node_modules"]
 }
