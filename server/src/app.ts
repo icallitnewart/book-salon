@@ -1,5 +1,6 @@
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { config } from 'dotenv';
 
@@ -16,10 +17,10 @@ const corsOptions = {
 };
 
 config();
-
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // app.use('/api/samples', sampleRouter);
 app.use('/api/users', userRouter);
