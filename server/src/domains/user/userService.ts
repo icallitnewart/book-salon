@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
 
 import { IUser, IUserInput, IUserModel } from './userModel';
-import { UserDAO } from './userDAO';
+import { userDAO } from './userDAO';
 import { HttpError } from '../../utils/HttpError';
 
-export class UserService {
-	static async registerUser(userInput: IUserInput): Promise<IUserModel> {
+class UserService {
+	async registerUser(userInput: IUserInput): Promise<IUserModel> {
 		if (userInput.password !== userInput.passwordConfirm) {
 			throw new HttpError('비밀번호가 일치하지 않습니다.', 400);
 		}
@@ -18,7 +18,7 @@ export class UserService {
 				password: hashedPassword,
 			};
 
-			const newUser = await UserDAO.create(userInfo);
+			const newUser = await userDAO.create(userInfo);
 			return newUser;
 
 			// TODO: type 수정 필요
@@ -31,3 +31,5 @@ export class UserService {
 		}
 	}
 }
+
+export const userService = new UserService();

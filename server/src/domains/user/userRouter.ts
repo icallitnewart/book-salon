@@ -1,6 +1,6 @@
 import express from 'express';
 import { asyncMiddleware } from '../../middlewares';
-import { UserController } from './userController';
+import { userController } from './userController';
 
 const router = express.Router();
 
@@ -63,6 +63,6 @@ const router = express.Router();
  *                   result: 'error'
  *                   message: '이미 존재하는 이메일입니다.'
  */
-router.post('/register', asyncMiddleware(UserController.registerUser));
+router.post('/register', asyncMiddleware(userController.registerUser));
 
 export default router;
