@@ -8,12 +8,37 @@ const errorMiddleware = (
 	res: Response,
 	next: NextFunction,
 ) => {
-	const handleError = (
-		statusCode: number,
-		message: string = 'Unknown error',
-	) => {
+	const logError = () => {
 		logger.error(error.message);
 		if (error.stack) logger.error(error.stack);
+	};
+
+	const handleError = (statusCode: number, errorMessage?: string) => {
+		logError();
+
+		let message = errorMessage;
+		if (!message) {
+			switch (statusCode) {
+				case 400:
+					message = '잘못된 요청입니다.';
+					break;
+				case 401:
+					message = '인증이 필요합니다.';
+					break;
+				case 403:
+					message = '권한이 없습니다.';
+					break;
+				case 404:
+					message = '리소스를 찾을 수 없습니다.';
+					break;
+				case 409:
+					message = '충돌이 발생했습니다.';
+					break;
+				default:
+					message = '서버에서 오류가 발생했습니다.';
+					break;
+			}
+		}
 
 		res.status(statusCode).json({
 			result: 'error',
