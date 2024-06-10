@@ -3,9 +3,9 @@ import swaggerJSDoc from 'swagger-jsdoc';
 const swaggerDefinition = {
 	openapi: '3.0.0',
 	info: {
-		title: 'Sample API',
+		title: 'Book Salon API',
 		version: '1.0.0',
-		description: 'API documentation for the Sample API',
+		description: 'API documentation for the Book Salon API',
 	},
 	servers: [
 		{
