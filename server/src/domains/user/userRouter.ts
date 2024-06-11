@@ -6,9 +6,9 @@ const router = express.Router();
 
 /**
  * @swagger
- * /users/register:
+ * /users:
  *   post:
- *     summary: User registration
+ *     summary: 회원가입
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -62,13 +62,13 @@ const router = express.Router();
  *                   result: 'error'
  *                   message: '이미 존재하는 이메일입니다.'
  */
-router.post('/register', asyncMiddleware(userController.registerUser));
+router.post('/', asyncMiddleware(userController.registerUser));
 
 /**
  * @swagger
  * /users/login:
  *   post:
- *     summary: User login
+ *     summary: 로그인
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -125,7 +125,7 @@ router.post('/login', asyncMiddleware(userController.loginUser));
  * @swagger
  * /users/me:
  *   get:
- *     summary: Get authenticated user information
+ *     summary: 회원정보 조회
  *     tags: [Users]
  *     security:
  *       - cookieAuth: []
@@ -175,9 +175,9 @@ router.get(
 
 /**
  * @swagger
- * /users/update:
+ * /users:
  *   put:
- *     summary: Update user information
+ *     summary: 회원정보 수정
  *     tags: [Users]
  *     security:
  *       - cookieAuth: []
@@ -275,10 +275,6 @@ router.get(
  *       in: cookie
  *       name: token
  */
-router.put(
-	'/update',
-	authMiddleware,
-	asyncMiddleware(userController.updateUser),
-);
+router.put('/', authMiddleware, asyncMiddleware(userController.updateUser));
 
 export default router;
