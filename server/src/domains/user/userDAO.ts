@@ -13,11 +13,15 @@ class UserDAO {
 		return User.findOne({ _id: userId });
 	}
 
-	async updateUser(
+	async update(
 		userId: string,
 		userData: Partial<IUser>,
 	): Promise<IUserModel | null> {
 		return User.findByIdAndUpdate(userId, userData, { new: true });
+	}
+
+	async delete(userId: string): Promise<void> {
+		await User.findByIdAndDelete(userId);
 	}
 }
 

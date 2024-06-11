@@ -85,7 +85,7 @@ class UserService {
 				newUserData.password = hashedPassword;
 			}
 
-			const updatedUser = await userDAO.updateUser(userId, newUserData);
+			const updatedUser = await userDAO.update(userId, newUserData);
 			if (!updatedUser) {
 				throw new HttpError('사용자를 찾을 수 없습니다.', 404);
 			}
@@ -100,6 +100,15 @@ class UserService {
 			}
 			throw error;
 		}
+	}
+
+	async deleteUser(userId: string): Promise<void> {
+		const user = await userDAO.findById(userId);
+		if (!user) {
+			throw new HttpError('사용자를 찾을 수 없습니다.', 404);
+		}
+
+		await userDAO.delete(userId);
 	}
 }
 

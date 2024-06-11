@@ -277,4 +277,67 @@ router.get(
  */
 router.put('/', authMiddleware, asyncMiddleware(userController.updateUser));
 
+/**
+ * @swagger
+ * /users:
+ *   delete:
+ *     summary: 회원 탈퇴
+ *     tags: [Users]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *             examples:
+ *               unauthorized:
+ *                 summary: Unauthorized
+ *                 value:
+ *                   result: 'error'
+ *                   message: '인증이 필요합니다.'
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *             examples:
+ *               userNotFound:
+ *                 summary: User not found
+ *                 value:
+ *                   result: 'error'
+ *                   message: '사용자를 찾을 수 없습니다.'
+ *
+ * components:
+ *   securitySchemes:
+ *     cookieAuth:
+ *       type: apiKey
+ *       in: cookie
+ *       name: token
+ */
+router.delete('/', authMiddleware, asyncMiddleware(userController.deleteUser));
+
 export default router;
