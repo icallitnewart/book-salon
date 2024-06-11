@@ -31,6 +31,23 @@ class UserController {
 		});
 	}
 
+	async getAuthenticatedUser(req: Request, res: Response) {
+		const { userId } = req;
+		if (!userId) {
+			throw new HttpError('인증에 실패하였습니다.', 401);
+		}
+
+		const { email, nickname } = await userService.getAuthenticatedUser(userId);
+
+		res.json({
+			result: 'success',
+			user: {
+				email,
+				nickname,
+			},
+		});
+	}
+
 	async updateUser(req: Request, res: Response) {
 		const { userId } = req;
 		if (!userId) {

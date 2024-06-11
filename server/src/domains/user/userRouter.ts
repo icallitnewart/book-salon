@@ -123,6 +123,58 @@ router.post('/login', asyncMiddleware(userController.loginUser));
 
 /**
  * @swagger
+ * /users/me:
+ *   get:
+ *     summary: Get authenticated user information
+ *     tags: [Users]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Authenticated user information
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     email:
+ *                       type: string
+ *                       example: 'john@example.com'
+ *                     nickname:
+ *                       type: string
+ *                       example: 'john_doe'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *             examples:
+ *               unauthorized:
+ *                 summary: Unauthorized
+ *                 value:
+ *                   result: 'error'
+ *                   message: '인증이 필요합니다.'
+ */
+router.get(
+	'/me',
+	authMiddleware,
+	asyncMiddleware(userController.getAuthenticatedUser),
+);
+
+/**
+ * @swagger
  * /users/update:
  *   put:
  *     summary: Update user information

@@ -9,6 +9,10 @@ class UserDAO {
 		return User.findOne({ email });
 	}
 
+	async findById(userId: string): Promise<IUserModel | null> {
+		return User.findOne({ _id: userId });
+	}
+
 	async updateUser(
 		userId: string,
 		userData: Partial<IUser>,

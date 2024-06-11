@@ -56,6 +56,15 @@ class UserService {
 		});
 	}
 
+	async getAuthenticatedUser(userId: string): Promise<IUserModel> {
+		const user = await userDAO.findById(userId);
+		if (!user) {
+			throw new HttpError('사용자를 찾을 수 없습니다.', 404);
+		}
+
+		return user;
+	}
+
 	async updateUser(
 		userId: string,
 		userData: Partial<IUserInput>,
