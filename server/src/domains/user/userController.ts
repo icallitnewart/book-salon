@@ -16,7 +16,6 @@ class UserController {
 	async loginUser(req: Request, res: Response) {
 		const { email, password } = req.body;
 		const { user, token } = await userService.loginUser(email, password);
-		const { password: pswd, ...userWithoutPassword } = user;
 
 		res.cookie('token', token, {
 			httpOnly: true,
@@ -27,7 +26,10 @@ class UserController {
 
 		res.json({
 			result: 'success',
-			user: userWithoutPassword,
+			user: {
+				email: user.email,
+				nickname: user.nickname,
+			},
 		});
 	}
 
@@ -55,12 +57,14 @@ class UserController {
 		}
 
 		const userData = req.body;
-		const updatedUser = await userService.updateUser(userId, userData);
-		const { password, ...userWithoutPassword } = updatedUser;
+		const { email, nickname } = await userService.updateUser(userId, userData);
 
 		res.json({
 			result: 'success',
-			user: userWithoutPassword,
+			user: {
+				email,
+				nickname,
+			},
 		});
 	}
 }
