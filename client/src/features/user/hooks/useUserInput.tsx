@@ -1,27 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function useUserInput(
 	initialValue: string,
-	// validate: (value: string) => string,
+	validate?: (value: string) => string,
 ) {
+	const isTouchedRef = useRef(false);
 	const [value, setValue] = useState(initialValue);
 	const [error, setError] = useState('');
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value);
+		if (!isTouchedRef.current) isTouchedRef.current = true;
 	};
 
 	useEffect(() => {
-		if (value) {
-			// const errMsg = validate(value);
-			const errMsg = 'test';
+		// TODO: validate 제거 예정
+		if (isTouchedRef.current && validate) {
+			const errMsg = validate(value);
 			if (errMsg) setError(errMsg);
+			else setError('');
 		}
-	}, [value]);
+	}, [value, validate]);
 
 	return {
 		value,
 		error,
+		setError,
 		handleChange,
 	};
 }
