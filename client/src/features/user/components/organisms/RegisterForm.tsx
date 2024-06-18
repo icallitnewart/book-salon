@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../../../redux/store';
 
+import { clearRegisterStatus } from '../../userSlice';
+import { registerUser } from '../../apis/userApi';
 import useUserInput from '../../hooks/useUserInput';
+import {
+	validateEmail,
+	validateNickname,
+	validatePassword,
+	validatePasswordConfirm,
+} from '../../utils/userValidator';
+
 import UserButton from '../atoms/UserButton';
 import InputField from '../molecules/UserInputField';
 
@@ -13,27 +24,86 @@ const InputContainer = styled.div`
 	margin-bottom: 20px;
 `;
 
-function RegisterForm(): JSX.Element {
-	const emailInput = useUserInput('');
-	const nicknameInput = useUserInput('');
-	const passwordInput = useUserInput('');
-	const confirmPasswordInput = useUserInput('');
+const ButtonContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 5px 0px;
+`;
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+function RegisterForm(): JSX.Element {
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const email = useUserInput('', validateEmail);
+	const nickname = useUserInput('', validateNickname);
+	const password = useUserInput('', validatePassword);
+	const passwordConfirm = useUserInput('', value =>
+		validatePasswordConfirm(value, password.value),
+	);
+
+	const checkValidation = (): boolean => {
+		email.validateInput();
+		nickname.validateInput();
+		password.validateInput();
+		passwordConfirm.validateInput();
+
+		return (
+			email.isValid &&
+			nickname.isValid &&
+			password.isValid &&
+			passwordConfirm.isValid
+		);
 	};
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		const isSubmit = checkValidation();
+		if (!isSubmit) return;
+
+		const response = await dispatch(
+			registerUser({
+				email: email.value,
+				nickname: nickname.value,
+				password: password.value,
+				passwordConfirm: passwordConfirm.value,
+			}),
+		);
+
+		if (registerUser.fulfilled.match(response)) {
+			alert('회원가입이 완료되었습니다!👏 로그인 해주세요.');
+			navigate('/user/login');
+		} else if (registerUser.rejected.match(response)) {
+			const result = response.payload;
+
+			if (result) {
+				if (result.status === 409) {
+					email.setError(result.message);
+				} else if (result.status === 500) {
+					alert('네트워크 에러가 발생하였습니다. 다시 시도해주세요.');
+				} else {
+					alert('회원가입에 실패하였습니다. 다시 시도해주세요.');
+				}
+			}
+		}
+	};
+
+	useEffect(() => {
+		return () => {
+			dispatch(clearRegisterStatus());
+		};
+	}, [dispatch]);
 
 	return (
 		<Form onSubmit={handleSubmit}>
 			<InputContainer>
 				<InputField
 					label="이메일"
-					type="email"
+					type="text"
 					id="email"
 					name="email"
-					value={emailInput.value}
-					onChange={emailInput.handleChange}
-					error={emailInput.error}
+					value={email.value}
+					onChange={email.handleChange}
+					error={email.error}
 				/>
 				<InputField
 					label="닉네임"
@@ -41,9 +111,9 @@ function RegisterForm(): JSX.Element {
 					id="nickname"
 					name="nickname"
 					placeholder="2~6자 (특수문자, 공백 제외)"
-					value={nicknameInput.value}
-					onChange={nicknameInput.handleChange}
-					error={nicknameInput.error}
+					value={nickname.value}
+					onChange={nickname.handleChange}
+					error={nickname.error}
 				/>
 				<InputField
 					label="비밀번호"
@@ -51,21 +121,23 @@ function RegisterForm(): JSX.Element {
 					id="password"
 					name="password"
 					placeholder="8~16자 (영문, 숫자, 특수문자 포함)"
-					value={passwordInput.value}
-					onChange={passwordInput.handleChange}
-					error={passwordInput.error}
+					value={password.value}
+					onChange={password.handleChange}
+					error={password.error}
 				/>
 				<InputField
 					label="비밀번호 확인"
 					type="password"
-					id="confirmPassword"
-					name="confirmPassword"
-					value={confirmPasswordInput.value}
-					onChange={confirmPasswordInput.handleChange}
-					error={confirmPasswordInput.error}
+					id="passwordConfirm"
+					name="passwordConfirm"
+					value={passwordConfirm.value}
+					onChange={passwordConfirm.handleChange}
+					error={passwordConfirm.error}
 				/>
 			</InputContainer>
-			<UserButton type="submit" text="가입하기" />
+			<ButtonContainer>
+				<UserButton type="submit" text="가입하기" />
+			</ButtonContainer>
 		</Form>
 	);
 }

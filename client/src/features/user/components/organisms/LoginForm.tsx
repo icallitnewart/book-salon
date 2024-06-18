@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../redux/store';
 
 import useUserInput from '../../hooks/useUserInput';
-import { loginUser } from '../../apis/loginApi';
+import { loginUser } from '../../apis/userApi';
 import { clearLoginStatus } from '../../userSlice';
 import {
 	validateEmail,

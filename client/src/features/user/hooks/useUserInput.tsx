@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 function useUserInput(
 	initialValue: string,
+	// TODO: validate 필수로 변경 예정
 	validate?: (value: string) => string,
 ) {
 	const isTouchedRef = useRef(false);
+	const isValidRef = useRef(false);
 	const [value, setValue] = useState(initialValue);
 	const [error, setError] = useState('');
 
@@ -13,20 +15,32 @@ function useUserInput(
 		if (!isTouchedRef.current) isTouchedRef.current = true;
 	};
 
-	useEffect(() => {
-		// TODO: validate 제거 예정
-		if (isTouchedRef.current && validate) {
-			const errMsg = validate(value);
-			if (errMsg) setError(errMsg);
-			else setError('');
+	const validateInput = useCallback(() => {
+		if (!validate) return;
+
+		const errMsg = validate(value);
+		if (errMsg) {
+			isValidRef.current = false;
+			setError(errMsg);
+		} else {
+			isValidRef.current = true;
+			setError('');
 		}
-	}, [value, validate]);
+	}, [validate, value]);
+
+	useEffect(() => {
+		if (isTouchedRef.current) {
+			validateInput();
+		}
+	}, [value, validateInput]);
 
 	return {
 		value,
 		error,
 		setError,
 		handleChange,
+		validateInput,
+		isValid: isValidRef.current,
 	};
 }
 

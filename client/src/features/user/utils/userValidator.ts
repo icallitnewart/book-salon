@@ -30,6 +30,15 @@ const validator = {
 	): boolean => {
 		return value.length >= minLength && value.length <= maxLength;
 	},
+	// 동일한 값 검사
+	hasEqualValue: (value1: string, value2: string): boolean => {
+		return value1 === value2;
+	},
+	// 영문자 검사
+	hasAlphabet: (value: string): boolean => {
+		const alphabetRegex = /[a-zA-Z]/;
+		return alphabetRegex.test(value);
+	},
 };
 
 const validatorWithError = {
@@ -77,6 +86,19 @@ const validatorWithError = {
 		const errMsg = `${minLength}자에서 ${maxLength}자 사이로 입력해주세요.`;
 		return validator.hasValidLength(value, minLength, maxLength) ? '' : errMsg;
 	},
+	// 비밀번호 일치 검사
+	forbidNotEqualPassword: (
+		passwordConfirm: string,
+		password: string,
+	): string => {
+		const errMsg = '비밀번호가 일치하지 않습니다.';
+		return validator.hasEqualValue(passwordConfirm, password) ? '' : errMsg;
+	},
+	// 영문자 필수
+	requireAlphabet: (value: string): string => {
+		const errMsg = '영문자를 1자 이상 포함해주세요.';
+		return validator.hasAlphabet(value) ? '' : errMsg;
+	},
 };
 
 export const validateEmail = (email: string): string => {
@@ -92,6 +114,7 @@ export const validatePassword = (password: string): string => {
 		validatorWithError.requireValue(password) ||
 		validatorWithError.forbidWhitespace(password) ||
 		validatorWithError.requireSpecialCharacter(password) ||
+		validatorWithError.requireAlphabet(password) ||
 		validatorWithError.requireNumber(password) ||
 		validatorWithError.limitLength(password, 8, 16)
 	);
@@ -99,4 +122,23 @@ export const validatePassword = (password: string): string => {
 
 export const validateLoginPassword = (password: string): string => {
 	return validatorWithError.requireValue(password);
+};
+
+export const validatePasswordConfirm = (
+	passwordConfirm: string,
+	password: string,
+): string => {
+	return (
+		validatorWithError.requireValue(passwordConfirm) ||
+		validatorWithError.forbidNotEqualPassword(passwordConfirm, password)
+	);
+};
+
+export const validateNickname = (nickname: string): string => {
+	return (
+		validatorWithError.requireValue(nickname) ||
+		validatorWithError.forbidWhitespace(nickname) ||
+		validatorWithError.forbidSpecialCharacter(nickname) ||
+		validatorWithError.limitLength(nickname, 2, 6)
+	);
 };
