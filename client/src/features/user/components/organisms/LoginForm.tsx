@@ -37,8 +37,10 @@ function LoginForm(): JSX.Element {
 	const password = useUserInput('', validateLoginPassword);
 
 	const checkValidation = (): boolean => {
-		if (email.error || password.error) return false;
-		return true;
+		email.validateInput();
+		password.validateInput();
+
+		return email.isValid && password.isValid;
 	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
