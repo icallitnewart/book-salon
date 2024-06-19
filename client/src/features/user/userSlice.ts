@@ -10,14 +10,14 @@ interface IStatus {
 
 interface IUserState {
 	isAuth: boolean;
-	user: IUserInfo | null;
+	userInfo: IUserInfo | null;
 	loginStatus: IStatus;
 	registerStatus: IStatus;
 }
 
 const initialState: IUserState = {
 	isAuth: false,
-	user: null,
+	userInfo: null,
 	loginStatus: {
 		loading: false,
 		error: null,
@@ -49,7 +49,7 @@ const userSlice = createSlice({
 		builder.addCase(loginUser.fulfilled, (state, action) => {
 			state.loginStatus.loading = false;
 			state.isAuth = true;
-			state.user = action.payload;
+			state.userInfo = action.payload;
 		});
 		builder.addCase(loginUser.rejected, (state, action) => {
 			state.loginStatus.loading = false;

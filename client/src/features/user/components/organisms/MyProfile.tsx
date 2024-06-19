@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useAppSelector } from '../../../../redux/store';
 
 import UserButton from '../atoms/UserButton';
 import UserInfoField from '../molecules/UserInfoField';
@@ -19,12 +20,14 @@ const ButtonContainer = styled.div`
 	gap: 15px;
 `;
 
-function UserEditForm(): JSX.Element {
+function MyProfile(): JSX.Element {
+	const user = useAppSelector(state => state.user.userInfo);
+
 	return (
 		<Container>
 			<InfoContainer>
-				<UserInfoField label="이메일" value="testEmail@test.com" />
-				<UserInfoField label="닉네임" value="테스트 닉네임" />
+				<UserInfoField label="이메일" value={user?.email} />
+				<UserInfoField label="닉네임" value={user?.nickname} />
 			</InfoContainer>
 			<ButtonContainer>
 				<UserButton type="button" text="회원 정보 수정" />
@@ -40,4 +43,4 @@ function UserEditForm(): JSX.Element {
 	);
 }
 
-export default UserEditForm;
+export default MyProfile;

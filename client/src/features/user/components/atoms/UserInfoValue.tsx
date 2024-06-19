@@ -14,10 +14,10 @@ const InfoValue = styled.div`
 `;
 
 interface IUserInfoValueProps {
-	value: string;
+	value?: string;
 }
 
-function UserInfoValue({ value }: IUserInfoValueProps): JSX.Element {
+function UserInfoValue({ value = '' }: IUserInfoValueProps): JSX.Element {
 	return <InfoValue>{value}</InfoValue>;
 }
 

@@ -14,7 +14,7 @@ const Container = styled.div`
 
 interface IUserInfoFieldProps {
 	label: string;
-	value: string;
+	value?: string;
 }
 
 function UserInfoField({ label, value }: IUserInfoFieldProps): JSX.Element {
