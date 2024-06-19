@@ -40,7 +40,7 @@ function useUserInput(
 		setError,
 		handleChange,
 		validateInput,
-		isValid: isValidRef.current,
+		isValidRef,
 	};
 }
 

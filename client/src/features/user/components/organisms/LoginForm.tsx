@@ -40,7 +40,7 @@ function LoginForm(): JSX.Element {
 		email.validateInput();
 		password.validateInput();
 
-		return email.isValid && password.isValid;
+		return email.isValidRef.current && password.isValidRef.current;
 	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

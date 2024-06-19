@@ -47,10 +47,10 @@ function RegisterForm(): JSX.Element {
 		passwordConfirm.validateInput();
 
 		return (
-			email.isValid &&
-			nickname.isValid &&
-			password.isValid &&
-			passwordConfirm.isValid
+			email.isValidRef.current &&
+			nickname.isValidRef.current &&
+			password.isValidRef.current &&
+			passwordConfirm.isValidRef.current
 		);
 	};
 
