@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import { ROUTES } from './constants/routes';
+
 import GlobalStyles from './GlobalStyles';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
@@ -13,11 +15,11 @@ function App(): JSX.Element {
 			<BrowserRouter>
 				<GlobalStyles />
 				<Routes>
-					<Route path="/" element={<div>Home</div>} />
-					<Route path="/user/register" element={<RegisterPage />} />
-					<Route path="/user/login" element={<LoginPage />} />
-					<Route path="/user/profile" element={<MyProfilePage />} />
-					<Route path="/user/edit" element={<UserEditPage />} />
+					<Route path={ROUTES.MAIN} element={<div>Home</div>} />
+					<Route path={ROUTES.USER.REGISTER} element={<RegisterPage />} />
+					<Route path={ROUTES.USER.LOGIN} element={<LoginPage />} />
+					<Route path={ROUTES.USER.MY_PROFILE} element={<MyProfilePage />} />
+					<Route path={ROUTES.USER.PROFILE_EDIT} element={<UserEditPage />} />
 				</Routes>
 			</BrowserRouter>
 		</div>

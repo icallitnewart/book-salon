@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../redux/store';
 
+import { ROUTES } from '../../../../constants/routes';
+
 import useUserInput from '../../hooks/useUserInput';
 import { loginUser } from '../../apis/userApi';
 import { clearLoginStatus } from '../../userSlice';
@@ -55,7 +57,7 @@ function LoginForm(): JSX.Element {
 
 		if (loginUser.fulfilled.match(response)) {
 			alert('로그인에 성공하셨습니다.');
-			navigate('/user/info');
+			navigate(ROUTES.USER.MY_PROFILE);
 		} else if (loginUser.rejected.match(response)) {
 			const result = response.payload;
 
