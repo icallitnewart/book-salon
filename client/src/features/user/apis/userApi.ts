@@ -2,10 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { IUserInfo, IUserLogin, IUserRegister } from '../types/userTypes';
-import {
-	USER_LOGIN_API_URL,
-	USER_REGISTER_API_URL,
-} from '../../../constants/url';
+import { APIS } from '../../../constants/apis';
 
 interface ErrorResponse {
 	status: number;
@@ -18,7 +15,7 @@ export const loginUser = createAsyncThunk<
 	{ rejectValue: ErrorResponse } // rejected
 >('user/login', async (credentials: IUserLogin, { rejectWithValue }) => {
 	try {
-		const response = await axios.post(USER_LOGIN_API_URL, credentials, {
+		const response = await axios.post(APIS.USER.LOGIN, credentials, {
 			withCredentials: true,
 		});
 
@@ -38,7 +35,7 @@ export const registerUser = createAsyncThunk<
 	{ rejectValue: ErrorResponse } // rejected
 >('user/register', async (credentials: IUserRegister, { rejectWithValue }) => {
 	try {
-		const response = await axios.post(USER_REGISTER_API_URL, credentials);
+		const response = await axios.post(APIS.USER.REGISTER, credentials);
 
 		return response.data.user;
 	} catch (error) {
