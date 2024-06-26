@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useAppSelector } from '../../../redux/store';
 
+import { ROUTES } from '../../../constants/routes';
+
 import MenuLink from '../atoms/MenuLink';
 
 const Container = styled.nav`
@@ -18,12 +20,12 @@ function Navigation(): JSX.Element {
 
 	return (
 		<Container>
-			<MenuLink to="/book/review/list">REVIEWS</MenuLink>
-			<MenuLink to="/book/quote/list">QUOTES</MenuLink>
+			<MenuLink to={ROUTES.BOOK.REVIEW.LIST}>REVIEWS</MenuLink>
+			<MenuLink to={ROUTES.BOOK.QUOTE.LIST}>QUOTES</MenuLink>
 			{isAuth ? (
-				<MenuLink to="/user/info">MYPAGE</MenuLink>
+				<MenuLink to={ROUTES.USER.MY_PROFILE}>MYPAGE</MenuLink>
 			) : (
-				<MenuLink to="/user/login">LOGIN</MenuLink>
+				<MenuLink to={ROUTES.USER.LOGIN}>LOGIN</MenuLink>
 			)}
 		</Container>
 	);
