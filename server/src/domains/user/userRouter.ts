@@ -176,7 +176,7 @@ router.get(
 /**
  * @swagger
  * /users:
- *   put:
+ *   patch:
  *     summary: 회원정보 수정
  *     tags: [Users]
  *     security:
@@ -191,6 +191,8 @@ router.get(
  *               email:
  *                 type: string
  *               nickname:
+ *                 type: string
+ *               currentPassword:
  *                 type: string
  *               password:
  *                 type: string
@@ -215,7 +217,7 @@ router.get(
  *                       example: 'john@example.com'
  *                     nickname:
  *                       type: string
- *                       example: 'john_doe'
+ *                       example: 'john'
  *       400:
  *         description: Bad request
  *         content:
@@ -229,10 +231,10 @@ router.get(
  *                   type: string
  *             examples:
  *               passwordMismatch:
- *                 summary: Passwords do not match
+ *                 summary: New password and password confirmation do not match
  *                 value:
  *                   result: 'error'
- *                   message: '비밀번호가 일치하지 않습니다.'
+ *                   message: '새 비밀번호와 비밀번호 확인이 일치하지 않습니다.'
  *       401:
  *         description: Unauthorized
  *         content:
@@ -249,7 +251,12 @@ router.get(
  *                 summary: Unauthorized
  *                 value:
  *                   result: 'error'
- *                   message: '인증이 필요합니다.'
+ *                   message: '로그인이 필요한 서비스입니다.'
+ *               invalidCurrentPassword:
+ *                 summary: Invalid current password
+ *                 value:
+ *                   result: 'error'
+ *                   message: '현재 비밀번호가 올바르지 않습니다.'
  *       404:
  *         description: User not found
  *         content:
@@ -267,6 +274,23 @@ router.get(
  *                 value:
  *                   result: 'error'
  *                   message: '사용자를 찾을 수 없습니다.'
+ *       409:
+ *         description: Conflict
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *             examples:
+ *               duplicateEmail:
+ *                 summary: Email already exists
+ *                 value:
+ *                   result: 'error'
+ *                   message: '이미 존재하는 이메일입니다.'
  *
  * components:
  *   securitySchemes:
@@ -275,7 +299,7 @@ router.get(
  *       in: cookie
  *       name: token
  */
-router.put('/', authMiddleware, asyncMiddleware(userController.updateUser));
+router.patch('/', authMiddleware, asyncMiddleware(userController.updateUser));
 
 /**
  * @swagger

@@ -56,8 +56,12 @@ class UserController {
 			throw new HttpError('인증에 실패하였습니다.', 401);
 		}
 
-		const userData = req.body;
-		const { email, nickname } = await userService.updateUser(userId, userData);
+		const { currentPassword, ...userData } = req.body;
+		const { email, nickname } = await userService.updateUser(
+			userId,
+			currentPassword,
+			userData,
+		);
 
 		res.json({
 			result: 'success',

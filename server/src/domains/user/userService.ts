@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { mongo } from 'mongoose';
 
 import { IUser, IUserInput, IUserModel } from './userModel';
 import { userDAO } from './userDAO';
@@ -67,37 +68,60 @@ class UserService {
 
 	async updateUser(
 		userId: string,
+		currentPassword: string,
 		userData: Partial<IUserInput>,
 	): Promise<IUserModel> {
-		const { email, nickname, password, passwordConfirm } = userData;
-		if (password && password !== passwordConfirm) {
-			throw new HttpError('비밀번호가 일치하지 않습니다.', 400);
-		}
-
-		const newUserData: Partial<IUser> = {
-			email,
-			nickname,
-		};
-
 		try {
+			const user = await userDAO.findById(userId);
+			if (!user) {
+				throw new HttpError('사용자를 찾을 수 없습니다.', 404);
+			}
+
+			// 현재 비밀번호 확인
+			const isCurrentPasswordMatch = await bcrypt.compare(
+				currentPassword,
+				user.password,
+			);
+			if (!isCurrentPasswordMatch) {
+				throw new HttpError(
+					'현재 비밀번호가 올바르지 않습니다.',
+					401,
+					'currentPassword',
+				);
+			}
+
+			const { email, nickname, password, passwordConfirm } = userData;
+			const newUserData: Partial<IUser> = { nickname };
+
+			// 이메일 변경시 업데이트
+			if (email && email !== user.email) {
+				newUserData.email = email;
+			}
+
+			// 새 비밀번호 유효성 검사 및 암호화
 			if (password) {
+				if (password !== passwordConfirm) {
+					throw new HttpError(
+						'새 비밀번호와 비밀번호 확인이 일치하지 않습니다.',
+						400,
+					);
+				}
+
 				const hashedPassword = await bcrypt.hash(password, 10);
 				newUserData.password = hashedPassword;
 			}
 
 			const updatedUser = await userDAO.update(userId, newUserData);
 			if (!updatedUser) {
-				throw new HttpError('사용자를 찾을 수 없습니다.', 404);
+				throw new HttpError('사용자 정보 업데이트에 실패하였습니다.', 500);
 			}
 
 			return updatedUser;
-
-			// TODO: type 수정 필요
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		} catch (error: any) {
-			if (error.errorResponse && error.code === 11000) {
-				throw new HttpError('이미 존재하는 이메일입니다.', 409);
+		} catch (error: unknown) {
+			if (error instanceof mongo.MongoServerError && error.code === 11000) {
+				throw new HttpError('이미 존재하는 이메일입니다.', 409, 'email');
 			}
+
 			throw error;
 		}
 	}
