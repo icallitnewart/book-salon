@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../../redux/store';
+
+import { ROUTES } from '../../../../constants/routes';
 
 import UserButton from '../atoms/UserButton';
 import UserInfoField from '../molecules/UserInfoField';
@@ -22,6 +25,10 @@ const ButtonContainer = styled.div`
 
 function MyProfile(): JSX.Element {
 	const user = useAppSelector(state => state.user.userInfo);
+	const navigate = useNavigate();
+	const editProfile = () => {
+		navigate(ROUTES.USER.PROFILE_EDIT);
+	};
 
 	return (
 		<Container>
@@ -30,7 +37,11 @@ function MyProfile(): JSX.Element {
 				<UserInfoField label="닉네임" value={user?.nickname} />
 			</InfoContainer>
 			<ButtonContainer>
-				<UserButton type="button" text="회원 정보 수정" />
+				<UserButton
+					type="button"
+					text="회원 정보 수정"
+					handleClick={editProfile}
+				/>
 				<UserButton
 					type="button"
 					text="회원 탈퇴"

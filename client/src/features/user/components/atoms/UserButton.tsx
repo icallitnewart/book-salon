@@ -32,6 +32,7 @@ const Button = styled.button<IButtonStyleProps>`
 interface IUserButtonProps {
 	type: 'button' | 'submit' | 'reset';
 	text: string;
+	handleClick?: () => void;
 	bgColor?: string;
 	textColor?: string;
 	hoverBgColor?: string;
@@ -41,6 +42,7 @@ interface IUserButtonProps {
 function UserButton({
 	type,
 	text,
+	handleClick,
 	bgColor = '#000',
 	textColor = '#fff',
 	hoverBgColor = '#000',
@@ -53,6 +55,7 @@ function UserButton({
 			$hoverBgColor={hoverBgColor}
 			$hoverTextColor={hoverTextColor}
 			type={type}
+			onClick={handleClick}
 		>
 			{text}
 		</Button>
