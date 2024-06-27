@@ -44,9 +44,9 @@ function MyProfile(): JSX.Element {
 				/>
 				<UserButton
 					type="button"
-					text="회원 탈퇴"
+					text="로그아웃"
 					bgColor="#aaa"
-					hoverBgColor="crimson"
+					hoverBgColor="var(--sub-color-darkgreen)"
 					hoverTextColor="#fff"
 				/>
 			</ButtonContainer>

@@ -29,7 +29,7 @@ const InputContainer = styled.div`
 const ButtonContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 5px 0px;
+	gap: 15px;
 `;
 
 function ProfileEditForm(): JSX.Element {
@@ -157,6 +157,13 @@ function ProfileEditForm(): JSX.Element {
 			</InputContainer>
 			<ButtonContainer>
 				<UserButton type="submit" text="수정하기" />
+				<UserButton
+					type="button"
+					text="회원 탈퇴"
+					bgColor="#aaa"
+					hoverBgColor="crimson"
+					hoverTextColor="#fff"
+				/>
 			</ButtonContainer>
 		</Form>
 	);
