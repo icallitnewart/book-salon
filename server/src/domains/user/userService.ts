@@ -22,13 +22,11 @@ class UserService {
 
 			const newUser = await userDAO.create(userInfo);
 			return newUser;
-
-			// TODO: type 수정 필요
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		} catch (error: any) {
-			if (error.errorResponse && error.code === 11000) {
-				throw new HttpError('이미 존재하는 이메일입니다.', 409);
+		} catch (error: unknown) {
+			if (error instanceof mongo.MongoServerError && error.code === 11000) {
+				throw new HttpError('이미 존재하는 이메일입니다.', 409, 'email');
 			}
+
 			throw error;
 		}
 	}
