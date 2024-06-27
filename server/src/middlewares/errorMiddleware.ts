@@ -2,6 +2,12 @@ import { Request, Response, NextFunction } from 'express';
 import logger from '../utils/logger';
 import { HttpError } from '../utils/HttpError';
 
+interface IErrorResponse {
+	result: string;
+	message?: string;
+	field?: string;
+}
+
 const errorMiddleware = (
 	error: Error | HttpError,
 	req: Request,
@@ -13,7 +19,11 @@ const errorMiddleware = (
 		if (error.stack) logger.error(error.stack);
 	};
 
-	const handleError = (statusCode: number, errorMessage?: string) => {
+	const handleError = (
+		statusCode: number,
+		errorMessage?: string,
+		field?: string,
+	) => {
 		logError();
 
 		let message = errorMessage;
@@ -40,15 +50,17 @@ const errorMiddleware = (
 			}
 		}
 
-		res.status(statusCode).json({
+		const response: IErrorResponse = {
 			result: 'error',
 			message,
-		});
+		};
+		if (field) response.field = field;
+		res.status(statusCode).json(response);
 	};
 
 	// 커스텀 에러 적용 (예외 처리 적용됨)
 	if (error instanceof HttpError) {
-		handleError(error.statusCode, error.message);
+		handleError(error.statusCode, error.message, error.field);
 		return;
 	}
 

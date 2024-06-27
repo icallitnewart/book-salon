@@ -12,7 +12,7 @@ const authMiddleware = async (
 	const token = request.cookies?.token;
 
 	if (!token) {
-		next(new HttpError('로그인이 필요한 서비스입니다.', 401));
+		next(new HttpError('로그인이 필요한 서비스입니다.', 401, 'auth'));
 		return;
 	}
 
@@ -20,14 +20,14 @@ const authMiddleware = async (
 		const { userId } = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
 
 		if (!userId) {
-			next(new HttpError('인증에 실패하였습니다.', 401));
+			next(new HttpError('인증에 실패하였습니다.', 401, 'auth'));
 			return;
 		}
 
 		request.userId = userId;
 		next();
 	} catch (error) {
-		next(new HttpError('인증에 실패하였습니다.', 401));
+		next(new HttpError('인증에 실패하였습니다.', 401, 'auth'));
 	}
 };
 
