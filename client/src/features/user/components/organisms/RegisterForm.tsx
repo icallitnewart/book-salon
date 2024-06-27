@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../redux/store';
 
+import { ROUTES } from '../../../../constants/routes';
+
 import { clearRegisterStatus } from '../../userSlice';
 import { registerUser } from '../../apis/userApi';
 import useUserInput from '../../hooks/useUserInput';
@@ -71,15 +73,13 @@ function RegisterForm(): JSX.Element {
 
 		if (registerUser.fulfilled.match(response)) {
 			alert('회원가입이 완료되었습니다!👏 로그인 해주세요.');
-			navigate('/user/login');
+			navigate(ROUTES.USER.LOGIN);
 		} else if (registerUser.rejected.match(response)) {
 			const result = response.payload;
 
 			if (result) {
 				if (result.status === 409) {
 					email.setError(result.message);
-				} else if (result.status === 500) {
-					alert('네트워크 에러가 발생하였습니다. 다시 시도해주세요.');
 				} else {
 					alert('회원가입에 실패하였습니다. 다시 시도해주세요.');
 				}
