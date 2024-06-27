@@ -109,14 +109,18 @@ export const validateEmail = (email: string): string => {
 	);
 };
 
-export const validatePassword = (password: string): string => {
+export const validatePassword = (
+	password: string,
+	isRequired = true,
+): string => {
+	if (!isRequired) return '';
 	return (
 		validatorWithError.requireValue(password) ||
+		validatorWithError.limitLength(password, 8, 16) ||
 		validatorWithError.forbidWhitespace(password) ||
 		validatorWithError.requireSpecialCharacter(password) ||
 		validatorWithError.requireAlphabet(password) ||
-		validatorWithError.requireNumber(password) ||
-		validatorWithError.limitLength(password, 8, 16)
+		validatorWithError.requireNumber(password)
 	);
 };
 
@@ -127,9 +131,10 @@ export const validateLoginPassword = (password: string): string => {
 export const validatePasswordConfirm = (
 	passwordConfirm: string,
 	password: string,
+	isRequired = true,
 ): string => {
 	return (
-		validatorWithError.requireValue(passwordConfirm) ||
+		(isRequired && validatorWithError.requireValue(passwordConfirm)) ||
 		validatorWithError.forbidNotEqualPassword(passwordConfirm, password)
 	);
 };

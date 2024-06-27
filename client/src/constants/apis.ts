@@ -5,5 +5,6 @@ export const APIS = {
 	USER: {
 		LOGIN: `${USER_BASE_URL}/login`,
 		REGISTER: `${USER_BASE_URL}`,
+		UPDATE: `${USER_BASE_URL}`,
 	},
 };

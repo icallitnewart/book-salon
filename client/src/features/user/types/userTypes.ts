@@ -14,3 +14,7 @@ export interface IUserRegister {
 	password: string;
 	passwordConfirm: string;
 }
+
+export interface IUserUpdate extends IUserRegister {
+	currentPassword: string;
+}

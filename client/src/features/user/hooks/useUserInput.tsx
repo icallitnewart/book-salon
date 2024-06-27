@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 function useUserInput(
-	initialValue: string,
+	initialValue = '',
 	// TODO: validate 필수로 변경 예정
 	validate?: (value: string) => string,
 ) {
