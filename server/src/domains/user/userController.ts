@@ -33,6 +33,18 @@ class UserController {
 		});
 	}
 
+	async logoutUser(req: Request, res: Response) {
+		res.clearCookie('token', {
+			httpOnly: true,
+			secure: false, // TODO: 추후 true로 변경
+			sameSite: 'strict',
+		});
+
+		res.json({
+			result: 'success',
+		});
+	}
+
 	async getAuthenticatedUser(req: Request, res: Response) {
 		const { userId } = req;
 		if (!userId) {

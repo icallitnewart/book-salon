@@ -123,6 +123,52 @@ router.post('/login', asyncMiddleware(userController.loginUser));
 
 /**
  * @swagger
+ * /users/logout:
+ *   post:
+ *     summary: 로그아웃
+ *     tags: [Users]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Successful logout
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: '로그아웃되었습니다.'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *             examples:
+ *               unauthorized:
+ *                 summary: Unauthorized
+ *                 value:
+ *                   result: 'error'
+ *                   message: '인증이 필요합니다.'
+ */
+router.post(
+	'/logout',
+	authMiddleware,
+	asyncMiddleware(userController.logoutUser),
+);
+
+/**
+ * @swagger
  * /users/me:
  *   get:
  *     summary: 회원정보 조회
