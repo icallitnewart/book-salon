@@ -84,18 +84,19 @@ class UserController {
 		});
 	}
 
-	async deleteUser(req: Request, res: Response) {
+	deleteUser = async (req: Request, res: Response) => {
 		const { userId } = req;
 		if (!userId) {
 			throw new HttpError('인증에 실패하였습니다.', 401);
 		}
 
 		await userService.deleteUser(userId);
+		await this.logoutUser(req, res);
 
 		res.json({
 			result: 'success',
 		});
-	}
+	};
 }
 
 export const userController = new UserController();
