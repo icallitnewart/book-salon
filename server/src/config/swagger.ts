@@ -13,6 +13,15 @@ const swaggerDefinition = {
 			description: 'Development server',
 		},
 	],
+	components: {
+		securitySchemes: {
+			cookieAuth: {
+				type: 'apiKey',
+				in: 'cookie',
+				name: 'token',
+			},
+		},
+	},
 };
 
 const options = {
