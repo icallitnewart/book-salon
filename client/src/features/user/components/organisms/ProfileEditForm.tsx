@@ -13,10 +13,11 @@ import {
 	validateNickname,
 	validatePassword,
 	validatePasswordConfirm,
+	validateVerifyPassword,
 } from '../../utils/userValidator';
 
 import UserButton from '../atoms/UserButton';
-import InputField from '../molecules/UserInputField';
+import UserInputField from '../molecules/UserInputField';
 
 const Form = styled.form`
 	width: 100%;
@@ -32,13 +33,19 @@ const ButtonContainer = styled.div`
 	gap: 15px;
 `;
 
-function ProfileEditForm(): JSX.Element {
+interface IProfileEditFormProps {
+	openDeleteAccountForm: () => void;
+}
+
+function ProfileEditForm({
+	openDeleteAccountForm,
+}: IProfileEditFormProps): JSX.Element {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const user = useAppSelector(state => state.user.userInfo);
 	const email = useUserInput(user?.email, validateEmail);
 	const nickname = useUserInput(user?.nickname, validateNickname);
-	const currentPassword = useUserInput('', validatePassword);
+	const currentPassword = useUserInput('', validateVerifyPassword);
 	const password = useUserInput('', value =>
 		validatePassword(value, value !== ''),
 	);
@@ -56,6 +63,7 @@ function ProfileEditForm(): JSX.Element {
 		return (
 			email.isValidRef.current &&
 			nickname.isValidRef.current &&
+			currentPassword.isValidRef.current &&
 			password.isValidRef.current &&
 			passwordConfirm.isValidRef.current
 		);
@@ -106,7 +114,7 @@ function ProfileEditForm(): JSX.Element {
 	return (
 		<Form onSubmit={handleSubmit}>
 			<InputContainer>
-				<InputField
+				<UserInputField
 					label="이메일"
 					type="email"
 					id="email"
@@ -115,7 +123,7 @@ function ProfileEditForm(): JSX.Element {
 					onChange={email.handleChange}
 					error={email.error}
 				/>
-				<InputField
+				<UserInputField
 					label="닉네임"
 					type="text"
 					id="nickname"
@@ -125,17 +133,16 @@ function ProfileEditForm(): JSX.Element {
 					onChange={nickname.handleChange}
 					error={nickname.error}
 				/>
-				<InputField
+				<UserInputField
 					label="현재 비밀번호"
 					type="password"
 					id="currentPassword"
 					name="currentPassword"
-					placeholder="새 비밀번호로 변경시 필수 입력"
 					value={currentPassword.value}
 					onChange={currentPassword.handleChange}
 					error={currentPassword.error}
 				/>
-				<InputField
+				<UserInputField
 					label="새 비밀번호"
 					type="password"
 					id="password"
@@ -145,7 +152,7 @@ function ProfileEditForm(): JSX.Element {
 					onChange={password.handleChange}
 					error={password.error}
 				/>
-				<InputField
+				<UserInputField
 					label="비밀번호 확인"
 					type="password"
 					id="passwordConfirm"
@@ -159,10 +166,11 @@ function ProfileEditForm(): JSX.Element {
 				<UserButton type="submit" text="수정하기" />
 				<UserButton
 					type="button"
-					text="회원 탈퇴"
+					text="탈퇴하기"
 					bgColor="#aaa"
 					hoverBgColor="crimson"
 					hoverTextColor="#fff"
+					handleClick={openDeleteAccountForm}
 				/>
 			</ButtonContainer>
 		</Form>

@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { IUserInfo } from './types/userTypes';
-import { loginUser, registerUser, updateUser } from './apis/userApi';
+import {
+	loginUser,
+	registerUser,
+	updateUser,
+	deleteUser,
+} from './apis/userApi';
 
 interface IStatus {
 	loading: boolean;
@@ -14,6 +19,7 @@ interface IUserState {
 	loginStatus: IStatus;
 	registerStatus: IStatus;
 	updateStatus: IStatus;
+	deleteStatus: IStatus;
 }
 
 const initialState: IUserState = {
@@ -28,6 +34,10 @@ const initialState: IUserState = {
 		error: null,
 	},
 	updateStatus: {
+		loading: false,
+		error: null,
+	},
+	deleteStatus: {
 		loading: false,
 		error: null,
 	},
@@ -48,6 +58,10 @@ const userSlice = createSlice({
 		clearUpdateStatus(state) {
 			state.updateStatus.error = null;
 			state.updateStatus.loading = false;
+		},
+		clearDeleteStatus(state) {
+			state.deleteStatus.error = null;
+			state.deleteStatus.loading = false;
 		},
 	},
 	extraReducers: builder => {
@@ -90,9 +104,27 @@ const userSlice = createSlice({
 			state.updateStatus.error =
 				action.payload?.message ?? '알 수 없는 에러 발생';
 		});
+		builder.addCase(deleteUser.pending, state => {
+			state.deleteStatus.loading = true;
+			state.deleteStatus.error = null;
+		});
+		builder.addCase(deleteUser.fulfilled, state => {
+			state.deleteStatus.loading = false;
+			state.isAuth = false;
+			state.userInfo = null;
+		});
+		builder.addCase(deleteUser.rejected, (state, action) => {
+			state.deleteStatus.loading = false;
+			state.deleteStatus.error =
+				action.payload?.message ?? '알 수 없는 에러 발생';
+		});
 	},
 });
 
-export const { clearLoginStatus, clearRegisterStatus, clearUpdateStatus } =
-	userSlice.actions;
+export const {
+	clearLoginStatus,
+	clearRegisterStatus,
+	clearUpdateStatus,
+	clearDeleteStatus,
+} = userSlice.actions;
 export default userSlice.reducer;

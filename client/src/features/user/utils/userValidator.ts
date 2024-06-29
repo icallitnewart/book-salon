@@ -139,6 +139,10 @@ export const validatePasswordConfirm = (
 	);
 };
 
+export const validateVerifyPassword = (password: string) => {
+	return validatorWithError.requireValue(password);
+};
+
 export const validateNickname = (nickname: string): string => {
 	return (
 		validatorWithError.requireValue(nickname) ||

@@ -78,3 +78,29 @@ export const updateUser = createAsyncThunk<
 		return rejectWithValue({ status: 500, message: '네트워크 에러 발생' });
 	}
 });
+
+export const deleteUser = createAsyncThunk<
+	null, // fulfilled
+	string, // action.payload
+	{ rejectValue: IErrorResponse } // rejected
+>('user/delete', async (password, { rejectWithValue }) => {
+	try {
+		await axios.delete(APIS.USER.DELETE, {
+			data: { password },
+			withCredentials: true,
+		});
+		return null;
+	} catch (error) {
+		if (axios.isAxiosError(error) && error.response) {
+			const { status, data } = error.response;
+			const response: IErrorResponse = {
+				status,
+				message: data.message,
+			};
+			if (data.field) response.field = data.field;
+
+			return rejectWithValue(response);
+		}
+		return rejectWithValue({ status: 500, message: '네트워크 에러 발생' });
+	}
+});
