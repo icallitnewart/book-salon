@@ -124,10 +124,15 @@ class UserService {
 		}
 	}
 
-	async deleteUser(userId: string): Promise<void> {
+	async deleteUser(userId: string, password: string): Promise<void> {
 		const user = await userDAO.findById(userId);
 		if (!user) {
 			throw new HttpError('사용자를 찾을 수 없습니다.', 404);
+		}
+
+		const isPasswordMatch = await bcrypt.compare(password, user.password);
+		if (!isPasswordMatch) {
+			throw new HttpError('비밀번호가 올바르지 않습니다.', 401, 'password');
 		}
 
 		await userDAO.delete(userId);
