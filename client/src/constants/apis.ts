@@ -7,5 +7,6 @@ export const APIS = {
 		REGISTER: `${USER_BASE_URL}`,
 		UPDATE: `${USER_BASE_URL}`,
 		DELETE: `${USER_BASE_URL}`,
+		LOGOUT: `${USER_BASE_URL}/logout`,
 	},
 };

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../../../redux/store';
 
 import { ROUTES } from '../../../../constants/routes';
+
+import { clearLogoutStatus } from '../../userSlice';
+import { logoutUser } from '../../apis/userApi';
 
 import UserButton from '../atoms/UserButton';
 import UserInfoField from '../molecules/UserInfoField';
@@ -24,11 +27,29 @@ const ButtonContainer = styled.div`
 `;
 
 function MyProfile(): JSX.Element {
+	const dispatch = useAppDispatch();
 	const user = useAppSelector(state => state.user.userInfo);
 	const navigate = useNavigate();
-	const editProfile = () => {
+	const moveToProfileEdit = () => {
 		navigate(ROUTES.USER.PROFILE_EDIT);
 	};
+
+	const handleLogout = async () => {
+		const response = await dispatch(logoutUser());
+
+		if (logoutUser.fulfilled.match(response)) {
+			alert('로그아웃 되었습니다.');
+			navigate(ROUTES.MAIN);
+		} else if (logoutUser.rejected.match(response)) {
+			alert('로그아웃에 실패했습니다.');
+		}
+	};
+
+	useEffect(() => {
+		return () => {
+			dispatch(clearLogoutStatus());
+		};
+	}, [dispatch]);
 
 	return (
 		<Container>
@@ -40,7 +61,7 @@ function MyProfile(): JSX.Element {
 				<UserButton
 					type="button"
 					text="회원 정보 수정"
-					handleClick={editProfile}
+					handleClick={moveToProfileEdit}
 				/>
 				<UserButton
 					type="button"
@@ -48,6 +69,7 @@ function MyProfile(): JSX.Element {
 					bgColor="#aaa"
 					hoverBgColor="var(--sub-color-darkgreen)"
 					hoverTextColor="#fff"
+					handleClick={handleLogout}
 				/>
 			</ButtonContainer>
 		</Container>

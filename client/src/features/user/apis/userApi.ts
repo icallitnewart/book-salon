@@ -104,3 +104,20 @@ export const deleteUser = createAsyncThunk<
 		return rejectWithValue({ status: 500, message: '네트워크 에러 발생' });
 	}
 });
+
+export const logoutUser = createAsyncThunk<
+	null, // fulfilled
+	void, // action.payload
+	{ rejectValue: IErrorResponse } // rejected
+>('user/logout', async (_, { rejectWithValue }) => {
+	try {
+		await axios.post(APIS.USER.LOGOUT, null, { withCredentials: true });
+		return null;
+	} catch (error) {
+		if (axios.isAxiosError(error) && error.response) {
+			const { status, data } = error.response;
+			return rejectWithValue({ status, message: data.message });
+		}
+		return rejectWithValue({ status: 500, message: '네트워크 에러 발생' });
+	}
+});
