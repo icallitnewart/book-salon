@@ -18,7 +18,7 @@ function UserInputField({
 	id,
 	name,
 	value,
-	placeholder = '',
+	placeholder,
 	onChange,
 	error,
 }: IInputFieldProps): JSX.Element {
