@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../redux/store';
 
 import { ROUTES } from '../../../../constants/routes';
@@ -33,6 +33,7 @@ const ButtonContainer = styled.div`
 
 function LoginForm(): JSX.Element {
 	const dispatch = useAppDispatch();
+	const location = useLocation();
 	const navigate = useNavigate();
 	const error = useAppSelector(state => state.user.loginStatus.error);
 	const email = useUserInput('', validateEmail);
@@ -43,6 +44,16 @@ function LoginForm(): JSX.Element {
 		password.validateInput();
 
 		return email.isValidRef.current && password.isValidRef.current;
+	};
+
+	const navigateAfterLogin = () => {
+		const from = location.state?.from;
+
+		if (from && from.pathname !== ROUTES.USER.LOGIN) {
+			navigate(from.pathname, { replace: true });
+		} else {
+			navigate(ROUTES.MAIN, { replace: true });
+		}
 	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,7 +68,7 @@ function LoginForm(): JSX.Element {
 
 		if (loginUser.fulfilled.match(response)) {
 			alert('로그인에 성공하셨습니다.');
-			navigate(ROUTES.USER.MY_PROFILE);
+			navigateAfterLogin();
 		} else if (loginUser.rejected.match(response)) {
 			const result = response.payload;
 
