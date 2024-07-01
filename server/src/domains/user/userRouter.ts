@@ -171,13 +171,13 @@ router.post(
  * @swagger
  * /users/me:
  *   get:
- *     summary: 회원정보 조회
+ *     summary: 나의 회원정보 조회
  *     tags: [Users]
  *     security:
  *       - cookieAuth: []
  *     responses:
  *       200:
- *         description: Authenticated user information
+ *         description: My profile information
  *         content:
  *           application/json:
  *             schema:
@@ -213,11 +213,7 @@ router.post(
  *                   result: 'error'
  *                   message: '인증이 필요합니다.'
  */
-router.get(
-	'/me',
-	authMiddleware,
-	asyncMiddleware(userController.getAuthenticatedUser),
-);
+router.get('/me', authMiddleware, asyncMiddleware(userController.getMyProfile));
 
 /**
  * @swagger

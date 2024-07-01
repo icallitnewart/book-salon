@@ -45,7 +45,7 @@ class UserController {
 		});
 	}
 
-	async getAuthenticatedUser(req: Request, res: Response) {
+	async getMyProfile(req: Request, res: Response) {
 		const { userId } = req;
 		if (!userId) {
 			throw new HttpError('인증에 실패하였습니다.', 401);
