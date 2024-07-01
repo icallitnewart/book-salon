@@ -221,6 +221,61 @@ router.get(
 
 /**
  * @swagger
+ * /users/auth:
+ *   get:
+ *     summary: 인증 정보 조회
+ *     tags: [Users]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Authentication information
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *                 isAuth:
+ *                   type: boolean
+ *                   example: true
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     email:
+ *                       type: string
+ *                       example: 'john@example.com'
+ *                     nickname:
+ *                       type: string
+ *                       example: 'john_doe'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *             examples:
+ *               unauthorized:
+ *                 summary: Unauthorized
+ *                 value:
+ *                   result: 'error'
+ *                   message: '로그인이 필요한 서비스입니다.'
+ */
+router.get(
+	'/auth',
+	authMiddleware(false),
+	asyncMiddleware(userController.getAuthInfo),
+);
+
+/**
+ * @swagger
  * /users:
  *   patch:
  *     summary: 회원정보 수정
