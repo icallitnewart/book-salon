@@ -8,5 +8,6 @@ export const APIS = {
 		UPDATE: `${USER_BASE_URL}`,
 		DELETE: `${USER_BASE_URL}`,
 		LOGOUT: `${USER_BASE_URL}/logout`,
+		AUTH: `${USER_BASE_URL}/auth`,
 	},
 };

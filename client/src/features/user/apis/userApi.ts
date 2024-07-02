@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
+	IUserAuth,
 	IUserInfo,
 	IUserLogin,
 	IUserRegister,
@@ -113,6 +114,30 @@ export const logoutUser = createAsyncThunk<
 	try {
 		await axios.post(APIS.USER.LOGOUT, null, { withCredentials: true });
 		return null;
+	} catch (error) {
+		if (axios.isAxiosError(error) && error.response) {
+			const { status, data } = error.response;
+			return rejectWithValue({ status, message: data.message });
+		}
+		return rejectWithValue({ status: 500, message: '네트워크 에러 발생' });
+	}
+});
+
+export const getAuthUser = createAsyncThunk<
+	IUserAuth, // fulfilled
+	void, // action.payload
+	{ rejectValue: IErrorResponse } // rejected
+>('user/auth', async (_, { rejectWithValue }) => {
+	try {
+		const response = await axios.get(APIS.USER.AUTH, {
+			withCredentials: true,
+		});
+		const { isAuth, user } = response.data;
+
+		return {
+			isAuth,
+			...(user && { user }),
+		};
 	} catch (error) {
 		if (axios.isAxiosError(error) && error.response) {
 			const { status, data } = error.response;

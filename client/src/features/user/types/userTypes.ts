@@ -18,3 +18,8 @@ export interface IUserRegister {
 export interface IUserUpdate extends IUserRegister {
 	currentPassword: string;
 }
+
+export interface IUserAuth {
+	isAuth: boolean;
+	user?: IUserInfo;
+}
