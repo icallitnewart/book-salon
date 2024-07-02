@@ -68,8 +68,10 @@ class UserController {
 			isAuth,
 			...(isAuth &&
 				user && {
-					email: user.email,
-					nickname: user.nickname,
+					user: {
+						email: user.email,
+						nickname: user.nickname,
+					},
 				}),
 		});
 
