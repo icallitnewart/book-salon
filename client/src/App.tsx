@@ -5,7 +5,7 @@ import { ROUTES } from './constants/routes';
 import { AUTH_TYPES } from './constants/auth';
 
 import GlobalStyles from './GlobalStyles';
-import Auth from './shared/components/organisms/Auth';
+import AuthChecker from './shared/components/organisms/AuthChecker';
 import AuthLoader from './shared/components/organisms/AuthLoader';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
@@ -22,41 +22,41 @@ function App(): JSX.Element {
 						<Route
 							path={ROUTES.MAIN}
 							element={
-								<Auth type={AUTH_TYPES.PUBLIC}>
+								<AuthChecker type={AUTH_TYPES.PUBLIC}>
 									<div>Home</div>
-								</Auth>
+								</AuthChecker>
 							}
 						/>
 						<Route
 							path={ROUTES.USER.REGISTER}
 							element={
-								<Auth type={AUTH_TYPES.GUEST}>
+								<AuthChecker type={AUTH_TYPES.GUEST}>
 									<RegisterPage />
-								</Auth>
+								</AuthChecker>
 							}
 						/>
 						<Route
 							path={ROUTES.USER.LOGIN}
 							element={
-								<Auth type={AUTH_TYPES.GUEST}>
+								<AuthChecker type={AUTH_TYPES.GUEST}>
 									<LoginPage />
-								</Auth>
+								</AuthChecker>
 							}
 						/>
 						<Route
 							path={ROUTES.USER.MY_PROFILE}
 							element={
-								<Auth type={AUTH_TYPES.PRIVATE}>
+								<AuthChecker type={AUTH_TYPES.PRIVATE}>
 									<MyProfilePage />
-								</Auth>
+								</AuthChecker>
 							}
 						/>
 						<Route
 							path={ROUTES.USER.PROFILE_EDIT}
 							element={
-								<Auth type={AUTH_TYPES.PRIVATE}>
+								<AuthChecker type={AUTH_TYPES.PRIVATE}>
 									<ProfileEditPage />
-								</Auth>
+								</AuthChecker>
 							}
 						/>
 					</Routes>

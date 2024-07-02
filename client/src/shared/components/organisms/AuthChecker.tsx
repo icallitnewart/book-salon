@@ -10,7 +10,7 @@ interface IAuthProps {
 	type: keyof typeof AUTH_TYPES;
 }
 
-function Auth({ children, type }: IAuthProps): JSX.Element {
+function AuthChecker({ children, type }: IAuthProps): JSX.Element {
 	const location = useLocation();
 	const isAuth = useAppSelector(state => state.user.isAuth);
 
@@ -26,4 +26,4 @@ function Auth({ children, type }: IAuthProps): JSX.Element {
 	return children;
 }
 
-export default Auth;
+export default AuthChecker;
