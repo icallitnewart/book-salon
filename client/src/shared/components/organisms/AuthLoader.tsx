@@ -13,6 +13,7 @@ function AuthLoader({ children }: IAuthLoaderProps): JSX.Element {
 	const dispatch = useAppDispatch();
 	const loading = useAppSelector(state => state.user.getAuthStatus.loading);
 	const error = useAppSelector(state => state.user.getAuthStatus.error);
+	const showLoader = useDelayedLoading(loading === null ? true : loading, 1000);
 
 	useEffect(() => {
 		dispatch(getAuthUser());
@@ -26,6 +27,10 @@ function AuthLoader({ children }: IAuthLoaderProps): JSX.Element {
 	}, [error, dispatch]);
 
 	if (loading || loading === null) {
+		if (showLoader) {
+			return <div>Loading....</div>;
+		}
+
 		return <div />;
 	}
 
