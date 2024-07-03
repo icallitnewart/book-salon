@@ -163,7 +163,7 @@ router.post('/login', asyncMiddleware(userController.loginUser));
  */
 router.post(
 	'/logout',
-	authMiddleware,
+	authMiddleware(),
 	asyncMiddleware(userController.logoutUser),
 );
 
@@ -213,7 +213,11 @@ router.post(
  *                   result: 'error'
  *                   message: '인증이 필요합니다.'
  */
-router.get('/me', authMiddleware, asyncMiddleware(userController.getMyProfile));
+router.get(
+	'/me',
+	authMiddleware(),
+	asyncMiddleware(userController.getMyProfile),
+);
 
 /**
  * @swagger
@@ -389,7 +393,7 @@ router.get(
  *                   result: 'error'
  *                   message: '이미 존재하는 이메일입니다.'
  */
-router.patch('/', authMiddleware, asyncMiddleware(userController.updateUser));
+router.patch('/', authMiddleware(), asyncMiddleware(userController.updateUser));
 
 /**
  * @swagger
@@ -445,6 +449,10 @@ router.patch('/', authMiddleware, asyncMiddleware(userController.updateUser));
  *                   result: 'error'
  *                   message: '사용자를 찾을 수 없습니다.'
  */
-router.delete('/', authMiddleware, asyncMiddleware(userController.deleteUser));
+router.delete(
+	'/',
+	authMiddleware(),
+	asyncMiddleware(userController.deleteUser),
+);
 
 export default router;
