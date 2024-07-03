@@ -8,13 +8,11 @@ import {
 	IUserRegister,
 	IUserUpdate,
 } from '../types/userTypes';
+import { IErrorResponse } from '../../../shared/types/apiError';
 import { APIS } from '../../../constants/apis';
 
-interface IErrorResponse {
-	status: number;
-	message: string;
-	field?: string;
-}
+import { authAxios } from '../../../shared/apis/authAxios';
+import { handleApiError } from '../../../shared/utils/errorHandler';
 
 export const loginUser = createAsyncThunk<
 	IUserInfo, // fulfilled
@@ -22,17 +20,11 @@ export const loginUser = createAsyncThunk<
 	{ rejectValue: IErrorResponse } // rejected
 >('user/login', async (credentials: IUserLogin, { rejectWithValue }) => {
 	try {
-		const response = await axios.post(APIS.USER.LOGIN, credentials, {
-			withCredentials: true,
-		});
+		const response = await authAxios.post(APIS.USER.LOGIN, credentials);
 
 		return response.data.user;
 	} catch (error) {
-		if (axios.isAxiosError(error) && error.response) {
-			const { status, data } = error.response;
-			return rejectWithValue({ status, message: data.message });
-		}
-		return rejectWithValue({ status: 500, message: '네트워크 에러 발생' });
+		return rejectWithValue(handleApiError(error));
 	}
 });
 
@@ -46,11 +38,7 @@ export const registerUser = createAsyncThunk<
 
 		return response.data.user;
 	} catch (error) {
-		if (axios.isAxiosError(error) && error.response) {
-			const { status, data } = error.response;
-			return rejectWithValue({ status, message: data.message });
-		}
-		return rejectWithValue({ status: 500, message: '네트워크 에러 발생' });
+		return rejectWithValue(handleApiError(error));
 	}
 });
 
@@ -60,23 +48,11 @@ export const updateUser = createAsyncThunk<
 	{ rejectValue: IErrorResponse } // rejected
 >('user/update', async (credentials: IUserUpdate, { rejectWithValue }) => {
 	try {
-		const response = await axios.patch(APIS.USER.UPDATE, credentials, {
-			withCredentials: true,
-		});
+		const response = await authAxios.patch(APIS.USER.UPDATE, credentials);
 
 		return response.data.user;
 	} catch (error) {
-		if (axios.isAxiosError(error) && error.response) {
-			const { status, data } = error.response;
-			const response: IErrorResponse = {
-				status,
-				message: data.message,
-			};
-			if (data.field) response.field = data.field;
-
-			return rejectWithValue(response);
-		}
-		return rejectWithValue({ status: 500, message: '네트워크 에러 발생' });
+		return rejectWithValue(handleApiError(error));
 	}
 });
 
@@ -86,23 +62,12 @@ export const deleteUser = createAsyncThunk<
 	{ rejectValue: IErrorResponse } // rejected
 >('user/delete', async (password, { rejectWithValue }) => {
 	try {
-		await axios.delete(APIS.USER.DELETE, {
+		await authAxios.delete(APIS.USER.DELETE, {
 			data: { password },
-			withCredentials: true,
 		});
 		return null;
 	} catch (error) {
-		if (axios.isAxiosError(error) && error.response) {
-			const { status, data } = error.response;
-			const response: IErrorResponse = {
-				status,
-				message: data.message,
-			};
-			if (data.field) response.field = data.field;
-
-			return rejectWithValue(response);
-		}
-		return rejectWithValue({ status: 500, message: '네트워크 에러 발생' });
+		return rejectWithValue(handleApiError(error));
 	}
 });
 
@@ -112,14 +77,10 @@ export const logoutUser = createAsyncThunk<
 	{ rejectValue: IErrorResponse } // rejected
 >('user/logout', async (_, { rejectWithValue }) => {
 	try {
-		await axios.post(APIS.USER.LOGOUT, null, { withCredentials: true });
+		await authAxios.post(APIS.USER.LOGOUT, null);
 		return null;
 	} catch (error) {
-		if (axios.isAxiosError(error) && error.response) {
-			const { status, data } = error.response;
-			return rejectWithValue({ status, message: data.message });
-		}
-		return rejectWithValue({ status: 500, message: '네트워크 에러 발생' });
+		return rejectWithValue(handleApiError(error));
 	}
 });
 
@@ -129,9 +90,7 @@ export const getAuthUser = createAsyncThunk<
 	{ rejectValue: IErrorResponse } // rejected
 >('user/auth', async (_, { rejectWithValue }) => {
 	try {
-		const response = await axios.get(APIS.USER.AUTH, {
-			withCredentials: true,
-		});
+		const response = await authAxios.get(APIS.USER.AUTH);
 		const { isAuth, user } = response.data;
 
 		return {
@@ -139,10 +98,6 @@ export const getAuthUser = createAsyncThunk<
 			...(user && { user }),
 		};
 	} catch (error) {
-		if (axios.isAxiosError(error) && error.response) {
-			const { status, data } = error.response;
-			return rejectWithValue({ status, message: data.message });
-		}
-		return rejectWithValue({ status: 500, message: '네트워크 에러 발생' });
+		return rejectWithValue(handleApiError(error));
 	}
 });
