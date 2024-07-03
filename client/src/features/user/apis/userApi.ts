@@ -7,7 +7,7 @@ import {
 	IUserLogin,
 	IUserRegister,
 	IUserUpdate,
-} from '../types/userTypes';
+} from '../types/userData';
 import { IErrorResponse } from '../../../shared/types/apiError';
 import { APIS } from '../../../constants/apis';
 

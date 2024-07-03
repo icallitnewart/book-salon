@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { IInputFieldProps } from '../../types/userProps';
+import { IUserInputFieldProps } from '../../types/userProps';
 
 import UserLabel from '../atoms/UserLabel';
 import UserInput from '../atoms/UserInput';
@@ -21,7 +21,7 @@ function UserInputField({
 	placeholder,
 	onChange,
 	error,
-}: IInputFieldProps): JSX.Element {
+}: IUserInputFieldProps): JSX.Element {
 	return (
 		<Container>
 			<UserLabel htmlFor={id}>{label}</UserLabel>

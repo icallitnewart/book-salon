@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { IUserInfo } from './types/userTypes';
+import { IUserInfo } from './types/userData';
 
 import {
 	loginUser,
