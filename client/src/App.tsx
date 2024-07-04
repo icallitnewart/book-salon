@@ -7,6 +7,8 @@ import { AUTH_TYPES } from './constants/auth';
 import GlobalStyles from './GlobalStyles';
 import AuthChecker from './shared/components/organisms/AuthChecker';
 import AuthLoader from './shared/components/organisms/AuthLoader';
+
+import MainPage from './pages/MainPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import MyProfilePage from './pages/MyProfilePage';
@@ -23,7 +25,7 @@ function App(): JSX.Element {
 							path={ROUTES.MAIN}
 							element={
 								<AuthChecker type={AUTH_TYPES.PUBLIC}>
-									<div>Home</div>
+									<MainPage />
 								</AuthChecker>
 							}
 						/>
