@@ -16,6 +16,10 @@ const GlobalStyles = createGlobalStyle`
     --main-font-kor: 'Noto Sans KR', sans-serif;
   }
 
+  html {
+    font-size: 10px;
+  }
+
   * {
     box-sizing: border-box;
   }
