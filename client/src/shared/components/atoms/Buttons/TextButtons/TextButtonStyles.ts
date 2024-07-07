@@ -20,16 +20,6 @@ export interface ITextButtonStylesProps {
 	variant?: keyof typeof textButtonVariantStyles;
 }
 
-// style of text button variants
-export const textButtonVariantStyles = {
-	square: css<ITextButtonStylesProps>`
-		border-radius: 5px;
-	`,
-	rounded: css<ITextButtonStylesProps>`
-		border-radius: 50px;
-	`,
-};
-
 export const textButtonStyles = css<ITextButtonStylesProps>`
 	display: flex;
 	justify-content: center;
@@ -59,3 +49,13 @@ export const textButtonStyles = css<ITextButtonStylesProps>`
 		${({ $hoverTextColor }) => $hoverTextColor && `color: ${$hoverTextColor};`}
 	}
 `;
+
+// variants of text button styles (shape)
+export const textButtonVariantStyles = {
+	square: css<ITextButtonStylesProps>`
+		border-radius: 5px;
+	`,
+	rounded: css<ITextButtonStylesProps>`
+		border-radius: 50px;
+	`,
+};

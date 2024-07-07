@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {
-	ITextButtonStylesProps,
-	textButtonStyles,
-	textButtonVariantStyles,
-} from './TextButtonStyles';
+import { ITextButtonStylesProps, textButtonStyles } from './TextButtonStyles';
 
 const StyledButton = styled.button<ITextButtonStylesProps>`
 	${textButtonStyles}
@@ -18,10 +14,11 @@ interface IButtonProps extends ITextButtonStylesProps {
 	type?: 'button' | 'submit' | 'reset';
 }
 
-function TextButton({
+function BaseTextButton({
 	as = 'button',
 	children,
 	type = 'button',
+	variant = 'square',
 	handleClick = () => {},
 	$bgColor,
 	$color,
@@ -43,6 +40,7 @@ function TextButton({
 			as={as}
 			onClick={handleClick}
 			type={type}
+			variant={variant}
 			$bgColor={$bgColor}
 			$color={$color}
 			$hoverBgColor={$hoverBgColor}
@@ -63,11 +61,4 @@ function TextButton({
 	);
 }
 
-export const BaseTextButton = styled(TextButton).attrs({
-	as: 'button',
-})<ITextButtonStylesProps>`
-	${textButtonStyles}
-
-	${({ variant }) =>
-		variant ? textButtonVariantStyles[variant] : textButtonVariantStyles.square}
-`;
+export default BaseTextButton;
