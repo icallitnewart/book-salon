@@ -1,10 +1,12 @@
 import React from 'react';
-import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
+import { styled } from 'styled-components';
 
-import BookTitle from '../atoms/BookTitle';
-import BookAuthor from '../atoms/BookAuthor';
-import BookCover from '../atoms/BookCover';
+import BookCoverImage from '../atoms/BookCoverImage';
+import {
+	Heading2,
+	Paragraph,
+} from '../../../../shared/components/atoms/Typographies/TextElements';
 
 const LinkContainer = styled(Link)`
 	display: block;
@@ -23,6 +25,14 @@ const Article = styled.article`
 	cursor: pointer;
 `;
 
+const BookTitle = styled(Heading2)`
+	text-align: center;
+`;
+
+const BookAuthor = styled(Paragraph)`
+	text-align: center;
+`;
+
 interface IBestsellerCardProps {
 	title: string;
 	author: string;
@@ -39,9 +49,23 @@ function BestsellerCardItem({
 	return (
 		<LinkContainer to={link}>
 			<Article>
-				<BookCover src={cover} alt={`${title} 도서 이미지`} />
-				<BookTitle>{title}</BookTitle>
-				<BookAuthor>{author}</BookAuthor>
+				<BookCoverImage
+					src={cover}
+					alt={`${title} 도서 이미지`}
+					$height="200px"
+					$boxShadow="0 0 10px rgba(0, 0, 0, 0.15)"
+				/>
+				<BookTitle
+					variant="card.title"
+					$margin="13px 0 8px"
+					$ellipsis
+					$lineClamp={2}
+				>
+					{title}
+				</BookTitle>
+				<BookAuthor variant="card.subtitle" $ellipsis $lineClamp={2}>
+					{author.split(/ \(지은이\)| \(엮은이\)/)[0]}
+				</BookAuthor>
 			</Article>
 		</LinkContainer>
 	);
