@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useAppSelector } from '../../../redux/store';
 
-import { ROUTES } from '../../../constants/routes';
+import { ROUTES } from '../../constants/routes';
 
 import MenuLink from '../atoms/MenuLink';
 

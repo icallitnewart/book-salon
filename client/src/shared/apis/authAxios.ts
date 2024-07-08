@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import { APIS } from '../../constants/apis';
-import { ROUTES } from '../../constants/routes';
+import { APIS } from '../constants/apis';
+import { ROUTES } from '../constants/routes';
 
 import { handleApiError } from '../utils/errorHandler';
 

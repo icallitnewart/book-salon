@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../redux/store';
 
-import { ROUTES } from '../../../../constants/routes';
+import { ROUTES } from '../../../../shared/constants/routes';
 
 import { clearRegisterStatus } from '../../userSlice';
 import { registerUser } from '../../apis/userApi';

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../redux/store';
 
-import { ROUTES } from '../../../../constants/routes';
+import { ROUTES } from '../../../../shared/constants/routes';
 
 import { clearLogoutStatus } from '../../userSlice';
 import { logoutUser } from '../../apis/userApi';

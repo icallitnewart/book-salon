@@ -9,7 +9,7 @@ import {
 	IUserUpdate,
 } from '../types/userData';
 import { IErrorResponse } from '../../../shared/types/apiError';
-import { APIS } from '../../../constants/apis';
+import { APIS } from '../../../shared/constants/apis';
 
 import { authAxios } from '../../../shared/apis/authAxios';
 import { handleApiError } from '../../../shared/utils/errorHandler';

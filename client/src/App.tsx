@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { ROUTES } from './constants/routes';
-import { AUTH_TYPES } from './constants/auth';
+import { ROUTES } from './shared/constants/routes';
+import { AUTH_TYPES } from './shared/constants/auth';
 
 import GlobalStyles from './GlobalStyles';
 import AuthChecker from './shared/components/organisms/AuthChecker';
