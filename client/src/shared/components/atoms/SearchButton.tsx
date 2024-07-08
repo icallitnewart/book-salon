@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ReactComponent as SearchSvg } from '../../../assets/svg/search.svg';
+import { ReactComponent as SearchSvg } from '@assets/svg/search.svg';
 
 const Button = styled.button`
 	position: absolute;

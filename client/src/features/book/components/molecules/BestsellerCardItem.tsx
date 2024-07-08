@@ -2,11 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
+import { Heading2, Paragraph } from '@typographies/TextElements';
 import BookCoverImage from '../atoms/BookCoverImage';
-import {
-	Heading2,
-	Paragraph,
-} from '../../../../shared/components/atoms/Typographies/TextElements';
 
 const LinkContainer = styled(Link)`
 	display: block;

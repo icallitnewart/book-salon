@@ -1,7 +1,7 @@
 import React from 'react';
 
-import PageTemplate from '../shared/components/templates/PageTemplate';
-import MainTemplate from '../shared/components/templates/MainTemplate';
+import PageTemplate from '@components/templates/PageTemplate';
+import MainTemplate from '@components/templates/MainTemplate';
 
 function MainPage(): JSX.Element {
 	return (

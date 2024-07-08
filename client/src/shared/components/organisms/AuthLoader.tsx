@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../redux/store';
+import { useAppDispatch, useAppSelector } from '@redux/store';
 
-import useDelayedLoading from '../../../features/user/hooks/useDelayedLoading';
-import { getAuthUser } from '../../../features/user/apis/userApi';
-import { clearGetAuthStatus } from '../../../features/user/userSlice';
+import useDelayedLoading from '@features/user/hooks/useDelayedLoading';
+import { getAuthUser } from '@features/user/apis/userApi';
+import { clearGetAuthStatus } from '@features/user/userSlice';
 
 interface IAuthLoaderProps {
 	children: JSX.Element;

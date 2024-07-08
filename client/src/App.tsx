@@ -1,18 +1,18 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { ROUTES } from './shared/constants/routes';
-import { AUTH_TYPES } from './shared/constants/auth';
+import { AUTH_TYPES } from '@constants/auth';
+import { ROUTES } from '@constants/routes';
 
-import GlobalStyles from './GlobalStyles';
-import AuthChecker from './shared/components/organisms/AuthChecker';
-import AuthLoader from './shared/components/organisms/AuthLoader';
+import GlobalStyles from 'GlobalStyles';
+import AuthLoader from '@components/organisms/AuthLoader';
+import AuthChecker from '@components/organisms/AuthChecker';
 
-import MainPage from './pages/MainPage';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
-import MyProfilePage from './pages/MyProfilePage';
-import ProfileEditPage from './pages/ProfileEditPage';
+import MainPage from '@pages/MainPage';
+import RegisterPage from '@pages/RegisterPage';
+import LoginPage from '@pages/LoginPage';
+import MyProfilePage from '@pages/MyProfilePage';
+import ProfileEditPage from '@pages/ProfileEditPage';
 
 function App(): JSX.Element {
 	return (

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../redux/store';
+import { useAppDispatch, useAppSelector } from '@redux/store';
 
-import { ROUTES } from '../../../../shared/constants/routes';
+import { ROUTES } from '@constants/routes';
 
 import { clearLogoutStatus } from '../../userSlice';
 import { logoutUser } from '../../apis/userApi';
