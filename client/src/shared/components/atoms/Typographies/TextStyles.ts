@@ -25,9 +25,9 @@ export interface ITextStylesProps {
 }
 
 export const textStyles = css<ITextStylesProps>`
-	font-size: ${({ $fontSize }) => $fontSize || 1.4}rem;
 	font-family: ${({ $fontFamily }) => $fontFamily || 'var(--main-font-kor)'};
 	line-height: ${({ $lineHeight }) => $lineHeight || 1.5};
+	${({ $fontSize }) => $fontSize && `font-size: ${$fontSize}rem;`}
 	${({ $fontWeight }) => $fontWeight && `font-weight: ${$fontWeight};`}
 	${({ $color }) => $color && `color: ${$color};`}
 	${({ $letterSpacing }) =>
