@@ -14,7 +14,7 @@ interface IBestSellerBook {
 	title: string;
 	author: string;
 	cover: string;
-	isbn: number;
+	isbn13: number;
 }
 
 function BestsellerCardList(): JSX.Element {
@@ -28,7 +28,7 @@ function BestsellerCardList(): JSX.Element {
 			'http://localhost:5000/api/books/test/bestseller',
 		);
 		const { item } = response.data.data;
-		// console.log(item);
+		console.log(item);
 		setBestsellerCardList(item.slice(0, 6));
 	};
 
@@ -41,10 +41,11 @@ function BestsellerCardList(): JSX.Element {
 			{bestsellerCardList.map(book => {
 				return (
 					<BestsellerCardItem
+						key={book.isbn13}
 						title={book.title}
 						author={book.author}
 						cover={book.cover}
-						link={`/book/${book.isbn}`}
+						link={`/book/${book.isbn13}/detail`}
 					/>
 				);
 			})}
