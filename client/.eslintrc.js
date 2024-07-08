@@ -31,7 +31,7 @@ module.exports = {
 		sourceType: 'module',
 		project: './tsconfig.json',
 	},
-	ignorePatterns: ['**/*.json'],
+	ignorePatterns: ['**/*.json', 'craco.config.js'],
 	plugins: ['@typescript-eslint', 'react'],
 	rules: {
 		'@typescript-eslint/no-unused-vars': 'warn',

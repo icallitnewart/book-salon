@@ -7,7 +7,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -23,6 +23,8 @@
   },
   "include": [
     "src",
-    "./.eslintrc.js"
-  ]
+    "./.eslintrc.js",
+    "./craco.config.js",
+  ],
+  "extends": "./tsconfig.paths.json",
 }
