@@ -13,6 +13,7 @@ import RegisterPage from '@pages/RegisterPage';
 import LoginPage from '@pages/LoginPage';
 import MyProfilePage from '@pages/MyProfilePage';
 import ProfileEditPage from '@pages/ProfileEditPage';
+import BookDetailPage from '@pages/BookDetailPage';
 
 function App(): JSX.Element {
 	return (
@@ -58,6 +59,14 @@ function App(): JSX.Element {
 							element={
 								<AuthChecker type={AUTH_TYPES.PRIVATE}>
 									<ProfileEditPage />
+								</AuthChecker>
+							}
+						/>
+						<Route
+							path={ROUTES.BOOK.DETAIL}
+							element={
+								<AuthChecker type={AUTH_TYPES.PUBLIC}>
+									<BookDetailPage />
 								</AuthChecker>
 							}
 						/>

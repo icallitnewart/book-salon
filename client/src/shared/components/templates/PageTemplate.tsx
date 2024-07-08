@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Header from '../organisms/Header';
-import Footer from '../organisms/Footer';
+import Header from '@components/organisms/Header';
+import Footer from '@components/organisms/Footer';
 
 const Container = styled.div`
 	display: flex;
@@ -13,20 +13,24 @@ const Container = styled.div`
 	min-height: 100vh;
 `;
 
-const Content = styled.main`
+interface IContentStyleProps {
+	$width?: string;
+}
+
+const Content = styled.main<IContentStyleProps>`
 	flex: 1;
-	width: 1200px;
+	width: ${({ $width }) => $width || '1200px'};
 `;
 
-interface IPageTemplateProps {
+interface IPageTemplateProps extends IContentStyleProps {
 	children: React.ReactElement;
 }
 
-function PageTemplate({ children }: IPageTemplateProps): JSX.Element {
+function PageTemplate({ children, $width }: IPageTemplateProps): JSX.Element {
 	return (
 		<Container>
 			<Header />
-			<Content>{children}</Content>
+			<Content $width={$width}>{children}</Content>
 			{/* <Footer /> */}
 		</Container>
 	);

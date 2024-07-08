@@ -17,8 +17,8 @@ const Cover = styled.img<ICoverStyleProps>`
 `;
 
 interface IBookCoverImageProps extends ICoverStyleProps {
-	src: string;
-	alt: string;
+	src?: string;
+	alt?: string;
 }
 
 function BookCoverImage({
