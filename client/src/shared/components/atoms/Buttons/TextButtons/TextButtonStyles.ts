@@ -8,6 +8,7 @@ export interface ITextButtonStylesProps {
 	$hoverTextColor?: string;
 	$border?: string;
 	$borderRadius?: string;
+	$boxShadow?: string;
 	$fontSize?: number;
 	$fontWeight?: number;
 	$fontFamily?: string;
@@ -34,6 +35,8 @@ export const textButtonStyles = css<ITextButtonStylesProps>`
 
 	border: ${({ $border }) => $border || 'none'};
 	border-radius: ${({ $borderRadius }) => $borderRadius || '5px'};
+	box-shadow: ${({ $boxShadow }) =>
+		$boxShadow || '2px 2px 4px rgba(0, 0, 0, 0.2)'};
 
 	color: ${({ $color }) => $color || '#fff'};
 	background-color: ${({ $bgColor }) => $bgColor || '#000'};

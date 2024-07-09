@@ -26,6 +26,7 @@ function BaseTextButton({
 	$hoverTextColor,
 	$border,
 	$borderRadius,
+	$boxShadow,
 	$fontSize,
 	$fontWeight,
 	$fontFamily,
@@ -47,6 +48,7 @@ function BaseTextButton({
 			$hoverTextColor={$hoverTextColor}
 			$border={$border}
 			$borderRadius={$borderRadius}
+			$boxShadow={$boxShadow}
 			$fontSize={$fontSize}
 			$fontWeight={$fontWeight}
 			$fontFamily={$fontFamily}
