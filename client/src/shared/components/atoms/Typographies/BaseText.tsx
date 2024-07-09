@@ -15,7 +15,7 @@ export interface IBaseTextProps extends ITextStylesProps {
 function BaseText({
 	as = 'p',
 	children,
-	variant = 'article.body',
+	variant = 'article-body-md',
 	$fontSize,
 	$fontWeight,
 	$fontFamily,

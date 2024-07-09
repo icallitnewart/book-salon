@@ -25,11 +25,11 @@ function BookInfoTextBox({
 }: IBookInfo): JSX.Element {
 	return (
 		<Container>
-			<BookInfoCategory variant="article.info" $marginBottom="5px">
+			<BookInfoCategory variant="article-meta-md" $marginBottom="5px">
 				{category?.replaceAll('>', ' > ')}
 			</BookInfoCategory>
 			<BookInfoTitle
-				variant="article.title"
+				variant="article-title-md"
 				$letterSpacing={1}
 				$lineHeight={1.7}
 			>

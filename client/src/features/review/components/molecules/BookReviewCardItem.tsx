@@ -51,20 +51,14 @@ function BookReviewCardItem({
 	return (
 		<LinkContainer to="/">
 			<Article>
-				<Heading3
-					variant="article.title"
-					$fontSize={2}
-					$color="#333"
-					$marginBottom="10px"
-				>
+				<Heading3 variant="list-title-md" $color="#333" $marginBottom="10px">
 					{title}
 				</Heading3>
 				<Divider $marginTop="1px" $marginBottom="10px" />
 				<Content>
 					<Paragraph
-						variant="article.body"
+						variant="list-body-lg"
 						$lineHeight={1.7}
-						$color="#666"
 						$ellipsis
 						$lineClamp={3}
 					>
@@ -73,13 +67,16 @@ function BookReviewCardItem({
 				</Content>
 				<AdditionalInfo>
 					<Span
+						variant="list-meta-lg"
 						$fontWeight={500}
 						$color="var(--sub-color-darkgreen)"
 						$letterSpacing={1}
 					>
 						{nickname}
 					</Span>
-					<Span $color="#999">{date}</Span>
+					<Span variant="list-meta-lg" $color="#999">
+						{date}
+					</Span>
 				</AdditionalInfo>
 			</Article>
 		</LinkContainer>

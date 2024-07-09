@@ -53,14 +53,14 @@ function BestsellerCardItem({
 					$boxShadow="0 0 10px rgba(0, 0, 0, 0.15)"
 				/>
 				<BookTitle
-					variant="card.title"
+					variant="card-title-md"
 					$margin="13px 0 8px"
 					$ellipsis
 					$lineClamp={2}
 				>
 					{title}
 				</BookTitle>
-				<BookAuthor variant="card.subtitle" $ellipsis $lineClamp={2}>
+				<BookAuthor variant="card-subtitle-md" $ellipsis $lineClamp={2}>
 					{author.split(/ \(지은이\)| \(엮은이\)/)[0]}
 				</BookAuthor>
 			</Article>

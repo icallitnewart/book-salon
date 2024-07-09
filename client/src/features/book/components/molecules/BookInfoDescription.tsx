@@ -28,10 +28,12 @@ function BookInfoDescription({
 }: IBookInfoDescriptionProps): JSX.Element {
 	return (
 		<Container>
-			<BookInfoField variant="article.field" $lineHeight={1.7}>
+			<BookInfoField variant="article-field-md" $lineHeight={1.7}>
 				{field}
 			</BookInfoField>
-			<BookInfoText $lineHeight={1.7}>{text || ''}</BookInfoText>
+			<BookInfoText variant="article-body-md" $lineHeight={1.7}>
+				{text || ''}
+			</BookInfoText>
 		</Container>
 	);
 }

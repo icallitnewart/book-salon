@@ -64,60 +64,183 @@ export const textStyles = css<ITextStylesProps>`
 
 // variants of text styles (different font sizes, colors, etc.)
 export const textVariantStyles = {
-	'section.title': css<ITextStylesProps>`
+	'section-title-lg': css<ITextStylesProps>`
+		font-size: 3rem;
+		font-weight: 600;
+		color: #000;
+	`,
+	'section-title-md': css<ITextStylesProps>`
 		font-size: 2.4rem;
 		font-weight: 600;
 		color: #000;
 	`,
-	'article.title': css<ITextStylesProps>`
+	'section-title-sm': css<ITextStylesProps>`
+		font-size: 2rem;
+		font-weight: 600;
+		color: #000;
+	`,
+	'article-title-lg': css<ITextStylesProps>`
+		font-size: 2.4rem;
+		font-weight: 600;
+		color: #000;
+	`,
+	'article-title-md': css<ITextStylesProps>`
 		font-size: 2.2rem;
 		font-weight: 600;
 		color: #000;
 	`,
-	'article.subtitle': css<ITextStylesProps>`
+	'article-title-sm': css<ITextStylesProps>`
+		font-size: 2rem;
+		font-weight: 600;
+		color: #000;
+	`,
+	'article-subtitle-lg': css<ITextStylesProps>`
+		font-size: 2rem;
+		font-weight: 500;
+		color: #444;
+	`,
+	'article-subtitle-md': css<ITextStylesProps>`
 		font-size: 1.8rem;
 		font-weight: 500;
 		color: #444;
 	`,
-	'article.body': css<ITextStylesProps>`
+	'article-subtitle-sm': css<ITextStylesProps>`
+		font-size: 1.6rem;
+		font-weight: 500;
+		color: #444;
+	`,
+	'article-body-lg': css<ITextStylesProps>`
 		font-size: 1.6rem;
 		line-height: 1.6;
 		font-weight: 400;
 		color: #444;
 	`,
-	'article.field': css<ITextStylesProps>`
+	'article-body-md': css<ITextStylesProps>`
+		font-size: 1.5rem;
+		line-height: 1.6;
+		font-weight: 400;
+		color: #444;
+	`,
+	'article-body-sm': css<ITextStylesProps>`
+		font-size: 1.4rem;
+		line-height: 1.6;
+		font-weight: 400;
+		color: #444;
+	`,
+	'article-field-lg': css<ITextStylesProps>`
 		font-size: 1.6rem;
 		line-height: 1.6;
 		font-weight: 600;
 		color: #222;
 	`,
-	'article.info': css<ITextStylesProps>`
+	'article-field-md': css<ITextStylesProps>`
+		font-size: 1.5rem;
+		line-height: 1.6;
+		font-weight: 600;
+		color: #222;
+	`,
+	'article-field-sm': css<ITextStylesProps>`
+		font-size: 1.4rem;
+		line-height: 1.6;
+		font-weight: 600;
+		color: #222;
+	`,
+	'article-meta-lg': css<ITextStylesProps>`
 		font-size: 1.4rem;
 		color: #444;
 	`,
-	'card.title': css<ITextStylesProps>`
-		font-size: 1.5rem;
-		font-weight: 600;
-		color: #000;
-	`,
-	'card.subtitle': css<ITextStylesProps>`
-		font-size: 1.4rem;
-		color: #333;
-	`,
-	'card.info': css<ITextStylesProps>`
+	'article-meta-md': css<ITextStylesProps>`
 		font-size: 1.3rem;
-		color: #666;
+		color: #444;
 	`,
-	'list.title': css<ITextStylesProps>`
+	'article-meta-sm': css<ITextStylesProps>`
+		font-size: 1.2rem;
+		color: #444;
+	`,
+	'card-title-lg': css<ITextStylesProps>`
 		font-size: 1.6rem;
 		font-weight: 600;
 		color: #000;
 	`,
-	'list.summary': css<ITextStylesProps>`
+	'card-title-md': css<ITextStylesProps>`
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: #000;
+	`,
+	'card-title-sm': css<ITextStylesProps>`
+		font-size: 1.4rem;
+		font-weight: 600;
+		color: #000;
+	`,
+	'card-title-xs': css<ITextStylesProps>`
+		font-size: 1.3rem;
+		font-weight: 600;
+		color: #000;
+	`,
+	'card-subtitle-lg': css<ITextStylesProps>`
+		font-size: 1.5rem;
+		color: #333;
+	`,
+	'card-subtitle-md': css<ITextStylesProps>`
+		font-size: 1.4rem;
+		color: #333;
+	`,
+	'card-subtitle-sm': css<ITextStylesProps>`
+		font-size: 1.3rem;
+		color: #333;
+	`,
+	'card-subtitle-xs': css<ITextStylesProps>`
+		font-size: 1.2rem;
+		color: #333;
+	`,
+	'card-meta-lg': css<ITextStylesProps>`
+		font-size: 1.4rem;
+		color: #666;
+	`,
+	'card-meta-md': css<ITextStylesProps>`
+		font-size: 1.3rem;
+		color: #666;
+	`,
+	'card-meta-sm': css<ITextStylesProps>`
+		font-size: 1.2rem;
+		color: #666;
+	`,
+	'list-title-lg': css<ITextStylesProps>`
+		font-size: 2rem;
+		font-weight: 600;
+		color: #000;
+	`,
+	'list-title-md': css<ITextStylesProps>`
+		font-size: 1.8rem;
+		font-weight: 600;
+		color: #000;
+	`,
+	'list-title-sm': css<ITextStylesProps>`
+		font-size: 1.6rem;
+		font-weight: 600;
+		color: #000;
+	`,
+	'list-body-lg': css<ITextStylesProps>`
+		font-size: 1.6rem;
+		color: #444;
+	`,
+	'list-body-md': css<ITextStylesProps>`
+		font-size: 1.5rem;
+		color: #444;
+	`,
+	'list-body-sm': css<ITextStylesProps>`
 		font-size: 1.4rem;
 		color: #444;
 	`,
-	'list.meta': css<ITextStylesProps>`
+	'list-meta-lg': css<ITextStylesProps>`
+		font-size: 1.4rem;
+		color: #888;
+	`,
+	'list-meta-md': css<ITextStylesProps>`
+		font-size: 1.3rem;
+		color: #888;
+	`,
+	'list-meta-sm': css<ITextStylesProps>`
 		font-size: 1.2rem;
 		color: #888;
 	`,
