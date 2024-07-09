@@ -6,8 +6,8 @@ import { ReactComponent as SearchSvg } from '@assets/svg/search.svg';
 const Button = styled.button`
 	position: absolute;
 	top: 50%;
-	right: 10px;
-	transform: translateY(-50%);
+	right: 8px;
+	transform: translateY(calc(-50% + 1px));
 	padding: 0;
 	cursor: pointer;
 

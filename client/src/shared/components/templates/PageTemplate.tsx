@@ -18,6 +18,8 @@ interface IContentStyleProps {
 }
 
 const Content = styled.main<IContentStyleProps>`
+	position: relative;
+	top: 100px;
 	flex: 1;
 	width: ${({ $width }) => $width || '1200px'};
 `;

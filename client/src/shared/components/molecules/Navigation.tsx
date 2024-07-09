@@ -12,7 +12,6 @@ const Container = styled.nav`
 	align-items: center;
 	gap: 25px;
 	height: 100%;
-	border-bottom: 1px solid #eee;
 `;
 
 function Navigation(): JSX.Element {
