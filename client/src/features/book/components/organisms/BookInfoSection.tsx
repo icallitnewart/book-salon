@@ -8,6 +8,7 @@ import BookInfoSummary from './BookInfoSummary';
 const Container = styled.section`
 	display: flex;
 	width: 100%;
+	padding: 50px 0px;
 `;
 
 interface IBookInfoData {
