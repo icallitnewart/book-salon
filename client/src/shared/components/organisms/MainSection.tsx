@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import MainSectionTitle from '../atoms/MainSectionTitle';
+import SectionTitleWithHighlight from '../molecules/SectionTitleWithHighlight';
 
 const Container = styled.section`
 	width: 100%;
@@ -16,7 +16,7 @@ interface IMainSectionProps {
 function MainSection({ title, children }: IMainSectionProps): JSX.Element {
 	return (
 		<Container>
-			<MainSectionTitle title={title} />
+			<SectionTitleWithHighlight title={title} />
 			{children}
 		</Container>
 	);
