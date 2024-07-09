@@ -6,6 +6,7 @@ export interface ITextStylesProps {
 	$fontFamily?: string;
 	$letterSpacing?: number;
 	$textTransform?: 'uppercase' | 'lowercase' | 'capitalize' | 'none';
+	$textAlign?: 'left' | 'center' | 'right' | 'justify';
 	$color?: string;
 	$margin?: string;
 	$marginBottom?: string;
@@ -34,6 +35,7 @@ export const textStyles = css<ITextStylesProps>`
 		$letterSpacing && `letter-spacing: ${$letterSpacing}px;`}
 	${({ $textTransform }) =>
 		$textTransform && `text-transform: ${$textTransform};`}
+	${({ $textAlign }) => $textAlign && `text-align: ${$textAlign};`}
 		
 	${({ $margin }) => $margin && `margin: ${$margin};`}
 	${({ $marginTop }) => $marginTop && `margin-top: ${$marginTop};`}

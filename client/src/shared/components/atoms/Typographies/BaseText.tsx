@@ -21,6 +21,7 @@ function BaseText({
 	$fontFamily,
 	$letterSpacing,
 	$textTransform,
+	$textAlign,
 	$color,
 	$margin,
 	$marginBottom,
@@ -45,6 +46,7 @@ function BaseText({
 			$fontFamily={$fontFamily}
 			$letterSpacing={$letterSpacing}
 			$textTransform={$textTransform}
+			$textAlign={$textAlign}
 			$color={$color}
 			$margin={$margin}
 			$marginBottom={$marginBottom}
