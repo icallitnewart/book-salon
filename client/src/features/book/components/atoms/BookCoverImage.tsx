@@ -1,22 +1,25 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-interface ICoverStyleProps {
+interface IImageStyleProps {
 	$width?: string;
 	$height?: string;
 	$boxShadow?: string;
+	$borderRadius?: string;
 }
 
-const Cover = styled.img<ICoverStyleProps>`
-	width: ${({ $width }) => $width || '100%'};
-	max-width: 200px;
-	height: ${({ $height }) => $height || 'auto'};
+const Image = styled.img<IImageStyleProps>`
+	width: ${({ $width }) => $width || 'auto'};
+	${({ $height }) => $height && `height: ${$height};`}
+	aspect-ratio: 0.67 / 1;
+	object-fit: cover;
+	object-position: left top;
 
-	border-radius: 5px;
+	${({ $borderRadius }) => $borderRadius && `border-radius: ${$borderRadius};`}
 	${({ $boxShadow }) => $boxShadow && `box-shadow: ${$boxShadow};`}
 `;
 
-interface IBookCoverImageProps extends ICoverStyleProps {
+interface IBookCoverImageProps extends IImageStyleProps {
 	src?: string;
 	alt?: string;
 }
@@ -27,14 +30,16 @@ function BookCoverImage({
 	$width,
 	$height,
 	$boxShadow,
+	$borderRadius,
 }: IBookCoverImageProps): JSX.Element {
 	return (
-		<Cover
+		<Image
 			src={src}
 			alt={alt}
 			$width={$width}
 			$height={$height}
 			$boxShadow={$boxShadow}
+			$borderRadius={$borderRadius}
 		/>
 	);
 }
