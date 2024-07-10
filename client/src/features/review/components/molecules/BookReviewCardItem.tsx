@@ -67,7 +67,7 @@ function BookReviewCardItem({
 				</Content>
 				<AdditionalInfo>
 					<Span
-						variant="list-meta-lg"
+						variant="highlight-meta-lg"
 						$fontWeight={500}
 						$color="var(--sub-color-darkgreen)"
 						$letterSpacing={1}
