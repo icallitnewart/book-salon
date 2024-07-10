@@ -8,6 +8,7 @@ export interface ITextStylesProps {
 	$textTransform?: 'uppercase' | 'lowercase' | 'capitalize' | 'none';
 	$textAlign?: 'left' | 'center' | 'right' | 'justify';
 	$color?: string;
+	$wordBreak?: 'break-all' | 'break-word' | 'keep-all' | 'normal';
 	$margin?: string;
 	$marginBottom?: string;
 	$marginTop?: string;
@@ -36,6 +37,7 @@ export const textStyles = css<ITextStylesProps>`
 	${({ $textTransform }) =>
 		$textTransform && `text-transform: ${$textTransform};`}
 	${({ $textAlign }) => $textAlign && `text-align: ${$textAlign};`}
+	${({ $wordBreak }) => $wordBreak && `word-break: ${$wordBreak};`}
 		
 	${({ $margin }) => $margin && `margin: ${$margin};`}
 	${({ $marginTop }) => $marginTop && `margin-top: ${$marginTop};`}
@@ -160,50 +162,50 @@ export const textVariantStyles = {
 	'card-title-lg': css<ITextStylesProps>`
 		font-size: 1.6rem;
 		font-weight: 600;
-		color: #000;
+		color: #333;
 	`,
 	'card-title-md': css<ITextStylesProps>`
 		font-size: 1.5rem;
 		font-weight: 600;
-		color: #000;
+		color: #333;
 	`,
 	'card-title-sm': css<ITextStylesProps>`
 		font-size: 1.4rem;
 		font-weight: 600;
-		color: #000;
+		color: #333;
 	`,
 	'card-title-xs': css<ITextStylesProps>`
 		font-size: 1.3rem;
 		font-weight: 600;
-		color: #000;
+		color: #333;
 	`,
 	'card-subtitle-lg': css<ITextStylesProps>`
 		font-size: 1.5rem;
-		color: #333;
+		color: #555;
 	`,
 	'card-subtitle-md': css<ITextStylesProps>`
 		font-size: 1.4rem;
-		color: #333;
+		color: #555;
 	`,
 	'card-subtitle-sm': css<ITextStylesProps>`
 		font-size: 1.3rem;
-		color: #333;
+		color: #555;
 	`,
 	'card-subtitle-xs': css<ITextStylesProps>`
 		font-size: 1.2rem;
-		color: #333;
+		color: #555;
 	`,
 	'card-meta-lg': css<ITextStylesProps>`
 		font-size: 1.4rem;
-		color: #666;
+		color: #888;
 	`,
 	'card-meta-md': css<ITextStylesProps>`
 		font-size: 1.3rem;
-		color: #666;
+		color: #888;
 	`,
 	'card-meta-sm': css<ITextStylesProps>`
 		font-size: 1.2rem;
-		color: #666;
+		color: #888;
 	`,
 	'list-title-lg': css<ITextStylesProps>`
 		font-size: 2rem;
@@ -243,5 +245,23 @@ export const textVariantStyles = {
 	'list-meta-sm': css<ITextStylesProps>`
 		font-size: 1.2rem;
 		color: #888;
+	`,
+	'highlight-meta-lg': css<ITextStylesProps>`
+		font-size: 1.4rem;
+		color: var(--sub-color-darkgreen);
+		font-weight: 500;
+		letter-spacing: 1px;
+	`,
+	'highlight-meta-md': css<ITextStylesProps>`
+		font-size: 1.3rem;
+		color: var(--sub-color-darkgreen);
+		font-weight: 500;
+		letter-spacing: 1px;
+	`,
+	'highlight-meta-sm': css<ITextStylesProps>`
+		font-size: 1.2rem;
+		color: var(--sub-color-darkgreen);
+		font-weight: 500;
+		letter-spacing: 1px;
 	`,
 };
