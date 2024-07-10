@@ -28,6 +28,14 @@ export const Heading3 = styled(BaseText).attrs((props: IBaseTextProps) => ({
 	${textStyles}
 `;
 
+export const Heading4 = styled(BaseText).attrs((props: IBaseTextProps) => ({
+	as: 'h4',
+	variant: props.variant || 'article-subtitle-md',
+}))<ITextStylesProps>`
+	${({ variant }) => variant && textVariantStyles[variant]}
+	${textStyles}
+`;
+
 export const Paragraph = styled(BaseText).attrs((props: IBaseTextProps) => ({
 	as: 'p',
 	variant: props.variant || 'article-body-md',
