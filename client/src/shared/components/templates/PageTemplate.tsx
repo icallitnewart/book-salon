@@ -20,7 +20,6 @@ interface IContentStyleProps {
 const Content = styled.main<IContentStyleProps>`
 	position: relative;
 	top: 100px;
-	display: flex;
 	width: ${({ $width }) => $width || '1200px'};
 	min-height: calc(100vh - 100px);
 `;
