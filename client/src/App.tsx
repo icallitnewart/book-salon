@@ -14,6 +14,7 @@ import LoginPage from '@pages/LoginPage';
 import MyProfilePage from '@pages/MyProfilePage';
 import ProfileEditPage from '@pages/ProfileEditPage';
 import BookDetailPage from '@pages/BookDetailPage';
+import BookReviewDetailPage from '@pages/BookReviewDetailPage';
 
 function App(): JSX.Element {
 	return (
@@ -67,6 +68,14 @@ function App(): JSX.Element {
 							element={
 								<AuthChecker type={AUTH_TYPES.PUBLIC}>
 									<BookDetailPage />
+								</AuthChecker>
+							}
+						/>
+						<Route
+							path={ROUTES.BOOK.REVIEW.DETAIL}
+							element={
+								<AuthChecker type={AUTH_TYPES.PUBLIC}>
+									<BookReviewDetailPage />
 								</AuthChecker>
 							}
 						/>

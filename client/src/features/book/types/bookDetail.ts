@@ -6,4 +6,5 @@ export interface IBookInfo {
 	pubDate?: string;
 	isbn?: string;
 	description?: string;
+	cover?: string;
 }
