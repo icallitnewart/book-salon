@@ -8,11 +8,17 @@ import {
 	Heading1 as BookInfoTitle,
 	Paragraph as BookInfoCategory,
 } from '@typographies/TextElements';
-import BookInfoDescription from './BookInfoDescription';
+import BookInfoTextWithField from './BookInfoTextWithField';
 
 const Container = styled.div`
 	width: 100%;
 `;
+
+const BookInfoDescription = styled(BookInfoTextWithField).attrs({
+	fieldWidth: '120px',
+	margin: '10px 0px',
+	variantSize: 'lg',
+})``;
 
 function BookInfoTextBox({
 	title,
