@@ -23,6 +23,8 @@ function BaseText({
 	$textTransform,
 	$textAlign,
 	$color,
+	$hoverColor,
+	$width,
 	$margin,
 	$marginBottom,
 	$marginTop,
@@ -48,6 +50,8 @@ function BaseText({
 			$textTransform={$textTransform}
 			$textAlign={$textAlign}
 			$color={$color}
+			$hoverColor={$hoverColor}
+			$width={$width}
 			$margin={$margin}
 			$marginBottom={$marginBottom}
 			$marginTop={$marginTop}

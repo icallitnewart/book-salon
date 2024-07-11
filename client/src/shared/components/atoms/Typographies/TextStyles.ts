@@ -8,6 +8,8 @@ export interface ITextStylesProps {
 	$textTransform?: 'uppercase' | 'lowercase' | 'capitalize' | 'none';
 	$textAlign?: 'left' | 'center' | 'right' | 'justify';
 	$color?: string;
+	$hoverColor?: string;
+	$width?: string;
 	$wordBreak?: 'break-all' | 'break-word' | 'keep-all' | 'normal';
 	$margin?: string;
 	$marginBottom?: string;
@@ -39,6 +41,8 @@ export const textStyles = css<ITextStylesProps>`
 	${({ $textAlign }) => $textAlign && `text-align: ${$textAlign};`}
 	${({ $wordBreak }) => $wordBreak && `word-break: ${$wordBreak};`}
 		
+	${({ $width }) => $width && `width: ${$width};`}
+
 	${({ $margin }) => $margin && `margin: ${$margin};`}
 	${({ $marginTop }) => $marginTop && `margin-top: ${$marginTop};`}
   ${({ $marginBottom }) => $marginBottom && `margin-bottom: ${$marginBottom};`}
@@ -62,6 +66,10 @@ export const textStyles = css<ITextStylesProps>`
     text-overflow: ellipsis;
     word-wrap: break-word;
   `}
+
+	&:hover {
+		${({ $hoverColor }) => $hoverColor && `color: ${$hoverColor};`}
+	}
 `;
 
 // variants of text styles (different font sizes, colors, etc.)
@@ -194,6 +202,39 @@ export const textVariantStyles = {
 	'card-subtitle-xs': css<ITextStylesProps>`
 		font-size: 1.2rem;
 		color: #555;
+	`, // 제거
+	'card-field-lg': css<ITextStylesProps>`
+		font-size: 1.6rem;
+		line-height: 1.6;
+		font-weight: 600;
+		color: #555;
+	`,
+	'card-field-md': css<ITextStylesProps>`
+		font-size: 1.4rem;
+		line-height: 1.6;
+		font-weight: 600;
+		color: #555;
+	`,
+	'card-field-sm': css<ITextStylesProps>`
+		font-size: 1.2rem;
+		line-height: 1.6;
+		font-weight: 600;
+		color: #555;
+	`,
+	'card-body-lg': css<ITextStylesProps>`
+		font-size: 1.6rem;
+		line-height: 1.6;
+		color: #222;
+	`,
+	'card-body-md': css<ITextStylesProps>`
+		font-size: 1.4rem;
+		line-height: 1.6;
+		color: #222;
+	`,
+	'card-body-sm': css<ITextStylesProps>`
+		font-size: 1.2rem;
+		line-height: 1.6;
+		color: #222;
 	`,
 	'card-meta-lg': css<ITextStylesProps>`
 		font-size: 1.4rem;
