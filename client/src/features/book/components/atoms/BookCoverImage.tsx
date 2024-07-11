@@ -12,10 +12,8 @@ const Image = styled.img<IImageStyleProps>`
 	width: ${({ $width }) => $width || 'auto'};
 	${({ $height }) => $height && `height: ${$height};`}
 	aspect-ratio: 0.67 / 1;
-	object-fit: cover;
-	object-position: left top;
 
-	${({ $borderRadius }) => $borderRadius && `border-radius: ${$borderRadius};`}
+	border-radius: ${({ $borderRadius }) => $borderRadius || '5px'};
 	${({ $boxShadow }) => $boxShadow && `box-shadow: ${$boxShadow};`}
 `;
 
