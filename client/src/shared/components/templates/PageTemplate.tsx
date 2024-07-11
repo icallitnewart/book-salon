@@ -5,12 +5,12 @@ import Header from '@components/organisms/Header';
 import Footer from '@components/organisms/Footer';
 
 const Container = styled.div`
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
 	min-width: var(--desktop-screen-width);
-	min-height: 100vh;
 `;
 
 interface IContentStyleProps {
@@ -20,8 +20,9 @@ interface IContentStyleProps {
 const Content = styled.main<IContentStyleProps>`
 	position: relative;
 	top: 100px;
-	flex: 1;
+	display: flex;
 	width: ${({ $width }) => $width || '1200px'};
+	min-height: calc(100vh - 100px);
 `;
 
 interface IPageTemplateProps extends IContentStyleProps {

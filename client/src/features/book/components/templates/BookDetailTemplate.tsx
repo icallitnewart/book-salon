@@ -10,7 +10,6 @@ const Container = styled.div`
 
 const Background = styled.div`
 	width: 100%;
-	height: 100%;
 	background-color: #f8f8f8;
 
 	box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.1);
