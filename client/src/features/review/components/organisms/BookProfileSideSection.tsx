@@ -5,7 +5,8 @@ import BookProfilePanel from '../molecules/BookProfilePanel';
 
 const Container = styled.aside`
 	position: relative;
-	width: 280px;
+	width: 300px;
+	margin-right: 60px;
 `;
 
 function BookProfileSideSection(): JSX.Element {
