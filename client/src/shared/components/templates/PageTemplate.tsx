@@ -20,6 +20,8 @@ interface IContentStyleProps {
 const Content = styled.main<IContentStyleProps>`
 	position: relative;
 	top: 100px;
+	display: grid;
+	grid-template-rows: 1fr;
 	width: ${({ $width }) => $width || '1200px'};
 	min-height: calc(100vh - 100px);
 `;
