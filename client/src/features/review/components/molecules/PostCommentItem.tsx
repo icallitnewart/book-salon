@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import { Paragraph, Span } from '@typographies/TextElements';
-import PostCommentButtonBox from './PostCommentButtonBox';
+import EditDeleteButtonBox from './EditDeleteButtonBox';
 
 const Container = styled.div`
 	padding: 10px;
@@ -48,7 +48,7 @@ function PostCommentItem({ nickname, date, comment }: IComment): JSX.Element {
 			>
 				{comment}
 			</Comment>
-			<PostCommentButtonBox />
+			<EditDeleteButtonBox variantType="card" variantSize="md" />
 		</Container>
 	);
 }

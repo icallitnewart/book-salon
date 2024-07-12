@@ -156,15 +156,15 @@ export const textVariantStyles = {
 		color: #222;
 	`,
 	'article-meta-lg': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: 1.5rem;
 		color: #444;
 	`,
 	'article-meta-md': css<ITextStylesProps>`
-		font-size: 1.3rem;
+		font-size: 1.4rem;
 		color: #444;
 	`,
 	'article-meta-sm': css<ITextStylesProps>`
-		font-size: 1.2rem;
+		font-size: 1.3rem;
 		color: #444;
 	`,
 	'card-title-lg': css<ITextStylesProps>`

@@ -8,6 +8,7 @@ import {
 } from '@components/atoms/Typographies/TextElements';
 import Divider from '@components/atoms/Divider';
 import PostTagBox from './PostTagBox';
+import EditDeleteButtonBox from './EditDeleteButtonBox';
 
 const Container = styled.div`
 	width: 100%;
@@ -67,6 +68,7 @@ function BookReviewPost(): JSX.Element {
 			<Content variant="article-body-lg" $lineHeight={1.8} $textAlign="justify">
 				{data.content}
 			</Content>
+			<EditDeleteButtonBox variantType="article" variantSize="lg" />
 		</Container>
 	);
 }

@@ -18,26 +18,37 @@ const Button = styled.button`
 `;
 
 const ButtonText = styled(Span).attrs({
-	variant: 'card-meta-lg',
 	$fontWeight: 500,
 	$color: '#888',
 	$hoverColor: 'var(--sub-color-darkgreen)',
 })``;
 
-function PostCommentButtonBox(): JSX.Element {
+interface IEditDeleteButtonBoxProps {
+	variantType: 'article' | 'card';
+	variantSize: 'sm' | 'md' | 'lg';
+}
+
+function EditDeleteButtonBox({
+	variantType,
+	variantSize,
+}: IEditDeleteButtonBoxProps): JSX.Element {
 	return (
 		<Container>
 			<Button>
-				<ButtonText>수정</ButtonText>
+				<ButtonText variant={`${variantType}-meta-${variantSize}`}>
+					수정
+				</ButtonText>
 			</Button>
-			<Span variant="card-meta-sm" $margin="0px 7px" $color="#bbb">
+			<Span variant={`${variantType}-meta-sm`} $margin="0px 7px" $color="#bbb">
 				|
 			</Span>
 			<Button>
-				<ButtonText>삭제</ButtonText>
+				<ButtonText variant={`${variantType}-meta-${variantSize}`}>
+					삭제
+				</ButtonText>
 			</Button>
 		</Container>
 	);
 }
 
-export default PostCommentButtonBox;
+export default EditDeleteButtonBox;
