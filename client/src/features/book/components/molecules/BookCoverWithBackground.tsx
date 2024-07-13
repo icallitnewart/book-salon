@@ -1,7 +1,7 @@
 import React from 'react';
 
 import BookCoverImage from '../atoms/BookCoverImage';
-import ImageBackground from '../atoms/ImageBackground';
+import BookImageBackground from '../atoms/BookImageBackground';
 
 interface IBookCoverWithBackgroundProps {
 	src?: string;
@@ -17,14 +17,14 @@ function BookCoverWithBackground({
 	$imgWidth,
 }: IBookCoverWithBackgroundProps): JSX.Element {
 	return (
-		<ImageBackground $width={$width}>
+		<BookImageBackground $width={$width}>
 			<BookCoverImage
 				src={src}
 				alt={alt}
 				$boxShadow="20px 20px 30px rgba(0, 0, 0, 0.2)"
 				$width={$imgWidth}
 			/>
-		</ImageBackground>
+		</BookImageBackground>
 	);
 }
 

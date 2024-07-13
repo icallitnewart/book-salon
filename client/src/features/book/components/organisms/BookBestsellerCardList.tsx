@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import BestsellerCardItem from '../molecules/BestsellerCardItem';
+import BookBestsellerCardItem from '../molecules/BookBestsellerCardItem';
 
 const Container = styled.section`
 	display: flex;
@@ -17,7 +17,7 @@ interface IBestSellerBook {
 	isbn13: number;
 }
 
-function BestsellerCardList(): JSX.Element {
+function BookBestsellerCardList(): JSX.Element {
 	const [bestsellerCardList, setBestsellerCardList] = useState<
 		IBestSellerBook[]
 	>([]);
@@ -40,7 +40,7 @@ function BestsellerCardList(): JSX.Element {
 		<Container>
 			{bestsellerCardList.map(book => {
 				return (
-					<BestsellerCardItem
+					<BookBestsellerCardItem
 						key={book.isbn13}
 						title={book.title}
 						author={book.author}
@@ -53,4 +53,4 @@ function BestsellerCardList(): JSX.Element {
 	);
 }
 
-export default BestsellerCardList;
+export default BookBestsellerCardList;

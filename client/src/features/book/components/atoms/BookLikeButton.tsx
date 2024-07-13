@@ -32,7 +32,7 @@ const StyledHeartSvg = styled(HeartSvg)`
 	margin-bottom: -2.5px;
 `;
 
-function LikeBookButton(): JSX.Element {
+function BookLikeButton(): JSX.Element {
 	return (
 		<Button $width="120px" $hoverTextColor="#fff">
 			<StyledHeartSvg />
@@ -41,4 +41,4 @@ function LikeBookButton(): JSX.Element {
 	);
 }
 
-export default LikeBookButton;
+export default BookLikeButton;

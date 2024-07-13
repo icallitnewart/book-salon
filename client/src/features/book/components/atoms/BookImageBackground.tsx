@@ -20,17 +20,17 @@ const Container = styled.div<IContainerStyleProps>`
 	background-color: ${({ $color }) => $color || '#f5f4f3'};
 `;
 
-interface IImageBackgroundProps extends IContainerStyleProps {
+interface IBookImageBackgroundProps extends IContainerStyleProps {
 	children: JSX.Element;
 }
 
-function ImageBackground({
+function BookImageBackground({
 	children,
 	$color,
 	$width,
 	$height,
 	$aspectRatio,
-}: IImageBackgroundProps): JSX.Element {
+}: IBookImageBackgroundProps): JSX.Element {
 	return (
 		<Container
 			$color={$color}
@@ -43,4 +43,4 @@ function ImageBackground({
 	);
 }
 
-export default ImageBackground;
+export default BookImageBackground;

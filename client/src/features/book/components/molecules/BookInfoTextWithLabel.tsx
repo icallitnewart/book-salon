@@ -16,40 +16,39 @@ const BookInfoText = styled(Paragraph)`
 	flex: 1;
 `;
 
-const BookInfoField = styled(Span)`
+const BookInfoLabel = styled(Span)`
 	display: inline-block;
 `;
 
 interface IBookInfoWithFieldProps {
-	field: string;
+	label: string;
 	text?: string;
 	variantSize?: 'sm' | 'md' | 'lg';
 	variantType?: 'article' | 'card';
-	fieldWidth?: string;
+	labelWidth?: string;
 	margin?: string;
 }
 
-function BookInfoTextWithField({
-	field,
+function BookInfoTextWithLabel({
+	label,
 	text,
-	fieldWidth,
+	labelWidth,
 	variantSize = 'md',
 	variantType = 'article',
 	margin,
 }: IBookInfoWithFieldProps): JSX.Element {
 	return (
 		<Container $margin={margin}>
-			<BookInfoField
+			<BookInfoLabel
 				variant={`${variantType}-field-${variantSize}`}
 				$lineHeight={1.7}
-				$width={fieldWidth}
+				$width={labelWidth}
 			>
-				{field}
-			</BookInfoField>
+				{label}
+			</BookInfoLabel>
 			<BookInfoText
 				variant={`${variantType}-body-${variantSize}`}
 				$lineHeight={1.7}
-				$width={fieldWidth}
 			>
 				{text || ''}
 			</BookInfoText>
@@ -57,4 +56,4 @@ function BookInfoTextWithField({
 	);
 }
 
-export default BookInfoTextWithField;
+export default BookInfoTextWithLabel;

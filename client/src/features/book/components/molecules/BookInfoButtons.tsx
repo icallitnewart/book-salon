@@ -1,8 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import LikeBookButton from '../atoms/LikeBookButton';
-import WriteReviewButton from '../atoms/WriteReviewButton';
+import BookLikeButton from '../atoms/BookLikeButton';
+import BookAddReviewButton from '../atoms/BookAddReviewButton';
 
 const ButtonContainer = styled.div`
 	display: flex;
@@ -16,8 +16,8 @@ const ButtonContainer = styled.div`
 function BookInfoButtons(): JSX.Element {
 	return (
 		<ButtonContainer>
-			<LikeBookButton />
-			<WriteReviewButton />
+			<BookLikeButton />
+			<BookAddReviewButton />
 		</ButtonContainer>
 	);
 }

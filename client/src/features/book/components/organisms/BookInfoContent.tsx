@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 import { IBookInfo } from '@features/book/types/bookDetail';
 
-import BookInfoTextBox from '../molecules/BookInfoTextBox';
+import BookInfoTextBox from './BookInfoTextBox';
 import BookInfoButtons from '../molecules/BookInfoButtons';
 
 const Container = styled.div`
@@ -14,7 +14,7 @@ const Container = styled.div`
 	padding: 10px 10px 0px 50px;
 `;
 
-function BookInfoSummary({
+function BookInfoContent({
 	title,
 	author,
 	category,
@@ -39,4 +39,4 @@ function BookInfoSummary({
 	);
 }
 
-export default BookInfoSummary;
+export default BookInfoContent;

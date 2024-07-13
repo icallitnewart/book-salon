@@ -8,14 +8,14 @@ import {
 	Heading1 as BookInfoTitle,
 	Paragraph as BookInfoCategory,
 } from '@typographies/TextElements';
-import BookInfoTextWithField from './BookInfoTextWithField';
+import BookInfoTextWithLabel from '../molecules/BookInfoTextWithLabel';
 
 const Container = styled.div`
 	width: 100%;
 `;
 
-const BookInfoDescription = styled(BookInfoTextWithField).attrs({
-	fieldWidth: '120px',
+const BookInfoDescription = styled(BookInfoTextWithLabel).attrs({
+	labelWidth: '120px',
 	margin: '10px 0px',
 	variantSize: 'lg',
 })``;
@@ -42,11 +42,11 @@ function BookInfoTextBox({
 				{title}
 			</BookInfoTitle>
 			<Divider $margin="15px 0px 10px" />
-			<BookInfoDescription field="저자" text={author} />
-			<BookInfoDescription field="출판사" text={publisher} />
-			<BookInfoDescription field="출판일자" text={pubDate} />
-			<BookInfoDescription field="ISBN" text={isbn} />
-			<BookInfoDescription field="설명" text={description} />
+			<BookInfoDescription label="저자" text={author} />
+			<BookInfoDescription label="출판사" text={publisher} />
+			<BookInfoDescription label="출판일자" text={pubDate} />
+			<BookInfoDescription label="ISBN" text={isbn} />
+			<BookInfoDescription label="설명" text={description} />
 		</Container>
 	);
 }

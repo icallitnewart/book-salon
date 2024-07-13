@@ -11,14 +11,14 @@ const Article = styled.article`
 	height: 300px;
 `;
 
-type IBestsellerCardItemProps = IBookProfilePreview;
+type IBookBestsellerCardItemProps = IBookProfilePreview;
 
-function BestsellerCardItem({
+function BookBestsellerCardItem({
 	title,
 	author,
 	cover,
 	link,
-}: IBestsellerCardItemProps): JSX.Element {
+}: IBookBestsellerCardItemProps): JSX.Element {
 	return (
 		<Article>
 			<BookProfilePreview
@@ -34,4 +34,4 @@ function BestsellerCardItem({
 	);
 }
 
-export default BestsellerCardItem;
+export default BookBestsellerCardItem;

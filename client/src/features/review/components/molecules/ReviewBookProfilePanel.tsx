@@ -6,7 +6,7 @@ import { IBookInfo } from '@features/book/types/bookDetail';
 
 import { Heading2 as BookTitle } from '@typographies/TextElements';
 import BookCoverWithBackground from '@features/book/components/molecules/BookCoverWithBackground';
-import BookInfoTextWithField from '@features/book/components/molecules/BookInfoTextWithField';
+import BookInfoTextWithLabel from '@features/book/components/molecules/BookInfoTextWithLabel';
 
 const Container = styled.div`
 	position: sticky;
@@ -21,10 +21,10 @@ const BookInfoTextBox = styled.div`
 	width: 100%;
 `;
 
-const BookInfoDescription = styled(BookInfoTextWithField).attrs({
+const BookInfoDescription = styled(BookInfoTextWithLabel).attrs({
 	variantType: 'card',
 	variantSize: 'md',
-	fieldWidth: '65px',
+	labelWidth: '65px',
 	margin: '4px 0px',
 })``;
 
@@ -60,10 +60,10 @@ function ReviewBookProfilePanel(): JSX.Element {
 						{sample.title}
 					</BookTitle>
 				</Link>
-				<BookInfoDescription field="저자" text={sample.author} />
-				<BookInfoDescription field="카테고리" text={sample.category} />
-				<BookInfoDescription field="출판사" text={sample.publisher} />
-				<BookInfoDescription field="출판일" text={sample.pubDate} />
+				<BookInfoDescription label="저자" text={sample.author} />
+				<BookInfoDescription label="카테고리" text={sample.category} />
+				<BookInfoDescription label="출판사" text={sample.publisher} />
+				<BookInfoDescription label="출판일" text={sample.pubDate} />
 			</BookInfoTextBox>
 		</Container>
 	);

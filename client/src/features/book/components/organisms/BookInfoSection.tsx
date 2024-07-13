@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import BookCoverWithBackground from '../molecules/BookCoverWithBackground';
-import BookInfoSummary from './BookInfoSummary';
+import BookInfoContent from './BookInfoContent';
 
 const Container = styled.section`
 	display: flex;
@@ -40,7 +40,7 @@ function BookInfoSection(): JSX.Element {
 	return (
 		<Container>
 			<BookCoverWithBackground src={bookInfo?.cover} alt={bookInfo?.title} />
-			<BookInfoSummary
+			<BookInfoContent
 				title={bookInfo?.title}
 				author={bookInfo?.author}
 				category={bookInfo?.categoryName}
