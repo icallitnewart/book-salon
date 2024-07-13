@@ -33,7 +33,7 @@ const tags: IReviewTag[] = [
 	},
 ];
 
-function ReviewTagInputBox(): JSX.Element {
+function ReviewTagInputWithButton(): JSX.Element {
 	const TAG_MAX_LEN = 5;
 	const TAG_LETTER_MAX_LEN = 8;
 
@@ -50,4 +50,4 @@ function ReviewTagInputBox(): JSX.Element {
 	);
 }
 
-export default ReviewTagInputBox;
+export default ReviewTagInputWithButton;

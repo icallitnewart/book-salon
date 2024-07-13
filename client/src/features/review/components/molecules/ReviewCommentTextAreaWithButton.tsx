@@ -12,7 +12,7 @@ const Container = styled.div`
 	gap: 15px;
 `;
 
-function PostCommentTextAreaBox(): JSX.Element {
+function ReviewCommentTextAreaWithButton(): JSX.Element {
 	return (
 		<Container>
 			<ReviewTextArea
@@ -24,4 +24,4 @@ function PostCommentTextAreaBox(): JSX.Element {
 	);
 }
 
-export default PostCommentTextAreaBox;
+export default ReviewCommentTextAreaWithButton;

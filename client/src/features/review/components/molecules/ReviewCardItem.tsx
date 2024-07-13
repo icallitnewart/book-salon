@@ -41,7 +41,7 @@ const Content = styled.div`
 	flex: 1;
 `;
 
-function BookReviewCardItem({
+function ReviewCardItem({
 	id,
 	nickname,
 	title,
@@ -83,4 +83,4 @@ function BookReviewCardItem({
 	);
 }
 
-export default BookReviewCardItem;
+export default ReviewCardItem;

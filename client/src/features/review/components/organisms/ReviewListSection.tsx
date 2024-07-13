@@ -3,14 +3,14 @@ import { styled } from 'styled-components';
 
 import SectionTitleWithHighlight from '@components/molecules/SectionTitleWithHighlight';
 import MoreButtonBox from '@components/molecules/MoreButtonBox';
-import BookReviewCardList from './BookReviewCardList';
+import ReviewCardList from './ReviewCardList';
 
 const Container = styled.section`
 	width: 100%;
 	padding: 50px 0px;
 `;
 
-function BookReviewSection(): JSX.Element {
+function ReviewListSection(): JSX.Element {
 	return (
 		<Container>
 			<SectionTitleWithHighlight
@@ -18,10 +18,10 @@ function BookReviewSection(): JSX.Element {
 				$fontSize={3}
 				$textAlign="center"
 			/>
-			<BookReviewCardList />
+			<ReviewCardList />
 			<MoreButtonBox />
 		</Container>
 	);
 }
 
-export default BookReviewSection;
+export default ReviewListSection;

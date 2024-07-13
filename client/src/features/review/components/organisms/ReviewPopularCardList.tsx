@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import BookProfilePreview from '@features/book/components/molecules/BookProfilePreview';
-import BookReviewSummary from '../molecules/BookReviewSummary';
+import ReviewSummary from '../molecules/ReviewSummary';
 
 const Container = styled.div`
 	display: flex;
@@ -12,7 +12,7 @@ const Container = styled.div`
 	width: 100%;
 `;
 
-const PopularReviewCardItem = styled.article`
+const ReviewPopularCardItem = styled.article`
 	width: calc(100% / 2 - 25px);
 	height: 220px;
 	display: flex;
@@ -34,12 +34,12 @@ const sample = {
 	},
 };
 
-function PopularReviewCardList(): JSX.Element {
+function ReviewPopularCardList(): JSX.Element {
 	const data = new Array(6).fill(sample);
 	return (
 		<Container>
 			{data.map(review => (
-				<PopularReviewCardItem>
+				<ReviewPopularCardItem>
 					<BookProfilePreview
 						title={review.book.title}
 						cover={review.book.cover}
@@ -49,16 +49,16 @@ function PopularReviewCardList(): JSX.Element {
 						$titleMargin="10px 0 0"
 						$width="100px"
 					/>
-					<BookReviewSummary
+					<ReviewSummary
 						title={review.title}
 						content={review.content}
 						nickname={review.nickname}
 						link={review.link}
 					/>
-				</PopularReviewCardItem>
+				</ReviewPopularCardItem>
 			))}
 		</Container>
 	);
 }
 
-export default PopularReviewCardList;
+export default ReviewPopularCardList;

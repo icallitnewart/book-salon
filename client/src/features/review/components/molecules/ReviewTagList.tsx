@@ -13,11 +13,11 @@ interface ITag {
 	text: string;
 }
 
-interface IPostTagBoxProps {
+interface IReviewTagListProps {
 	tags: ITag[];
 }
 
-function PostTagBox({ tags }: IPostTagBoxProps): JSX.Element {
+function ReviewTagList({ tags }: IReviewTagListProps): JSX.Element {
 	return (
 		<Container>
 			{tags.map(tag => (
@@ -27,4 +27,4 @@ function PostTagBox({ tags }: IPostTagBoxProps): JSX.Element {
 	);
 }
 
-export default PostTagBox;
+export default ReviewTagList;

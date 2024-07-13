@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 import { IBookReview } from '@features/review/types/bookReview';
 
-import BookReviewCardItem from '../molecules/BookReviewCardItem';
+import ReviewCardItem from '../molecules/ReviewCardItem';
 
 const Container = styled.div`
 	display: flex;
@@ -22,13 +22,13 @@ const sample: IBookReview = {
 	date: '2023년 7월 1일',
 };
 
-function BookReviewCardList(): JSX.Element {
+function ReviewCardList(): JSX.Element {
 	const data = new Array(6).fill(sample);
 
 	return (
 		<Container>
 			{data.map(item => (
-				<BookReviewCardItem
+				<ReviewCardItem
 					key={item.id}
 					id={item.id}
 					nickname={item.nickname}
@@ -41,4 +41,4 @@ function BookReviewCardList(): JSX.Element {
 	);
 }
 
-export default BookReviewCardList;
+export default ReviewCardList;

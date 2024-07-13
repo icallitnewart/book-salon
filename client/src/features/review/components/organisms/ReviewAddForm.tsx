@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import { DarkGreenTextButton } from '@buttons/TextButtons/ColoredTextButtons';
-import ReviewTagInputBox from '../molecules/ReviewTagInputBox';
+import ReviewTagInputWithButton from '../molecules/ReviewTagInputWithButton';
 import ReviewTextEditor from '../atoms/ReviewTextEditor';
 import ReviewTitleInput from '../atoms/ReviewInput';
 
@@ -24,7 +24,7 @@ const ButtonBox = styled.div`
 	padding: 20px 0px;
 `;
 
-function BookReviewAddForm(): JSX.Element {
+function ReviewAddForm(): JSX.Element {
 	return (
 		<Container>
 			<Form>
@@ -33,7 +33,7 @@ function BookReviewAddForm(): JSX.Element {
 					ariaLabel="리뷰 제목 입력 (40자 이하)"
 					maxLength={40}
 				/>
-				<ReviewTagInputBox />
+				<ReviewTagInputWithButton />
 				<ReviewTextEditor />
 				<ButtonBox>
 					<DarkGreenTextButton type="submit" $width="140px">
@@ -45,4 +45,4 @@ function BookReviewAddForm(): JSX.Element {
 	);
 }
 
-export default BookReviewAddForm;
+export default ReviewAddForm;

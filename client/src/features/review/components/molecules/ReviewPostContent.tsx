@@ -7,8 +7,8 @@ import {
 	Span,
 } from '@components/atoms/Typographies/TextElements';
 import Divider from '@components/atoms/Divider';
-import PostTagBox from './PostTagBox';
-import EditDeleteButtonBox from './EditDeleteButtonBox';
+import ReviewTagList from './ReviewTagList';
+import ReviewControlButtons from './ReviewControlButtons';
 
 const Container = styled.div`
 	width: 100%;
@@ -47,7 +47,7 @@ const data = {
 				메시지를 전달합니다.`,
 };
 
-function BookReviewPost(): JSX.Element {
+function ReviewPostContent(): JSX.Element {
 	return (
 		<Container>
 			<Title variant="article-title-lg" $lineHeight={1.8} $textAlign="justify">
@@ -55,7 +55,7 @@ function BookReviewPost(): JSX.Element {
 			</Title>
 			<Divider $margin="13px 0px" />
 			<MetaInfo>
-				<PostTagBox tags={data.tags} />
+				<ReviewTagList tags={data.tags} />
 				<Span
 					variant="article-meta-lg"
 					$lineHeight={1.8}
@@ -68,9 +68,9 @@ function BookReviewPost(): JSX.Element {
 			<Content variant="article-body-lg" $lineHeight={1.8} $textAlign="justify">
 				{data.content}
 			</Content>
-			<EditDeleteButtonBox variantType="article" variantSize="lg" />
+			<ReviewControlButtons variantType="article" variantSize="lg" />
 		</Container>
 	);
 }
 
-export default BookReviewPost;
+export default ReviewPostContent;

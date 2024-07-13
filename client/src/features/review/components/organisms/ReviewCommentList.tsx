@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import { Paragraph } from '@typographies/TextElements';
-import PostCommentItem from '../molecules/PostCommentItem';
+import ReviewCommentItem from '../molecules/ReviewCommentItem';
 
 const Container = styled.div`
 	width: 100%;
@@ -15,7 +15,7 @@ const Container = styled.div`
 	border-radius: 7px;
 `;
 
-const EmptyComment = styled(Paragraph)`
+const EmptyAlert = styled(Paragraph)`
 	padding: 10px;
 `;
 
@@ -36,12 +36,12 @@ const comments: IComment[] = [
 	},
 ];
 
-function PostCommentList(): JSX.Element {
+function ReviewCommentList(): JSX.Element {
 	return (
 		<Container>
 			{comments.length > 0 ? (
 				comments.map(item => (
-					<PostCommentItem
+					<ReviewCommentItem
 						key={item.id}
 						nickname={item.nickname}
 						date={item.date}
@@ -49,12 +49,12 @@ function PostCommentList(): JSX.Element {
 					/>
 				))
 			) : (
-				<EmptyComment variant="card-body-lg" $color="#666">
+				<EmptyAlert variant="card-body-lg" $color="#666">
 					아직 댓글이 없습니다. 리뷰에 대한 의견을 공유해주세요!
-				</EmptyComment>
+				</EmptyAlert>
 			)}
 		</Container>
 	);
 }
 
-export default PostCommentList;
+export default ReviewCommentList;

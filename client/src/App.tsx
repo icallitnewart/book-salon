@@ -14,8 +14,8 @@ import LoginPage from '@pages/LoginPage';
 import MyProfilePage from '@pages/MyProfilePage';
 import ProfileEditPage from '@pages/ProfileEditPage';
 import BookDetailPage from '@pages/BookDetailPage';
-import BookReviewDetailPage from '@pages/BookReviewDetailPage';
-import BookReviewAddPage from '@pages/BookReviewAddPage';
+import ReviewDetailPage from '@pages/ReviewDetailPage';
+import ReviewAddPage from '@pages/ReviewAddPage';
 
 function App(): JSX.Element {
 	return (
@@ -76,7 +76,7 @@ function App(): JSX.Element {
 							path={ROUTES.BOOK.REVIEW.DETAIL}
 							element={
 								<AuthChecker type={AUTH_TYPES.PUBLIC}>
-									<BookReviewDetailPage />
+									<ReviewDetailPage />
 								</AuthChecker>
 							}
 						/>
@@ -85,7 +85,7 @@ function App(): JSX.Element {
 							element={
 								// TODO: type 변경 필요
 								<AuthChecker type={AUTH_TYPES.PUBLIC}>
-									<BookReviewAddPage />
+									<ReviewAddPage />
 								</AuthChecker>
 							}
 						/>

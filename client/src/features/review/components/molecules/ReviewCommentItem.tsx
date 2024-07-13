@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import { Paragraph, Span } from '@typographies/TextElements';
-import EditDeleteButtonBox from './EditDeleteButtonBox';
+import ReviewControlButtons from './ReviewControlButtons';
 
 const Container = styled.div`
 	padding: 10px;
@@ -31,7 +31,7 @@ interface IComment {
 	comment: string;
 }
 
-function PostCommentItem({ nickname, date, comment }: IComment): JSX.Element {
+function ReviewCommentItem({ nickname, date, comment }: IComment): JSX.Element {
 	return (
 		<Container>
 			<MetaInfo>
@@ -48,9 +48,9 @@ function PostCommentItem({ nickname, date, comment }: IComment): JSX.Element {
 			>
 				{comment}
 			</Comment>
-			<EditDeleteButtonBox variantType="card" variantSize="md" />
+			<ReviewControlButtons variantType="card" variantSize="md" />
 		</Container>
 	);
 }
 
-export default PostCommentItem;
+export default ReviewCommentItem;

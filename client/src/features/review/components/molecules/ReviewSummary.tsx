@@ -32,19 +32,19 @@ const MetaInfo = styled.div`
 	margin-bottom: 10px;
 `;
 
-interface IBookReviewSummaryProps {
+interface IReviewSummaryProps {
 	title: string;
 	content: string;
 	nickname: string;
 	link: string;
 }
 
-function BookReviewSummary({
+function ReviewSummary({
 	title,
 	content,
 	nickname,
 	link,
-}: IBookReviewSummaryProps): JSX.Element {
+}: IReviewSummaryProps): JSX.Element {
 	return (
 		<Container>
 			<Link to={link || ''}>
@@ -77,4 +77,4 @@ function BookReviewSummary({
 	);
 }
 
-export default BookReviewSummary;
+export default ReviewSummary;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import BookReviewSection from '@features/review/components/organisms/BookReviewSection';
+import ReviewListSection from '@features/review/components/organisms/ReviewListSection';
 import BookInfoSection from '../organisms/BookInfoSection';
 
 const Container = styled.div`
@@ -28,7 +28,7 @@ function BookDetailTemplate(): JSX.Element {
 			</Wrapper>
 			<Background>
 				<Wrapper>
-					<BookReviewSection />
+					<ReviewListSection />
 				</Wrapper>
 			</Background>
 		</Container>

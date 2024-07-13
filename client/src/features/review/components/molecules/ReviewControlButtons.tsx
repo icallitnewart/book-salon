@@ -23,15 +23,15 @@ const ButtonText = styled(Span).attrs({
 	$hoverColor: 'var(--sub-color-darkgreen)',
 })``;
 
-interface IEditDeleteButtonBoxProps {
+interface IReviewControlButtonsProps {
 	variantType: 'article' | 'card';
 	variantSize: 'sm' | 'md' | 'lg';
 }
 
-function EditDeleteButtonBox({
+function ReviewControlButtons({
 	variantType,
 	variantSize,
-}: IEditDeleteButtonBoxProps): JSX.Element {
+}: IReviewControlButtonsProps): JSX.Element {
 	return (
 		<Container>
 			<Button>
@@ -51,4 +51,4 @@ function EditDeleteButtonBox({
 	);
 }
 
-export default EditDeleteButtonBox;
+export default ReviewControlButtons;

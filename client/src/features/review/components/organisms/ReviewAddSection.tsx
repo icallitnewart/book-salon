@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Heading3 as Title } from '@typographies/TextElements';
-import BookReviewAddForm from './BookReviewAddForm';
+import ReviewAddForm from './ReviewAddForm';
 
 const Container = styled.div`
 	flex: 1;
 	padding: 50px 0px 50px 20px;
 `;
 
-function BookReviewAddSection(): JSX.Element {
+function ReviewAddSection(): JSX.Element {
 	return (
 		<Container>
 			<Title
@@ -21,9 +21,9 @@ function BookReviewAddSection(): JSX.Element {
 			>
 				Add Review
 			</Title>
-			<BookReviewAddForm />
+			<ReviewAddForm />
 		</Container>
 	);
 }
 
-export default BookReviewAddSection;
+export default ReviewAddSection;

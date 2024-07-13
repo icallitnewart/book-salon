@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Paragraph } from '@typographies/TextElements';
-import PostCommentTextAreaBox from '../molecules/PostCommentTextAreaBox';
-import PostCommentList from './PostCommentList';
+import ReviewCommentTextAreaWithButton from '../molecules/ReviewCommentTextAreaWithButton';
+import ReviewCommentList from './ReviewCommentList';
 
 const Container = styled.div`
 	display: flex;
@@ -11,16 +11,16 @@ const Container = styled.div`
 	margin-bottom: 20px;
 `;
 
-function PostCommentBox(): JSX.Element {
+function ReviewCommentBox(): JSX.Element {
 	return (
 		<Container>
 			<Paragraph variant="article-title-sm" $lineHeight={1.8} $margin="6px 8px">
 				댓글 0
 			</Paragraph>
-			<PostCommentList />
-			<PostCommentTextAreaBox />
+			<ReviewCommentList />
+			<ReviewCommentTextAreaWithButton />
 		</Container>
 	);
 }
 
-export default PostCommentBox;
+export default ReviewCommentBox;
