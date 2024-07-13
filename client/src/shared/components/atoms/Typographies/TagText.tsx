@@ -19,10 +19,11 @@ const Text = styled(Span).attrs({
 
 interface ITagTextProps {
 	children: string;
+	variantSize?: 'sm' | 'md' | 'lg';
 }
 
-function TagText({ children }: ITagTextProps): JSX.Element {
-	return <Text variant="article-meta-md">{children}</Text>;
+function TagText({ children, variantSize = 'md' }: ITagTextProps): JSX.Element {
+	return <Text variant={`article-meta-${variantSize}`}>{children}</Text>;
 }
 
 export default TagText;

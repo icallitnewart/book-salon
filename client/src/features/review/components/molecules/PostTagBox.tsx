@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import TagText from '@typographies/TagText';
+import ReviewTagItem from '../atoms/ReviewTagItem';
 
 const Container = styled.div`
 	display: inline-flex;
@@ -21,7 +21,7 @@ function PostTagBox({ tags }: IPostTagBoxProps): JSX.Element {
 	return (
 		<Container>
 			{tags.map(tag => (
-				<TagText key={tag.id}>{tag.text}</TagText>
+				<ReviewTagItem key={tag.id}>{tag.text}</ReviewTagItem>
 			))}
 		</Container>
 	);
