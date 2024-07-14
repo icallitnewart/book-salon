@@ -6,13 +6,14 @@
       "@assets/*": ["assets/*"],
       "@features/*": ["features/*"],
       "@pages/*": ["pages/*"],
+      "@buttons/*": ["shared/components/atoms/Buttons/*"],
+      "@typographies/*": ["shared/components/atoms/Typographies/*"],
+      "@inputs/*": ["shared/components/atoms/Inputs/*"],
       "@components/*": ["shared/components/*"],
       "@constants/*": ["shared/constants/*"],
       "@/types/*": ["shared/types/*"],
       "@hooks/*": ["shared/hooks/*"],
       "@utils/*": ["shared/utils/*"],
-      "@buttons/*": ["shared/components/atoms/Buttons/*"],
-      "@typographies/*": ["shared/components/atoms/Typographies/*"]
     },
 	}
 }
