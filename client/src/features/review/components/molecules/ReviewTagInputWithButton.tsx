@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
 import { DarkGreenTextButton } from '@buttons/TextButtons/ColoredTextButtons';
-import ReviewInput from '../atoms/ReviewInput';
+import { DefaultInput as ReviewTagInput } from '@inputs/InputElements';
 import ReviewTagListWithButton from './ReviewTagListWithButton';
 
 const Container = styled.div`
@@ -33,13 +33,21 @@ const tags: IReviewTag[] = [
 	},
 ];
 
+const TAG_MAX_LEN = 5;
+const TAG_LETTER_MAX_LEN = 8;
+
 function ReviewTagInputWithButton(): JSX.Element {
-	const TAG_MAX_LEN = 5;
-	const TAG_LETTER_MAX_LEN = 8;
+	// TODO: 커스텀훅으로 변경
+	const [value, setValue] = useState('');
 
 	return (
 		<Container>
-			<ReviewInput
+			<ReviewTagInput
+				type="text"
+				id="tag"
+				name="tag"
+				value={value}
+				onChange={e => setValue(e.target.value)}
 				placeholder={`태그를 입력해주세요. (${TAG_LETTER_MAX_LEN}자 이하, 최대 ${TAG_MAX_LEN}개)`}
 				aria-label={`태그 입력 (${TAG_LETTER_MAX_LEN}자 이하, 최대 ${TAG_MAX_LEN}개)`}
 				maxLength={TAG_LETTER_MAX_LEN}
