@@ -1,11 +1,11 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { IUserFormFieldProps } from '../../types/userProps';
-
+import { DefaultInput as UserInput } from '@inputs/InputElements';
 import UserInputLabel from '../atoms/UserInputLabel';
-import UserInput from '../atoms/UserInput';
 import UserErrorMessage from '../atoms/UserErrorMessage';
+
+import { IUserFormFieldProps } from '../../types/userProps';
 
 const Container = styled.div`
 	width: 100%;
