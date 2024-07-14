@@ -14,17 +14,19 @@ const Container = styled.div`
 
 interface IUserLabelledTextProps {
 	label: string;
+	id: string;
 	text?: string;
 }
 
 function UserLabelledText({
 	label,
+	id,
 	text,
 }: IUserLabelledTextProps): JSX.Element {
 	return (
-		<Container>
-			<UserTextLabel label={label} />
-			<UserInfoText text={text} />
+		<Container role="group" aria-labelledby={id}>
+			<UserTextLabel label={label} id={id} />
+			<UserInfoText id={id} text={text} />
 		</Container>
 	);
 }

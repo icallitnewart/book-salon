@@ -54,8 +54,12 @@ function UserMyProfileContent(): JSX.Element {
 	return (
 		<Container>
 			<InfoContainer>
-				<UserLabelledText label="이메일" text={user?.email} />
-				<UserLabelledText label="닉네임" text={user?.nickname} />
+				<UserLabelledText label="이메일" id="email-label" text={user?.email} />
+				<UserLabelledText
+					label="닉네임"
+					id="nickname-label"
+					text={user?.nickname}
+				/>
 			</InfoContainer>
 			<ButtonContainer>
 				<UserButton

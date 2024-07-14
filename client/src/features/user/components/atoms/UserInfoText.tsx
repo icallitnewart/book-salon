@@ -15,10 +15,11 @@ const InfoText = styled.div`
 
 interface IUserInfoTextProps {
 	text?: string;
+	id: string;
 }
 
-function UserInfoText({ text = '' }: IUserInfoTextProps): JSX.Element {
-	return <InfoText>{text}</InfoText>;
+function UserInfoText({ text = '', id }: IUserInfoTextProps): JSX.Element {
+	return <InfoText aria-labelledby={id}>{text}</InfoText>;
 }
 
 export default UserInfoText;

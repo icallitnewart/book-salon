@@ -17,10 +17,11 @@ const Label = styled.div`
 
 interface IUserTextLabelProps {
 	label: string;
+	id: string;
 }
 
-function UserTextLabel({ label }: IUserTextLabelProps): JSX.Element {
-	return <Label>{label}</Label>;
+function UserTextLabel({ label, id }: IUserTextLabelProps): JSX.Element {
+	return <Label id={id}>{label}</Label>;
 }
 
 export default UserTextLabel;
