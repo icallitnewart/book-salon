@@ -15,7 +15,7 @@ import {
 
 import UserButton from '../atoms/UserButton';
 import UserErrorMessage from '../atoms/UserErrorMessage';
-import InputField from '../molecules/UserInputField';
+import UserFormField from '../molecules/UserFormField';
 
 const Form = styled.form`
 	width: 100%;
@@ -31,7 +31,7 @@ const ButtonContainer = styled.div`
 	gap: 5px 0px;
 `;
 
-function LoginForm(): JSX.Element {
+function UserLoginForm(): JSX.Element {
 	const dispatch = useAppDispatch();
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -87,7 +87,7 @@ function LoginForm(): JSX.Element {
 	return (
 		<Form onSubmit={handleSubmit}>
 			<InputContainer>
-				<InputField
+				<UserFormField
 					label="이메일"
 					type="text"
 					id="email"
@@ -96,7 +96,7 @@ function LoginForm(): JSX.Element {
 					onChange={email.handleChange}
 					error={email.error}
 				/>
-				<InputField
+				<UserFormField
 					label="비밀번호"
 					type="password"
 					id="password"
@@ -114,4 +114,4 @@ function LoginForm(): JSX.Element {
 	);
 }
 
-export default LoginForm;
+export default UserLoginForm;

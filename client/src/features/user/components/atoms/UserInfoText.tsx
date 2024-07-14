@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-const InfoValue = styled.div`
+const InfoText = styled.div`
 	display: flex;
 	align-items: center;
 	flex: 2.5;
@@ -13,12 +13,12 @@ const InfoValue = styled.div`
 	letter-spacing: -0.5px;
 `;
 
-interface IUserInfoValueProps {
-	value?: string;
+interface IUserInfoTextProps {
+	text?: string;
 }
 
-function UserInfoValue({ value = '' }: IUserInfoValueProps): JSX.Element {
-	return <InfoValue>{value}</InfoValue>;
+function UserInfoText({ text = '' }: IUserInfoTextProps): JSX.Element {
+	return <InfoText>{text}</InfoText>;
 }
 
-export default UserInfoValue;
+export default UserInfoText;

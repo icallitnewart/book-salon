@@ -16,12 +16,15 @@ const Content = styled.div`
 	width: 350px;
 `;
 
-interface IUserTemplateProps {
+interface IUserLayoutTemplateProps {
 	children: React.ReactElement;
 	title: string;
 }
 
-function UserTemplate({ children, title }: IUserTemplateProps): JSX.Element {
+function UserLayoutTemplate({
+	children,
+	title,
+}: IUserLayoutTemplateProps): JSX.Element {
 	return (
 		<Container>
 			<UserTitle title={title} />
@@ -30,4 +33,4 @@ function UserTemplate({ children, title }: IUserTemplateProps): JSX.Element {
 	);
 }
 
-export default UserTemplate;
+export default UserLayoutTemplate;

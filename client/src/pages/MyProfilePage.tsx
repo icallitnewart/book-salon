@@ -1,12 +1,12 @@
 import React from 'react';
 
 import PageTemplate from '@components/templates/PageTemplate';
-import MyProfileTemplate from '@features/user/components/templates/MyProfileTemplate';
+import UserMyProfileTemplate from '@features/user/components/templates/UserMyProfileTemplate';
 
 function MyProfilePage(): JSX.Element {
 	return (
 		<PageTemplate>
-			<MyProfileTemplate />
+			<UserMyProfileTemplate />
 		</PageTemplate>
 	);
 }

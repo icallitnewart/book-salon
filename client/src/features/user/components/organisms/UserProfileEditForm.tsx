@@ -1,22 +1,23 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '@redux/store';
+import { useAppDispatch, useAppSelector } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
-import { clearRegisterStatus } from '../../userSlice';
-import { registerUser } from '../../apis/userApi';
 import useUserInput from '../../hooks/useUserInput';
+import { updateUser } from '../../apis/userApi';
+import { clearUpdateStatus } from '../../userSlice';
 import {
 	validateEmail,
 	validateNickname,
 	validatePassword,
 	validatePasswordConfirm,
+	validateVerifyPassword,
 } from '../../utils/userValidator';
 
 import UserButton from '../atoms/UserButton';
-import InputField from '../molecules/UserInputField';
+import UserFormField from '../molecules/UserFormField';
 
 const Form = styled.form`
 	width: 100%;
@@ -29,28 +30,40 @@ const InputContainer = styled.div`
 const ButtonContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 5px 0px;
+	gap: 15px;
 `;
 
-function RegisterForm(): JSX.Element {
+interface IUserProfileEditFormProps {
+	openUserDeleteAccountForm: () => void;
+}
+
+function UserProfileEditForm({
+	openUserDeleteAccountForm,
+}: IUserProfileEditFormProps): JSX.Element {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const email = useUserInput('', validateEmail);
-	const nickname = useUserInput('', validateNickname);
-	const password = useUserInput('', validatePassword);
+	const user = useAppSelector(state => state.user.userInfo);
+	const email = useUserInput(user?.email, validateEmail);
+	const nickname = useUserInput(user?.nickname, validateNickname);
+	const currentPassword = useUserInput('', validateVerifyPassword);
+	const password = useUserInput('', value =>
+		validatePassword(value, value !== ''),
+	);
 	const passwordConfirm = useUserInput('', value =>
-		validatePasswordConfirm(value, password.value),
+		validatePasswordConfirm(value, password.value, password.value !== ''),
 	);
 
 	const checkValidation = (): boolean => {
 		email.validateInput();
 		nickname.validateInput();
+		currentPassword.validateInput();
 		password.validateInput();
 		passwordConfirm.validateInput();
 
 		return (
 			email.isValidRef.current &&
 			nickname.isValidRef.current &&
+			currentPassword.isValidRef.current &&
 			password.isValidRef.current &&
 			passwordConfirm.isValidRef.current
 		);
@@ -58,30 +71,35 @@ function RegisterForm(): JSX.Element {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
 		const isSubmit = checkValidation();
 		if (!isSubmit) return;
 
 		const response = await dispatch(
-			registerUser({
+			updateUser({
 				email: email.value,
 				nickname: nickname.value,
+				currentPassword: currentPassword.value,
 				password: password.value,
 				passwordConfirm: passwordConfirm.value,
 			}),
 		);
 
-		if (registerUser.fulfilled.match(response)) {
-			alert('회원가입이 완료되었습니다!👏 로그인 해주세요.');
-			navigate(ROUTES.USER.LOGIN);
-		} else if (registerUser.rejected.match(response)) {
+		if (updateUser.fulfilled.match(response)) {
+			alert('성공적으로 회원정보가 수정되었습니다.');
+			navigate(ROUTES.USER.MY_PROFILE);
+		} else if (updateUser.rejected.match(response)) {
 			const result = response.payload;
 
 			if (result) {
-				if (result.status === 409) {
+				if (result.status === 409 && result.field === 'email') {
 					email.setError(result.message);
+				} else if (
+					result.status === 401 &&
+					result.field === 'currentPassword'
+				) {
+					currentPassword.setError(result.message);
 				} else {
-					alert('회원가입에 실패하였습니다. 다시 시도해주세요.');
+					alert('회원정보 수정에 실패하였습니다. 다시 시도해주세요.');
 				}
 			}
 		}
@@ -89,23 +107,23 @@ function RegisterForm(): JSX.Element {
 
 	useEffect(() => {
 		return () => {
-			dispatch(clearRegisterStatus());
+			dispatch(clearUpdateStatus());
 		};
 	}, [dispatch]);
 
 	return (
 		<Form onSubmit={handleSubmit}>
 			<InputContainer>
-				<InputField
+				<UserFormField
 					label="이메일"
-					type="text"
+					type="email"
 					id="email"
 					name="email"
 					value={email.value}
 					onChange={email.handleChange}
 					error={email.error}
 				/>
-				<InputField
+				<UserFormField
 					label="닉네임"
 					type="text"
 					id="nickname"
@@ -115,8 +133,17 @@ function RegisterForm(): JSX.Element {
 					onChange={nickname.handleChange}
 					error={nickname.error}
 				/>
-				<InputField
-					label="비밀번호"
+				<UserFormField
+					label="현재 비밀번호"
+					type="password"
+					id="currentPassword"
+					name="currentPassword"
+					value={currentPassword.value}
+					onChange={currentPassword.handleChange}
+					error={currentPassword.error}
+				/>
+				<UserFormField
+					label="새 비밀번호"
 					type="password"
 					id="password"
 					name="password"
@@ -125,7 +152,7 @@ function RegisterForm(): JSX.Element {
 					onChange={password.handleChange}
 					error={password.error}
 				/>
-				<InputField
+				<UserFormField
 					label="비밀번호 확인"
 					type="password"
 					id="passwordConfirm"
@@ -136,10 +163,18 @@ function RegisterForm(): JSX.Element {
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<UserButton type="submit" text="가입하기" />
+				<UserButton type="submit" text="수정하기" />
+				<UserButton
+					type="button"
+					text="탈퇴하기"
+					bgColor="#aaa"
+					hoverBgColor="crimson"
+					hoverTextColor="#fff"
+					handleClick={openUserDeleteAccountForm}
+				/>
 			</ButtonContainer>
 		</Form>
 	);
 }
 
-export default RegisterForm;
+export default UserProfileEditForm;

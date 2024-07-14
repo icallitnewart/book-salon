@@ -9,7 +9,7 @@ import { clearLogoutStatus } from '../../userSlice';
 import { logoutUser } from '../../apis/userApi';
 
 import UserButton from '../atoms/UserButton';
-import UserInfoField from '../molecules/UserInfoField';
+import UserLabelledText from '../molecules/UserLabelledText';
 
 const Container = styled.form`
 	width: 100%;
@@ -26,7 +26,7 @@ const ButtonContainer = styled.div`
 	gap: 15px;
 `;
 
-function MyProfile(): JSX.Element {
+function UserMyProfileContent(): JSX.Element {
 	const dispatch = useAppDispatch();
 	const user = useAppSelector(state => state.user.userInfo);
 	const navigate = useNavigate();
@@ -54,8 +54,8 @@ function MyProfile(): JSX.Element {
 	return (
 		<Container>
 			<InfoContainer>
-				<UserInfoField label="이메일" value={user?.email} />
-				<UserInfoField label="닉네임" value={user?.nickname} />
+				<UserLabelledText label="이메일" text={user?.email} />
+				<UserLabelledText label="닉네임" text={user?.nickname} />
 			</InfoContainer>
 			<ButtonContainer>
 				<UserButton
@@ -76,4 +76,4 @@ function MyProfile(): JSX.Element {
 	);
 }
 
-export default MyProfile;
+export default UserMyProfileContent;

@@ -13,13 +13,16 @@ const Label = styled.label`
 	letter-spacing: -0.5px;
 `;
 
-interface IUserLabelProps {
+interface IUserInputLabelProps {
 	htmlFor: string;
 	children: string;
 }
 
-function UserLabel({ htmlFor, children }: IUserLabelProps): JSX.Element {
+function UserInputLabel({
+	htmlFor,
+	children,
+}: IUserInputLabelProps): JSX.Element {
 	return <Label htmlFor={htmlFor}>{children}</Label>;
 }
 
-export default UserLabel;
+export default UserInputLabel;

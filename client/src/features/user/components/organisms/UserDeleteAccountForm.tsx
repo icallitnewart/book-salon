@@ -11,7 +11,7 @@ import { clearDeleteStatus } from '../../userSlice';
 import { validateVerifyPassword } from '../../utils/userValidator';
 
 import UserButton from '../atoms/UserButton';
-import UserInputField from '../molecules/UserInputField';
+import UserFormField from '../molecules/UserFormField';
 
 const Form = styled.form`
 	width: 100%;
@@ -27,13 +27,13 @@ const ButtonContainer = styled.div`
 	gap: 15px;
 `;
 
-interface IDeleteAccountFormProps {
-	closeDeleteAccountForm: () => void;
+interface IUserDeleteAccountFormProps {
+	closeUserDeleteAccountForm: () => void;
 }
 
-function DeleteAccountForm({
-	closeDeleteAccountForm,
-}: IDeleteAccountFormProps): JSX.Element {
+function UserDeleteAccountForm({
+	closeUserDeleteAccountForm,
+}: IUserDeleteAccountFormProps): JSX.Element {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const password = useUserInput('', validateVerifyPassword);
@@ -79,7 +79,7 @@ function DeleteAccountForm({
 	return (
 		<Form onSubmit={handleSubmit}>
 			<InputContainer>
-				<UserInputField
+				<UserFormField
 					label="비밀번호"
 					type="password"
 					id="password"
@@ -103,11 +103,11 @@ function DeleteAccountForm({
 					bgColor="#aaa"
 					hoverBgColor="var(--sub-color-darkgreen)"
 					hoverTextColor="#fff"
-					handleClick={closeDeleteAccountForm}
+					handleClick={closeUserDeleteAccountForm}
 				/>
 			</ButtonContainer>
 		</Form>
 	);
 }
 
-export default DeleteAccountForm;
+export default UserDeleteAccountForm;

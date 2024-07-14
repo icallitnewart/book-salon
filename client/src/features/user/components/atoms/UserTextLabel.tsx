@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const InfoLabel = styled.div`
+const Label = styled.div`
 	display: flex;
 	align-items: center;
 	flex: 1;
@@ -15,12 +15,12 @@ const InfoLabel = styled.div`
 	letter-spacing: -0.5px;
 `;
 
-interface IUserInfoLabelProps {
+interface IUserTextLabelProps {
 	label: string;
 }
 
-function UserInfoLabel({ label }: IUserInfoLabelProps): JSX.Element {
-	return <InfoLabel>{label}</InfoLabel>;
+function UserTextLabel({ label }: IUserTextLabelProps): JSX.Element {
+	return <Label>{label}</Label>;
 }
 
-export default UserInfoLabel;
+export default UserTextLabel;

@@ -7,7 +7,7 @@ export interface IUserInputProps {
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export interface IUserInputFieldProps extends IUserInputProps {
+export interface IUserFormFieldProps extends IUserInputProps {
 	label: string;
 	error: string;
 }

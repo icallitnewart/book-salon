@@ -1,9 +1,9 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { IUserInputFieldProps } from '../../types/userProps';
+import { IUserFormFieldProps } from '../../types/userProps';
 
-import UserLabel from '../atoms/UserLabel';
+import UserInputLabel from '../atoms/UserInputLabel';
 import UserInput from '../atoms/UserInput';
 import UserErrorMessage from '../atoms/UserErrorMessage';
 
@@ -12,7 +12,7 @@ const Container = styled.div`
 	margin-bottom: 10px;
 `;
 
-function UserInputField({
+function UserFormField({
 	label,
 	type,
 	id,
@@ -21,10 +21,10 @@ function UserInputField({
 	placeholder,
 	onChange,
 	error,
-}: IUserInputFieldProps): JSX.Element {
+}: IUserFormFieldProps): JSX.Element {
 	return (
 		<Container>
-			<UserLabel htmlFor={id}>{label}</UserLabel>
+			<UserInputLabel htmlFor={id}>{label}</UserInputLabel>
 			<UserInput
 				type={type}
 				id={id}
@@ -38,4 +38,4 @@ function UserInputField({
 	);
 }
 
-export default UserInputField;
+export default UserFormField;
