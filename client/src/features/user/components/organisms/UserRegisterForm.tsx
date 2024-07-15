@@ -5,6 +5,9 @@ import { useAppDispatch } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
+import TextButton from '@buttons/TextButton';
+import UserFormField from '../molecules/UserFormField';
+
 import { clearRegisterStatus } from '../../userSlice';
 import { registerUser } from '../../apis/userApi';
 import useUserInput from '../../hooks/useUserInput';
@@ -14,9 +17,6 @@ import {
 	validatePassword,
 	validatePasswordConfirm,
 } from '../../utils/userValidator';
-
-import UserButton from '../atoms/UserButton';
-import UserFormField from '../molecules/UserFormField';
 
 const Form = styled.form`
 	width: 100%;
@@ -136,7 +136,9 @@ function UserRegisterForm(): JSX.Element {
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<UserButton type="submit" text="가입하기" />
+				<TextButton type="submit" variant="black">
+					가입하기
+				</TextButton>
 			</ButtonContainer>
 		</Form>
 	);

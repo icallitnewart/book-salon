@@ -66,6 +66,8 @@ export const textButtonStyles = css<ITextButtonStylesProps>`
 
 	${({ $color }) => $color && `color: ${$color};`}
 	${({ $bgColor }) => $bgColor && `background-color: ${$bgColor};`}
+	${({ $color }) => $color && `color: ${$color};`}
+	${({ $bgColor }) => $bgColor && `background-color: ${$bgColor};`}
 
 	font-size: ${({ $fontSize }) => $fontSize || 1.5}rem;
 	font-weight: ${({ $fontWeight }) => $fontWeight || '600'};

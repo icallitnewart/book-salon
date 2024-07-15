@@ -5,13 +5,13 @@ import { useAppDispatch } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
+import TextButton from '@buttons/TextButton';
+import UserFormField from '../molecules/UserFormField';
+
 import useUserInput from '../../hooks/useUserInput';
 import { deleteUser } from '../../apis/userApi';
 import { clearDeleteStatus } from '../../userSlice';
 import { validateVerifyPassword } from '../../utils/userValidator';
-
-import UserButton from '../atoms/UserButton';
-import UserFormField from '../molecules/UserFormField';
 
 const Form = styled.form`
 	width: 100%;
@@ -91,20 +91,16 @@ function UserDeleteAccountForm({
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<UserButton
-					type="submit"
-					text="확인"
-					hoverBgColor="crimson"
-					hoverTextColor="#fff"
-				/>
-				<UserButton
+				<TextButton type="submit" variant="grey" $hoverBgColor="crimson">
+					확인
+				</TextButton>
+				<TextButton
 					type="button"
-					text="취소"
-					bgColor="#aaa"
-					hoverBgColor="var(--sub-color-darkgreen)"
-					hoverTextColor="#fff"
-					handleClick={closeUserDeleteAccountForm}
-				/>
+					variant="black"
+					onClick={closeUserDeleteAccountForm}
+				>
+					취소
+				</TextButton>
 			</ButtonContainer>
 		</Form>
 	);

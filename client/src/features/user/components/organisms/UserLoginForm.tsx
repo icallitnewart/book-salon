@@ -5,6 +5,10 @@ import { useAppDispatch, useAppSelector } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
+import TextButton from '@buttons/TextButton';
+import UserErrorMessage from '../atoms/UserErrorMessage';
+import UserFormField from '../molecules/UserFormField';
+
 import useUserInput from '../../hooks/useUserInput';
 import { loginUser } from '../../apis/userApi';
 import { clearLoginStatus } from '../../userSlice';
@@ -12,10 +16,6 @@ import {
 	validateEmail,
 	validateLoginPassword,
 } from '../../utils/userValidator';
-
-import UserButton from '../atoms/UserButton';
-import UserErrorMessage from '../atoms/UserErrorMessage';
-import UserFormField from '../molecules/UserFormField';
 
 const Form = styled.form`
 	width: 100%;
@@ -107,7 +107,9 @@ function UserLoginForm(): JSX.Element {
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<UserButton type="submit" text="로그인" />
+				<TextButton type="submit" variant="green">
+					로그인
+				</TextButton>
 				{error && <UserErrorMessage error={error} />}
 			</ButtonContainer>
 		</Form>

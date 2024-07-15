@@ -5,6 +5,9 @@ import { useAppDispatch, useAppSelector } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
+import TextButton from '@buttons/TextButton';
+import UserFormField from '../molecules/UserFormField';
+
 import useUserInput from '../../hooks/useUserInput';
 import { updateUser } from '../../apis/userApi';
 import { clearUpdateStatus } from '../../userSlice';
@@ -15,9 +18,6 @@ import {
 	validatePasswordConfirm,
 	validateVerifyPassword,
 } from '../../utils/userValidator';
-
-import UserButton from '../atoms/UserButton';
-import UserFormField from '../molecules/UserFormField';
 
 const Form = styled.form`
 	width: 100%;
@@ -163,15 +163,17 @@ function UserProfileEditForm({
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<UserButton type="submit" text="수정하기" />
-				<UserButton
+				<TextButton type="submit" variant="black">
+					수정하기
+				</TextButton>
+				<TextButton
 					type="button"
-					text="탈퇴하기"
-					bgColor="#aaa"
-					hoverBgColor="crimson"
-					hoverTextColor="#fff"
-					handleClick={openUserDeleteAccountForm}
-				/>
+					variant="grey"
+					$hoverBgColor="crimson"
+					onClick={openUserDeleteAccountForm}
+				>
+					탈퇴하기
+				</TextButton>
 			</ButtonContainer>
 		</Form>
 	);

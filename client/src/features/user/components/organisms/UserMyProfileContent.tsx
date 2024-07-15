@@ -5,11 +5,11 @@ import { useAppDispatch, useAppSelector } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
+import TextButton from '@buttons/TextButton';
+import UserLabelledText from '../molecules/UserLabelledText';
+
 import { clearLogoutStatus } from '../../userSlice';
 import { logoutUser } from '../../apis/userApi';
-
-import UserButton from '../atoms/UserButton';
-import UserLabelledText from '../molecules/UserLabelledText';
 
 const Container = styled.form`
 	width: 100%;
@@ -62,19 +62,12 @@ function UserMyProfileContent(): JSX.Element {
 				/>
 			</InfoContainer>
 			<ButtonContainer>
-				<UserButton
-					type="button"
-					text="회원 정보 수정"
-					handleClick={moveToProfileEdit}
-				/>
-				<UserButton
-					type="button"
-					text="로그아웃"
-					bgColor="#aaa"
-					hoverBgColor="var(--sub-color-darkgreen)"
-					hoverTextColor="#fff"
-					handleClick={handleLogout}
-				/>
+				<TextButton type="button" variant="black" onClick={moveToProfileEdit}>
+					회원 정보 수정
+				</TextButton>
+				<TextButton type="button" variant="grey" onClick={handleLogout}>
+					로그아웃
+				</TextButton>
 			</ButtonContainer>
 		</Container>
 	);
