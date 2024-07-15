@@ -1,25 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ITextButtonStylesProps, textButtonStyles } from './TextButtonStyles';
+import {
+	ITextButtonStylesProps,
+	textButtonStyles,
+	textButtonVariantStyles,
+} from './styles/textButtonStyles';
 
-const StyledButton = styled.button<ITextButtonStylesProps>`
+export const StyledButton = styled.button<ITextButtonStylesProps>`
 	${textButtonStyles}
 `;
 
-interface IButtonProps extends ITextButtonStylesProps {
+export interface ITextButtonProps extends ITextButtonStylesProps {
 	as?: string;
-	children: string;
-	handleClick?: () => void;
+	className?: string;
+	children: React.ReactNode;
+	onClick?: () => void;
 	type?: 'button' | 'submit' | 'reset';
+	variant: keyof typeof textButtonVariantStyles;
 }
 
-function BaseTextButton({
+export default function TextButton({
 	as = 'button',
 	children,
+	className,
 	type = 'button',
-	variant = 'square',
-	handleClick = () => {},
+	variant,
+	onClick = () => {},
 	$bgColor,
 	$color,
 	$hoverBgColor,
@@ -35,13 +42,14 @@ function BaseTextButton({
 	$height,
 	$padding,
 	$margin,
-}: IButtonProps): JSX.Element {
+}: ITextButtonProps): JSX.Element {
 	return (
 		<StyledButton
 			as={as}
-			onClick={handleClick}
+			className={className}
+			onClick={onClick}
 			type={type}
-			variant={variant}
+			$variant={variant}
 			$bgColor={$bgColor}
 			$color={$color}
 			$hoverBgColor={$hoverBgColor}
@@ -63,4 +71,11 @@ function BaseTextButton({
 	);
 }
 
-export default BaseTextButton;
+const withTextButtonStyles = (
+	Component: React.ComponentType<ITextButtonProps>,
+) => styled(Component)`
+	${textButtonStyles}
+`;
+
+// expandable styled component
+export const TextButtonWithStyles = withTextButtonStyles(TextButton);

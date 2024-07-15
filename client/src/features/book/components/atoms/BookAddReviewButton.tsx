@@ -1,9 +1,13 @@
 import React from 'react';
 
-import { DarkGreenTextButton } from '@buttons/TextButtons/ColoredTextButtons';
+import TextButton from '@buttons/TextButton';
 
 function BookAddReviewButton(): JSX.Element {
-	return <DarkGreenTextButton $width="120px">리뷰 작성</DarkGreenTextButton>;
+	return (
+		<TextButton variant="green" $width="120px">
+			리뷰 작성
+		</TextButton>
+	);
 }
 
 export default BookAddReviewButton;

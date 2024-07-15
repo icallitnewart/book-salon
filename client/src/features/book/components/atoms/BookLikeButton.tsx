@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import { ReactComponent as HeartSvg } from '@assets/svg/heart.svg';
-import { BlackTextButton } from '@buttons/TextButtons/ColoredTextButtons';
+import { TextButtonWithStyles } from '@buttons/TextButton';
 
 const moveUpAndDown = keyframes`
 	0% {
@@ -16,9 +16,8 @@ const moveUpAndDown = keyframes`
 	}
 `;
 
-const Button = styled(BlackTextButton)`
+const StyledButton = styled(TextButtonWithStyles)`
 	gap: 4px;
-	padding-right: 5px;
 
 	&:hover svg {
 		animation: ${moveUpAndDown} 0.5s infinite;
@@ -34,10 +33,10 @@ const StyledHeartSvg = styled(HeartSvg)`
 
 function BookLikeButton(): JSX.Element {
 	return (
-		<Button $width="120px" $hoverTextColor="#fff">
+		<StyledButton variant="black" $width="120px" $hoverTextColor="#fff">
 			<StyledHeartSvg />
 			좋아요
-		</Button>
+		</StyledButton>
 	);
 }
 

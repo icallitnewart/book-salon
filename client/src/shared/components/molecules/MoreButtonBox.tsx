@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { DarkGreenTextButton } from '@buttons/TextButtons/ColoredTextButtons';
+import TextButton from '@buttons/TextButton';
 
 const Container = styled.div`
 	display: flex;
@@ -14,7 +14,9 @@ const Container = styled.div`
 function MoreButtonBox(): JSX.Element {
 	return (
 		<Container>
-			<DarkGreenTextButton $width="120px">더보기</DarkGreenTextButton>
+			<TextButton type="button" variant="green" $width="120px">
+				더보기
+			</TextButton>
 		</Container>
 	);
 }

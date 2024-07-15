@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
-import { DarkGreenTextButton } from '@buttons/TextButtons/ColoredTextButtons';
 import { DefaultInput as ReviewTitleInput } from '@inputs/InputElements';
+import TextButton from '@buttons/TextButton';
 import ReviewTagInputWithButton from '../molecules/ReviewTagInputWithButton';
 import ReviewTextEditor from '../atoms/ReviewTextEditor';
 
@@ -46,9 +46,9 @@ function ReviewAddForm(): JSX.Element {
 				<ReviewTagInputWithButton />
 				<ReviewTextEditor />
 				<ButtonBox>
-					<DarkGreenTextButton type="submit" $width="140px">
+					<TextButton type="submit" variant="green" $width="140px">
 						리뷰 등록
-					</DarkGreenTextButton>
+					</TextButton>
 				</ButtonBox>
 			</Form>
 		</Container>

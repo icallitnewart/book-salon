@@ -1,5 +1,31 @@
 import { css } from 'styled-components';
 
+// variants of text button styles (colors)
+export const textButtonVariantStyles = {
+	black: css<ITextButtonStylesProps>`
+		background-color: #000;
+		color: #fff;
+
+		&:hover {
+			color: ${({ $hoverTextColor }) =>
+				$hoverTextColor || 'var(--sub-color-green)'};
+		}
+	`,
+	green: css<ITextButtonStylesProps>`
+		background-color: var(--sub-color-darkgreen);
+		color: #fff;
+	`,
+	grey: css<ITextButtonStylesProps>`
+		background-color: #aaa;
+		color: #fff;
+
+		&:hover {
+			background-color: ${({ $hoverBgColor }) =>
+				$hoverBgColor || 'var(--sub-color-darkgreen)'};
+		}
+	`,
+};
+
 export interface ITextButtonStylesProps {
 	$transition?: string;
 	$color?: string;
@@ -18,7 +44,7 @@ export interface ITextButtonStylesProps {
 	$padding?: string;
 	$margin?: string;
 
-	variant?: keyof typeof textButtonVariantStyles;
+	$variant?: keyof typeof textButtonVariantStyles;
 }
 
 export const textButtonStyles = css<ITextButtonStylesProps>`
@@ -38,8 +64,8 @@ export const textButtonStyles = css<ITextButtonStylesProps>`
 	box-shadow: ${({ $boxShadow }) =>
 		$boxShadow || '2px 2px 4px rgba(0, 0, 0, 0.2)'};
 
-	color: ${({ $color }) => $color || '#fff'};
-	background-color: ${({ $bgColor }) => $bgColor || '#000'};
+	${({ $color }) => $color && `color: ${$color};`}
+	${({ $bgColor }) => $bgColor && `background-color: ${$bgColor};`}
 
 	font-size: ${({ $fontSize }) => $fontSize || 1.5}rem;
 	font-weight: ${({ $fontWeight }) => $fontWeight || '600'};
@@ -51,14 +77,6 @@ export const textButtonStyles = css<ITextButtonStylesProps>`
 			$hoverBgColor && `background-color: ${$hoverBgColor};`}
 		${({ $hoverTextColor }) => $hoverTextColor && `color: ${$hoverTextColor};`}
 	}
-`;
 
-// variants of text button styles (shape)
-export const textButtonVariantStyles = {
-	square: css<ITextButtonStylesProps>`
-		border-radius: 5px;
-	`,
-	rounded: css<ITextButtonStylesProps>`
-		border-radius: 50px;
-	`,
-};
+	${({ $variant }) => $variant && textButtonVariantStyles[$variant]}
+`;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { DarkGreenTextButton } from '@buttons/TextButtons/ColoredTextButtons';
 import ReviewTextArea from '@features/review/components/atoms/ReviewTextArea';
+import TextButton from '@buttons/TextButton';
 
 const Container = styled.div`
 	display: flex;
@@ -19,7 +19,9 @@ function ReviewCommentTextAreaWithButton(): JSX.Element {
 				placeholder="리뷰에 대한 댓글을 입력해주세요."
 				ariaLabel="리뷰에 대한 댓글 입력"
 			/>
-			<DarkGreenTextButton $width="100px">작성</DarkGreenTextButton>
+			<TextButton variant="green" $width="100px">
+				작성
+			</TextButton>
 		</Container>
 	);
 }
