@@ -11,7 +11,7 @@ const StyledInput = styled.input<IInputStylesProps>`
 	${inputStyles}
 `;
 
-interface IBaseInputProps extends IInputStylesProps {
+export interface IInputProps extends IInputStylesProps {
 	type: string;
 	id: string;
 	name: string;
@@ -20,10 +20,11 @@ interface IBaseInputProps extends IInputStylesProps {
 	placeholder?: string;
 	maxLength?: number;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	className?: string;
 	variant?: keyof typeof inputVariantStyles;
 }
 
-function BaseInput({
+export default function BaseInput({
 	variant,
 	type,
 	id,
@@ -33,6 +34,7 @@ function BaseInput({
 	ariaLabel,
 	maxLength,
 	onChange,
+	className,
 	$width,
 	$height,
 	$padding,
@@ -48,10 +50,9 @@ function BaseInput({
 	$bgColor,
 	$placeholderColor,
 	$focusBorderColor,
-}: IBaseInputProps): JSX.Element {
+}: IInputProps): JSX.Element {
 	return (
 		<StyledInput
-			variant={variant}
 			type={type}
 			id={id}
 			name={name}
@@ -60,6 +61,8 @@ function BaseInput({
 			aria-label={ariaLabel}
 			maxLength={maxLength}
 			onChange={onChange}
+			className={className}
+			$variant={variant}
 			$width={$width}
 			$height={$height}
 			$padding={$padding}
@@ -79,4 +82,10 @@ function BaseInput({
 	);
 }
 
-export default BaseInput;
+export const withInputStyles = (
+	Component: React.ComponentType<IInputProps>,
+) => styled(Component)`
+	${inputStyles}
+`;
+
+export const BaseInputWithStyles = withInputStyles(BaseInput);

@@ -1,5 +1,29 @@
 import { css } from 'styled-components';
 
+// variants of input styles (shape)
+export const inputVariantStyles = {
+	primary: css<IInputStylesProps>`
+		height: 50px;
+		line-height: 50px;
+		border-radius: 5px;
+		border: 1px solid #ddd;
+		box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+		color: #444;
+		outline: none;
+
+		&:focus {
+			border: 1px solid #bbb;
+		}
+	`,
+	search: css<IInputStylesProps>`
+		height: 40px;
+		line-height: 40px;
+		border-radius: 50px;
+		border: 1px solid var(--sub-color-green);
+		outline: none;
+	`,
+};
+
 export interface IInputStylesProps {
 	$width?: string;
 	$height?: string;
@@ -20,7 +44,7 @@ export interface IInputStylesProps {
 	$placeholderColor?: string;
 	$focusBorderColor?: string;
 
-	variant?: keyof typeof inputVariantStyles;
+	$variant?: keyof typeof inputVariantStyles;
 }
 
 export const inputStyles = css<IInputStylesProps>`
@@ -48,28 +72,6 @@ export const inputStyles = css<IInputStylesProps>`
 		&::placeholder {
 		color: ${({ $placeholderColor }) => $placeholderColor || '#999'};
 	}
+
+	${({ $variant }) => $variant && inputVariantStyles[$variant]}
 `;
-
-// variants of input styles (shape)
-export const inputVariantStyles = {
-	default: css<IInputStylesProps>`
-		height: 50px;
-		line-height: 50px;
-		border-radius: 5px;
-		border: 1px solid #ddd;
-		box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
-		color: #444;
-		outline: none;
-
-		&:focus {
-			border: 1px solid #bbb;
-		}
-	`,
-	search: css<IInputStylesProps>`
-		height: 40px;
-		line-height: 40px;
-		border-radius: 50px;
-		border: 1px solid var(--sub-color-green);
-		outline: none;
-	`,
-};

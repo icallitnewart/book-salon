@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
-import { DefaultInput as ReviewTitleInput } from '@inputs';
+import { PrimaryInput as ReviewTitleInput } from '@inputs';
 import TextButton from '@buttons/TextButton';
 import ReviewTagInputWithButton from '../molecules/ReviewTagInputWithButton';
 import ReviewTextEditor from '../atoms/ReviewTextEditor';
