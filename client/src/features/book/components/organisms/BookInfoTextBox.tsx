@@ -7,7 +7,7 @@ import Divider from '@components/atoms/Divider';
 import {
 	Heading1 as BookInfoTitle,
 	Paragraph as BookInfoCategory,
-} from '@typographies/TextElements';
+} from '@typographies';
 import BookInfoTextWithLabel from '../molecules/BookInfoTextWithLabel';
 
 const Container = styled.div`

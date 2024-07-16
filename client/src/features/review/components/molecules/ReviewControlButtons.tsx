@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Span } from '@typographies/TextElements';
+import { Span, SpanWithStyles } from '@typographies';
 
 const Container = styled.div`
 	width: 100%;
@@ -17,7 +17,7 @@ const Button = styled.button`
 	cursor: pointer;
 `;
 
-const ButtonText = styled(Span).attrs({
+const ButtonText = styled(SpanWithStyles).attrs({
 	$fontWeight: 500,
 	$color: '#888',
 	$hoverColor: 'var(--sub-color-darkgreen)',

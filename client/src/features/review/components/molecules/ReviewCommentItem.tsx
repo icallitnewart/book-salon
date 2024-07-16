@@ -1,14 +1,14 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { Paragraph, Span } from '@typographies/TextElements';
+import { ParagraphWithStyles, Span } from '@typographies';
 import ReviewControlButtons from './ReviewControlButtons';
 
 const Container = styled.div`
 	padding: 10px;
 `;
 
-const Comment = styled(Paragraph)`
+const Comment = styled(ParagraphWithStyles)`
 	width: 100%;
 	padding: 20px;
 

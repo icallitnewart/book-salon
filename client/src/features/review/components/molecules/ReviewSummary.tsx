@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { Heading4, Paragraph, Span } from '@typographies/TextElements';
+import { Heading4 as Title, Paragraph as Summary, Span } from '@typographies';
 
 const Container = styled.div`
 	display: flex;
@@ -49,7 +49,7 @@ function ReviewSummary({
 		<Container>
 			<Link to={link || ''}>
 				<Content>
-					<Heading4
+					<Title
 						variant="list-title-sm"
 						$color="#333"
 						$lineHeight={1.8}
@@ -59,15 +59,15 @@ function ReviewSummary({
 						$marginBottom="8px"
 					>
 						{title}
-					</Heading4>
-					<Paragraph
+					</Title>
+					<Summary
 						variant="list-body-md"
 						$lineClamp={4}
 						$lineHeight={1.8}
 						$ellipsis
 					>
 						{content}
-					</Paragraph>
+					</Summary>
 				</Content>
 			</Link>
 			<MetaInfo>

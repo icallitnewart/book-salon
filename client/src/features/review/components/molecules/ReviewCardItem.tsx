@@ -4,8 +4,8 @@ import { styled } from 'styled-components';
 
 import { IBookReview } from '@features/review/types/bookReview';
 
+import { Heading3, Paragraph, Span } from '@typographies';
 import Divider from '@components/atoms/Divider';
-import { Heading3, Paragraph, Span } from '@typographies/TextElements';
 
 const LinkContainer = styled(Link)`
 	width: calc(100% / 2 - 10px);
@@ -66,14 +66,7 @@ function ReviewCardItem({
 					</Paragraph>
 				</Content>
 				<AdditionalInfo>
-					<Span
-						variant="highlight-meta-lg"
-						$fontWeight={500}
-						$color="var(--sub-color-darkgreen)"
-						$letterSpacing={1}
-					>
-						{nickname}
-					</Span>
+					<Span variant="highlight-meta-lg">{nickname}</Span>
 					<Span variant="list-meta-lg" $color="#999">
 						{date}
 					</Span>

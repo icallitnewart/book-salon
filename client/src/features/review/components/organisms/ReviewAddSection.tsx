@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Heading3 as Title } from '@typographies/TextElements';
+import { Heading3 as Title } from '@typographies';
 import ReviewAddForm from './ReviewAddForm';
 
 const Container = styled.div`
@@ -14,7 +14,7 @@ function ReviewAddSection(): JSX.Element {
 		<Container>
 			<Title
 				variant="section-title-lg"
-				$fontFamily="var(--main-font-eng)"
+				$fontWeight={700}
 				$marginBottom="30px"
 				$textAlign="center"
 				$color="#555"

@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { Paragraph, Span } from '@typographies/TextElements';
+import { ParagraphWithStyles, SpanWithStyles } from '@typographies';
 
 interface IContainerStyleProps {
 	$margin?: string;
@@ -12,11 +12,11 @@ const Container = styled.div<IContainerStyleProps>`
 	margin: ${({ $margin }) => $margin || '0'};
 `;
 
-const BookInfoText = styled(Paragraph)`
+const BookInfoText = styled(ParagraphWithStyles)`
 	flex: 1;
 `;
 
-const BookInfoLabel = styled(Span)`
+const BookInfoLabel = styled(SpanWithStyles)`
 	display: inline-block;
 `;
 

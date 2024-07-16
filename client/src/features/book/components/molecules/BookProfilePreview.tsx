@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 
 import { IBookProfilePreview } from '@features/book/types/bookProfile';
 
-import { Heading3, Paragraph } from '@typographies/TextElements';
+import { Heading3, Paragraph } from '@typographies';
 import BookCoverImage from '@features/book/components/atoms/BookCoverImage';
 
 interface ILinkContainerStyleProps {

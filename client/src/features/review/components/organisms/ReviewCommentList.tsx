@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { Paragraph } from '@typographies/TextElements';
+import { ParagraphWithStyles } from '@typographies';
 import ReviewCommentItem from '../molecules/ReviewCommentItem';
 
 const Container = styled.div`
@@ -15,7 +15,7 @@ const Container = styled.div`
 	border-radius: 7px;
 `;
 
-const EmptyAlert = styled(Paragraph)`
+const EmptyAlert = styled(ParagraphWithStyles)`
 	padding: 10px;
 `;
 

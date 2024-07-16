@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TagText from '@typographies/TagText';
+import { TagText } from '@typographies';
 
 interface IReviewTagProps {
 	children: string;

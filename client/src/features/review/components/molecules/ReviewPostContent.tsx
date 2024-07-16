@@ -1,11 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import {
-	Heading3 as Title,
-	Paragraph as Content,
-	Span,
-} from '@components/atoms/Typographies/TextElements';
+import { Heading3 as Title, Paragraph as Content, Span } from '@typographies';
 import Divider from '@components/atoms/Divider';
 import ReviewTagList from './ReviewTagList';
 import ReviewControlButtons from './ReviewControlButtons';
@@ -56,12 +52,7 @@ function ReviewPostContent(): JSX.Element {
 			<Divider $margin="13px 0px" />
 			<MetaInfo>
 				<ReviewTagList tags={data.tags} />
-				<Span
-					variant="article-meta-lg"
-					$lineHeight={1.8}
-					$textAlign="right"
-					$color="#888"
-				>
+				<Span variant="article-meta-lg" $lineHeight={1.8} $color="#888">
 					{data.date}
 				</Span>
 			</MetaInfo>

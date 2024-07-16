@@ -1,12 +1,9 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { Span } from './TextElements';
+import { SpanWithStyles } from './TextElements';
 
-const Text = styled(Span).attrs({
-	$color: 'var(--sub-color-darkgreen)',
-	$fontWeight: 500,
-})`
+const Text = styled(SpanWithStyles)`
 	display: inline-block;
 	background-color: #f0f0f0;
 	padding: 0px 3px;
@@ -23,7 +20,15 @@ interface ITagTextProps {
 }
 
 function TagText({ children, variantSize = 'md' }: ITagTextProps): JSX.Element {
-	return <Text variant={`article-meta-${variantSize}`}>{children}</Text>;
+	return (
+		<Text
+			variant={`article-meta-${variantSize}`}
+			$color="var(--sub-color-darkgreen)"
+			$fontWeight={500}
+		>
+			{children}
+		</Text>
+	);
 }
 
 export default TagText;

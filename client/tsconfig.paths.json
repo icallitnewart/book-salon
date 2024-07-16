@@ -7,7 +7,7 @@
       "@features/*": ["features/*"],
       "@pages/*": ["pages/*"],
       "@buttons/*": ["shared/components/atoms/Buttons/*"],
-      "@typographies/*": ["shared/components/atoms/Typographies/*"],
+      "@typographies": ["shared/components/atoms/typographies/index"],
       "@inputs/*": ["shared/components/atoms/Inputs/*"],
       "@components/*": ["shared/components/*"],
       "@constants/*": ["shared/constants/*"],

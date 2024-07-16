@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { IBookInfo } from '@features/book/types/bookDetail';
 
-import { Heading2 as BookTitle } from '@typographies/TextElements';
+import { Heading2 as BookTitle } from '@typographies';
 import BookCoverWithBackground from '@features/book/components/molecules/BookCoverWithBackground';
 import BookInfoTextWithLabel from '@features/book/components/molecules/BookInfoTextWithLabel';
 

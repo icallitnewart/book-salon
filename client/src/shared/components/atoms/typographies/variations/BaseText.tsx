@@ -1,21 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ITextStylesProps, textStyles } from './TextStyles';
+import { ITextStylesProps, textStyles, textVariantStyles } from '../textStyles';
 
 const StyledText = styled.p<ITextStylesProps>`
 	${textStyles}
 `;
 
-export interface IBaseTextProps extends ITextStylesProps {
+export interface ITextProps extends ITextStylesProps {
 	as?: 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 	children: React.ReactNode;
+	className?: string;
+	variant?: keyof typeof textVariantStyles;
 }
 
-function BaseText({
+export default function BaseText({
 	as = 'p',
 	children,
-	variant = 'article-body-md',
+	className,
+	variant,
 	$fontSize,
 	$fontWeight,
 	$fontFamily,
@@ -38,11 +41,12 @@ function BaseText({
 	$lineHeight,
 	$ellipsis = false,
 	$lineClamp,
-}: IBaseTextProps): JSX.Element {
+}: ITextProps): JSX.Element {
 	return (
 		<StyledText
 			as={as}
-			variant={variant}
+			className={className}
+			$variant={variant}
 			$fontSize={$fontSize}
 			$fontWeight={$fontWeight}
 			$fontFamily={$fontFamily}
@@ -71,4 +75,11 @@ function BaseText({
 	);
 }
 
-export default BaseText;
+export const withTextStyles = (
+	Component: React.ComponentType<ITextProps>,
+) => styled(Component)`
+	${textStyles}
+`;
+
+// expandable styled component
+export const BaseTextWithStyles = withTextStyles(BaseText);

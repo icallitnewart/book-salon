@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { Heading2 } from '@typographies/TextElements';
-import HighlightedTitleText from '@typographies/HighlightedTitleText';
+import { Heading2, HighlightedText } from '@typographies';
 
 interface ITitleStyleProps {
-	$fontSize?: number;
-	$fontWeight?: number;
+	variantSize?: 'sm' | 'md' | 'lg';
 	$textAlign?: 'left' | 'center' | 'right' | 'justify';
 	$marginBottom?: string;
 }
@@ -16,8 +14,7 @@ interface IMainSectionTitleProps extends ITitleStyleProps {
 
 function SectionTitleWithHighlight({
 	title,
-	$fontSize = 2.4,
-	$fontWeight = 800,
+	variantSize = 'md',
 	$textAlign,
 	$marginBottom = '40px',
 }: IMainSectionTitleProps): JSX.Element {
@@ -26,21 +23,13 @@ function SectionTitleWithHighlight({
 
 	return (
 		<Heading2
-			$fontSize={$fontSize}
-			$fontWeight={$fontWeight}
-			$fontFamily="var(--main-font-eng)"
-			$letterSpacing={1}
+			variant={`section-title-${variantSize}`}
 			$textAlign={$textAlign}
 			$textTransform="uppercase"
 			$marginBottom={$marginBottom}
 		>
 			{words.map(word => `${word} `)}
-			<HighlightedTitleText
-				$fontSize={$fontSize}
-				$fontWeight={$fontWeight - 100}
-			>
-				{lastWord}
-			</HighlightedTitleText>
+			<HighlightedText $fontWeight={700}>{lastWord}</HighlightedText>
 		</Heading2>
 	);
 }

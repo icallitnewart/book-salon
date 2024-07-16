@@ -15,7 +15,7 @@ function ReviewListSection(): JSX.Element {
 		<Container>
 			<SectionTitleWithHighlight
 				title="Reviews"
-				$fontSize={3}
+				variantSize="lg"
 				$textAlign="center"
 			/>
 			<ReviewCardList />
