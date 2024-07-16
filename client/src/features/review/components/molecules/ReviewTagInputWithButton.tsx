@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
 import { PrimaryInput as ReviewTagInput } from '@inputs';
-import TextButton from '@buttons/TextButton';
+import { PrimaryButton } from '@buttons';
 import ReviewTagListWithButton from './ReviewTagListWithButton';
 
 const Container = styled.div`
@@ -52,7 +52,7 @@ function ReviewTagInputWithButton(): JSX.Element {
 				aria-label={`태그 입력 (${TAG_LETTER_MAX_LEN}자 이하, 최대 ${TAG_MAX_LEN}개)`}
 				maxLength={TAG_LETTER_MAX_LEN}
 			/>
-			<TextButton variant="green">태그 추가</TextButton>
+			<PrimaryButton>태그 추가</PrimaryButton>
 			{tags.length > 0 && <ReviewTagListWithButton tags={tags} />}
 		</Container>
 	);

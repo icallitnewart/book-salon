@@ -6,7 +6,7 @@
       "@assets/*": ["assets/*"],
       "@features/*": ["features/*"],
       "@pages/*": ["pages/*"],
-      "@buttons/*": ["shared/components/atoms/Buttons/*"],
+      "@buttons": ["shared/components/atoms/buttons/index"],
       "@typographies": ["shared/components/atoms/typographies/index"],
       "@inputs": ["shared/components/atoms/inputs/index"],
       "@components/*": ["shared/components/*"],

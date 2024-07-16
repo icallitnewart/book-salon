@@ -1,13 +1,9 @@
 import React from 'react';
 
-import TextButton from '@buttons/TextButton';
+import { PrimaryButton } from '@buttons';
 
 function BookAddReviewButton(): JSX.Element {
-	return (
-		<TextButton variant="green" $width="120px">
-			리뷰 작성
-		</TextButton>
-	);
+	return <PrimaryButton $width="120px">리뷰 작성</PrimaryButton>;
 }
 
 export default BookAddReviewButton;

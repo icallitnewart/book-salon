@@ -5,7 +5,7 @@ import { useAppDispatch } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
-import TextButton from '@buttons/TextButton';
+import { SecondaryButton, SubtleButton } from '@buttons';
 import UserFormField from '../molecules/UserFormField';
 
 import useUserInput from '../../hooks/useUserInput';
@@ -91,16 +91,12 @@ function UserDeleteAccountForm({
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<TextButton type="submit" variant="grey" $hoverBgColor="crimson">
+				<SubtleButton type="submit" $hoverBgColor="crimson">
 					확인
-				</TextButton>
-				<TextButton
-					type="button"
-					variant="black"
-					onClick={closeUserDeleteAccountForm}
-				>
+				</SubtleButton>
+				<SecondaryButton type="button" onClick={closeUserDeleteAccountForm}>
 					취소
-				</TextButton>
+				</SecondaryButton>
 			</ButtonContainer>
 		</Form>
 	);

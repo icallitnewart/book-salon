@@ -5,22 +5,22 @@ import {
 	ITextButtonStylesProps,
 	textButtonStyles,
 	textButtonVariantStyles,
-} from './styles/textButtonStyles';
+} from '../textButtonStyles';
 
 export const StyledButton = styled.button<ITextButtonStylesProps>`
 	${textButtonStyles}
 `;
 
-export interface ITextButtonProps extends ITextButtonStylesProps {
+export interface IBaseTextButtonProps extends ITextButtonStylesProps {
 	as?: string;
 	className?: string;
 	children: React.ReactNode;
 	onClick?: () => void;
 	type?: 'button' | 'submit' | 'reset';
-	variant: keyof typeof textButtonVariantStyles;
+	variant?: keyof typeof textButtonVariantStyles;
 }
 
-export default function TextButton({
+export default function BaseTextButton({
 	as = 'button',
 	children,
 	className,
@@ -42,7 +42,7 @@ export default function TextButton({
 	$height,
 	$padding,
 	$margin,
-}: ITextButtonProps): JSX.Element {
+}: IBaseTextButtonProps): JSX.Element {
 	return (
 		<StyledButton
 			as={as}
@@ -71,11 +71,11 @@ export default function TextButton({
 	);
 }
 
-const withTextButtonStyles = (
-	Component: React.ComponentType<ITextButtonProps>,
+export const withTextButtonStyles = (
+	Component: React.ComponentType<IBaseTextButtonProps>,
 ) => styled(Component)`
 	${textButtonStyles}
 `;
 
 // expandable styled component
-export const TextButtonWithStyles = withTextButtonStyles(TextButton);
+export const BaseTextButtonWithStyles = withTextButtonStyles(BaseTextButton);

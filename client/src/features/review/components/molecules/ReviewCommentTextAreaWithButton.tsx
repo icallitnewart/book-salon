@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import ReviewTextArea from '@features/review/components/atoms/ReviewTextArea';
-import TextButton from '@buttons/TextButton';
+import { PrimaryButton } from '@buttons';
 
 const Container = styled.div`
 	display: flex;
@@ -19,9 +19,7 @@ function ReviewCommentTextAreaWithButton(): JSX.Element {
 				placeholder="리뷰에 대한 댓글을 입력해주세요."
 				ariaLabel="리뷰에 대한 댓글 입력"
 			/>
-			<TextButton variant="green" $width="100px">
-				작성
-			</TextButton>
+			<PrimaryButton $width="100px">작성</PrimaryButton>
 		</Container>
 	);
 }

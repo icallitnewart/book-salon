@@ -5,7 +5,7 @@ import { useAppDispatch } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
-import TextButton from '@buttons/TextButton';
+import { SecondaryButton } from '@buttons';
 import UserFormField from '../molecules/UserFormField';
 
 import { clearRegisterStatus } from '../../userSlice';
@@ -136,9 +136,7 @@ function UserRegisterForm(): JSX.Element {
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<TextButton type="submit" variant="black">
-					가입하기
-				</TextButton>
+				<SecondaryButton type="submit">가입하기</SecondaryButton>
 			</ButtonContainer>
 		</Form>
 	);

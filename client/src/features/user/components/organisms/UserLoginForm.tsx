@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
-import TextButton from '@buttons/TextButton';
+import { PrimaryButton } from '@buttons';
 import UserErrorMessage from '../atoms/UserErrorMessage';
 import UserFormField from '../molecules/UserFormField';
 
@@ -107,9 +107,7 @@ function UserLoginForm(): JSX.Element {
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<TextButton type="submit" variant="green">
-					로그인
-				</TextButton>
+				<PrimaryButton type="submit">로그인</PrimaryButton>
 				{error && <UserErrorMessage error={error} />}
 			</ButtonContainer>
 		</Form>

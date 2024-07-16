@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
-import TextButton from '@buttons/TextButton';
+import { SecondaryButton, SubtleButton } from '@buttons';
 import UserLabelledText from '../molecules/UserLabelledText';
 
 import { clearLogoutStatus } from '../../userSlice';
@@ -62,12 +62,12 @@ function UserMyProfileContent(): JSX.Element {
 				/>
 			</InfoContainer>
 			<ButtonContainer>
-				<TextButton type="button" variant="black" onClick={moveToProfileEdit}>
+				<SecondaryButton type="button" onClick={moveToProfileEdit}>
 					회원 정보 수정
-				</TextButton>
-				<TextButton type="button" variant="grey" onClick={handleLogout}>
+				</SecondaryButton>
+				<SubtleButton type="button" onClick={handleLogout}>
 					로그아웃
-				</TextButton>
+				</SubtleButton>
 			</ButtonContainer>
 		</Container>
 	);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import TextButton from '@buttons/TextButton';
+import { PrimaryButton } from '@buttons';
 
 const Container = styled.div`
 	display: flex;
@@ -14,9 +14,9 @@ const Container = styled.div`
 function MoreButtonBox(): JSX.Element {
 	return (
 		<Container>
-			<TextButton type="button" variant="green" $width="120px">
+			<PrimaryButton type="button" $width="120px">
 				더보기
-			</TextButton>
+			</PrimaryButton>
 		</Container>
 	);
 }

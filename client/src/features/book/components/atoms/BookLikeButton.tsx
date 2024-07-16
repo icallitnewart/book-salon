@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import { ReactComponent as HeartSvg } from '@assets/svg/heart.svg';
-import { TextButtonWithStyles } from '@buttons/TextButton';
+import { SecondaryButtonWithStyles } from '@buttons';
 
 const moveUpAndDown = keyframes`
 	0% {
@@ -16,7 +16,7 @@ const moveUpAndDown = keyframes`
 	}
 `;
 
-const StyledButton = styled(TextButtonWithStyles)`
+const StyledButton = styled(SecondaryButtonWithStyles)`
 	gap: 4px;
 
 	&:hover svg {
@@ -33,7 +33,7 @@ const StyledHeartSvg = styled(HeartSvg)`
 
 function BookLikeButton(): JSX.Element {
 	return (
-		<StyledButton variant="black" $width="120px" $hoverTextColor="#fff">
+		<StyledButton $width="120px" $hoverTextColor="#fff">
 			<StyledHeartSvg />
 			좋아요
 		</StyledButton>

@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
-import TextButton from '@buttons/TextButton';
+import { SecondaryButton, SubtleButton } from '@buttons';
 import UserFormField from '../molecules/UserFormField';
 
 import useUserInput from '../../hooks/useUserInput';
@@ -163,17 +163,14 @@ function UserProfileEditForm({
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<TextButton type="submit" variant="black">
-					수정하기
-				</TextButton>
-				<TextButton
+				<SecondaryButton type="submit">수정하기</SecondaryButton>
+				<SubtleButton
 					type="button"
-					variant="grey"
 					$hoverBgColor="crimson"
 					onClick={openUserDeleteAccountForm}
 				>
 					탈퇴하기
-				</TextButton>
+				</SubtleButton>
 			</ButtonContainer>
 		</Form>
 	);
