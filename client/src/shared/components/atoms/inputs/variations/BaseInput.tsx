@@ -1,7 +1,11 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { IInputStylesProps, inputStyles } from './inputStyles';
+import {
+	IInputStylesProps,
+	inputStyles,
+	inputVariantStyles,
+} from '../inputStyles';
 
 const StyledInput = styled.input<IInputStylesProps>`
 	${inputStyles}
@@ -16,6 +20,7 @@ interface IBaseInputProps extends IInputStylesProps {
 	placeholder?: string;
 	maxLength?: number;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	variant?: keyof typeof inputVariantStyles;
 }
 
 function BaseInput({

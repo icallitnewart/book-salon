@@ -4,7 +4,7 @@ import {
 	IInputStylesProps,
 	inputStyles,
 	inputVariantStyles,
-} from './inputStyles';
+} from '../inputStyles';
 
 export const DefaultInput = styled(BaseInput).attrs({
 	as: 'input',

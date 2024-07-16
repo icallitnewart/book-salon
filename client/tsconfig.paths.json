@@ -8,7 +8,7 @@
       "@pages/*": ["pages/*"],
       "@buttons/*": ["shared/components/atoms/Buttons/*"],
       "@typographies": ["shared/components/atoms/typographies/index"],
-      "@inputs/*": ["shared/components/atoms/Inputs/*"],
+      "@inputs": ["shared/components/atoms/inputs/index"],
       "@components/*": ["shared/components/*"],
       "@constants/*": ["shared/constants/*"],
       "@/types/*": ["shared/types/*"],

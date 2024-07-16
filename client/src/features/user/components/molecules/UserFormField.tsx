@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { DefaultInput as UserInput } from '@inputs/InputElements';
+import { DefaultInput as UserInput } from '@inputs';
 import UserInputLabel from '../atoms/UserInputLabel';
 import UserErrorMessage from '../atoms/UserErrorMessage';
 
