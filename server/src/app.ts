@@ -2,7 +2,6 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import { config } from 'dotenv';
 
 import { errorMiddleware } from './middlewares';
 import swaggerSpec from './config/swagger';
@@ -18,7 +17,6 @@ const corsOptions = {
 	optionsSuccessStatus: 200,
 };
 
-config();
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

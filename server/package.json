@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon",
+    "build": "tsc",
+    "serve": "node -r dotenv/config -r dotenv-expand/config dist/index.js",
+    "deploy": "npm run build && npm run serve",
     "lint": "eslint src/**/*.{js,ts}",
     "lint:fix": "eslint --fix \"src/**/*.{js,ts}\"",
     "prettier": "prettier --write --config ./.prettierrc.json \"./src/**/*.ts\""
@@ -41,6 +44,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "dotenv-expand": "^11.0.6",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.7.0",
