@@ -40,8 +40,17 @@ class BookService {
 			url += date;
 		}
 
-		const response = await axios.get(url);
-		return response;
+		const { data } = await axios.get(url);
+
+		if (data.errorMessage) {
+			throw new HttpError(data.errorMessage, 400);
+		}
+
+		if (!data.item) {
+			throw new HttpError('데이터를 찾을 수 없습니다.', 404);
+		}
+
+		return data.item;
 	}
 
 	async getBookDetailByISBN(isbn: string) {

@@ -23,19 +23,11 @@ class BookController {
 
 		const parsedQuery = this.parseBestsellerQuery(query);
 
-		const { data } = await bookService.getBestsellerListByWeek(parsedQuery);
-
-		if (data.errorMessage) {
-			throw new HttpError(data.errorMessage, 400);
-		}
-
-		if (!data.item) {
-			throw new HttpError('데이터를 찾을 수 없습니다.', 404);
-		}
+		const books = await bookService.getBestsellerListByWeek(parsedQuery);
 
 		res.json({
 			result: 'success',
-			books: data.item,
+			books,
 		});
 	};
 
