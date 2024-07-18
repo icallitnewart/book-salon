@@ -46,7 +46,11 @@ const router = express.Router();
  *                   type: string
  *                   example: 로그인이 필요한 서비스입니다.
  * */
-router.post('/', authMiddleware(), reviewController.createReview);
+router.post(
+	'/',
+	authMiddleware(),
+	asyncMiddleware(reviewController.createReview),
+);
 
 /**
  * @swagger
