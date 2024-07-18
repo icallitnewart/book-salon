@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { isValidObjectId } from 'mongoose';
 import { reviewService } from './reviewService';
 import { HttpError } from '../../utils/HttpError';
 
@@ -16,6 +17,21 @@ class ReviewController {
 		res.status(201).json({
 			result: 'success',
 			reviewId,
+		});
+	}
+
+	async getReview(req: Request, res: Response) {
+		const { reviewId } = req.params;
+
+		if (!reviewId || !isValidObjectId(reviewId)) {
+			throw new HttpError('유효하지 않은 reviewId입니다.', 400);
+		}
+
+		const review = await reviewService.findReviewById(reviewId);
+
+		res.status(200).json({
+			result: 'success',
+			review,
 		});
 	}
 }

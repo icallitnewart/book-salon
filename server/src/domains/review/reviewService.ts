@@ -1,6 +1,7 @@
 import { Types } from 'mongoose';
 import { reviewDAO } from './reviewDAO';
 import { IReviewInput } from './reviewModel';
+import { HttpError } from '../../utils/HttpError';
 
 class ReviewService {
 	async createReview(
@@ -16,6 +17,16 @@ class ReviewService {
 		const reviewId = newReview.id.toString();
 
 		return reviewId;
+	}
+
+	async findReviewById(reviewId: string) {
+		const review = await reviewDAO.findById(reviewId);
+
+		if (!review) {
+			throw new HttpError('리뷰를 찾을 수 없습니다.', 404);
+		}
+
+		return review;
 	}
 }
 

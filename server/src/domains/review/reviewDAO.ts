@@ -4,6 +4,10 @@ class ReviewDAO {
 	async create(reviewInput: IReviewInput): Promise<IReviewModel> {
 		return Review.create(reviewInput);
 	}
+
+	async findById(reviewId: string): Promise<IReviewModel | null> {
+		return Review.findById(reviewId).populate('userId', 'id nickname');
+	}
 }
 
 export const reviewDAO = new ReviewDAO();
