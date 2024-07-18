@@ -39,6 +39,20 @@ class BookController {
 		});
 	};
 
+	async getBookDetail(req: Request, res: Response) {
+		const { isbn } = req.params;
+		if (!isbn) {
+			throw new HttpError('ISBN이 제공되지 않았습니다.', 400);
+		}
+
+		const book = await bookService.getBookDetailByISBN(isbn);
+
+		res.json({
+			result: 'success',
+			book,
+		});
+	}
+
 	private parseBestsellerQuery(
 		query: Required<IBestsellerQuery>,
 	): IBestsellerWeek | undefined {

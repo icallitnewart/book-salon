@@ -73,13 +73,59 @@ const router = express.Router();
  */
 router.get('/bestseller', asyncMiddleware(bookController.getBestsellerList));
 
-// TODO: 제거 예정 (테스트용)
-router.get('/test/detail', async (req, res) => {
-	const TTBKey = process.env.TTB_KEY;
-	const response = await axios.get(
-		`http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=${TTBKey}&itemIdType=ISBN&ItemId=9791189327156&output=js&Version=20131101&OptResult=ebookList,usedList,reviewList&Cover=Big`,
-	);
-	res.json({ data: response.data });
-});
+/**
+ * @swagger
+ * /books/detail/{isbn}:
+ *   get:
+ *     summary: 도서 상세 정보 조회 (ISBN)
+ *     tags: [Books]
+ *     parameters:
+ *       - in: path
+ *         name: isbn
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 조회할 도서의 ISBN
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *                 book:
+ *                   type: object
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: 'error'
+ *                 message:
+ *                   type: string
+ *                   example: 잘못된 ISBN 형식입니다.
+ *       404:
+ *         description: Not Found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: 'error'
+ *                 message:
+ *                   type: string
+ *                   example: 데이터를 찾을 수 없습니다.
+ */
+router.get('/detail/:isbn', asyncMiddleware(bookController.getBookDetail));
 
 export default router;
