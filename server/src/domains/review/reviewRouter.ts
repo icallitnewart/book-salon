@@ -78,7 +78,19 @@ router.post(
  *                   type: string
  *                   example: success
  *                 review:
- *                   $ref: '#/components/schemas/Review'
+ *                   type: object
+ *                   example:
+ *                     _id: "60a9a1c1f2d3b12f3c8d0f1e"
+ *                     user:
+ *                       _id: "60a9a1c1f2d3b12f3c8d0f1c"
+ *                       nickname: "책벌레123"
+ *                     title: "반전이 엄청난 추리소설 추천"
+ *                     content: "읽는 내내 몰입하게 만드는 소설이었습니다."
+ *                     rating: 5
+ *                     tags: ["스릴러", "추리소설"]
+ *                     viewCount: 120
+ *                     createdAt: "2023-05-20T15:30:00Z"
+ *                     updatedAt: "2023-05-20T15:30:00Z"
  *       400:
  *         description: Invalid ReviewId
  *         content:

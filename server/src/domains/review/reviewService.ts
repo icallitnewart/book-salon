@@ -5,12 +5,12 @@ import { HttpError } from '../../utils/HttpError';
 
 class ReviewService {
 	async createReview(
-		reviewInput: Omit<IReviewInput, 'userId'>,
+		reviewInput: Omit<IReviewInput, 'user'>,
 		userId: string,
 	): Promise<string> {
 		const review = {
 			...reviewInput,
-			userId: new Types.ObjectId(userId),
+			user: new Types.ObjectId(userId),
 		};
 
 		const newReview = await reviewDAO.create(review);

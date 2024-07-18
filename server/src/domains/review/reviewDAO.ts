@@ -6,7 +6,7 @@ class ReviewDAO {
 	}
 
 	async findById(reviewId: string): Promise<IReviewModel | null> {
-		return Review.findById(reviewId).populate('userId', 'id nickname');
+		return Review.findById(reviewId).populate('user', 'id nickname');
 	}
 }
 

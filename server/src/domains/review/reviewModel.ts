@@ -1,7 +1,7 @@
 import { Schema, model, Document, Types } from 'mongoose';
 
 export interface IReviewInput {
-	userId: Types.ObjectId;
+	user: Types.ObjectId;
 	title: string;
 	content: string;
 	rating: number;
@@ -25,7 +25,7 @@ export interface IReviewModel extends IReview, Document {}
  *       properties:
  *         _id:
  *           type: string
- *         userId:
+ *         user:
  *           type: string
  *         title:
  *           type: string
@@ -49,7 +49,7 @@ export interface IReviewModel extends IReview, Document {}
  *           format: date-time
  *       example:
  *         _id: 60a9a1c1f2d3b12f3c8d0f1e
- *         userId: 60a9a1c1f2d3b12f3c8d0f1c
+ *         user: 60a9a1c1f2d3b12f3c8d0f1c
  *         title: 반전이 엄청난 추리소설 추천
  *         content: 읽는 내내 몰입하게 만드는 소설이었습니다.
  *         rating: 5
@@ -79,7 +79,7 @@ export interface IReviewModel extends IReview, Document {}
  */
 const reviewSchema = new Schema(
 	{
-		userId: {
+		user: {
 			type: Schema.Types.ObjectId,
 			ref: 'Users',
 			required: true,
@@ -111,7 +111,7 @@ const reviewSchema = new Schema(
 	{ timestamps: true },
 );
 
-reviewSchema.index({ userId: 1 });
+reviewSchema.index({ user: 1 });
 reviewSchema.index({ createdAt: -1 });
 reviewSchema.index({ viewCount: -1 });
 
