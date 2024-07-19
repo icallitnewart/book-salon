@@ -34,6 +34,30 @@ class ReviewController {
 			review,
 		});
 	}
+
+	async updateReview(req: Request, res: Response) {
+		const { userId } = req;
+		if (!userId) {
+			throw new HttpError('userId가 존재하지 않습니다.', 401);
+		}
+
+		const { reviewId } = req.params;
+		if (!reviewId || !isValidObjectId(reviewId)) {
+			throw new HttpError('유효하지 않은 reviewId입니다.', 400);
+		}
+
+		const reviewData = req.body;
+		const updatedReview = await reviewService.updateReview(
+			reviewId,
+			reviewData,
+			userId,
+		);
+
+		res.status(200).json({
+			result: 'success',
+			review: updatedReview,
+		});
+	}
 }
 
 export const reviewController = new ReviewController();

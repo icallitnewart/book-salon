@@ -120,4 +120,140 @@ router.post(
  */
 router.get('/:reviewId', asyncMiddleware(reviewController.getReview));
 
+/**
+ * @swagger
+ * /reviews/{reviewId}:
+ *   patch:
+ *     summary: 도서 리뷰 수정
+ *     tags: [Reviews]
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: reviewId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           pattern: '^[0-9a-fA-F]{24}$'
+ *         description: 수정할 리뷰의 ID (24자리 16진수 MongoDB ObjectId)
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ReviewUpdateInput'
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *                 review:
+ *                   $ref: '#/components/schemas/Review'
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *             examples:
+ *               Invalid Review Id:
+ *                 value:
+ *                   result: error
+ *                   message: 유효하지 않은 reviewId입니다.
+ *               Invalid Review Data:
+ *                 value:
+ *                   result: error
+ *                   message: 유효하지 않은 리뷰 데이터입니다.
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 로그인이 필요한 서비스입니다.
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 리뷰를 수정할 권한이 없습니다.
+ *       404:
+ *         description: Not Found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: 'error'
+ *                 message:
+ *                   type: string
+ *                   example: 리뷰를 찾을 수 없습니다.
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: 'error'
+ *                 message:
+ *                   type: string
+ *                   example: 리뷰 업데이트에 실패하였습니다.
+ * components:
+ *   schemas:
+ *     ReviewUpdateInput:
+ *       type: object
+ *       properties:
+ *         title:
+ *           type: string
+ *           description: 수정할 리뷰 제목
+ *         content:
+ *           type: string
+ *           description: 수정할 리뷰 내용
+ *         rating:
+ *           type: number
+ *           minimum: 1
+ *           maximum: 5
+ *           description: 수정할 평점 (1-5)
+ *         tags:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: 수정할 태그 목록
+ */
+router.patch(
+	'/:reviewId',
+	authMiddleware(),
+	asyncMiddleware(reviewController.updateReview),
+);
+
 export default router;

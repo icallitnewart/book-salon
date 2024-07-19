@@ -1,14 +1,23 @@
 import { Schema, model, Document, Types } from 'mongoose';
 
+interface IUser {
+	id: string | Types.ObjectId;
+	nickname: string;
+}
+
 export interface IReviewInput {
-	user: Types.ObjectId;
 	title: string;
 	content: string;
 	rating: number;
 	tags: string[];
 }
 
+export interface IReviewInputWithUser extends IReviewInput {
+	user: string;
+}
+
 export interface IReview extends IReviewInput {
+	user: IUser;
 	viewCount: number;
 	createdAt: Date;
 	updatedAt: Date;
