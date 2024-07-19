@@ -35,16 +35,12 @@ class ReviewController {
 		});
 	}
 
-	async updateReview(req: Request, res: Response) {
+	updateReview = async (req: Request, res: Response) => {
 		const { userId } = req;
-		if (!userId) {
-			throw new HttpError('userId가 존재하지 않습니다.', 401);
-		}
+		this.validateUserId(userId);
 
 		const { reviewId } = req.params;
-		if (!reviewId || !isValidObjectId(reviewId)) {
-			throw new HttpError('유효하지 않은 reviewId입니다.', 400);
-		}
+		this.validateReviewId(reviewId);
 
 		const reviewData = req.body;
 		const updatedReview = await reviewService.updateReview(
@@ -57,6 +53,32 @@ class ReviewController {
 			result: 'success',
 			review: updatedReview,
 		});
+	};
+
+	deleteReview = async (req: Request, res: Response) => {
+		const { userId } = req;
+		this.validateUserId(userId);
+
+		const { reviewId } = req.params;
+		this.validateReviewId(reviewId);
+
+		await reviewService.deleteReview(reviewId, userId);
+
+		res.status(200).json({
+			result: 'success',
+		});
+	};
+
+	private validateUserId(userId?: string): asserts userId is string {
+		if (!userId) {
+			throw new HttpError('userId가 존재하지 않습니다.', 401);
+		}
+	}
+
+	private validateReviewId(reviewId?: string): asserts reviewId is string {
+		if (!reviewId || !isValidObjectId(reviewId)) {
+			throw new HttpError('유효하지 않은 reviewId입니다.', 400);
+		}
 	}
 }
 

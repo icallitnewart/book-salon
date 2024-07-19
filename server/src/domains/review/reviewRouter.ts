@@ -201,7 +201,7 @@ router.get('/:reviewId', asyncMiddleware(reviewController.getReview));
  *                   example: error
  *                 message:
  *                   type: string
- *                   example: 리뷰를 수정할 권한이 없습니다.
+ *                   example: 이 리뷰에 대한 권한이 없습니다.
  *       404:
  *         description: Not Found
  *         content:
@@ -254,6 +254,92 @@ router.patch(
 	'/:reviewId',
 	authMiddleware(),
 	asyncMiddleware(reviewController.updateReview),
+);
+
+/**
+ * @swagger
+ * /reviews/{reviewId}:
+ *   delete:
+ *     summary: 도서 리뷰 삭제
+ *     tags: [Reviews]
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: reviewId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           pattern: '^[0-9a-fA-F]{24}$'
+ *         description: 삭제할 리뷰의 ID (24자리 16진수 MongoDB ObjectId)
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 유효하지 않은 reviewId입니다.
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 로그인이 필요한 서비스입니다.
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 이 리뷰에 대한 권한이 없습니다.
+ *       404:
+ *         description: Not Found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 리뷰를 찾을 수 없습니다.
+ */
+router.delete(
+	'/:reviewId',
+	authMiddleware(),
+	asyncMiddleware(reviewController.deleteReview),
 );
 
 export default router;

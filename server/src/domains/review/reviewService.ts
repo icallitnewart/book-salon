@@ -44,6 +44,11 @@ class ReviewService {
 		return updatedReview;
 	};
 
+	async deleteReview(reviewId: string, userId: string): Promise<void> {
+		await this.validateReviewOwnership(reviewId, userId);
+		await reviewDAO.delete(reviewId);
+	}
+
 	private validateUpdateReviewData(data: Partial<IReviewInput>) {
 		const allowedFields = ['title', 'content', 'rating', 'tags'];
 		if (!Object.keys(data).every(key => allowedFields.includes(key))) {
@@ -63,7 +68,7 @@ class ReviewService {
 		}
 
 		if (review.user.id.toString() !== userId) {
-			throw new HttpError('리뷰를 수정할 권한이 없습니다.', 403);
+			throw new HttpError('이 리뷰에 대한 권한이 없습니다.', 403);
 		}
 	}
 }

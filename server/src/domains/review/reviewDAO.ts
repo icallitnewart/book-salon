@@ -22,6 +22,10 @@ class ReviewDAO {
 			new: true,
 		}).populate('user', 'id nickname');
 	}
+
+	async delete(reviewId: string): Promise<void> {
+		await Review.findByIdAndDelete(reviewId);
+	}
 }
 
 export const reviewDAO = new ReviewDAO();
