@@ -13,6 +13,7 @@ module.exports = {
 		'airbnb-typescript',
 		'prettier',
 		'plugin:prettier/recommended',
+		'plugin:@tanstack/eslint-plugin-query/recommended',
 	],
 	overrides: [
 		{
@@ -32,7 +33,7 @@ module.exports = {
 		project: './tsconfig.json',
 	},
 	ignorePatterns: ['**/*.json', 'craco.config.js'],
-	plugins: ['@typescript-eslint', 'react'],
+	plugins: ['@typescript-eslint', 'react', '@tanstack/query'],
 	rules: {
 		'@typescript-eslint/no-unused-vars': 'warn',
 		'react/no-unused-prop-types': 'warn',
