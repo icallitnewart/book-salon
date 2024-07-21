@@ -25,11 +25,10 @@ function BookBestsellerCardList(): JSX.Element {
 	// 테스트용
 	const testFetch = async () => {
 		const response = await axios.get(
-			'http://localhost:5000/api/books/test/bestseller',
+			'http://localhost:5000/api/books/bestseller',
 		);
-		const { item } = response.data.data;
-		console.log(item);
-		setBestsellerCardList(item.slice(0, 6));
+		const { books } = response.data;
+		setBestsellerCardList(books.slice(0, 7));
 	};
 
 	useEffect(() => {

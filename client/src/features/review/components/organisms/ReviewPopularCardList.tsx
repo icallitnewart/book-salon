@@ -38,8 +38,9 @@ function ReviewPopularCardList(): JSX.Element {
 	const data = new Array(6).fill(sample);
 	return (
 		<Container>
-			{data.map(review => (
-				<ReviewPopularCardItem>
+			{data.map((review, index) => (
+				// eslint-disable-next-line react/no-array-index-key
+				<ReviewPopularCardItem key={index}>
 					<BookProfilePreview
 						title={review.book.title}
 						cover={review.book.cover}

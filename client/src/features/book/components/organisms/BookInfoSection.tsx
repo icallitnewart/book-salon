@@ -25,9 +25,7 @@ interface IBookInfoData {
 function BookInfoSection(): JSX.Element {
 	const [bookInfo, setBookInfo] = useState<IBookInfoData | null>(null);
 	const testFetch = async () => {
-		const response = await axios.get(
-			'http://localhost:5000/api/books/test/detail',
-		);
+		const response = await axios.get('http://localhost:5000/api/books/detail');
 		setBookInfo(response.data.data.item[0]);
 	};
 
