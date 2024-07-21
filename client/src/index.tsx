@@ -16,7 +16,9 @@ root.render(
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>
 				<App />
-				<ReactQueryDevtools />
+				<div style={{ fontSize: '16px' }}>
+					<ReactQueryDevtools />
+				</div>
 			</QueryClientProvider>
 		</Provider>
 	</React.StrictMode>,
