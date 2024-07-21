@@ -12,7 +12,7 @@
       "@inputs": ["shared/components/atoms/inputs/index"],
       "@components/*": ["shared/components/*"],
       "@constants/*": ["shared/constants/*"],
-      "@/types/*": ["shared/types/*"],
+      "@typeDefs/*": ["shared/types/*"],
       "@hooks/*": ["shared/hooks/*"],
       "@utils/*": ["shared/utils/*"],
     },

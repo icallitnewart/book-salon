@@ -1,6 +1,6 @@
 import { isAxiosError } from 'axios';
 
-import { IErrorResponse } from '../types/apiError';
+import { IErrorResponse } from '@typeDefs/apiError';
 
 export const handleApiError = (error: unknown): IErrorResponse => {
 	if (isAxiosError(error) && error.response) {

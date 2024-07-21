@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { IErrorResponse } from '@typeDefs/apiError';
+import { APIS } from '@constants/apis';
+
+import authAxios from '@config/axiosInstance/authAxios';
+import { handleApiError } from '@utils/errorHandler';
+
 import {
 	IUserAuth,
 	IUserInfo,
@@ -8,11 +14,6 @@ import {
 	IUserRegister,
 	IUserUpdate,
 } from '../types/userData';
-import { IErrorResponse } from '../../../shared/types/apiError';
-import { APIS } from '../../../shared/constants/apis';
-
-import { authAxios } from '../../../shared/apis/authAxios';
-import { handleApiError } from '../../../shared/utils/errorHandler';
 
 export const loginUser = createAsyncThunk<
 	IUserInfo, // fulfilled

@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-import { APIS } from '../constants/apis';
-import { ROUTES } from '../constants/routes';
+import { handleApiError } from '@utils/errorHandler';
 
-import { handleApiError } from '../utils/errorHandler';
+import { APIS } from '@constants/apis';
+import { ROUTES } from '@constants/routes';
 
 // TODO: 에러 메시지 상수화 필요
 const LOGIN_ERROR_MESSAGE = '로그인이 필요한 서비스입니다.';
 
-export const authAxios = axios.create({
+const authAxios = axios.create({
 	baseURL: process.env.REACT_APP_API_URL,
 	withCredentials: true,
 });
@@ -46,3 +46,5 @@ authAxios.interceptors.response.use(
 		return Promise.reject(error);
 	},
 );
+
+export default authAxios;
