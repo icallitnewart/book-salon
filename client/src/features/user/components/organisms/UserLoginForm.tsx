@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '@redux/store';
+import { useAppDispatch } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
@@ -10,8 +10,9 @@ import UserErrorMessage from '../atoms/UserErrorMessage';
 import UserFormField from '../molecules/UserFormField';
 
 import useUserInput from '../../hooks/useUserInput';
-import { loginUser } from '../../apis/userApi';
-import { clearLoginStatus } from '../../userSlice';
+import { updateAuth } from '../../userSlice';
+
+import { useLoginUser } from '../../hooks/useUserQueries';
 import {
 	validateEmail,
 	validateLoginPassword,
@@ -35,7 +36,7 @@ function UserLoginForm(): JSX.Element {
 	const dispatch = useAppDispatch();
 	const location = useLocation();
 	const navigate = useNavigate();
-	const error = useAppSelector(state => state.user.loginStatus.error);
+	const { mutate: loginUser, isError, loginError } = useLoginUser();
 	const email = useUserInput('', validateEmail);
 	const password = useUserInput('', validateLoginPassword);
 
@@ -62,27 +63,19 @@ function UserLoginForm(): JSX.Element {
 		const isSubmit = checkValidation();
 		if (!isSubmit) return;
 
-		const response = await dispatch(
-			loginUser({ email: email.value, password: password.value }),
-		);
-
-		if (loginUser.fulfilled.match(response)) {
-			alert('로그인에 성공하셨습니다.');
-			navigateAfterLogin();
-		} else if (loginUser.rejected.match(response)) {
-			const result = response.payload;
-
-			if (result && result.status === 500) {
-				alert('네트워크 에러가 발생하였습니다. 다시 시도해주세요.');
-			}
-		}
-	};
-
-	useEffect(() => {
-		return () => {
-			dispatch(clearLoginStatus());
+		const credentials = {
+			email: email.value,
+			password: password.value,
 		};
-	}, [dispatch]);
+
+		await loginUser(credentials, {
+			onSuccess: user => {
+				dispatch(updateAuth(user));
+				alert('로그인에 성공하셨습니다.');
+				navigateAfterLogin();
+			},
+		});
+	};
 
 	return (
 		<Form onSubmit={handleSubmit}>
@@ -108,7 +101,9 @@ function UserLoginForm(): JSX.Element {
 			</InputContainer>
 			<ButtonContainer>
 				<PrimaryButton type="submit">로그인</PrimaryButton>
-				{error && <UserErrorMessage error={error} />}
+				{isError && loginError?.status === 401 && (
+					<UserErrorMessage error={loginError?.message} />
+				)}
 			</ButtonContainer>
 		</Form>
 	);

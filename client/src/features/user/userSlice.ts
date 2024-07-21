@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IUserInfo } from './types/userData';
 
 import {
-	loginUser,
 	registerUser,
 	updateUser,
 	deleteUser,
@@ -19,7 +18,6 @@ interface IStatus {
 interface IUserState {
 	isAuth: boolean;
 	userInfo: IUserInfo | null;
-	loginStatus: IStatus;
 	registerStatus: IStatus;
 	updateStatus: IStatus;
 	deleteStatus: IStatus;
@@ -30,10 +28,6 @@ interface IUserState {
 const initialState: IUserState = {
 	isAuth: false,
 	userInfo: null,
-	loginStatus: {
-		loading: false,
-		error: null,
-	},
 	registerStatus: {
 		loading: false,
 		error: null,
@@ -60,9 +54,9 @@ const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		clearLoginStatus(state) {
-			state.loginStatus.error = null;
-			state.loginStatus.loading = false;
+		updateAuth(state, action) {
+			state.isAuth = true;
+			state.userInfo = action.payload;
 		},
 		clearRegisterStatus(state) {
 			state.registerStatus.error = null;
@@ -86,20 +80,6 @@ const userSlice = createSlice({
 		},
 	},
 	extraReducers: builder => {
-		builder.addCase(loginUser.pending, state => {
-			state.loginStatus.loading = true;
-			state.loginStatus.error = null;
-		});
-		builder.addCase(loginUser.fulfilled, (state, action) => {
-			state.loginStatus.loading = false;
-			state.isAuth = true;
-			state.userInfo = action.payload;
-		});
-		builder.addCase(loginUser.rejected, (state, action) => {
-			state.loginStatus.loading = false;
-			state.loginStatus.error =
-				action.payload?.message ?? '알 수 없는 에러 발생';
-		});
 		builder.addCase(registerUser.pending, state => {
 			state.registerStatus.loading = true;
 			state.registerStatus.error = null;
@@ -173,7 +153,7 @@ const userSlice = createSlice({
 });
 
 export const {
-	clearLoginStatus,
+	updateAuth,
 	clearRegisterStatus,
 	clearUpdateStatus,
 	clearDeleteStatus,
