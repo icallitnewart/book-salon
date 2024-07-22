@@ -1,32 +1,25 @@
 import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '@redux/store';
 
 import useDelayedLoading from '@features/user/hooks/useDelayedLoading';
-import { getAuthUser } from '@features/user/apis/userApi';
-import { clearGetAuthStatus } from '@features/user/userSlice';
+import useAuthUser from '@features/user/hooks/useAuthUser';
 
 interface IAuthLoaderProps {
 	children: JSX.Element;
 }
 
 function AuthLoader({ children }: IAuthLoaderProps): JSX.Element {
-	const dispatch = useAppDispatch();
-	const loading = useAppSelector(state => state.user.getAuthStatus.loading);
-	const error = useAppSelector(state => state.user.getAuthStatus.error);
-	const showLoader = useDelayedLoading(loading === null ? true : loading, 1000);
+	const { isPending, isError, isFetchedAfterMount } = useAuthUser();
+	const isLoading = isFetchedAfterMount ? isPending : null;
+	const showLoader = useDelayedLoading(
+		isLoading === null ? true : isLoading,
+		1000,
+	);
 
 	useEffect(() => {
-		dispatch(getAuthUser());
-	}, [dispatch]);
+		if (isError) alert('인증 정보를 확인하는 데 문제가 발생했습니다.');
+	}, [isError]);
 
-	useEffect(() => {
-		if (error) {
-			alert('인증 정보를 확인하는 데 문제가 발생했습니다.');
-			dispatch(clearGetAuthStatus());
-		}
-	}, [error, dispatch]);
-
-	if (loading || loading === null) {
+	if (isLoading || isLoading === null) {
 		if (showLoader) {
 			return <div>Loading....</div>;
 		}

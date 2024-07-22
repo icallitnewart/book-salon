@@ -7,7 +7,6 @@ import {
 	updateUser,
 	deleteUser,
 	logoutUser,
-	getAuthUser,
 } from './apis/userApi';
 
 interface IStatus {
@@ -22,7 +21,6 @@ interface IUserState {
 	updateStatus: IStatus;
 	deleteStatus: IStatus;
 	logoutStatus: IStatus;
-	getAuthStatus: IStatus;
 }
 
 const initialState: IUserState = {
@@ -42,10 +40,6 @@ const initialState: IUserState = {
 	},
 	logoutStatus: {
 		loading: false,
-		error: null,
-	},
-	getAuthStatus: {
-		loading: null,
 		error: null,
 	},
 };
@@ -73,10 +67,6 @@ const userSlice = createSlice({
 		clearLogoutStatus(state) {
 			state.logoutStatus.error = null;
 			state.logoutStatus.loading = false;
-		},
-		clearGetAuthStatus(state) {
-			state.getAuthStatus.error = null;
-			state.getAuthStatus.loading = false;
 		},
 	},
 	extraReducers: builder => {
@@ -133,22 +123,6 @@ const userSlice = createSlice({
 			state.logoutStatus.error =
 				action.payload?.message ?? '알 수 없는 에러 발생';
 		});
-		builder.addCase(getAuthUser.pending, state => {
-			state.getAuthStatus.loading = true;
-			state.getAuthStatus.error = null;
-		});
-		builder.addCase(getAuthUser.fulfilled, (state, action) => {
-			state.getAuthStatus.loading = false;
-			state.isAuth = action.payload.isAuth;
-			state.userInfo = action.payload.user ?? null;
-		});
-		builder.addCase(getAuthUser.rejected, (state, action) => {
-			state.getAuthStatus.loading = false;
-			state.getAuthStatus.error =
-				action.payload?.message ?? '알 수 없는 에러 발생';
-			state.isAuth = false;
-			state.userInfo = null;
-		});
 	},
 });
 
@@ -158,6 +132,5 @@ export const {
 	clearUpdateStatus,
 	clearDeleteStatus,
 	clearLogoutStatus,
-	clearGetAuthStatus,
 } = userSlice.actions;
 export default userSlice.reducer;

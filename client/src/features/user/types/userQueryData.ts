@@ -1,9 +1,6 @@
-interface IAuthUserData {
-	email: string;
-	nickname: string;
-}
+import { IUserInfo } from './userData';
 
 export interface IAuthQueryData {
 	isAuth: boolean;
-	user: IAuthUserData;
+	user: IUserInfo;
 }
