@@ -1,18 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '@redux/store';
-
-import { ROUTES } from '@constants/routes';
 
 import { PrimaryButton } from '@buttons';
 import UserErrorMessage from '../atoms/UserErrorMessage';
 import UserFormField from '../molecules/UserFormField';
 
 import useUserInput from '../../hooks/useUserInput';
-import { updateAuth } from '../../userSlice';
-
-import { useLoginUser } from '../../hooks/useUserQueries';
+import useLoginUser from '../../hooks/useLoginUser';
 import {
 	validateEmail,
 	validateLoginPassword,
@@ -33,9 +27,6 @@ const ButtonContainer = styled.div`
 `;
 
 function UserLoginForm(): JSX.Element {
-	const dispatch = useAppDispatch();
-	const location = useLocation();
-	const navigate = useNavigate();
 	const { mutate: loginUser, isError, loginError } = useLoginUser();
 	const email = useUserInput('', validateEmail);
 	const password = useUserInput('', validateLoginPassword);
@@ -45,16 +36,6 @@ function UserLoginForm(): JSX.Element {
 		password.validateInput();
 
 		return email.isValidRef.current && password.isValidRef.current;
-	};
-
-	const navigateAfterLogin = () => {
-		const from = location.state?.from;
-
-		if (from && from.pathname !== ROUTES.USER.LOGIN) {
-			navigate(from.pathname, { replace: true });
-		} else {
-			navigate(ROUTES.MAIN, { replace: true });
-		}
 	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -68,13 +49,7 @@ function UserLoginForm(): JSX.Element {
 			password: password.value,
 		};
 
-		await loginUser(credentials, {
-			onSuccess: user => {
-				dispatch(updateAuth(user));
-				alert('로그인에 성공하셨습니다.');
-				navigateAfterLogin();
-			},
-		});
+		loginUser(credentials);
 	};
 
 	return (

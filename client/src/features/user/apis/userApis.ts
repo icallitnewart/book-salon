@@ -4,7 +4,7 @@ import { APIS } from '@constants/apis';
 import { IErrorResponse } from '@typeDefs/apiError';
 import { IUserInfo, IUserLogin } from '../types/userData';
 
-export const userApis = {
+const userApis = {
 	login: async (
 		credentials: IUserLogin,
 	): Promise<IUserInfo | IErrorResponse> => {
@@ -12,3 +12,5 @@ export const userApis = {
 		return response.data.user;
 	},
 };
+
+export default userApis;
