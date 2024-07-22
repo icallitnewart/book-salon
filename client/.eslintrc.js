@@ -48,5 +48,6 @@ module.exports = {
 				ignorePropertyModificationsFor: ['state', 'acc'],
 			},
 		],
+		'@tanstack/query/exhaustive-deps': 'off',
 	},
 };
