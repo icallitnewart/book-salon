@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useAppSelector } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
+import useAuthQueryData from '@hooks/useAuthQueryData';
 
 import MenuLink from '../atoms/MenuLink';
 
@@ -15,7 +15,7 @@ const Container = styled.nav`
 `;
 
 function Navigation(): JSX.Element {
-	const isAuth = useAppSelector(state => state.user.isAuth);
+	const { isAuth } = useAuthQueryData();
 
 	return (
 		<Container>

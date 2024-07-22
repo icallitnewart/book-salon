@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '@redux/store';
+import { useAppDispatch } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
+import useAuthQueryData from '@hooks/useAuthQueryData';
 
 import { SecondaryButton, SubtleButton } from '@buttons';
 import UserFormField from '../molecules/UserFormField';
@@ -42,7 +43,7 @@ function UserProfileEditForm({
 }: IUserProfileEditFormProps): JSX.Element {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const user = useAppSelector(state => state.user.userInfo);
+	const { user } = useAuthQueryData();
 	const email = useUserInput(user?.email, validateEmail);
 	const nickname = useUserInput(user?.nickname, validateNickname);
 	const currentPassword = useUserInput('', validateVerifyPassword);

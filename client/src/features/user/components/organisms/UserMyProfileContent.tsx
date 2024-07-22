@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '@redux/store';
+import { useAppDispatch } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
+import useAuthQueryData from '@hooks/useAuthQueryData';
 
 import { SecondaryButton, SubtleButton } from '@buttons';
 import UserLabelledText from '../molecules/UserLabelledText';
@@ -28,7 +29,7 @@ const ButtonContainer = styled.div`
 
 function UserMyProfileContent(): JSX.Element {
 	const dispatch = useAppDispatch();
-	const user = useAppSelector(state => state.user.userInfo);
+	const { user } = useAuthQueryData();
 	const navigate = useNavigate();
 	const moveToProfileEdit = () => {
 		navigate(ROUTES.USER.PROFILE_EDIT);

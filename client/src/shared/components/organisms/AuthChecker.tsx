@@ -3,9 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 import { ROUTES } from '@constants/routes';
 import { AUTH_TYPES } from '@constants/auth';
-import { queryClient } from '@config/query/queryClient';
-import { userKeys } from '@config/query/queryKeys';
-import { IAuthQueryData } from '@features/user/types/userQueryData';
+import useAuthQueryData from '@hooks/useAuthQueryData';
 
 interface IAuthCheckerProps {
 	children: JSX.Element;
@@ -14,8 +12,7 @@ interface IAuthCheckerProps {
 
 function AuthChecker({ children, type }: IAuthCheckerProps): JSX.Element {
 	const location = useLocation();
-	const authData = queryClient.getQueryData<IAuthQueryData>(userKeys.auth);
-	const isAuth = authData?.isAuth;
+	const { isAuth } = useAuthQueryData();
 
 	if (type === AUTH_TYPES.PRIVATE && !isAuth) {
 		return (
