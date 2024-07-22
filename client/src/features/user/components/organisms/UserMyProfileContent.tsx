@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '@redux/store';
+import styled from 'styled-components';
 
 import { ROUTES } from '@constants/routes';
 import useAuthQueryData from '@hooks/useAuthQueryData';
 
-import { SecondaryButton, SubtleButton } from '@buttons';
+import { SecondaryButton as UserEditButton } from '@buttons';
 import UserLabelledText from '../molecules/UserLabelledText';
-
-import { clearLogoutStatus } from '../../userSlice';
-import { logoutUser } from '../../apis/userApi';
+import UserLogoutButton from '../atoms/UserLogoutButton';
 
 const Container = styled.form`
 	width: 100%;
@@ -28,29 +25,11 @@ const ButtonContainer = styled.div`
 `;
 
 function UserMyProfileContent(): JSX.Element {
-	const dispatch = useAppDispatch();
 	const { user } = useAuthQueryData();
 	const navigate = useNavigate();
 	const moveToProfileEdit = () => {
 		navigate(ROUTES.USER.PROFILE_EDIT);
 	};
-
-	const handleLogout = async () => {
-		const response = await dispatch(logoutUser());
-
-		if (logoutUser.fulfilled.match(response)) {
-			alert('로그아웃 되었습니다.');
-			navigate(ROUTES.MAIN);
-		} else if (logoutUser.rejected.match(response)) {
-			alert('로그아웃에 실패했습니다.');
-		}
-	};
-
-	useEffect(() => {
-		return () => {
-			dispatch(clearLogoutStatus());
-		};
-	}, [dispatch]);
 
 	return (
 		<Container>
@@ -63,12 +42,10 @@ function UserMyProfileContent(): JSX.Element {
 				/>
 			</InfoContainer>
 			<ButtonContainer>
-				<SecondaryButton type="button" onClick={moveToProfileEdit}>
+				<UserEditButton type="button" onClick={moveToProfileEdit}>
 					회원 정보 수정
-				</SecondaryButton>
-				<SubtleButton type="button" onClick={handleLogout}>
-					로그아웃
-				</SubtleButton>
+				</UserEditButton>
+				<UserLogoutButton />
 			</ButtonContainer>
 		</Container>
 	);
