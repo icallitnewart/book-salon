@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '@constants/routes';
 
+import useInputWithError from '@hooks/useInputWithError';
 import useDeleteUser from '@features/user/hooks/useDeleteUser';
 import { handleApiError } from '@utils/errorHandler';
 
@@ -13,7 +14,6 @@ import {
 } from '@buttons';
 import UserFormField from '../molecules/UserFormField';
 
-import useUserInput from '../../hooks/useUserInput';
 import { validateVerifyPassword } from '../../utils/userValidator';
 
 const Form = styled.form`
@@ -39,7 +39,7 @@ function UserDeleteAccountForm({
 }: IUserDeleteAccountFormProps): JSX.Element {
 	const navigate = useNavigate();
 	const { deleteUser, initialiseQueriesAfterMutation } = useDeleteUser();
-	const password = useUserInput('', validateVerifyPassword);
+	const password = useInputWithError('', validateVerifyPassword);
 
 	const checkValidation = (): boolean => {
 		password.validateInput();

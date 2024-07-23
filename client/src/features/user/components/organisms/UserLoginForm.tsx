@@ -5,11 +5,12 @@ import styled from 'styled-components';
 import { handleApiError } from '@utils/errorHandler';
 import { ROUTES } from '@constants/routes';
 
+import useInputWithError from '@hooks/useInputWithError';
+
 import { PrimaryButton } from '@buttons';
 import UserErrorMessage from '../atoms/UserErrorMessage';
 import UserFormField from '../molecules/UserFormField';
 
-import useUserInput from '../../hooks/useUserInput';
 import useLoginUser from '../../hooks/useLoginUser';
 import {
 	validateEmail,
@@ -36,8 +37,8 @@ function UserLoginForm(): JSX.Element {
 	const { loginUser, isError, updateAuthQueryDataAfterMutation } =
 		useLoginUser();
 	const [loginError, setLoginError] = React.useState('');
-	const email = useUserInput('', validateEmail);
-	const password = useUserInput('', validateLoginPassword);
+	const email = useInputWithError('', validateEmail);
+	const password = useInputWithError('', validateLoginPassword);
 
 	const checkValidation = (): boolean => {
 		const fields = [email, password];

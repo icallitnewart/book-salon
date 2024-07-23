@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/default-param-last */
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-function useUserInput(
+function useInputWithError(
 	initialValue = '',
-	// TODO: validate 필수로 변경 예정
-	validate?: (value: string) => string,
+	validate: (value: string) => string,
 ) {
 	const isTouchedRef = useRef(false);
 	const isValidRef = useRef(false);
@@ -44,4 +44,4 @@ function useUserInput(
 	};
 }
 
-export default useUserInput;
+export default useInputWithError;

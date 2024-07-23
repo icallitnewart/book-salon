@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import { ROUTES } from '@constants/routes';
 import { IUserRegister } from '@features/user/types/userData';
 
+import useInputWithError from '@hooks/useInputWithError';
 import useRegisterUser from '@features/user/hooks/useRegisterUser';
 import { handleApiError } from '@utils/errorHandler';
 
 import { SecondaryButton } from '@buttons';
 import UserFormField from '../molecules/UserFormField';
 
-import useUserInput from '../../hooks/useUserInput';
 import {
 	validateEmail,
 	validateNickname,
@@ -36,10 +36,10 @@ const ButtonContainer = styled.div`
 function UserRegisterForm(): JSX.Element {
 	const navigate = useNavigate();
 	const { registerUser } = useRegisterUser();
-	const email = useUserInput('', validateEmail);
-	const nickname = useUserInput('', validateNickname);
-	const password = useUserInput('', validatePassword);
-	const passwordConfirm = useUserInput('', value =>
+	const email = useInputWithError('', validateEmail);
+	const nickname = useInputWithError('', validateNickname);
+	const password = useInputWithError('', validatePassword);
+	const passwordConfirm = useInputWithError('', value =>
 		validatePasswordConfirm(value, password.value),
 	);
 

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '@constants/routes';
 import useAuthQueryData from '@hooks/useAuthQueryData';
+import useInputWithError from '@hooks/useInputWithError';
 import { handleApiError } from '@utils/errorHandler';
 
 import {
@@ -13,7 +14,6 @@ import {
 import UserFormField from '../molecules/UserFormField';
 
 import useUpdateUser from '../../hooks/useUpdateUser';
-import useUserInput from '../../hooks/useUserInput';
 import { IUserInfo, IUserUpdate } from '../../types/userData';
 
 import {
@@ -50,13 +50,13 @@ function UserProfileEditForm({
 	const { getAuthQueryData } = useAuthQueryData();
 	const { user } = getAuthQueryData();
 
-	const email = useUserInput(user?.email, validateEmail);
-	const nickname = useUserInput(user?.nickname, validateNickname);
-	const currentPassword = useUserInput('', validateVerifyPassword);
-	const password = useUserInput('', value =>
+	const email = useInputWithError(user?.email, validateEmail);
+	const nickname = useInputWithError(user?.nickname, validateNickname);
+	const currentPassword = useInputWithError('', validateVerifyPassword);
+	const password = useInputWithError('', value =>
 		validatePassword(value, value !== ''),
 	);
-	const passwordConfirm = useUserInput('', value =>
+	const passwordConfirm = useInputWithError('', value =>
 		validatePasswordConfirm(value, password.value, password.value !== ''),
 	);
 
