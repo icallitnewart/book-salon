@@ -12,7 +12,7 @@ function useLoginUser() {
 	});
 
 	const setLoginQueryData = (user: IUserInfo) => {
-		return queryClient.setQueryData(userKeys.auth, {
+		queryClient.setQueryData(userKeys.auth, {
 			user,
 			isAuth: true,
 		});
