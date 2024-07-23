@@ -4,6 +4,7 @@ import authAxios from '@config/axiosInstance/authAxios';
 import { APIS } from '@constants/apis';
 import {
 	IUserAuth,
+	IUserDelete,
 	IUserInfo,
 	IUserLogin,
 	IUserRegister,
@@ -33,6 +34,9 @@ const userApis = {
 	update: async (formData: IUserUpdate): Promise<IUserInfo> => {
 		const response = await authAxios.patch(APIS.USER.UPDATE, formData);
 		return response.data.user;
+	},
+	delete: async (formData: IUserDelete): Promise<void> => {
+		await authAxios.delete(APIS.USER.DELETE, { data: formData });
 	},
 };
 

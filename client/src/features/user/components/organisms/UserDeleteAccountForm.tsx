@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 
-import { SecondaryButton, SubtleButton } from '@buttons';
+import useDeleteUser from '@features/user/hooks/useDeleteUser';
+import { handleApiError } from '@utils/errorHandler';
+
+import {
+	SecondaryButton as SubmitButton,
+	SubtleButton as CancelButton,
+} from '@buttons';
 import UserFormField from '../molecules/UserFormField';
 
 import useUserInput from '../../hooks/useUserInput';
-import { deleteUser } from '../../apis/userApi';
-import { clearDeleteStatus } from '../../userSlice';
 import { validateVerifyPassword } from '../../utils/userValidator';
 
 const Form = styled.form`
@@ -34,8 +37,8 @@ interface IUserDeleteAccountFormProps {
 function UserDeleteAccountForm({
 	closeUserDeleteAccountForm,
 }: IUserDeleteAccountFormProps): JSX.Element {
-	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const { deleteUser, initialiseQueriesAfterMutation } = useDeleteUser();
 	const password = useUserInput('', validateVerifyPassword);
 
 	const checkValidation = (): boolean => {
@@ -50,31 +53,30 @@ function UserDeleteAccountForm({
 		if (!isSubmit) return;
 
 		if (window.confirm('정말로 탈퇴하시겠습니까?')) {
-			const response = await dispatch(deleteUser(password.value));
+			const formData = {
+				password: password.value,
+			};
 
-			if (deleteUser.fulfilled.match(response)) {
-				alert(
-					'성공적으로 회원탈퇴가 되었습니다. 그동안 이용해주셔서 감사합니다.',
-				);
-				navigate(ROUTES.MAIN);
-			} else if (deleteUser.rejected.match(response)) {
-				const result = response.payload;
-				if (result) {
-					if (result.status === 401 && result.field === 'password') {
-						password.setError('비밀번호가 일치하지 않습니다.');
+			deleteUser(formData, {
+				onSuccess: () => {
+					initialiseQueriesAfterMutation();
+					alert(
+						'성공적으로 회원탈퇴가 되었습니다. 그동안 이용해주셔서 감사합니다.',
+					);
+					navigate(ROUTES.MAIN);
+				},
+				onError: error => {
+					const { status, message, field } = handleApiError(error);
+
+					if (status === 401 && field === 'password') {
+						password.setError(message);
 					} else {
 						alert('회원탈퇴에 실패하였습니다. 다시 시도해주세요.');
 					}
-				}
-			}
+				},
+			});
 		}
 	};
-
-	useEffect(() => {
-		return () => {
-			dispatch(clearDeleteStatus());
-		};
-	}, [dispatch]);
 
 	return (
 		<Form onSubmit={handleSubmit}>
@@ -91,12 +93,12 @@ function UserDeleteAccountForm({
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<SubtleButton type="submit" $hoverBgColor="crimson">
+				<SubmitButton type="submit" $hoverBgColor="crimson">
 					확인
-				</SubtleButton>
-				<SecondaryButton type="button" onClick={closeUserDeleteAccountForm}>
+				</SubmitButton>
+				<CancelButton type="button" onClick={closeUserDeleteAccountForm}>
 					취소
-				</SecondaryButton>
+				</CancelButton>
 			</ButtonContainer>
 		</Form>
 	);

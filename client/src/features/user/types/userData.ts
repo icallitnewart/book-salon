@@ -19,6 +19,10 @@ export interface IUserUpdate extends IUserRegister {
 	currentPassword: string;
 }
 
+export interface IUserDelete {
+	password: string;
+}
+
 export interface IUserAuth {
 	isAuth: boolean;
 	user?: IUserInfo;
