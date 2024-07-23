@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '@redux/store';
+import styled from 'styled-components';
 
 import { ROUTES } from '@constants/routes';
+import { IUserRegister } from '@features/user/types/userData';
+
+import useRegisterUser from '@features/user/hooks/useRegisterUser';
+import { handleApiError } from '@utils/errorHandler';
 
 import { SecondaryButton } from '@buttons';
 import UserFormField from '../molecules/UserFormField';
 
-import { clearRegisterStatus } from '../../userSlice';
-import { registerUser } from '../../apis/userApi';
 import useUserInput from '../../hooks/useUserInput';
 import {
 	validateEmail,
@@ -33,8 +34,8 @@ const ButtonContainer = styled.div`
 `;
 
 function UserRegisterForm(): JSX.Element {
-	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const { registerUser } = useRegisterUser();
 	const email = useUserInput('', validateEmail);
 	const nickname = useUserInput('', validateNickname);
 	const password = useUserInput('', validatePassword);
@@ -43,55 +44,40 @@ function UserRegisterForm(): JSX.Element {
 	);
 
 	const checkValidation = (): boolean => {
-		email.validateInput();
-		nickname.validateInput();
-		password.validateInput();
-		passwordConfirm.validateInput();
-
-		return (
-			email.isValidRef.current &&
-			nickname.isValidRef.current &&
-			password.isValidRef.current &&
-			passwordConfirm.isValidRef.current
-		);
+		const fields = [email, nickname, password, passwordConfirm];
+		fields.forEach(field => field.validateInput());
+		return fields.every(field => field.isValidRef.current);
 	};
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		const isSubmit = checkValidation();
 		if (!isSubmit) return;
 
-		const response = await dispatch(
-			registerUser({
-				email: email.value,
-				nickname: nickname.value,
-				password: password.value,
-				passwordConfirm: passwordConfirm.value,
-			}),
-		);
+		const formData: IUserRegister = {
+			email: email.value,
+			nickname: nickname.value,
+			password: password.value,
+			passwordConfirm: passwordConfirm.value,
+		};
 
-		if (registerUser.fulfilled.match(response)) {
-			alert('회원가입이 완료되었습니다!👏 로그인 해주세요.');
-			navigate(ROUTES.USER.LOGIN);
-		} else if (registerUser.rejected.match(response)) {
-			const result = response.payload;
+		registerUser(formData, {
+			onSuccess: () => {
+				alert('회원가입이 완료되었습니다👏! 로그인 해주세요.');
+				navigate(ROUTES.USER.LOGIN);
+			},
+			onError: error => {
+				const { status, message } = handleApiError(error);
 
-			if (result) {
-				if (result.status === 409) {
-					email.setError(result.message);
+				if (status === 409) {
+					email.setError(message);
 				} else {
 					alert('회원가입에 실패하였습니다. 다시 시도해주세요.');
 				}
-			}
-		}
+			},
+		});
 	};
-
-	useEffect(() => {
-		return () => {
-			dispatch(clearRegisterStatus());
-		};
-	}, [dispatch]);
 
 	return (
 		<Form onSubmit={handleSubmit}>

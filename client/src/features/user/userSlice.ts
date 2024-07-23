@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { IUserInfo } from './types/userData';
 
-import { registerUser, updateUser, deleteUser } from './apis/userApi';
+import { updateUser, deleteUser } from './apis/userApi';
 
 interface IStatus {
 	loading: boolean | null;
@@ -12,7 +12,6 @@ interface IStatus {
 interface IUserState {
 	isAuth: boolean;
 	userInfo: IUserInfo | null;
-	registerStatus: IStatus;
 	updateStatus: IStatus;
 	deleteStatus: IStatus;
 }
@@ -20,10 +19,6 @@ interface IUserState {
 const initialState: IUserState = {
 	isAuth: false,
 	userInfo: null,
-	registerStatus: {
-		loading: false,
-		error: null,
-	},
 	updateStatus: {
 		loading: false,
 		error: null,
@@ -42,10 +37,6 @@ const userSlice = createSlice({
 			state.isAuth = true;
 			state.userInfo = action.payload;
 		},
-		clearRegisterStatus(state) {
-			state.registerStatus.error = null;
-			state.registerStatus.loading = false;
-		},
 		clearUpdateStatus(state) {
 			state.updateStatus.error = null;
 			state.updateStatus.loading = false;
@@ -56,18 +47,6 @@ const userSlice = createSlice({
 		},
 	},
 	extraReducers: builder => {
-		builder.addCase(registerUser.pending, state => {
-			state.registerStatus.loading = true;
-			state.registerStatus.error = null;
-		});
-		builder.addCase(registerUser.fulfilled, state => {
-			state.registerStatus.loading = false;
-		});
-		builder.addCase(registerUser.rejected, (state, action) => {
-			state.registerStatus.loading = false;
-			state.registerStatus.error =
-				action.payload?.message ?? '알 수 없는 에러 발생';
-		});
 		builder.addCase(updateUser.pending, state => {
 			state.updateStatus.loading = true;
 			state.updateStatus.error = null;
@@ -98,10 +77,6 @@ const userSlice = createSlice({
 	},
 });
 
-export const {
-	updateAuth,
-	clearRegisterStatus,
-	clearUpdateStatus,
-	clearDeleteStatus,
-} = userSlice.actions;
+export const { updateAuth, clearUpdateStatus, clearDeleteStatus } =
+	userSlice.actions;
 export default userSlice.reducer;

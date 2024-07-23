@@ -1,9 +1,18 @@
+import axios from 'axios';
 import authAxios from '@config/axiosInstance/authAxios';
 
 import { APIS } from '@constants/apis';
-import { IUserAuth, IUserInfo, IUserLogin } from '../types/userData';
+import {
+	IUserAuth,
+	IUserInfo,
+	IUserLogin,
+	IUserRegister,
+} from '../types/userData';
 
 const userApis = {
+	register: async (formData: IUserRegister): Promise<void> => {
+		await axios.post(APIS.USER.REGISTER, formData);
+	},
 	login: async (credentials: IUserLogin): Promise<IUserInfo> => {
 		const response = await authAxios.post(APIS.USER.LOGIN, credentials);
 		return response.data.user;
