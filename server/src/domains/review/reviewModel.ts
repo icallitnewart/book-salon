@@ -5,11 +5,23 @@ interface IUser {
 	nickname: string;
 }
 
+export interface IBook {
+	isbn: string;
+	title: string;
+	author: string;
+	description: string;
+	category: string;
+	cover: string;
+	publisher: string;
+	pubDate: string;
+}
+
 export interface IReviewInput {
 	title: string;
 	content: string;
 	rating: number;
 	tags: string[];
+	book: IBook;
 }
 
 export interface IReviewInputWithUser extends IReviewInput {
@@ -46,6 +58,25 @@ export interface IReviewModel extends IReview, Document {}
  *           type: array
  *           items:
  *             type: string
+ *         book:
+ *           type: object
+ *           properties:
+ *             isbn:
+ *               type: string
+ *             title:
+ *               type: string
+ *             author:
+ *               type: string
+ *             description:
+ *               type: string
+ *             category:
+ *               type: string
+ *             cover:
+ *               type: string
+ *             publisher:
+ *               type: string
+ *             pubDate:
+ *               type: string
  *         viewCount:
  *           type: number
  *           minimum: 0
@@ -56,22 +87,13 @@ export interface IReviewModel extends IReview, Document {}
  *         updatedAt:
  *           type: string
  *           format: date-time
- *       example:
- *         _id: 60a9a1c1f2d3b12f3c8d0f1e
- *         user: 60a9a1c1f2d3b12f3c8d0f1c
- *         title: 반전이 엄청난 추리소설 추천
- *         content: 읽는 내내 몰입하게 만드는 소설이었습니다.
- *         rating: 5
- *         tags: ['스릴러', '추리소설']
- *         viewCount: 120
- *         createdAt: '2023-05-20T15:30:00Z'
- *         updatedAt: '2023-05-20T15:30:00Z'
  *     ReviewInput:
  *       type: object
  *       required:
  *         - title
  *         - content
  *         - rating
+ *         - book
  *       properties:
  *         title:
  *           type: string
@@ -85,6 +107,39 @@ export interface IReviewModel extends IReview, Document {}
  *           type: array
  *           items:
  *             type: string
+ *         book:
+ *           type: object
+ *           properties:
+ *             isbn:
+ *               type: string
+ *             title:
+ *               type: string
+ *             author:
+ *               type: string
+ *             description:
+ *               type: string
+ *             category:
+ *               type: string
+ *             cover:
+ *               type: string
+ *             publisher:
+ *               type: string
+ *             pubDate:
+ *               type: string
+ *       example:
+ *         title: 반전이 엄청난 추리소설 추천
+ *         content: 읽는 내내 몰입하게 만드는 소설이었습니다.
+ *         rating: 5
+ *         tags: ['스릴러', '추리소설']
+ *         book:
+ *           isbn: '9788954699272'
+ *           title: '셜록 홈즈: 바스커빌의 개'
+ *           author: '아서 코난 도일'
+ *           description: '셜록 홈즈 시리즈 중 가장 유명한 장편소설'
+ *           category: '추리소설'
+ *           cover: 'https://example.com/cover.jpg'
+ *           publisher: '민음사'
+ *           pubDate: '2020-01-01'
  */
 const reviewSchema = new Schema(
 	{
@@ -115,6 +170,40 @@ const reviewSchema = new Schema(
 			type: Number,
 			default: 0,
 			minimum: 0,
+		},
+		book: {
+			isbn: {
+				type: String,
+				required: true,
+			},
+			title: {
+				type: String,
+				required: true,
+			},
+			author: {
+				type: String,
+				required: true,
+			},
+			description: {
+				type: String,
+				required: true,
+			},
+			category: {
+				type: String,
+				required: true,
+			},
+			cover: {
+				type: String,
+				required: true,
+			},
+			publisher: {
+				type: String,
+				required: true,
+			},
+			pubDate: {
+				type: String,
+				required: true,
+			},
 		},
 	},
 	{ timestamps: true },
