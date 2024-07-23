@@ -12,7 +12,8 @@ interface IAuthCheckerProps {
 
 function AuthChecker({ children, type }: IAuthCheckerProps): JSX.Element {
 	const location = useLocation();
-	const { isAuth } = useAuthQueryData();
+	const { getAuthQueryData } = useAuthQueryData();
+	const { isAuth } = getAuthQueryData();
 
 	if (type === AUTH_TYPES.PRIVATE && !isAuth) {
 		return (

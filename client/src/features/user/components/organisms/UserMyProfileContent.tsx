@@ -25,7 +25,8 @@ const ButtonContainer = styled.div`
 `;
 
 function UserMyProfileContent(): JSX.Element {
-	const { user } = useAuthQueryData();
+	const { getAuthQueryData } = useAuthQueryData();
+	const { user } = getAuthQueryData();
 	const navigate = useNavigate();
 	const moveToProfileEdit = () => {
 		navigate(ROUTES.USER.PROFILE_EDIT);

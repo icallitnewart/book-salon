@@ -47,7 +47,8 @@ function UserProfileEditForm({
 }: IUserProfileEditFormProps): JSX.Element {
 	const navigate = useNavigate();
 	const { updateUser, updateAuthQueryDataAfterMutation } = useUpdateUser();
-	const { user } = useAuthQueryData();
+	const { getAuthQueryData } = useAuthQueryData();
+	const { user } = getAuthQueryData();
 
 	const email = useUserInput(user?.email, validateEmail);
 	const nickname = useUserInput(user?.nickname, validateNickname);

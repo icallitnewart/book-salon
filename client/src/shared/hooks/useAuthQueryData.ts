@@ -1,16 +1,23 @@
 import { queryClient } from '@config/query/queryClient';
 import { userKeys } from '@config/query/queryKeys';
 import { IAuthQueryData } from '@features/user/types/userQueryData';
+import { useCallback } from 'react';
 
 function useAuthQueryData() {
-	const authData = queryClient.getQueryData<IAuthQueryData>(userKeys.auth);
-	const setAuthQueryData = (data: IAuthQueryData) => {
+	const getAuthQueryData = useCallback(() => {
+		const authData = queryClient.getQueryData<IAuthQueryData>(userKeys.auth);
+		return {
+			user: authData?.user,
+			isAuth: authData?.isAuth,
+		};
+	}, []);
+
+	const setAuthQueryData = useCallback((data: IAuthQueryData) => {
 		queryClient.setQueryData(userKeys.auth, data);
-	};
+	}, []);
 
 	return {
-		user: authData?.user,
-		isAuth: authData?.isAuth,
+		getAuthQueryData,
 		setAuthQueryData,
 	};
 }

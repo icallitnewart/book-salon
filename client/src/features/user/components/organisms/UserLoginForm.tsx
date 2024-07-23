@@ -33,7 +33,8 @@ const ButtonContainer = styled.div`
 function UserLoginForm(): JSX.Element {
 	const location = useLocation();
 	const navigate = useNavigate();
-	const { loginUser, isError, setLoginQueryData } = useLoginUser();
+	const { loginUser, isError, updateAuthQueryDataAfterMutation } =
+		useLoginUser();
 	const [loginError, setLoginError] = React.useState('');
 	const email = useUserInput('', validateEmail);
 	const password = useUserInput('', validateLoginPassword);
@@ -66,7 +67,7 @@ function UserLoginForm(): JSX.Element {
 
 		loginUser(credentials, {
 			onSuccess: user => {
-				setLoginQueryData(user);
+				updateAuthQueryDataAfterMutation(user);
 				alert('로그인에 성공하셨습니다.');
 				navigateAfterLogin();
 			},

@@ -15,7 +15,8 @@ const Container = styled.nav`
 `;
 
 function Navigation(): JSX.Element {
-	const { isAuth } = useAuthQueryData();
+	const { getAuthQueryData } = useAuthQueryData();
+	const { isAuth } = getAuthQueryData();
 
 	return (
 		<Container>
