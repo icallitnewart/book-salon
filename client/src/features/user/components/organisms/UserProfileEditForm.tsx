@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '@redux/store';
 
 import { ROUTES } from '@constants/routes';
 import useAuthQueryData from '@hooks/useAuthQueryData';
+import { handleApiError } from '@utils/errorHandler';
 
-import { SecondaryButton, SubtleButton } from '@buttons';
+import {
+	SecondaryButton as EditButton,
+	SubtleButton as DeleteButton,
+} from '@buttons';
 import UserFormField from '../molecules/UserFormField';
 
+import useUpdateUser from '../../hooks/useUpdateUser';
 import useUserInput from '../../hooks/useUserInput';
-import { updateUser } from '../../apis/userApi';
-import { clearUpdateStatus } from '../../userSlice';
+import { IUserInfo, IUserUpdate } from '../../types/userData';
+
 import {
 	validateEmail,
 	validateNickname,
@@ -41,9 +45,10 @@ interface IUserProfileEditFormProps {
 function UserProfileEditForm({
 	openUserDeleteAccountForm,
 }: IUserProfileEditFormProps): JSX.Element {
-	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const { updateUser, updateAuthQueryDataAfterMutation } = useUpdateUser();
 	const { user } = useAuthQueryData();
+
 	const email = useUserInput(user?.email, validateEmail);
 	const nickname = useUserInput(user?.nickname, validateNickname);
 	const currentPassword = useUserInput('', validateVerifyPassword);
@@ -55,62 +60,54 @@ function UserProfileEditForm({
 	);
 
 	const checkValidation = (): boolean => {
-		email.validateInput();
-		nickname.validateInput();
-		currentPassword.validateInput();
-		password.validateInput();
-		passwordConfirm.validateInput();
+		const fields = [
+			email,
+			nickname,
+			currentPassword,
+			password,
+			passwordConfirm,
+		];
 
-		return (
-			email.isValidRef.current &&
-			nickname.isValidRef.current &&
-			currentPassword.isValidRef.current &&
-			password.isValidRef.current &&
-			passwordConfirm.isValidRef.current
-		);
+		fields.forEach(field => field.validateInput());
+		return fields.every(field => field.isValidRef.current);
 	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
 		const isSubmit = checkValidation();
 		if (!isSubmit) return;
 
-		const response = await dispatch(
-			updateUser({
-				email: email.value,
-				nickname: nickname.value,
-				currentPassword: currentPassword.value,
-				password: password.value,
-				passwordConfirm: passwordConfirm.value,
-			}),
-		);
-
-		if (updateUser.fulfilled.match(response)) {
-			alert('성공적으로 회원정보가 수정되었습니다.');
-			navigate(ROUTES.USER.MY_PROFILE);
-		} else if (updateUser.rejected.match(response)) {
-			const result = response.payload;
-
-			if (result) {
-				if (result.status === 409 && result.field === 'email') {
-					email.setError(result.message);
-				} else if (
-					result.status === 401 &&
-					result.field === 'currentPassword'
-				) {
-					currentPassword.setError(result.message);
-				} else {
-					alert('회원정보 수정에 실패하였습니다. 다시 시도해주세요.');
-				}
-			}
-		}
-	};
-
-	useEffect(() => {
-		return () => {
-			dispatch(clearUpdateStatus());
+		const formData: IUserUpdate = {
+			email: email.value,
+			nickname: nickname.value,
+			currentPassword: currentPassword.value,
+			password: password.value,
+			passwordConfirm: passwordConfirm.value,
 		};
-	}, [dispatch]);
+
+		updateUser(formData, {
+			onSuccess: (userData: IUserInfo) => {
+				updateAuthQueryDataAfterMutation(userData);
+				alert('성공적으로 회원정보가 수정되었습니다.');
+				navigate(ROUTES.USER.MY_PROFILE);
+			},
+			onError: error => {
+				const { status, message, field } = handleApiError(error);
+
+				if (status === 409 && field === 'email') {
+					email.setError(message);
+					return;
+				}
+				if (status === 401 && field === 'currentPassword') {
+					currentPassword.setError(message);
+					return;
+				}
+
+				alert('회원정보 수정에 실패하였습니다. 다시 시도해주세요.');
+			},
+		});
+	};
 
 	return (
 		<Form onSubmit={handleSubmit}>
@@ -164,14 +161,14 @@ function UserProfileEditForm({
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<SecondaryButton type="submit">수정하기</SecondaryButton>
-				<SubtleButton
+				<EditButton type="submit">수정하기</EditButton>
+				<DeleteButton
 					type="button"
 					$hoverBgColor="crimson"
 					onClick={openUserDeleteAccountForm}
 				>
 					탈퇴하기
-				</SubtleButton>
+				</DeleteButton>
 			</ButtonContainer>
 		</Form>
 	);

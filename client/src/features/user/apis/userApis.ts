@@ -7,6 +7,7 @@ import {
 	IUserInfo,
 	IUserLogin,
 	IUserRegister,
+	IUserUpdate,
 } from '../types/userData';
 
 const userApis = {
@@ -28,6 +29,10 @@ const userApis = {
 	},
 	logout: async (): Promise<void> => {
 		await authAxios.post(APIS.USER.LOGOUT, null);
+	},
+	update: async (formData: IUserUpdate): Promise<IUserInfo> => {
+		const response = await authAxios.patch(APIS.USER.UPDATE, formData);
+		return response.data.user;
 	},
 };
 
