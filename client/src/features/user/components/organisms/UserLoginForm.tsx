@@ -1,5 +1,9 @@
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { handleApiError } from '@utils/errorHandler';
+import { ROUTES } from '@constants/routes';
 
 import { PrimaryButton } from '@buttons';
 import UserErrorMessage from '../atoms/UserErrorMessage';
@@ -27,15 +31,26 @@ const ButtonContainer = styled.div`
 `;
 
 function UserLoginForm(): JSX.Element {
-	const { mutate: loginUser, isError, loginError } = useLoginUser();
+	const location = useLocation();
+	const navigate = useNavigate();
+	const { loginUser, isError, setLoginQueryData } = useLoginUser();
+	const [loginError, setLoginError] = React.useState('');
 	const email = useUserInput('', validateEmail);
 	const password = useUserInput('', validateLoginPassword);
 
 	const checkValidation = (): boolean => {
-		email.validateInput();
-		password.validateInput();
+		const fields = [email, password];
+		fields.forEach(field => field.validateInput());
+		return fields.every(field => field.isValidRef.current);
+	};
 
-		return email.isValidRef.current && password.isValidRef.current;
+	const navigateAfterLogin = () => {
+		const from = location.state?.from;
+		if (from && from.pathname !== ROUTES.USER.LOGIN) {
+			navigate(from.pathname, { replace: true });
+		} else {
+			navigate(ROUTES.MAIN, { replace: true });
+		}
 	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -49,7 +64,18 @@ function UserLoginForm(): JSX.Element {
 			password: password.value,
 		};
 
-		loginUser(credentials);
+		loginUser(credentials, {
+			onSuccess: user => {
+				setLoginQueryData(user);
+				alert('로그인에 성공하셨습니다.');
+				navigateAfterLogin();
+			},
+			onError: err => {
+				const error = handleApiError(err);
+				if (error.status === 401) setLoginError(error.message);
+				else alert('로그인에 실패하였습니다. 다시 시도해주세요.');
+			},
+		});
 	};
 
 	return (
@@ -76,9 +102,7 @@ function UserLoginForm(): JSX.Element {
 			</InputContainer>
 			<ButtonContainer>
 				<PrimaryButton type="submit">로그인</PrimaryButton>
-				{isError && loginError?.status === 401 && (
-					<UserErrorMessage error={loginError?.message} />
-				)}
+				{isError && loginError && <UserErrorMessage error={loginError} />}
 			</ButtonContainer>
 		</Form>
 	);
