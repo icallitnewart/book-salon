@@ -1,5 +1,6 @@
 const API_BASE_URL = 'http://localhost:5000/api';
 const USER_BASE_URL = `${API_BASE_URL}/users`;
+const BOOK_BASE_URL = `${API_BASE_URL}/books`;
 
 export const APIS = {
 	USER: {
@@ -9,5 +10,8 @@ export const APIS = {
 		DELETE: `${USER_BASE_URL}`,
 		LOGOUT: `${USER_BASE_URL}/logout`,
 		AUTH: `${USER_BASE_URL}/auth`,
+	},
+	BOOK: {
+		BESTSELLER: `${BOOK_BASE_URL}/bestseller`,
 	},
 };

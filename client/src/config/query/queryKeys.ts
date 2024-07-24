@@ -7,3 +7,8 @@ export const userKeys = {
 	delete: ['users', 'delete'] as const,
 	logout: ['users', 'logout'] as const,
 };
+
+export const bookKeys = {
+	all: ['books'] as const,
+	bestseller: ['books', 'bestseller'] as const,
+};

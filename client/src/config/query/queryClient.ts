@@ -28,6 +28,7 @@ const queryClientOptions: QueryClientConfig = {
 			staleTime: 1000 * 60 * 5, // 5 mins
 			gcTime: 1000 * 60 * 15, // 15 mins
 			refetchOnWindowFocus: false,
+			retry: 1,
 		},
 	},
 	queryCache: new QueryCache({

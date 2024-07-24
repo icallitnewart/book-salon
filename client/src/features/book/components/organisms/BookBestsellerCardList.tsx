@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
 
+import EmptyAlert from '@components/molecules/EmptyAlert';
 import BookBestsellerCardItem from '../molecules/BookBestsellerCardItem';
+
+import useBestsellerList from '../../hooks/useBestsellerList';
 
 const Container = styled.section`
 	display: flex;
@@ -18,26 +20,19 @@ interface IBestSellerBook {
 }
 
 function BookBestsellerCardList(): JSX.Element {
-	const [bestsellerCardList, setBestsellerCardList] = useState<
-		IBestSellerBook[]
-	>([]);
+	const { data: books } = useBestsellerList();
 
-	// 테스트용
-	const testFetch = async () => {
-		const response = await axios.get(
-			'http://localhost:5000/api/books/bestseller',
+	if (!books || books.length === 0) {
+		return (
+			<Container>
+				<EmptyAlert />
+			</Container>
 		);
-		const { books } = response.data;
-		setBestsellerCardList(books.slice(0, 7));
-	};
-
-	useEffect(() => {
-		testFetch();
-	}, []);
+	}
 
 	return (
 		<Container>
-			{bestsellerCardList.map(book => {
+			{books.slice(0, 7).map((book: IBestSellerBook) => {
 				return (
 					<BookBestsellerCardItem
 						key={book.isbn13}

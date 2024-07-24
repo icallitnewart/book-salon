@@ -8,12 +8,15 @@ const Container = styled.section`
 	padding: 60px 0px;
 `;
 
-interface IMainSectionProps {
+interface IMainSectionLayoutProps {
 	title: string;
 	children: JSX.Element;
 }
 
-function MainSection({ title, children }: IMainSectionProps): JSX.Element {
+function MainSectionLayout({
+	title,
+	children,
+}: IMainSectionLayoutProps): JSX.Element {
 	return (
 		<Container>
 			<SectionTitleWithHighlight title={title} />
@@ -22,4 +25,4 @@ function MainSection({ title, children }: IMainSectionProps): JSX.Element {
 	);
 }
 
-export default MainSection;
+export default MainSectionLayout;
