@@ -1,7 +1,12 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 
+import { queryClient } from '@config/query/queryClient';
 import { bookKeys } from '@config/query/queryKeys';
+
+import { IBookData, IBookInfo } from '../types/bookDetail';
+
 import bookApis from '../apis/bookApis';
+import { refineBookData } from '../utils/bookDataHandler';
 
 function useBestsellerList() {
 	const getNextUpdateTime = () => {
@@ -16,7 +21,17 @@ function useBestsellerList() {
 
 	return useSuspenseQuery({
 		queryKey: bookKeys.bestseller,
-		queryFn: bookApis.getBestsellerList,
+		queryFn: async () => {
+			const books = await bookApis.getBestsellerList();
+			const refinedBooks = books.reduce((acc: IBookInfo[], data: IBookData) => {
+				const book = refineBookData(data);
+				queryClient.setQueryData(bookKeys.detail(book.isbn), book);
+				acc.push(book);
+				return acc;
+			}, []);
+
+			return refinedBooks;
+		},
 		staleTime: getNextUpdateTime(),
 		gcTime: getNextUpdateTime(),
 	});

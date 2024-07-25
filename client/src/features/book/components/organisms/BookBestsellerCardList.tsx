@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { ROUTES } from '@constants/routes';
+
 import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
 import EmptyAlert from '@components/molecules/EmptyAlert';
-import { ROUTES } from '@constants/routes';
 import BookBestsellerCardItem from '../molecules/BookBestsellerCardItem';
 
 import useBestsellerList from '../../hooks/useBestsellerList';
@@ -18,7 +19,7 @@ interface IBestSellerBook {
 	title: string;
 	author: string;
 	cover: string;
-	isbn13: string;
+	isbn: string;
 }
 
 function BookBestsellerCardList(): JSX.Element {
@@ -37,11 +38,11 @@ function BookBestsellerCardList(): JSX.Element {
 			{books.slice(0, 7).map((book: IBestSellerBook) => {
 				return (
 					<BookBestsellerCardItem
-						key={book.isbn13}
+						key={book.isbn}
 						title={book.title}
 						author={book.author}
 						cover={book.cover}
-						link={ROUTES.BOOK.DETAIL(book.isbn13)}
+						link={ROUTES.BOOK.DETAIL(book.isbn)}
 					/>
 				);
 			})}
