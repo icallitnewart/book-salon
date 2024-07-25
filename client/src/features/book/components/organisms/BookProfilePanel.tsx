@@ -39,7 +39,7 @@ const sample: IBookInfo = {
 	pubDate: '2021-12-17',
 };
 
-function ReviewBookProfilePanel(): JSX.Element {
+function BookProfilePanel(): JSX.Element {
 	return (
 		<Container>
 			<Link to="/">
@@ -69,4 +69,4 @@ function ReviewBookProfilePanel(): JSX.Element {
 	);
 }
 
-export default ReviewBookProfilePanel;
+export default BookProfilePanel;

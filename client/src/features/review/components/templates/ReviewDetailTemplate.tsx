@@ -1,13 +1,13 @@
 import React from 'react';
 
+import BookProfileLayoutTemplate from '@features/book/components/templates/BookProfileLayoutTemplate';
 import ReviewPostSection from '../organisms/ReviewPostSection';
-import ReviewBookProfileLayoutTemplate from './ReviewBookProfileLayoutTemplate';
 
 function ReviewDetailTemplate(): JSX.Element {
 	return (
-		<ReviewBookProfileLayoutTemplate>
+		<BookProfileLayoutTemplate>
 			<ReviewPostSection />
-		</ReviewBookProfileLayoutTemplate>
+		</BookProfileLayoutTemplate>
 	);
 }
 

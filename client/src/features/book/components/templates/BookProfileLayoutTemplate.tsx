@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ReviewBookProfileSideSection from '../organisms/ReviewBookProfileSideSection';
+import BookProfileSideSection from '../organisms/BookProfileSideSection';
 
 const Container = styled.div`
 	display: flex;
@@ -12,15 +12,15 @@ interface IBookProfileTemplateProps {
 	children: React.ReactNode;
 }
 
-function ReviewBookProfileLayoutTemplate({
+function BookProfileLayoutTemplate({
 	children,
 }: IBookProfileTemplateProps): JSX.Element {
 	return (
 		<Container>
-			<ReviewBookProfileSideSection />
+			<BookProfileSideSection />
 			{children}
 		</Container>
 	);
 }
 
-export default ReviewBookProfileLayoutTemplate;
+export default BookProfileLayoutTemplate;

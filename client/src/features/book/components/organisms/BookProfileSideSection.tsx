@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import ReviewBookProfilePanel from '../molecules/ReviewBookProfilePanel';
+import BookProfilePanel from './BookProfilePanel';
 
 const Container = styled.aside`
 	position: relative;
@@ -9,12 +9,12 @@ const Container = styled.aside`
 	margin-right: 60px;
 `;
 
-function ReviewBookProfileSideSection(): JSX.Element {
+function BookProfileSideSection(): JSX.Element {
 	return (
 		<Container>
-			<ReviewBookProfilePanel />
+			<BookProfilePanel />
 		</Container>
 	);
 }
 
-export default ReviewBookProfileSideSection;
+export default BookProfileSideSection;
