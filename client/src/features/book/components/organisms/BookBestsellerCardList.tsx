@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
 import EmptyAlert from '@components/molecules/EmptyAlert';
+import { ROUTES } from '@constants/routes';
 import BookBestsellerCardItem from '../molecules/BookBestsellerCardItem';
 
 import useBestsellerList from '../../hooks/useBestsellerList';
@@ -17,7 +18,7 @@ interface IBestSellerBook {
 	title: string;
 	author: string;
 	cover: string;
-	isbn13: number;
+	isbn13: string;
 }
 
 function BookBestsellerCardList(): JSX.Element {
@@ -40,7 +41,7 @@ function BookBestsellerCardList(): JSX.Element {
 						title={book.title}
 						author={book.author}
 						cover={book.cover}
-						link={`/book/detail/${book.isbn13}`}
+						link={ROUTES.BOOK.DETAIL(book.isbn13)}
 					/>
 				);
 			})}

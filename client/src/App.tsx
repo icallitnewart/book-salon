@@ -65,7 +65,7 @@ function App(): JSX.Element {
 							}
 						/>
 						<Route
-							path={ROUTES.BOOK.DETAIL}
+							path={ROUTES.BOOK.DETAIL()}
 							element={
 								<AuthChecker type={AUTH_TYPES.PUBLIC}>
 									<BookDetailPage />
@@ -73,7 +73,7 @@ function App(): JSX.Element {
 							}
 						/>
 						<Route
-							path={ROUTES.BOOK.REVIEW.DETAIL}
+							path={ROUTES.REVIEW.DETAIL}
 							element={
 								<AuthChecker type={AUTH_TYPES.PUBLIC}>
 									<ReviewDetailPage />
@@ -81,7 +81,7 @@ function App(): JSX.Element {
 							}
 						/>
 						<Route
-							path={ROUTES.BOOK.REVIEW.ADD}
+							path={ROUTES.REVIEW.ADD}
 							element={
 								// TODO: type 변경 필요
 								<AuthChecker type={AUTH_TYPES.PUBLIC}>

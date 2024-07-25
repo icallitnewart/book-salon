@@ -20,8 +20,7 @@ function Navigation(): JSX.Element {
 
 	return (
 		<Container>
-			<MenuLink to={ROUTES.BOOK.REVIEW.LIST}>REVIEWS</MenuLink>
-			<MenuLink to={ROUTES.BOOK.QUOTE.LIST}>QUOTES</MenuLink>
+			<MenuLink to={ROUTES.REVIEW.LIST}>REVIEWS</MenuLink>
 			{isAuth ? (
 				<MenuLink to={ROUTES.USER.MY_PROFILE}>MYPAGE</MenuLink>
 			) : (
