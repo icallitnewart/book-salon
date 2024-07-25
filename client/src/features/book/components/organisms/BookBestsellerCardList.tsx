@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
 import EmptyAlert from '@components/molecules/EmptyAlert';
 import BookBestsellerCardItem from '../molecules/BookBestsellerCardItem';
 
@@ -39,7 +40,7 @@ function BookBestsellerCardList(): JSX.Element {
 						title={book.title}
 						author={book.author}
 						cover={book.cover}
-						link={`/book/${book.isbn13}/detail`}
+						link={`/book/detail/${book.isbn13}`}
 					/>
 				);
 			})}
@@ -47,4 +48,4 @@ function BookBestsellerCardList(): JSX.Element {
 	);
 }
 
-export default BookBestsellerCardList;
+export default withAsyncBoundary(BookBestsellerCardList);

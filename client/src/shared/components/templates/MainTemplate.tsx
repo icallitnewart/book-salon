@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import BookBestsellerSection from '@features/book/components/organisms/BookBestsellerSection';
+import BookBestsellerCardList from '@features/book/components/organisms/BookBestsellerCardList';
 import ReviewPopularCardList from '@features/review/components/organisms/ReviewPopularCardList';
 import MainSectionLayout from '../organisms/MainSectionLayout';
 
@@ -12,7 +12,9 @@ const Container = styled.div`
 function MainTemplate(): JSX.Element {
 	return (
 		<Container>
-			<BookBestsellerSection />
+			<MainSectionLayout title="This week's bestseller">
+				<BookBestsellerCardList />
+			</MainSectionLayout>
 			<MainSectionLayout title="Popular reviews">
 				<ReviewPopularCardList />
 			</MainSectionLayout>
