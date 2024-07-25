@@ -16,6 +16,6 @@ export const ROUTES = {
 	REVIEW: {
 		LIST: `${BOOK_REVIEW_URL}/list`,
 		DETAIL: `${BOOK_REVIEW_URL}/detail/:reviewId`,
-		ADD: `${BOOK_REVIEW_URL}/add`,
+		ADD: (isbn?: string) => `${BOOK_REVIEW_URL}/add/${isbn || ':isbn'}`,
 	},
 };

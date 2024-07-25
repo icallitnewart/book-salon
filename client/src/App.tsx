@@ -81,10 +81,9 @@ function App(): JSX.Element {
 							}
 						/>
 						<Route
-							path={ROUTES.REVIEW.ADD}
+							path={ROUTES.REVIEW.ADD()}
 							element={
-								// TODO: type 변경 필요
-								<AuthChecker type={AUTH_TYPES.PUBLIC}>
+								<AuthChecker type={AUTH_TYPES.PRIVATE}>
 									<ReviewAddPage />
 								</AuthChecker>
 							}
