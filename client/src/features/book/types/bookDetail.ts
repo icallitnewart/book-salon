@@ -8,3 +8,14 @@ export interface IBookInfo {
 	description?: string;
 	cover?: string;
 }
+
+export interface IBookData {
+	title: string;
+	author: string;
+	categoryName: string;
+	publisher: string;
+	pubDate: string;
+	isbn13: string;
+	description: string;
+	cover: string;
+}

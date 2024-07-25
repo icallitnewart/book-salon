@@ -29,10 +29,10 @@ function BookInfoSection(): JSX.Element {
 			<BookInfoContent
 				title={book?.title}
 				author={book?.author}
-				category={book?.categoryName}
+				category={book?.category}
 				publisher={book?.publisher}
 				pubDate={book?.pubDate}
-				isbn={book?.isbn13}
+				isbn={book?.isbn}
 				description={book?.description}
 			/>
 		</Container>
