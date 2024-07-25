@@ -7,6 +7,10 @@ const bookApis = {
 		const response = await axios.get(APIS.BOOK.BESTSELLER);
 		return response.data.books;
 	},
+	getBookDetail: async (bookId: string) => {
+		const response = await axios.get(APIS.BOOK.DETAIL(bookId));
+		return response.data.book;
+	},
 };
 
 export default bookApis;

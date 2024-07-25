@@ -11,4 +11,5 @@ export const userKeys = {
 export const bookKeys = {
 	all: ['books'] as const,
 	bestseller: ['books', 'bestseller'] as const,
+	detail: (isbn?: string) => ['books', 'detail', isbn] as const,
 };

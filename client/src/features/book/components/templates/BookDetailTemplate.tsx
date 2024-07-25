@@ -15,15 +15,20 @@ const Background = styled.div`
 	box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 
-const Wrapper = styled.div`
+interface IWrapperStyleProps {
+	$minHeight?: string;
+}
+
+const Wrapper = styled.div<IWrapperStyleProps>`
 	width: var(--desktop-screen-width);
+	${({ $minHeight }) => `min-height: ${$minHeight};`}
 	margin: 0 auto;
 `;
 
 function BookDetailTemplate(): JSX.Element {
 	return (
 		<Container>
-			<Wrapper>
+			<Wrapper $minHeight="600px">
 				<BookInfoSection />
 			</Wrapper>
 			<Background>

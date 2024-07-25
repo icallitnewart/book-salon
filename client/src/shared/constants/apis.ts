@@ -13,5 +13,6 @@ export const APIS = {
 	},
 	BOOK: {
 		BESTSELLER: `${BOOK_BASE_URL}/bestseller`,
+		DETAIL: (bookId: string) => `${BOOK_BASE_URL}/detail/${bookId}`,
 	},
 };
