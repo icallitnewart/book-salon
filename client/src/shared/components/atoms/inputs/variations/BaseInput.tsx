@@ -19,7 +19,9 @@ export interface IInputProps extends IInputStylesProps {
 	ariaLabel?: string;
 	placeholder?: string;
 	maxLength?: number;
+	disabled?: boolean;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 	className?: string;
 	variant?: keyof typeof inputVariantStyles;
 }
@@ -33,7 +35,9 @@ export default function BaseInput({
 	placeholder,
 	ariaLabel,
 	maxLength,
+	disabled,
 	onChange,
+	onKeyDown,
 	className,
 	$width,
 	$height,
@@ -60,7 +64,9 @@ export default function BaseInput({
 			placeholder={placeholder}
 			aria-label={ariaLabel}
 			maxLength={maxLength}
+			disabled={disabled}
 			onChange={onChange}
+			onKeyDown={onKeyDown}
 			className={className}
 			$variant={variant}
 			$width={$width}

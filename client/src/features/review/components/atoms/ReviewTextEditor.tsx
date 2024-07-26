@@ -42,7 +42,15 @@ const StyledQuill = styled(ReactQuill)`
 	}
 `;
 
-function ReviewTextEditor(): JSX.Element {
+interface IReviewTextEditorProps {
+	value: string;
+	handleChange: (value: string) => void;
+}
+
+function ReviewTextEditor({
+	value,
+	handleChange,
+}: IReviewTextEditorProps): JSX.Element {
 	const modules = {
 		toolbar: [
 			['bold', 'italic', 'underline', 'strike', 'blockquote'],
@@ -66,7 +74,15 @@ function ReviewTextEditor(): JSX.Element {
 		'indent',
 	];
 
-	return <StyledQuill theme="snow" modules={modules} formats={formats} />;
+	return (
+		<StyledQuill
+			theme="snow"
+			modules={modules}
+			formats={formats}
+			value={value}
+			onChange={handleChange}
+		/>
+	);
 }
 
 export default ReviewTextEditor;

@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
-import { PrimaryInput as ReviewTitleInput } from '@inputs';
+import useInput from '@hooks/useInput';
 
-import { PrimaryButton } from '@buttons';
+import { PrimaryInput as ReviewTitleInput } from '@inputs';
+import { PrimaryButton as SubmitButton } from '@buttons';
 import ReviewTagInputWithButton from '../molecules/ReviewTagInputWithButton';
 import ReviewTextEditor from '../atoms/ReviewTextEditor';
+
+import { REVIEW_MAX_LEN } from '../../constants/limits';
+import { IReviewTags } from '../../types/bookReview';
 
 const Container = styled.div`
 	width: 100%;
@@ -25,31 +29,51 @@ const ButtonBox = styled.div`
 	padding: 20px 0px;
 `;
 
-const REVIEW_TITLE_MAX_LEN = 40;
-
 function ReviewAddForm(): JSX.Element {
-	// TODO: 커스텀훅으로 변경
-	const [value, setValue] = useState('');
+	const { value: title, handleChange: handleTitleChange } = useInput('');
+	const [content, setContent] = useState('');
+	const [tags, setTags] = useState<IReviewTags>([]);
+
+	const addTag = (text: string) => {
+		setTags(prev => [...prev, { id: Date.now(), text }]);
+	};
+
+	const removeTag = (id: number) => {
+		setTags(prev => prev.filter(tag => tag.id !== id));
+	};
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		// TODO: submit 기능 추가 예정
+		console.log({ title, content, tags, rating: 5 });
+	};
 
 	return (
 		<Container>
-			<Form>
+			<Form onSubmit={handleSubmit}>
 				<ReviewTitleInput
 					type="text"
 					id="title"
 					name="title"
-					value={value}
-					onChange={e => setValue(e.target.value)}
-					placeholder={`리뷰 제목을 입력해주세요. (${REVIEW_TITLE_MAX_LEN}자 이하)`}
-					ariaLabel={`리뷰 제목 입력 (${REVIEW_TITLE_MAX_LEN}자 이하)`}
-					maxLength={REVIEW_TITLE_MAX_LEN}
+					value={title}
+					onChange={handleTitleChange}
+					placeholder={`리뷰 제목을 입력해주세요 (${REVIEW_MAX_LEN.TITLE}자 이하)`}
+					ariaLabel={`리뷰 제목 입력 (${REVIEW_MAX_LEN.TITLE}자 이하)`}
+					maxLength={REVIEW_MAX_LEN.TITLE}
 				/>
-				<ReviewTagInputWithButton />
-				<ReviewTextEditor />
+				<ReviewTagInputWithButton
+					tags={tags}
+					addTag={addTag}
+					removeTag={removeTag}
+				/>
+				<ReviewTextEditor
+					value={content}
+					handleChange={(value: string) => setContent(value)}
+				/>
 				<ButtonBox>
-					<PrimaryButton type="submit" $width="140px">
+					<SubmitButton type="submit" $width="140px">
 						리뷰 등록
-					</PrimaryButton>
+					</SubmitButton>
 				</ButtonBox>
 			</Form>
 		</Container>

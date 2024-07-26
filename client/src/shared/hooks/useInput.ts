@@ -9,9 +9,14 @@ function useInput(initialValue = '') {
 		setValue(e.target.value);
 	};
 
+	const resetValue = () => {
+		setValue('');
+	};
+
 	return {
 		value,
 		handleChange,
+		resetValue,
 	};
 }
 

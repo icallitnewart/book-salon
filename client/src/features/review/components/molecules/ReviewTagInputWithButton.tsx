@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 
+import useInput from '@hooks/useInput';
+
 import { PrimaryInput as ReviewTagInput } from '@inputs';
-import { PrimaryButton } from '@buttons';
+import { PrimaryButton as AddButton } from '@buttons';
 import ReviewTagListWithButton from './ReviewTagListWithButton';
+
+import { IReviewTags } from '../../types/bookReview';
+import { REVIEW_MAX_LEN } from '../../constants/limits';
+
+import {
+	generateTagInputAriaLabel,
+	generateTagInputPlaceholder,
+} from '../../utils/reviewFormUtils';
 
 const Container = styled.div`
 	display: grid;
@@ -13,32 +23,34 @@ const Container = styled.div`
 	margin-bottom: 5px;
 `;
 
-interface IReviewTag {
-	id: number;
-	text: string;
+interface IReviewTagInputWithButtonProps {
+	tags: IReviewTags;
+	addTag: (value: string) => void;
+	removeTag: (id: number) => void;
 }
 
-const tags: IReviewTag[] = [
-	{
-		id: 1,
-		text: '태그태그1',
-	},
-	{
-		id: 2,
-		text: '태그태그2',
-	},
-	{
-		id: 3,
-		text: '태그태그3',
-	},
-];
+function ReviewTagInputWithButton({
+	tags,
+	addTag,
+	removeTag,
+}: IReviewTagInputWithButtonProps): JSX.Element {
+	const { value, handleChange, resetValue } = useInput('');
+	const isTagsFull = tags.length >= REVIEW_MAX_LEN.TAGS;
 
-const TAG_MAX_LEN = 5;
-const TAG_LETTER_MAX_LEN = 8;
+	const handleAddTag = () => {
+		if (isTagsFull) return;
+		if (value.trim() === '') return;
 
-function ReviewTagInputWithButton(): JSX.Element {
-	// TODO: 커스텀훅으로 변경
-	const [value, setValue] = useState('');
+		addTag(value);
+		resetValue();
+	};
+
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			handleAddTag();
+		}
+	};
 
 	return (
 		<Container>
@@ -47,13 +59,19 @@ function ReviewTagInputWithButton(): JSX.Element {
 				id="tag"
 				name="tag"
 				value={value}
-				onChange={e => setValue(e.target.value)}
-				placeholder={`태그를 입력해주세요. (${TAG_LETTER_MAX_LEN}자 이하, 최대 ${TAG_MAX_LEN}개)`}
-				aria-label={`태그 입력 (${TAG_LETTER_MAX_LEN}자 이하, 최대 ${TAG_MAX_LEN}개)`}
-				maxLength={TAG_LETTER_MAX_LEN}
+				onChange={handleChange}
+				onKeyDown={handleKeyDown}
+				placeholder={generateTagInputPlaceholder(isTagsFull)}
+				aria-label={generateTagInputAriaLabel(isTagsFull)}
+				maxLength={REVIEW_MAX_LEN.TAG_INPUT}
+				disabled={isTagsFull}
 			/>
-			<PrimaryButton>태그 추가</PrimaryButton>
-			{tags.length > 0 && <ReviewTagListWithButton tags={tags} />}
+			<AddButton type="button" onClick={handleAddTag}>
+				태그 추가
+			</AddButton>
+			{tags.length > 0 && (
+				<ReviewTagListWithButton tags={tags} removeTag={removeTag} />
+			)}
 		</Container>
 	);
 }
