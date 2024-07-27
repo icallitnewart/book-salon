@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { styled } from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
 
-import { IBookProfile } from '@features/book/types/bookProfile';
 import { ROUTES } from '@constants/routes';
+import { IBookProfile } from '@features/book/types/bookData';
 
 import useBookDetail from '@features/book/hooks/useBookDetail';
 

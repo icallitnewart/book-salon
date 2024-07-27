@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { IBookProfilePreview } from '@features/book/types/bookProfile';
+import { IBookProfilePreview } from '@features/book/types/bookData';
 
 import { Heading3, Paragraph } from '@typographies';
 import BookCoverImage from '@features/book/components/atoms/BookCoverImage';

@@ -1,6 +1,6 @@
-import { IBookData, IBookInfo } from '../types/bookDetail';
+import { IBookData, IBookDetail } from '../types/bookData';
 
-export const refineBookData = (book: IBookData): IBookInfo => {
+export const refineBookData = (book: IBookData): IBookDetail => {
 	return {
 		...book,
 		category: book.categoryName.replaceAll('>', ' > '),

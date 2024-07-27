@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { IBookInfo } from '@features/book/types/bookDetail';
+import { IBookDetailPartial } from '../../types/bookData';
 
 import BookInfoTextBox from './BookInfoTextBox';
 import BookInfoButtons from '../molecules/BookInfoButtons';
@@ -22,7 +22,7 @@ function BookInfoContent({
 	pubDate,
 	isbn,
 	description,
-}: IBookInfo): JSX.Element {
+}: IBookDetailPartial): JSX.Element {
 	return (
 		<Container>
 			<BookInfoTextBox

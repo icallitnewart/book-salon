@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { IBookInfo } from '@features/book/types/bookDetail';
+import { IBookDetailPartial } from '@features/book/types/bookData';
 
 import Divider from '@components/atoms/Divider';
 import {
@@ -28,7 +28,7 @@ function BookInfoTextBox({
 	pubDate,
 	isbn,
 	description,
-}: IBookInfo): JSX.Element {
+}: IBookDetailPartial): JSX.Element {
 	return (
 		<Container>
 			<BookInfoCategory variant="article-meta-md" $marginBottom="5px">

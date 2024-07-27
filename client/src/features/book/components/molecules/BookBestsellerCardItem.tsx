@@ -1,8 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { IBookProfilePreview } from '@features/book/types/bookProfile';
-
+import { IBookProfilePreview } from '@features/book/types/bookData';
 import BookProfilePreview from './BookProfilePreview';
 
 const Article = styled.article`
@@ -11,14 +10,12 @@ const Article = styled.article`
 	height: 300px;
 `;
 
-type IBookBestsellerCardItemProps = IBookProfilePreview;
-
 function BookBestsellerCardItem({
 	title,
 	author,
 	cover,
 	link,
-}: IBookBestsellerCardItemProps): JSX.Element {
+}: IBookProfilePreview): JSX.Element {
 	return (
 		<Article>
 			<BookProfilePreview
