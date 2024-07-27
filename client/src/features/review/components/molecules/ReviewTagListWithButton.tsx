@@ -15,7 +15,7 @@ const Container = styled.div`
 
 interface IReviewTagListWithButtonProps {
 	tags: IReviewTags;
-	removeTag: (id: number) => void;
+	removeTag: (id: string) => void;
 }
 
 function ReviewTagListWithButton({

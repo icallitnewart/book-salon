@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
+import { nanoid } from 'nanoid';
 
 import useInput from '@hooks/useInput';
 
@@ -35,10 +36,10 @@ function ReviewAddForm(): JSX.Element {
 	const [tags, setTags] = useState<IReviewTags>([]);
 
 	const addTag = (text: string) => {
-		setTags(prev => [...prev, { id: Date.now(), text }]);
+		setTags(prev => [...prev, { id: nanoid(), text }]);
 	};
 
-	const removeTag = (id: number) => {
+	const removeTag = (id: string) => {
 		setTags(prev => prev.filter(tag => tag.id !== id));
 	};
 

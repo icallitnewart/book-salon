@@ -26,7 +26,7 @@ const Container = styled.div`
 interface IReviewTagInputWithButtonProps {
 	tags: IReviewTags;
 	addTag: (value: string) => void;
-	removeTag: (id: number) => void;
+	removeTag: (id: string) => void;
 }
 
 function ReviewTagInputWithButton({

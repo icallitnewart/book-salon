@@ -1,5 +1,5 @@
 export interface IReviewTag {
-	id: number;
+	id: string;
 	text: string;
 }
 
