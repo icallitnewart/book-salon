@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { IBookReview } from '@features/review/types/bookReview';
+import { IReviewPreview } from '@features/review/types/reviewData';
 
 import { Heading3, Paragraph, Span } from '@typographies';
 import Divider from '@components/atoms/Divider';
@@ -46,8 +46,8 @@ function ReviewCardItem({
 	nickname,
 	title,
 	content,
-	date,
-}: IBookReview): JSX.Element {
+	createdAt,
+}: IReviewPreview): JSX.Element {
 	return (
 		<LinkContainer to="/">
 			<Article>
@@ -68,7 +68,7 @@ function ReviewCardItem({
 				<AdditionalInfo>
 					<Span variant="highlight-meta-lg">{nickname}</Span>
 					<Span variant="list-meta-lg" $color="#999">
-						{date}
+						{createdAt}
 					</Span>
 				</AdditionalInfo>
 			</Article>

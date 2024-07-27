@@ -7,7 +7,7 @@ import { PrimaryInput as ReviewTagInput } from '@inputs';
 import { PrimaryButton as AddButton } from '@buttons';
 import ReviewTagListWithButton from './ReviewTagListWithButton';
 
-import { IReviewTags } from '../../types/bookReview';
+import { IReviewTags } from '../../types/reviewData';
 import { REVIEW_MAX_LEN } from '../../constants/limits';
 
 import {

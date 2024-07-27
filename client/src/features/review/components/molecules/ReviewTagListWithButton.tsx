@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { IReviewTags } from '../../types/bookReview';
+import { IReviewTags } from '../../types/reviewData';
 
 import ReviewTagWithDeleteButton from './ReviewTagWithDeleteButton';
 
