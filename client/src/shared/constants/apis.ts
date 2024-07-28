@@ -15,4 +15,10 @@ export const APIS = {
 		BESTSELLER: `${BOOK_BASE_URL}/bestseller`,
 		DETAIL: (bookId: string) => `${BOOK_BASE_URL}/detail/${bookId}`,
 	},
+	REVIEW: {
+		ADD: `${API_BASE_URL}/reviews`,
+		DETAIL: (reviewId: string) => `${API_BASE_URL}/reviews/${reviewId}`,
+		UPDATE: (reviewId: string) => `${API_BASE_URL}/reviews/${reviewId}`,
+		DELETE: (reviewId: string) => `${API_BASE_URL}/reviews/${reviewId}`,
+	},
 };

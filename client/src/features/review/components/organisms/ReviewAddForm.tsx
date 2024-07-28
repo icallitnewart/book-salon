@@ -1,16 +1,29 @@
 import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { nanoid } from 'nanoid';
 
 import useInput from '@hooks/useInput';
+import useBookQueryData from '@features/book/hooks/useBookQueryData';
+import {
+	validateReviewBook,
+	validateReviewContent,
+	validateReviewRating,
+	validateReviewTags,
+	validateReviewTitle,
+} from '@features/review/utils/reviewValidator';
+
+import { ROUTES } from '@constants/routes';
+import { IBookDetail } from '@features/book/types/bookData';
 
 import { PrimaryInput as ReviewTitleInput } from '@inputs';
 import { PrimaryButton as SubmitButton } from '@buttons';
 import ReviewTagInputWithButton from '../molecules/ReviewTagInputWithButton';
 import ReviewTextEditor from '../atoms/ReviewTextEditor';
 
+import useAddReview from '../../hooks/useAddReview';
 import { REVIEW_MAX_LEN } from '../../constants/limits';
-import { IReviewTags } from '../../types/bookReview';
+import { IReviewForm, IReviewInput, IReviewTags } from '../../types/reviewData';
 
 const Container = styled.div`
 	width: 100%;
@@ -31,6 +44,11 @@ const ButtonBox = styled.div`
 `;
 
 function ReviewAddForm(): JSX.Element {
+	const navigate = useNavigate();
+	const { isbn } = useParams();
+	const { getBookDetailQueryData } = useBookQueryData();
+	const { addReview } = useAddReview();
+
 	const { value: title, handleChange: handleTitleChange } = useInput('');
 	const [content, setContent] = useState('');
 	const [tags, setTags] = useState<IReviewTags>([]);
@@ -43,10 +61,53 @@ function ReviewAddForm(): JSX.Element {
 		setTags(prev => prev.filter(tag => tag.id !== id));
 	};
 
+	const checkValidation = (
+		inputData: IReviewInput,
+		bookData?: IBookDetail,
+	): bookData is IBookDetail => {
+		const error =
+			validateReviewTitle(inputData.title) ||
+			validateReviewTags(inputData.tags) ||
+			validateReviewContent(inputData.content) ||
+			validateReviewRating(inputData.rating) ||
+			validateReviewBook(bookData);
+
+		if (error) {
+			alert(error);
+			return false;
+		}
+
+		return true;
+	};
+
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		// TODO: submit 기능 추가 예정
-		console.log({ title, content, tags, rating: 5 });
+
+		const bookData: IBookDetail | undefined = getBookDetailQueryData(isbn);
+		const inputData: IReviewInput = {
+			title,
+			content,
+			tags: tags.map(tag => tag.text),
+			rating: 5,
+		};
+
+		const isSubmit = checkValidation(inputData, bookData);
+		if (!isSubmit) return;
+
+		const formData: IReviewForm = {
+			...inputData,
+			book: bookData,
+		};
+
+		addReview(formData, {
+			onSuccess: reviewId => {
+				alert('리뷰가 등록되었습니다!');
+				navigate(ROUTES.REVIEW.DETAIL(reviewId));
+			},
+			onError: () => {
+				alert('리뷰 등록에 실패하였습니다. 다시 시도해주세요.');
+			},
+		});
 	};
 
 	return (

@@ -13,3 +13,11 @@ export const bookKeys = {
 	bestseller: ['books', 'bestseller'] as const,
 	detail: (isbn?: string) => ['books', 'detail', isbn] as const,
 };
+
+export const reviewKeys = {
+	all: ['reviews'] as const,
+	add: ['reviews', 'add'] as const,
+	detail: (reviewId?: string) => ['reviews', 'detail', reviewId] as const,
+	update: (reviewId?: string) => ['reviews', 'update', reviewId] as const,
+	delete: (reviewId?: string) => ['reviews', 'delete', reviewId] as const,
+};

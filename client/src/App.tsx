@@ -73,7 +73,7 @@ function App(): JSX.Element {
 							}
 						/>
 						<Route
-							path={ROUTES.REVIEW.DETAIL}
+							path={ROUTES.REVIEW.DETAIL()}
 							element={
 								<AuthChecker type={AUTH_TYPES.PUBLIC}>
 									<ReviewDetailPage />

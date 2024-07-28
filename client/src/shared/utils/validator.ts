@@ -1,12 +1,22 @@
 export const validator = {
+	// 존재 여부 검사
+	isExist: (value: unknown): boolean => {
+		return value !== undefined && value !== null;
+	},
 	// 이메일 형식 검사
-	hasValidEmail: (email: string): boolean => {
+	hasValidEmail: (value: string): boolean => {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		return emailRegex.test(email);
+		return emailRegex.test(value);
 	},
 	// 빈 값 검사
-	hasValue: (value: string): boolean => {
-		return value.trim().length > 0;
+	hasValue: (value: string | number): boolean => {
+		if (typeof value === 'string') {
+			return value.trim().length > 0;
+		}
+		if (typeof value === 'number') {
+			return !Number.isNaN(value);
+		}
+		return false;
 	},
 	// 공백 검사
 	hasWhitespace: (value: string): boolean => {
@@ -42,14 +52,20 @@ export const validator = {
 };
 
 export const validatorWithError = {
+	// 존재 필수
+	require: (value: unknown, name: string): string => {
+		const errMsg = `${name}가 존재하지 않습니다.`;
+		return validator.isExist(value) ? '' : errMsg;
+	},
 	// 이메일 형식 검사
-	forbidInvalidEmail: (email: string): string => {
+	forbidInvalidEmail: (value: string): string => {
 		const errMsg = '유효한 이메일 주소를 입력해주세요.';
-		return validator.hasValidEmail(email) ? '' : errMsg;
+		return validator.hasValidEmail(value) ? '' : errMsg;
 	},
 	// 빈 값 금지
-	requireValue: (value: string): string => {
-		const errMsg = '필수 입력 항목입니다.';
+	requireValue: (value: string | number, name?: string): string => {
+		let errMsg = '필수 입력 항목입니다.';
+		if (name) errMsg = `${name}을 입력해주세요.`;
 		return validator.hasValue(value) ? '' : errMsg;
 	},
 	// 공백 금지
@@ -105,5 +121,13 @@ export const validatorWithError = {
 	requireAlphabet: (value: string): string => {
 		const errMsg = '영문자를 1자 이상 포함해주세요.';
 		return validator.hasAlphabet(value) ? '' : errMsg;
+	},
+	forbidInvalidObjectType: <T>(
+		object: T,
+		name: string,
+		typeGuard: (object: T) => boolean,
+	): string => {
+		const errMsg = `${name}가 유효하지 않은 형식입니다.`;
+		return typeGuard(object) ? '' : errMsg;
 	},
 };
