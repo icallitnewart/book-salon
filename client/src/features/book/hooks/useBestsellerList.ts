@@ -1,14 +1,15 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-
-import { queryClient } from '@config/query/queryClient';
 import { bookKeys } from '@config/query/queryKeys';
 
 import { IBookData, IBookDetail } from '../types/bookData';
 
 import bookApis from '../apis/bookApis';
 import { refineBookData } from '../utils/bookDataHandler';
+import useBookQueryData from './useBookQueryData';
 
 function useBestsellerList() {
+	const { setBookDetailQueryData } = useBookQueryData();
+
 	const getNextUpdateTime = () => {
 		const now = new Date();
 		const nextMonday = new Date(now);
@@ -25,8 +26,8 @@ function useBestsellerList() {
 			const books = await bookApis.getBestsellerList();
 			const refinedBooks = books.reduce(
 				(acc: IBookDetail[], data: IBookData) => {
-					const book = refineBookData(data);
-					queryClient.setQueryData(bookKeys.detail(book.isbn), book);
+					const book: IBookDetail = refineBookData(data);
+					setBookDetailQueryData(book, book.isbn);
 					acc.push(book);
 					return acc;
 				},
