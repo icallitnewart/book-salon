@@ -250,6 +250,9 @@ export interface ITextStylesProps {
 	$color?: string;
 	$hoverColor?: string;
 	$width?: string;
+	$minWidth?: string;
+	$height?: string;
+	$minHeight?: string;
 	$wordBreak?: 'break-all' | 'break-word' | 'keep-all' | 'normal';
 	$margin?: string;
 	$marginBottom?: string;
@@ -282,6 +285,9 @@ export const textStyles = css<ITextStylesProps>`
 	${({ $wordBreak }) => $wordBreak && `word-break: ${$wordBreak};`}
 		
 	${({ $width }) => $width && `width: ${$width};`}
+	${({ $height }) => $height && `height: ${$height};`}
+	${({ $minWidth }) => $minWidth && `min-width: ${$minWidth};`}
+	${({ $minHeight }) => $minHeight && `min-height: ${$minHeight};`}
 
 	${({ $margin }) => $margin && `margin: ${$margin};`}
 	${({ $marginTop }) => $marginTop && `margin-top: ${$marginTop};`}

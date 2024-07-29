@@ -63,6 +63,18 @@ export function Paragraph({
 	);
 }
 
+export function TextBlock({
+	variant,
+	children,
+	...props
+}: ITextProps): JSX.Element {
+	return (
+		<BaseText as="div" variant={variant || 'article-body-md'} {...props}>
+			{children}
+		</BaseText>
+	);
+}
+
 export function Span({ variant, children, ...props }: ITextProps): JSX.Element {
 	return (
 		<BaseText as="span" variant={variant || 'article-meta-md'} {...props}>
@@ -78,3 +90,4 @@ export const Heading3WithStyles = withTextStyles(Heading3);
 export const Heading4WithStyles = withTextStyles(Heading4);
 export const ParagraphWithStyles = withTextStyles(Paragraph);
 export const SpanWithStyles = withTextStyles(Span);
+export const TextBlockWithStyles = withTextStyles(TextBlock);

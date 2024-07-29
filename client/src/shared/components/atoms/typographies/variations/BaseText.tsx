@@ -8,9 +8,10 @@ const StyledText = styled.p<ITextStylesProps>`
 `;
 
 export interface ITextProps extends ITextStylesProps {
-	as?: 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-	children: React.ReactNode;
+	as?: 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'div';
+	children?: React.ReactNode;
 	className?: string;
+	dangerouslySetInnerHTML?: { __html: string };
 	variant?: keyof typeof textVariantStyles;
 }
 
@@ -19,6 +20,7 @@ export default function BaseText({
 	children,
 	className,
 	variant,
+	dangerouslySetInnerHTML,
 	$fontSize,
 	$fontWeight,
 	$fontFamily,
@@ -28,6 +30,9 @@ export default function BaseText({
 	$color,
 	$hoverColor,
 	$width,
+	$minWidth,
+	$height,
+	$minHeight,
 	$margin,
 	$marginBottom,
 	$marginTop,
@@ -46,6 +51,7 @@ export default function BaseText({
 		<StyledText
 			as={as}
 			className={className}
+			dangerouslySetInnerHTML={dangerouslySetInnerHTML}
 			$variant={variant}
 			$fontSize={$fontSize}
 			$fontWeight={$fontWeight}
@@ -56,6 +62,9 @@ export default function BaseText({
 			$color={$color}
 			$hoverColor={$hoverColor}
 			$width={$width}
+			$minWidth={$minWidth}
+			$height={$height}
+			$minHeight={$minHeight}
 			$margin={$margin}
 			$marginBottom={$marginBottom}
 			$marginTop={$marginTop}
