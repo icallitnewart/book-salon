@@ -67,7 +67,7 @@ function ReviewAddForm(): JSX.Element {
 	): bookData is IBookDetail => {
 		const error =
 			validateReviewTitle(inputData.title) ||
-			validateReviewTags(inputData.tags) ||
+			(tags.length > 0 && validateReviewTags(inputData.tags)) ||
 			validateReviewContent(inputData.content) ||
 			validateReviewRating(inputData.rating) ||
 			validateReviewBook(bookData);
