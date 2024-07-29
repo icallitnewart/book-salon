@@ -1,16 +1,18 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
 
 import { ROUTES } from '@constants/routes';
-import { IBookProfile } from '@features/book/types/bookData';
+import { IBookDetail } from '@features/book/types/bookData';
 
 import useBookDetail from '@features/book/hooks/useBookDetail';
+import useReviewDetail from '@features/review/hooks/useReviewDetail';
 
 import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
+import Loader from '@components/molecules/Loader';
 import { Heading2 as BookTitle } from '@typographies';
-import BookCoverWithBackground from '@features/book/components/molecules/BookCoverWithBackground';
-import BookInfoTextWithLabel from '@features/book/components/molecules/BookInfoTextWithLabel';
+import BookCoverWithBackground from '../molecules/BookCoverWithBackground';
+import BookInfoTextWithLabel from '../molecules/BookInfoTextWithLabel';
 
 const Container = styled.div`
 	position: sticky;
@@ -32,22 +34,7 @@ const BookInfoDescription = styled(BookInfoTextWithLabel).attrs({
 	margin: '4px 0px',
 })``;
 
-interface IBookProfilePanelProps {
-	dbBook?: IBookProfile;
-}
-
-function BookProfilePanel({ dbBook }: IBookProfilePanelProps): JSX.Element {
-	const { isbn } = useParams();
-	const { data: fetchedBook, isPending } = useBookDetail(
-		dbBook?.isbn ? undefined : isbn,
-	);
-	const book = useMemo(() => dbBook ?? fetchedBook, [dbBook, fetchedBook]);
-
-	if (!dbBook && isPending) {
-		// TODO: Skeleton UI로 대체
-		return <div>Loading...</div>;
-	}
-
+function BookProfileDetail({ book }: { book?: IBookDetail }): JSX.Element {
 	return (
 		<Container>
 			<Link to={ROUTES.BOOK.DETAIL(book?.isbn)}>
@@ -75,6 +62,31 @@ function BookProfilePanel({ dbBook }: IBookProfilePanelProps): JSX.Element {
 			</BookInfoTextBox>
 		</Container>
 	);
+}
+
+function DBBookProfile({ reviewId }: { reviewId: string }): JSX.Element {
+	const { data: review } = useReviewDetail(reviewId);
+	return <BookProfileDetail book={review?.book} />;
+}
+
+function FetchedBookProfile({ isbn }: { isbn: string }): JSX.Element {
+	const { data: book } = useBookDetail(isbn);
+	return <BookProfileDetail book={book} />;
+}
+
+function BookProfilePanel(): JSX.Element {
+	const { isbn, reviewId } = useParams<{ isbn?: string; reviewId?: string }>();
+
+	if (reviewId) {
+		return <DBBookProfile reviewId={reviewId} />;
+	}
+
+	if (isbn) {
+		return <FetchedBookProfile isbn={isbn} />;
+	}
+
+	// TODO: Skeleton UI로 대체
+	return <Loader />;
 }
 
 export default withAsyncBoundary(BookProfilePanel, {
