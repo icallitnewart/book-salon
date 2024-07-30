@@ -17,7 +17,7 @@ const sample: IReviewPreview = {
 	id: '1',
 	title: '상실, 사랑 그리고 숨어 있는 삶의 질서에 관한 이야기',
 	user: {
-		_id: '12345',
+		id: '12345',
 		nickname: 'icallitnewart',
 	},
 	content:

@@ -29,6 +29,6 @@ export interface IUserAuth {
 }
 
 export interface IUserData {
-	_id: string;
+	id: string;
 	nickname: string;
 }

@@ -19,7 +19,7 @@ const reviewApis = {
 		const response = await axios.get(APIS.REVIEW.DETAIL(reviewId));
 		const { review } = response.data;
 
-		return convertObjectId<IReviewDetailData>(review);
+		return convertObjectId<IReviewDetailData>(review, ['user']);
 	},
 	updateReview: async (
 		formData: IReviewForm,
@@ -31,7 +31,7 @@ const reviewApis = {
 		);
 		const { review } = response.data;
 
-		return convertObjectId<IReviewDetailData>(review);
+		return convertObjectId<IReviewDetailData>(review, ['user']);
 	},
 };
 
