@@ -13,7 +13,7 @@ class UserController {
 		});
 	}
 
-	async loginUser(req: Request, res: Response) {
+	loginUser = async (req: Request, res: Response) => {
 		const { email, password } = req.body;
 		const { user, token } = await userService.loginUser(email, password);
 
@@ -26,12 +26,9 @@ class UserController {
 
 		res.json({
 			result: 'success',
-			user: {
-				email: user.email,
-				nickname: user.nickname,
-			},
+			user: this.formatUserResponse(user),
 		});
-	}
+	};
 
 	async logoutUser(req: Request, res: Response) {
 		res.clearCookie('token', {
@@ -45,33 +42,27 @@ class UserController {
 		});
 	}
 
-	async getMyProfile(req: Request, res: Response) {
+	getMyProfile = async (req: Request, res: Response) => {
 		const { userId } = req;
 		if (!userId) {
 			throw new HttpError('인증에 실패하였습니다.', 401);
 		}
 
-		const { email, nickname } = await userService.findUserById(userId);
+		const user = await userService.findUserById(userId);
 
 		res.json({
 			result: 'success',
-			user: {
-				email,
-				nickname,
-			},
+			user: this.formatUserResponse(user),
 		});
-	}
+	};
 
-	async getAuthInfo(req: Request, res: Response) {
+	getAuthInfo = async (req: Request, res: Response) => {
 		const createResponse = (isAuth: boolean, user?: IUserModel) => ({
 			result: 'success',
 			isAuth,
 			...(isAuth &&
 				user && {
-					user: {
-						email: user.email,
-						nickname: user.nickname,
-					},
+					user: this.formatUserResponse(user),
 				}),
 		});
 
@@ -88,16 +79,16 @@ class UserController {
 		}
 
 		res.json(createResponse(true, user));
-	}
+	};
 
-	async updateUser(req: Request, res: Response) {
+	updateUser = async (req: Request, res: Response) => {
 		const { userId } = req;
 		if (!userId) {
 			throw new HttpError('인증에 실패하였습니다.', 401);
 		}
 
 		const { currentPassword, ...userData } = req.body;
-		const { email, nickname } = await userService.updateUser(
+		const user = await userService.updateUser(
 			userId,
 			currentPassword,
 			userData,
@@ -105,12 +96,9 @@ class UserController {
 
 		res.json({
 			result: 'success',
-			user: {
-				email,
-				nickname,
-			},
+			user: this.formatUserResponse(user),
 		});
-	}
+	};
 
 	deleteUser = async (req: Request, res: Response) => {
 		const { userId } = req;
@@ -127,6 +115,15 @@ class UserController {
 			result: 'success',
 		});
 	};
+
+	formatUserResponse(user: IUserModel) {
+		const { id, email, nickname } = user;
+		return {
+			id,
+			email,
+			nickname,
+		};
+	}
 }
 
 export const userController = new UserController();
