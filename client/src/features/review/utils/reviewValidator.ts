@@ -1,6 +1,7 @@
 import { validatorWithError } from '@utils/validator';
 
-import { IBookDetail, isValidBookDetail } from '@features/book/types/bookData';
+import { IBookDetail } from '@features/book/types/bookData';
+import { isValidBookDetail } from '@features/book/types/bookTypeGuards';
 import { REVIEW_MAX_LEN } from '../constants/limits';
 
 export const validateReviewTitle = (title: string): string => {
