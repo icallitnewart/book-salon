@@ -10,6 +10,7 @@ import Divider from '@components/atoms/Divider';
 import ReviewTagList from './ReviewTagList';
 import ReviewEditDeleteButtons from './ReviewEditDeleteButtons';
 
+import useDeleteReview from '../../hooks/useDeleteReview';
 import useReviewDetail from '../../hooks/useReviewDetail';
 
 const Container = styled.div`
@@ -31,9 +32,24 @@ function ReviewPostContent(): JSX.Element {
 	const navigate = useNavigate();
 	const { reviewId } = useParams();
 	const { data: review } = useReviewDetail(reviewId);
+	const { deleteReview } = useDeleteReview(reviewId);
 
 	const handleEdit = () => {
 		navigate(ROUTES.REVIEW.EDIT(reviewId));
+	};
+
+	const handleDelete = () => {
+		if (window.confirm('정말 삭제하시겠습니까?')) {
+			deleteReview(undefined, {
+				onSuccess: () => {
+					alert('리뷰가 성공적으로 삭제되었습니다.');
+					navigate(ROUTES.REVIEW.LIST);
+				},
+				onError: () => {
+					alert('리뷰 삭제에 실패했습니다. 다시 시도해주세요.');
+				},
+			});
+		}
 	};
 
 	return (
@@ -59,6 +75,7 @@ function ReviewPostContent(): JSX.Element {
 				variantType="article"
 				variantSize="lg"
 				handleEdit={handleEdit}
+				handleDelete={handleDelete}
 			/>
 		</Container>
 	);

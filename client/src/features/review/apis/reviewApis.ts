@@ -33,6 +33,9 @@ const reviewApis = {
 
 		return convertObjectId<IReviewDetailData>(review, ['user']);
 	},
+	deleteReview: async (reviewId: string): Promise<void> => {
+		await authAxios.delete(APIS.REVIEW.DELETE(reviewId));
+	},
 };
 
 export default reviewApis;
