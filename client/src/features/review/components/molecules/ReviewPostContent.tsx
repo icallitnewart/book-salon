@@ -7,7 +7,7 @@ import { formatISODate } from '@utils/dateFormatter';
 import { Heading3 as Title, Span, SanitisedHTML } from '@typographies';
 import Divider from '@components/atoms/Divider';
 import ReviewTagList from './ReviewTagList';
-import ReviewControlButtons from './ReviewControlButtons';
+import ReviewEditDeleteButtons from './ReviewEditDeleteButtons';
 
 import useReviewDetail from '../../hooks/useReviewDetail';
 
@@ -49,7 +49,7 @@ function ReviewPostContent(): JSX.Element {
 				$minHeight="200px"
 				$textAlign="justify"
 			/>
-			<ReviewControlButtons variantType="article" variantSize="lg" />
+			<ReviewEditDeleteButtons variantType="article" variantSize="lg" />
 		</Container>
 	);
 }

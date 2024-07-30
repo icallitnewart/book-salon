@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import { ParagraphWithStyles, Span } from '@typographies';
-import ReviewControlButtons from './ReviewControlButtons';
+import ReviewEditDeleteButtons from './ReviewEditDeleteButtons';
 
 const Container = styled.div`
 	padding: 10px;
@@ -48,7 +48,7 @@ function ReviewCommentItem({ nickname, date, comment }: IComment): JSX.Element {
 			>
 				{comment}
 			</Comment>
-			<ReviewControlButtons variantType="card" variantSize="md" />
+			<ReviewEditDeleteButtons variantType="card" variantSize="md" />
 		</Container>
 	);
 }
