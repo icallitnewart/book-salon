@@ -50,7 +50,7 @@ class ReviewService {
 	}
 
 	private validateUpdateReviewData(data: Partial<IReviewInput>) {
-		const allowedFields = ['title', 'content', 'rating', 'tags'];
+		const allowedFields = ['title', 'content', 'rating', 'tags', 'book'];
 		if (!Object.keys(data).every(key => allowedFields.includes(key))) {
 			throw new HttpError('유효하지 않은 리뷰 데이터입니다.', 400);
 		}
