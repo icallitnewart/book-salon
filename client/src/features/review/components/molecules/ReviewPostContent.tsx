@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 
 import { formatISODate } from '@utils/dateFormatter';
 import { ROUTES } from '@constants/routes';
+import useAuthUser from '@features/user/hooks/useAuthUser';
 
 import { Heading3 as Title, Span, SanitisedHTML } from '@typographies';
 import Divider from '@components/atoms/Divider';
@@ -33,6 +34,9 @@ function ReviewPostContent(): JSX.Element {
 	const { reviewId } = useParams();
 	const { data: review } = useReviewDetail(reviewId);
 	const { deleteReview } = useDeleteReview(reviewId);
+	const { data: userId } = useAuthUser({
+		select: data => data.user?.id,
+	});
 
 	const handleEdit = () => {
 		navigate(ROUTES.REVIEW.EDIT(reviewId));
@@ -71,12 +75,14 @@ function ReviewPostContent(): JSX.Element {
 				$minHeight="200px"
 				$textAlign="justify"
 			/>
-			<ReviewEditDeleteButtons
-				variantType="article"
-				variantSize="lg"
-				handleEdit={handleEdit}
-				handleDelete={handleDelete}
-			/>
+			{review?.user.id === userId && (
+				<ReviewEditDeleteButtons
+					variantType="article"
+					variantSize="lg"
+					handleEdit={handleEdit}
+					handleDelete={handleDelete}
+				/>
+			)}
 		</Container>
 	);
 }
