@@ -3,7 +3,8 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 import { ROUTES } from '@constants/routes';
 import { AUTH_TYPES } from '@constants/auth';
-import useAuthQueryData from '@hooks/useAuthQueryData';
+
+import useAuthUser from '@features/user/hooks/useAuthUser';
 
 interface IAuthCheckerProps {
 	children: JSX.Element;
@@ -12,8 +13,9 @@ interface IAuthCheckerProps {
 
 function AuthChecker({ children, type }: IAuthCheckerProps): JSX.Element {
 	const location = useLocation();
-	const { getAuthQueryData } = useAuthQueryData();
-	const { isAuth } = getAuthQueryData();
+	const { data: isAuth } = useAuthUser({
+		select: data => data.isAuth,
+	});
 
 	if (type === AUTH_TYPES.PRIVATE && !isAuth) {
 		return (

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '@constants/routes';
-import useAuthQueryData from '@hooks/useAuthQueryData';
 import useInputWithError from '@hooks/useInputWithError';
+import useAuthUser from '@features/user/hooks/useAuthUser';
 import { handleApiError } from '@utils/errorHandler';
 
 import {
@@ -47,9 +47,9 @@ function UserProfileEditForm({
 }: IUserProfileEditFormProps): JSX.Element {
 	const navigate = useNavigate();
 	const { updateUser, updateAuthQueryDataAfterMutation } = useUpdateUser();
-	const { getAuthQueryData } = useAuthQueryData();
-	const { user } = getAuthQueryData();
-
+	const { data: user } = useAuthUser({
+		select: data => data.user,
+	});
 	const email = useInputWithError(user?.email, validateEmail);
 	const nickname = useInputWithError(user?.nickname, validateNickname);
 	const currentPassword = useInputWithError('', validateVerifyPassword);

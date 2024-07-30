@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { ROUTES } from '@constants/routes';
-import useAuthQueryData from '@hooks/useAuthQueryData';
+import useAuthUser from '@features/user/hooks/useAuthUser';
 
 import MenuLink from '../atoms/MenuLink';
 
@@ -15,8 +15,9 @@ const Container = styled.nav`
 `;
 
 function Navigation(): JSX.Element {
-	const { getAuthQueryData } = useAuthQueryData();
-	const { isAuth } = getAuthQueryData();
+	const { data: isAuth } = useAuthUser({
+		select: data => data.isAuth,
+	});
 
 	return (
 		<Container>

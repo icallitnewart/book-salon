@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { ROUTES } from '@constants/routes';
-import useAuthQueryData from '@hooks/useAuthQueryData';
+import useAuthUser from '@features/user/hooks/useAuthUser';
 
 import { SecondaryButton as UserEditButton } from '@buttons';
 import UserLabelledText from '../molecules/UserLabelledText';
@@ -25,8 +25,9 @@ const ButtonContainer = styled.div`
 `;
 
 function UserMyProfileContent(): JSX.Element {
-	const { getAuthQueryData } = useAuthQueryData();
-	const { user } = getAuthQueryData();
+	const { data: user } = useAuthUser({
+		select: data => data.user,
+	});
 	const navigate = useNavigate();
 	const moveToProfileEdit = () => {
 		navigate(ROUTES.USER.PROFILE_EDIT);
