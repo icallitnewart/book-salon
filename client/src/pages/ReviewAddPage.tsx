@@ -1,12 +1,18 @@
 import React from 'react';
 
 import PageTemplate from '@components/templates/PageTemplate';
-import ReviewAddTemplate from '@features/review/components/templates/ReviewAddTemplate';
+import ReviewFormTemplate from '@features/review/components/templates/ReviewFormTemplate';
+import useAddReview from '@features/review/hooks/useAddReview';
 
 function ReviewAddPage(): JSX.Element {
+	const { addReview } = useAddReview();
+
 	return (
 		<PageTemplate>
-			<ReviewAddTemplate />
+			<ReviewFormTemplate<false>
+				isEditMode={false}
+				submitMutation={addReview}
+			/>
 		</PageTemplate>
 	);
 }

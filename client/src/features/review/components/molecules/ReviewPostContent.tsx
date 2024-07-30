@@ -1,8 +1,9 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { formatISODate } from '@utils/dateFormatter';
+import { ROUTES } from '@constants/routes';
 
 import { Heading3 as Title, Span, SanitisedHTML } from '@typographies';
 import Divider from '@components/atoms/Divider';
@@ -27,8 +28,13 @@ const MetaInfo = styled.div`
 `;
 
 function ReviewPostContent(): JSX.Element {
+	const navigate = useNavigate();
 	const { reviewId } = useParams();
 	const { data: review } = useReviewDetail(reviewId);
+
+	const handleEdit = () => {
+		navigate(ROUTES.REVIEW.EDIT(reviewId));
+	};
 
 	return (
 		<Container>
@@ -49,7 +55,11 @@ function ReviewPostContent(): JSX.Element {
 				$minHeight="200px"
 				$textAlign="justify"
 			/>
-			<ReviewEditDeleteButtons variantType="article" variantSize="lg" />
+			<ReviewEditDeleteButtons
+				variantType="article"
+				variantSize="lg"
+				handleEdit={handleEdit}
+			/>
 		</Container>
 	);
 }

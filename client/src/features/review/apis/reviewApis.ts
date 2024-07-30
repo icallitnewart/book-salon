@@ -1,8 +1,14 @@
+/* eslint-disable no-underscore-dangle */
 import axios from 'axios';
 import authAxios from '@config/axiosInstance/authAxios';
 
+import { convertObjectId } from '@utils/dataTransform';
 import { APIS } from '@constants/apis';
-import { IReviewDetail, IReviewForm } from '../types/reviewData';
+import {
+	IReviewDetail,
+	IReviewDetailData,
+	IReviewForm,
+} from '../types/reviewData';
 
 const reviewApis = {
 	addReview: async (formData: IReviewForm): Promise<string> => {
@@ -11,7 +17,21 @@ const reviewApis = {
 	},
 	getReviewDetail: async (reviewId: string): Promise<IReviewDetail> => {
 		const response = await axios.get(APIS.REVIEW.DETAIL(reviewId));
-		return response.data.review;
+		const { review } = response.data;
+
+		return convertObjectId<IReviewDetailData>(review);
+	},
+	updateReview: async (
+		formData: IReviewForm,
+		reviewId: string,
+	): Promise<IReviewDetail> => {
+		const response = await authAxios.patch(
+			APIS.REVIEW.UPDATE(reviewId),
+			formData,
+		);
+		const { review } = response.data;
+
+		return convertObjectId<IReviewDetailData>(review);
 	},
 };
 

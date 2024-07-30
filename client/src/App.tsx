@@ -16,6 +16,7 @@ import ProfileEditPage from '@pages/ProfileEditPage';
 import BookDetailPage from '@pages/BookDetailPage';
 import ReviewDetailPage from '@pages/ReviewDetailPage';
 import ReviewAddPage from '@pages/ReviewAddPage';
+import ReviewEditPage from '@pages/ReviewEditPage';
 
 function App(): JSX.Element {
 	return (
@@ -85,6 +86,14 @@ function App(): JSX.Element {
 							element={
 								<AuthChecker type={AUTH_TYPES.PRIVATE}>
 									<ReviewAddPage />
+								</AuthChecker>
+							}
+						/>
+						<Route
+							path={ROUTES.REVIEW.EDIT()}
+							element={
+								<AuthChecker type={AUTH_TYPES.PRIVATE}>
+									<ReviewEditPage />
 								</AuthChecker>
 							}
 						/>

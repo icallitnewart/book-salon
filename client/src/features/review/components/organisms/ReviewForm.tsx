@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { styled } from 'styled-components';
 import { nanoid } from 'nanoid';
+import { styled } from 'styled-components';
 
-import useInput from '@hooks/useInput';
-import useBookQueryData from '@features/book/hooks/useBookQueryData';
 import {
 	validateReviewBook,
 	validateReviewContent,
@@ -15,13 +13,20 @@ import {
 
 import { ROUTES } from '@constants/routes';
 import { IBookDetail } from '@features/book/types/bookData';
+import { IReviewFormProps } from '@features/review/types/reviewProps';
+
+import {
+	addIdsToTags,
+	getReviewId,
+	removeIdsFromTags,
+} from '@features/review/utils/reviewFormUtils';
+import useBookDetail from '@features/book/hooks/useBookDetail';
 
 import { PrimaryInput as ReviewTitleInput } from '@inputs';
 import { PrimaryButton as SubmitButton } from '@buttons';
 import ReviewTagInputWithButton from '../molecules/ReviewTagInputWithButton';
 import ReviewTextEditor from '../atoms/ReviewTextEditor';
 
-import useAddReview from '../../hooks/useAddReview';
 import { REVIEW_MAX_LEN } from '../../constants/limits';
 import { IReviewForm, IReviewInput, IReviewTags } from '../../types/reviewData';
 
@@ -43,13 +48,16 @@ const ButtonBox = styled.div`
 	padding: 20px 0px;
 `;
 
-function ReviewAddForm(): JSX.Element {
+function ReviewForm<T extends boolean>({
+	isEditMode,
+	submitMutation,
+	initialData,
+}: IReviewFormProps<T>): JSX.Element {
 	const navigate = useNavigate();
 	const { isbn } = useParams();
-	const { getBookDetailQueryData } = useBookQueryData();
-	const { addReview } = useAddReview();
+	const { data: book } = useBookDetail(isbn || initialData?.book.isbn);
 
-	const { value: title, handleChange: handleTitleChange } = useInput('');
+	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [tags, setTags] = useState<IReviewTags>([]);
 
@@ -83,32 +91,41 @@ function ReviewAddForm(): JSX.Element {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		const bookData: IBookDetail | undefined = getBookDetailQueryData(isbn);
 		const inputData: IReviewInput = {
 			title,
 			content,
-			tags: tags.map(tag => tag.text),
+			tags: removeIdsFromTags(tags),
 			rating: 5,
 		};
 
-		const isSubmit = checkValidation(inputData, bookData);
+		const isSubmit = checkValidation(inputData, book);
 		if (!isSubmit) return;
 
 		const formData: IReviewForm = {
 			...inputData,
-			book: bookData,
+			book,
 		};
 
-		addReview(formData, {
-			onSuccess: reviewId => {
-				alert('리뷰가 등록되었습니다!');
+		const actionName = isEditMode ? '수정' : '등록';
+		submitMutation(formData, {
+			onSuccess: result => {
+				const reviewId = getReviewId(result);
+				alert(`리뷰가 성공적으로 ${actionName}되었습니다.`);
 				navigate(ROUTES.REVIEW.DETAIL(reviewId));
 			},
 			onError: () => {
-				alert('리뷰 등록에 실패하였습니다. 다시 시도해주세요.');
+				alert(`리뷰 ${actionName}에 실패하였습니다. 다시 시도해주세요.`);
 			},
 		});
 	};
+
+	useEffect(() => {
+		if (initialData) {
+			setTitle(initialData.title);
+			setTags(addIdsToTags(initialData.tags));
+			setContent(initialData.content);
+		}
+	}, [initialData]);
 
 	return (
 		<Container>
@@ -118,7 +135,7 @@ function ReviewAddForm(): JSX.Element {
 					id="title"
 					name="title"
 					value={title}
-					onChange={handleTitleChange}
+					onChange={e => setTitle(e.target.value)}
 					placeholder={`리뷰 제목을 입력해주세요 (${REVIEW_MAX_LEN.TITLE}자 이하)`}
 					ariaLabel={`리뷰 제목 입력 (${REVIEW_MAX_LEN.TITLE}자 이하)`}
 					maxLength={REVIEW_MAX_LEN.TITLE}
@@ -134,7 +151,7 @@ function ReviewAddForm(): JSX.Element {
 				/>
 				<ButtonBox>
 					<SubmitButton type="submit" $width="140px">
-						리뷰 등록
+						{isEditMode ? '수정하기' : '리뷰 등록'}
 					</SubmitButton>
 				</ButtonBox>
 			</Form>
@@ -142,4 +159,4 @@ function ReviewAddForm(): JSX.Element {
 	);
 }
 
-export default ReviewAddForm;
+export default ReviewForm;
