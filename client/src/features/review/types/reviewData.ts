@@ -1,4 +1,5 @@
 import { IBookDetail } from '@features/book/types/bookData';
+import { IUserData } from '@features/user/types/userData';
 
 export interface IReviewTag {
 	id: string;
@@ -18,15 +19,17 @@ export interface IReviewForm extends IReviewInput {
 	book: IBookDetail;
 }
 
-export interface IReviewDetail extends IReviewForm {
-	id: number;
-	nickname: string;
+export interface IReviewDetailData extends Omit<IReviewForm, 'id'> {
+	_id: string;
+	user: IUserData;
 	viewCount: number;
 	createdAt: string;
 	updatedAt: string;
 }
 
+export type IReviewDetail = Omit<IReviewDetailData, '_id'> & { id: string };
+
 export type IReviewPreview = Pick<
 	IReviewDetail,
-	'id' | 'nickname' | 'title' | 'content' | 'createdAt'
+	'id' | 'user' | 'title' | 'content' | 'createdAt'
 >;

@@ -43,7 +43,7 @@ const Content = styled.div`
 
 function ReviewCardItem({
 	id,
-	nickname,
+	user,
 	title,
 	content,
 	createdAt,
@@ -66,7 +66,7 @@ function ReviewCardItem({
 					</Paragraph>
 				</Content>
 				<AdditionalInfo>
-					<Span variant="highlight-meta-lg">{nickname}</Span>
+					<Span variant="highlight-meta-lg">{user.nickname}</Span>
 					<Span variant="list-meta-lg" $color="#999">
 						{createdAt}
 					</Span>

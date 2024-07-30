@@ -27,3 +27,8 @@ export interface IUserAuth {
 	isAuth: boolean;
 	user?: IUserInfo;
 }
+
+export interface IUserData {
+	_id: string;
+	nickname: string;
+}
