@@ -14,6 +14,19 @@ class ReviewDAO {
 		return Review.findById(reviewId).populate('user', 'id nickname');
 	}
 
+	async findByIdAndIncreaseViewCount(
+		reviewId: string,
+	): Promise<IReviewModel | null> {
+		return Review.findByIdAndUpdate(
+			reviewId,
+			{ $inc: { viewCount: 1 } },
+			{
+				new: true,
+				runValidators: true,
+			},
+		).populate('user', 'id nickname');
+	}
+
 	async update(
 		reviewId: string,
 		reviewData: Partial<IReviewInput>,

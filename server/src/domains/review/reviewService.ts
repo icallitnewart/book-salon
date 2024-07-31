@@ -18,8 +18,8 @@ class ReviewService {
 		return reviewId;
 	}
 
-	async findReviewById(reviewId: string) {
-		const review = await reviewDAO.findById(reviewId);
+	async getReviewWithViewCountIncrement(reviewId: string) {
+		const review = await reviewDAO.findByIdAndIncreaseViewCount(reviewId);
 
 		if (!review) {
 			throw new HttpError('리뷰를 찾을 수 없습니다.', 404);

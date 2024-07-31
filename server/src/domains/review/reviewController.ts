@@ -27,7 +27,8 @@ class ReviewController {
 			throw new HttpError('유효하지 않은 reviewId입니다.', 400);
 		}
 
-		const review = await reviewService.findReviewById(reviewId);
+		const review =
+			await reviewService.getReviewWithViewCountIncrement(reviewId);
 
 		res.status(200).json({
 			result: 'success',
