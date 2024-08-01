@@ -74,20 +74,21 @@ class ReviewController {
 	};
 
 	getReviewList = async (req: Request, res: Response) => {
-		const { limit, page, maxPages, order } = req.query as IGetReviewListQuery;
+		const { perPage, page, pageGroupSize, order } =
+			req.query as IGetReviewListQuery;
 
-		const validatedLimit = this.validateAndParsePageQuery(limit, 'limit');
+		const validatedPerPage = this.validateAndParsePageQuery(perPage, 'perPage');
 		const validatedPage = this.validateAndParsePageQuery(page, 'page');
-		const validatedMaxPages = this.validateAndParsePageQuery(
-			maxPages,
-			'maxPages',
+		const validatedPageGroupSize = this.validateAndParsePageQuery(
+			pageGroupSize,
+			'pageGroupSize',
 		);
 		const validatedOrder = this.validateOrderQuery(order);
 
 		const { reviews, pageInfo } = await reviewService.getReviewsByOrder(
 			validatedPage,
-			validatedLimit,
-			validatedMaxPages,
+			validatedPerPage,
+			validatedPageGroupSize,
 			validatedOrder,
 		);
 

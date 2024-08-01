@@ -5,7 +5,7 @@ export enum OrderQuery {
 
 export interface IGetReviewListQuery {
 	page?: string;
-	limit?: string;
-	maxPages?: string;
+	perPage?: string;
+	pageGroupSize?: string;
 	order?: OrderQuery;
 }

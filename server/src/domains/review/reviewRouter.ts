@@ -66,17 +66,17 @@ router.post(
  *           minimum: 1
  *         description: "페이지 번호 (기본값: 1)"
  *       - in: query
- *         name: limit
+ *         name: perPage
  *         schema:
  *           type: integer
  *           minimum: 1
  *         description: "페이지당 리뷰 수 (기본값: 10)"
  *       - in: query
- *         name: maxPages
+ *         name: pageGroupSize
  *         schema:
  *           type: integer
  *           minimum: 1
- *         description: "한 세트의 최대 페이지 수 (기본값: 10)"
+ *         description: "한 그룹의 페이지 수 (기본값: 10)"
  *       - in: query
  *         name: order
  *         schema:
@@ -101,12 +101,9 @@ router.post(
  *                 pageInfo:
  *                   type: object
  *                   properties:
- *                     totalPages:
+ *                     lastPage:
  *                       type: integer
  *                       example: 5
- *                     totalCount:
- *                       type: integer
- *                       example: 47
  *                     hasNextPage:
  *                       type: boolean
  *                       example: true
@@ -127,14 +124,14 @@ router.post(
  *                 value:
  *                   result: error
  *                   message: page 쿼리는 숫자여야 합니다.
- *               Invalid Limit:
+ *               Invalid PerPage:
  *                 value:
  *                   result: error
- *                   message: limit 쿼리는 숫자여야 합니다.
- *               Invalid MaxPages:
+ *                   message: perPage 쿼리는 숫자여야 합니다.
+ *               Invalid PageGroupSize:
  *                 value:
  *                   result: error
- *                   message: maxPages 쿼리는 숫자여야 합니다.
+ *                   message: pageGroupSize 쿼리는 숫자여야 합니다.
  *               Invalid Order:
  *                 value:
  *                   result: error

@@ -30,10 +30,10 @@ class ReviewDAO {
 
 	async findReviewsByOrder(
 		page: number,
-		limit: number,
+		perPage: number,
 		order: OrderQuery,
 	): Promise<IReviewModel[]> {
-		const skip = (page - 1) * limit;
+		const skip = (page - 1) * perPage;
 		let sortOption: { [key: string]: 1 | -1 };
 
 		switch (order) {
@@ -50,7 +50,7 @@ class ReviewDAO {
 		return Review.find()
 			.sort(sortOption)
 			.skip(skip)
-			.limit(limit)
+			.limit(perPage)
 			.populate('user', 'id nickname')
 			.lean();
 	}
@@ -70,18 +70,19 @@ class ReviewDAO {
 
 	async countDocumentsWithLimit(
 		page: number,
-		limit: number,
-		maxPages: number,
+		perPage: number,
+		pageGroupSize: number,
 	): Promise<number> {
 		// 한 번에 가져올 수 있는 최대 문서 수
-		const maxDocsPerSet = maxPages * limit;
+		const maxDocsPerGroup = pageGroupSize * perPage;
 		// 총 skip할 문서 수
-		const totalSkip = page * limit;
+		const totalSkip = (page - 1) * perPage;
+
 		// 가져올 문서 수
 		const docsToCount =
-			totalSkip > maxDocsPerSet
-				? maxDocsPerSet - (totalSkip % maxDocsPerSet)
-				: maxDocsPerSet - totalSkip;
+			totalSkip > maxDocsPerGroup
+				? maxDocsPerGroup - (totalSkip % maxDocsPerGroup)
+				: maxDocsPerGroup - totalSkip;
 
 		return Review.countDocuments()
 			.skip(totalSkip)

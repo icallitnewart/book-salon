@@ -64,16 +64,21 @@ class ReviewService {
 
 	async getReviewsByOrder(
 		page = 1,
-		limit = 10,
-		maxPages = 10,
+		perPage = 10,
+		pageGroupSize = 10,
 		order = 'latest' as OrderQuery,
 	) {
-		const [reviews, count] = await Promise.all([
-			reviewDAO.findReviewsByOrder(page, limit, order),
-			reviewDAO.countDocumentsWithLimit(page, limit, maxPages),
+		const [reviews, totalItems] = await Promise.all([
+			reviewDAO.findReviewsByOrder(page, perPage, order),
+			reviewDAO.countDocumentsWithLimit(page, perPage, pageGroupSize),
 		]);
 
-		const pageInfo = this.calculatePagination(count, page, limit, maxPages);
+		const pageInfo = this.calculatePagination(
+			totalItems,
+			page,
+			perPage,
+			pageGroupSize,
+		);
 
 		return {
 			reviews,
@@ -94,19 +99,18 @@ class ReviewService {
 	}
 
 	private calculatePagination(
-		count: number,
-		page: number,
-		limit: number,
-		maxPages: number,
+		totalItems: number,
+		currentPage: number,
+		itemsPerPage: number,
+		pageGroupSize: number,
 	) {
-		const totalPages = Math.ceil(count / limit);
-		const currentSet = Math.ceil(page / maxPages);
-		const lastPageInSet = currentSet * maxPages;
+		const totalPages = Math.ceil(totalItems / itemsPerPage);
+		const currentGroup = Math.ceil(currentPage / pageGroupSize);
+		const lastPage = Math.min(currentGroup * pageGroupSize, totalPages);
 
 		return {
-			totalPages: Math.min(totalPages, lastPageInSet),
-			totalCount: count,
-			hasNextPage: totalPages > lastPageInSet,
+			lastPage,
+			hasNextPage: totalPages > lastPage,
 		};
 	}
 }
