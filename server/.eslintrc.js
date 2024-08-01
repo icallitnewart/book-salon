@@ -21,6 +21,7 @@ module.exports = {
 	rules: {
 		'prettier/prettier': 'error',
 		'@typescript-eslint/no-unused-vars': 'warn',
+		'@typescript-eslint/default-param-last': 'off',
 		'import/prefer-default-export': 'off',
 		'no-console': 'off',
 		'class-methods-use-this': 'off',
