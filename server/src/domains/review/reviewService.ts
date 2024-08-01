@@ -60,6 +60,21 @@ class ReviewService {
 		}
 	}
 
+	async getMostViewedReviews(page = 1, limit = 10) {
+		const maxPages = 10;
+		const [reviews, count] = await Promise.all([
+			reviewDAO.findMostViewedReviews(page, limit),
+			reviewDAO.countDocumentsWithLimit(page, limit, maxPages),
+		]);
+
+		const pageInfo = this.calculatePagination(count, page, limit, maxPages);
+
+		return {
+			reviews,
+			pageInfo,
+		};
+	}
+
 	private async validateReviewOwnership(reviewId: string, userId: string) {
 		const review = await reviewDAO.findById(reviewId);
 
@@ -70,6 +85,23 @@ class ReviewService {
 		if (review.user.id.toString() !== userId) {
 			throw new HttpError('이 리뷰에 대한 권한이 없습니다.', 403);
 		}
+	}
+
+	private calculatePagination(
+		count: number,
+		page: number,
+		limit: number,
+		maxPages: number,
+	) {
+		const totalPages = Math.ceil(count / limit);
+		const currentSet = Math.ceil(page / maxPages);
+		const lastPageInSet = currentSet * maxPages;
+
+		return {
+			totalPages: Math.min(totalPages, lastPageInSet),
+			totalCount: count,
+			hasNextPage: totalPages > lastPageInSet,
+		};
 	}
 }
 

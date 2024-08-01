@@ -54,6 +54,99 @@ router.post(
 
 /**
  * @swagger
+ * /reviews/list:
+ *   get:
+ *     summary: 도서 리뷰 리스트 조회
+ *     tags: [Reviews]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *         description: "페이지 번호 (기본값: 1)"
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *         description: "페이지당 리뷰 수 (기본값: 10)"
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: string
+ *           enum: [mostViewed]
+ *         description: "정렬 방식 (현재는 'mostViewed'만 지원)"
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *                 reviews:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Review'
+ *                 pageInfo:
+ *                   type: object
+ *                   properties:
+ *                     totalPages:
+ *                       type: integer
+ *                       example: 5
+ *                     totalCount:
+ *                       type: integer
+ *                       example: 47
+ *                     hasNextPage:
+ *                       type: boolean
+ *                       example: true
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *             examples:
+ *               Invalid Page:
+ *                 value:
+ *                   result: error
+ *                   message: page 쿼리는 숫자여야 합니다.
+ *               Invalid Limit:
+ *                 value:
+ *                   result: error
+ *                   message: limit 쿼리는 숫자여야 합니다.
+ *               Invalid Order:
+ *                 value:
+ *                   result: error
+ *                   message: 유효하지 않은 리뷰 리스트 type입니다.
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 서버 내부 오류가 발생했습니다.
+ */
+router.get('/list', asyncMiddleware(reviewController.getReviewList));
+
+/**
+ * @swagger
  * /reviews/{reviewId}:
  *   get:
  *     summary: 도서 리뷰 상세 조회
