@@ -72,6 +72,12 @@ router.post(
  *           minimum: 1
  *         description: "페이지당 리뷰 수 (기본값: 10)"
  *       - in: query
+ *         name: maxPages
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *         description: "한 세트의 최대 페이지 수 (기본값: 10)"
+ *       - in: query
  *         name: order
  *         schema:
  *           type: string
@@ -125,6 +131,10 @@ router.post(
  *                 value:
  *                   result: error
  *                   message: limit 쿼리는 숫자여야 합니다.
+ *               Invalid MaxPages:
+ *                 value:
+ *                   result: error
+ *                   message: maxPages 쿼리는 숫자여야 합니다.
  *               Invalid Order:
  *                 value:
  *                   result: error

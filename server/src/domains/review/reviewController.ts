@@ -7,6 +7,7 @@ import { strToNum } from '../../utils/parser';
 interface IGetReviewListQuery {
 	page?: string;
 	limit?: string;
+	maxPages?: string;
 	order?: 'mostViewed';
 }
 
@@ -78,10 +79,14 @@ class ReviewController {
 	};
 
 	getReviewList = async (req: Request, res: Response) => {
-		const { limit, page, order } = req.query as IGetReviewListQuery;
+		const { limit, page, maxPages, order } = req.query as IGetReviewListQuery;
 
 		const validatedLimit = this.validateAndParsePageQuery(limit, 'limit');
 		const validatedPage = this.validateAndParsePageQuery(page, 'page');
+		const validatedMaxPages = this.validateAndParsePageQuery(
+			maxPages,
+			'maxPages',
+		);
 
 		let result;
 
@@ -90,6 +95,7 @@ class ReviewController {
 				result = await reviewService.getMostViewedReviews(
 					validatedPage,
 					validatedLimit,
+					validatedMaxPages,
 				);
 				break;
 			default:

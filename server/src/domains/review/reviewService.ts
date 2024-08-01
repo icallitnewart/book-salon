@@ -60,8 +60,7 @@ class ReviewService {
 		}
 	}
 
-	async getMostViewedReviews(page = 1, limit = 10) {
-		const maxPages = 10;
+	async getMostViewedReviews(page = 1, limit = 10, maxPages = 10) {
 		const [reviews, count] = await Promise.all([
 			reviewDAO.findMostViewedReviews(page, limit),
 			reviewDAO.countDocumentsWithLimit(page, limit, maxPages),
