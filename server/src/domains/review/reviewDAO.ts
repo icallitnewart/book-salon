@@ -1,3 +1,4 @@
+import { OrderQuery } from '../../types/review';
 import {
 	Review,
 	IReviewInput,
@@ -27,14 +28,27 @@ class ReviewDAO {
 		).populate('user', 'id nickname');
 	}
 
-	async findMostViewedReviews(
+	async findReviewsByOrder(
 		page: number,
 		limit: number,
+		order: OrderQuery,
 	): Promise<IReviewModel[]> {
 		const skip = (page - 1) * limit;
+		let sortOption: { [key: string]: 1 | -1 };
+
+		switch (order) {
+			case 'mostViewed':
+				sortOption = { viewCount: -1, _id: -1 };
+				break;
+			case 'latest':
+				sortOption = { createdAt: -1, _id: -1 };
+				break;
+			default:
+				throw new Error('Invalid order option');
+		}
 
 		return Review.find()
-			.sort({ viewCount: -1, _id: -1 })
+			.sort(sortOption)
 			.skip(skip)
 			.limit(limit)
 			.populate('user', 'id nickname')

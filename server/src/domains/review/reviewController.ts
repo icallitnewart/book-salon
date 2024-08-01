@@ -4,12 +4,7 @@ import { reviewService } from './reviewService';
 import { HttpError } from '../../utils/HttpError';
 import { strToNum } from '../../utils/parser';
 
-interface IGetReviewListQuery {
-	page?: string;
-	limit?: string;
-	maxPages?: string;
-	order?: 'mostViewed';
-}
+import { IGetReviewListQuery, OrderQuery } from '../../types/review';
 
 class ReviewController {
 	async createReview(req: Request, res: Response) {
@@ -87,22 +82,14 @@ class ReviewController {
 			maxPages,
 			'maxPages',
 		);
+		const validatedOrder = this.validateOrderQuery(order);
 
-		let result;
-
-		switch (order) {
-			case 'mostViewed':
-				result = await reviewService.getMostViewedReviews(
-					validatedPage,
-					validatedLimit,
-					validatedMaxPages,
-				);
-				break;
-			default:
-				throw new HttpError('유효하지 않은 리뷰 리스트 type입니다.', 400);
-		}
-
-		const { reviews, pageInfo } = result;
+		const { reviews, pageInfo } = await reviewService.getReviewsByOrder(
+			validatedPage,
+			validatedLimit,
+			validatedMaxPages,
+			validatedOrder,
+		);
 
 		res.status(200).json({
 			result: 'success',
@@ -139,6 +126,14 @@ class ReviewController {
 		}
 
 		return parsedQuery;
+	}
+
+	private validateOrderQuery(order?: OrderQuery): OrderQuery | undefined {
+		if (!order) return order;
+		if (!Object.values(OrderQuery).includes(order)) {
+			throw new HttpError('유효하지 않은 리뷰 리스트 order입니다.', 400);
+		}
+		return order;
 	}
 }
 

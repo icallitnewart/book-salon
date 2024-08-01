@@ -2,6 +2,8 @@ import { reviewDAO } from './reviewDAO';
 import { IReviewInput } from './reviewModel';
 import { HttpError } from '../../utils/HttpError';
 
+import { OrderQuery } from '../../types/review';
+
 class ReviewService {
 	async createReview(
 		reviewInput: IReviewInput,
@@ -60,9 +62,14 @@ class ReviewService {
 		}
 	}
 
-	async getMostViewedReviews(page = 1, limit = 10, maxPages = 10) {
+	async getReviewsByOrder(
+		page = 1,
+		limit = 10,
+		maxPages = 10,
+		order = 'latest' as OrderQuery,
+	) {
 		const [reviews, count] = await Promise.all([
-			reviewDAO.findMostViewedReviews(page, limit),
+			reviewDAO.findReviewsByOrder(page, limit, order),
 			reviewDAO.countDocumentsWithLimit(page, limit, maxPages),
 		]);
 

@@ -81,8 +81,8 @@ router.post(
  *         name: order
  *         schema:
  *           type: string
- *           enum: [mostViewed]
- *         description: "정렬 방식 (현재는 'mostViewed'만 지원)"
+ *           enum: [mostViewed, latest]
+ *         description: "정렬 방식 (기본값: latest)"
  *     responses:
  *       200:
  *         description: Success
@@ -138,7 +138,7 @@ router.post(
  *               Invalid Order:
  *                 value:
  *                   result: error
- *                   message: 유효하지 않은 리뷰 리스트 type입니다.
+ *                   message: 유효하지 않은 리뷰 리스트 order입니다.
  *       500:
  *         description: Internal Server Error
  *         content:
