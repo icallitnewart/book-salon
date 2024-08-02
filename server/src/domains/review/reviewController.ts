@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { isValidObjectId } from 'mongoose';
 import { reviewService } from './reviewService';
 import { HttpError } from '../../utils/HttpError';
+import { testRegex } from '../../utils/validator';
 import { strToNum } from '../../utils/parser';
 
 import { IGetReviewListQuery, OrderQuery } from '../../types/review';
@@ -85,11 +86,40 @@ class ReviewController {
 		);
 		const validatedOrder = this.validateOrderQuery(order);
 
-		const { reviews, pageInfo } = await reviewService.getReviewsByOrder(
+		const { reviews, pageInfo } = await reviewService.getReviews(
 			validatedPage,
 			validatedPerPage,
 			validatedPageGroupSize,
 			validatedOrder,
+		);
+
+		res.status(200).json({
+			result: 'success',
+			reviews,
+			pageInfo,
+		});
+	};
+
+	getReviewListByIsbn = async (req: Request, res: Response) => {
+		const { perPage, page, pageGroupSize, order } =
+			req.query as IGetReviewListQuery;
+		const { isbn } = req.params;
+
+		const validatedPerPage = this.validateAndParsePageQuery(perPage, 'perPage');
+		const validatedPage = this.validateAndParsePageQuery(page, 'page');
+		const validatedPageGroupSize = this.validateAndParsePageQuery(
+			pageGroupSize,
+			'pageGroupSize',
+		);
+		const validatedOrder = this.validateOrderQuery(order);
+		const validatedIsbn = this.validateIsbn(isbn);
+
+		const { reviews, pageInfo } = await reviewService.getReviewsByIsbn(
+			validatedPage,
+			validatedPerPage,
+			validatedPageGroupSize,
+			validatedOrder,
+			validatedIsbn,
 		);
 
 		res.status(200).json({
@@ -135,6 +165,18 @@ class ReviewController {
 			throw new HttpError('유효하지 않은 리뷰 리스트 order입니다.', 400);
 		}
 		return order;
+	}
+
+	private validateIsbn(isbn?: string): string {
+		if (!isbn) {
+			throw new HttpError('isbn이 존재하지 않습니다.', 400);
+		}
+
+		if (!testRegex.isbn(isbn)) {
+			throw new HttpError('유효하지 않은 isbn입니다.', 400);
+		}
+
+		return isbn;
 	}
 }
 

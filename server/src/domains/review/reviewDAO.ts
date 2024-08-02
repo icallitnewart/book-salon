@@ -1,3 +1,4 @@
+import { FilterQuery } from 'mongoose';
 import { OrderQuery } from '../../types/review';
 import {
 	Review,
@@ -5,6 +6,7 @@ import {
 	IReviewModel,
 	IReviewInputWithUser,
 } from './reviewModel';
+import { HttpError } from '../../utils/HttpError';
 
 class ReviewDAO {
 	async create(reviewInput: IReviewInputWithUser): Promise<IReviewModel> {
@@ -28,10 +30,11 @@ class ReviewDAO {
 		).populate('user', 'id nickname');
 	}
 
-	async findReviewsByOrder(
+	async findByOrder(
 		page: number,
 		perPage: number,
 		order: OrderQuery,
+		query: FilterQuery<IReviewModel> = {},
 	): Promise<IReviewModel[]> {
 		const skip = (page - 1) * perPage;
 		let sortOption: { [key: string]: 1 | -1 };
@@ -44,10 +47,10 @@ class ReviewDAO {
 				sortOption = { createdAt: -1, _id: -1 };
 				break;
 			default:
-				throw new Error('Invalid order option');
+				throw new HttpError('유효하지 않은 order입니다.', 400);
 		}
 
-		return Review.find()
+		return Review.find(query)
 			.sort(sortOption)
 			.skip(skip)
 			.limit(perPage)
@@ -72,6 +75,7 @@ class ReviewDAO {
 		page: number,
 		perPage: number,
 		pageGroupSize: number,
+		query: FilterQuery<IReviewModel> = {},
 	): Promise<number> {
 		// 현재 페이지가 속한 그룹이 몇 번째 그룹인지 계산
 		const currentGroup = Math.ceil(page / pageGroupSize);
@@ -83,8 +87,33 @@ class ReviewDAO {
 		const docsToCount = pageGroupSize * perPage + 1;
 
 		// 현재 속한 페이지 그룹의 문서 수 카운트
-		return Review.countDocuments().skip(totalSkip).limit(docsToCount);
+		return Review.countDocuments(query).skip(totalSkip).limit(docsToCount);
 	}
+
+	findByOrderWithCount = async (
+		page: number,
+		perPage: number,
+		pageGroupSize: number,
+		order: OrderQuery,
+		query: FilterQuery<IReviewModel> = {},
+	): Promise<[IReviewModel[], number]> => {
+		return Promise.all([
+			this.findByOrder(page, perPage, order, query),
+			this.countDocumentsWithLimit(page, perPage, pageGroupSize, query),
+		]);
+	};
+
+	findByIsbnWithCount = async (
+		page: number,
+		perPage: number,
+		pageGroupSize: number,
+		order: OrderQuery,
+		isbn: string,
+	): Promise<[IReviewModel[], number]> => {
+		return this.findByOrderWithCount(page, perPage, pageGroupSize, order, {
+			'book.isbn': isbn,
+		});
+	};
 }
 
 export const reviewDAO = new ReviewDAO();

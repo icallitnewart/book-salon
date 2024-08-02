@@ -62,19 +62,49 @@ class ReviewService {
 		}
 	}
 
-	async getReviewsByOrder(
+	async getReviews(
 		page = 1,
 		perPage = 10,
 		pageGroupSize = 10,
 		order = 'latest' as OrderQuery,
 	) {
-		const [reviews, totalItems] = await Promise.all([
-			reviewDAO.findReviewsByOrder(page, perPage, order),
-			reviewDAO.countDocumentsWithLimit(page, perPage, pageGroupSize),
-		]);
+		const [reviews, remainingItems] = await reviewDAO.findByOrderWithCount(
+			page,
+			perPage,
+			pageGroupSize,
+			order,
+		);
 
 		const pageInfo = this.calculatePagination(
-			totalItems,
+			remainingItems,
+			page,
+			perPage,
+			pageGroupSize,
+		);
+
+		return {
+			reviews,
+			pageInfo,
+		};
+	}
+
+	async getReviewsByIsbn(
+		page = 1,
+		perPage = 10,
+		pageGroupSize = 10,
+		order = 'latest' as OrderQuery,
+		isbn: string,
+	) {
+		const [reviews, remainingItems] = await reviewDAO.findByIsbnWithCount(
+			page,
+			perPage,
+			pageGroupSize,
+			order,
+			isbn,
+		);
+
+		const pageInfo = this.calculatePagination(
+			remainingItems,
 			page,
 			perPage,
 			pageGroupSize,
