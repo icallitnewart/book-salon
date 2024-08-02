@@ -99,18 +99,24 @@ class ReviewService {
 	}
 
 	private calculatePagination(
-		totalItems: number,
+		remainingItems: number,
 		currentPage: number,
 		itemsPerPage: number,
 		pageGroupSize: number,
 	) {
-		const totalPages = Math.ceil(totalItems / itemsPerPage);
+		// 현재 페이지가 속한 그룹이 몇번째 그룹인지 계산
 		const currentGroup = Math.ceil(currentPage / pageGroupSize);
-		const lastPage = Math.min(currentGroup * pageGroupSize, totalPages);
+		// 카운트한 문서 수를 기반으로 마지막 페이지 번호 계산
+		const lastPageOfRemainingItems =
+			currentPage + Math.ceil(remainingItems / itemsPerPage) - 1;
+		// 현재 그룹의 최대 마지막 페이지 번호 계산
+		const maxPageOfCurrentGroup = currentGroup * pageGroupSize;
+		// 마지막 페이지 번호
+		const lastPage = Math.min(maxPageOfCurrentGroup, lastPageOfRemainingItems);
 
 		return {
 			lastPage,
-			hasNextPage: totalPages > lastPage,
+			hasNextPage: lastPageOfRemainingItems > lastPage,
 		};
 	}
 }

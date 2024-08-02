@@ -73,20 +73,17 @@ class ReviewDAO {
 		perPage: number,
 		pageGroupSize: number,
 	): Promise<number> {
-		// 한 번에 가져올 수 있는 최대 문서 수
-		const maxDocsPerGroup = pageGroupSize * perPage;
-		// 총 skip할 문서 수
-		const totalSkip = (page - 1) * perPage;
+		// 현재 페이지가 속한 그룹이 몇 번째 그룹인지 계산
+		const currentGroup = Math.ceil(page / pageGroupSize);
+		// 현재 그룹의 시작 페이지 계산
+		const firstPageInGroup = (currentGroup - 1) * pageGroupSize + 1;
+		// 그룹의 시작 페이지 전까지 건너뛸 문서 수 계산
+		const totalSkip = (firstPageInGroup - 1) * perPage;
+		// 그룹의 마지막 문서 + 1까지 카운트할 문서 수 계산
+		const docsToCount = pageGroupSize * perPage + 1;
 
-		// 가져올 문서 수
-		const docsToCount =
-			totalSkip > maxDocsPerGroup
-				? maxDocsPerGroup - (totalSkip % maxDocsPerGroup)
-				: maxDocsPerGroup - totalSkip;
-
-		return Review.countDocuments()
-			.skip(totalSkip)
-			.limit(docsToCount + 1);
+		// 현재 속한 페이지 그룹의 문서 수 카운트
+		return Review.countDocuments().skip(totalSkip).limit(docsToCount);
 	}
 }
 
