@@ -33,6 +33,7 @@ export default function BaseText({
 	$minWidth,
 	$height,
 	$minHeight,
+	$flex,
 	$margin,
 	$marginBottom,
 	$marginTop,
@@ -65,6 +66,7 @@ export default function BaseText({
 			$minWidth={$minWidth}
 			$height={$height}
 			$minHeight={$minHeight}
+			$flex={$flex}
 			$margin={$margin}
 			$marginBottom={$marginBottom}
 			$marginTop={$marginTop}

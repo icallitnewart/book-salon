@@ -17,7 +17,11 @@ function ReviewTagList({ tags }: IReviewTagListProps): JSX.Element {
 	return (
 		<Container>
 			{tags &&
-				tags.map(tag => <ReviewTagItem key={nanoid()}>{tag}</ReviewTagItem>)}
+				tags.map(tag => (
+					<ReviewTagItem key={nanoid()} variantSize="lg">
+						{tag}
+					</ReviewTagItem>
+				))}
 		</Container>
 	);
 }

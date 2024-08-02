@@ -21,12 +21,16 @@ const Container = styled.div`
 	margin-bottom: 20px;
 `;
 
-const MetaInfo = styled.div`
+interface IMetaInfoStyleProps {
+	$marginBottom?: string;
+}
+
+const MetaInfo = styled.div<IMetaInfoStyleProps>`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
-	margin-bottom: 20px;
+	${({ $marginBottom }) => $marginBottom && `margin-bottom: ${$marginBottom};`}
 `;
 
 function ReviewPostContent(): JSX.Element {
@@ -58,15 +62,22 @@ function ReviewPostContent(): JSX.Element {
 
 	return (
 		<Container>
-			<Title variant="article-title-lg" $lineHeight={1.8} $textAlign="justify">
+			<MetaInfo $marginBottom="7px">
+				<ReviewTagList tags={review?.tags} />
+			</MetaInfo>
+			<Title variant="article-title-xl" $lineHeight={1.5} $textAlign="justify">
 				{review?.title}
 			</Title>
-			<Divider $margin="13px 0px" />
-			<MetaInfo>
-				<ReviewTagList tags={review?.tags} />
-				<Span variant="article-meta-lg" $lineHeight={1.8} $color="#888">
+			<Divider $margin="13px 0px 8px" />
+			<MetaInfo $marginBottom="15px">
+				<Span variant="highlight-meta-lg">{review?.user.nickname}</Span>
+				<Span variant="article-meta-lg" $margin="0px 3px">
+					·
+				</Span>
+				<Span variant="article-meta-lg" $flex="1">
 					{review && formatISODate(review.createdAt)}
 				</Span>
+				<Span variant="article-meta-lg">조회수 {review?.viewCount}</Span>
 			</MetaInfo>
 			<SanitisedHTML
 				html={review?.content}

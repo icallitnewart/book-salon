@@ -6,7 +6,7 @@ import { SpanWithStyles } from './TextElements';
 const Text = styled(SpanWithStyles)`
 	display: inline-block;
 	background-color: #f0f0f0;
-	padding: 0px 3px;
+	padding: 0px 4px;
 	border-radius: 3px;
 
 	&::before {
@@ -20,15 +20,7 @@ interface ITagTextProps {
 }
 
 function TagText({ children, variantSize = 'md' }: ITagTextProps): JSX.Element {
-	return (
-		<Text
-			variant={`article-meta-${variantSize}`}
-			$color="var(--sub-color-darkgreen)"
-			$fontWeight={500}
-		>
-			{children}
-		</Text>
-	);
+	return <Text variant={`highlight-meta-${variantSize}`}>{children}</Text>;
 }
 
 export default TagText;

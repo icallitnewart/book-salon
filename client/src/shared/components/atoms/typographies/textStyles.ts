@@ -2,14 +2,6 @@ import { css } from 'styled-components';
 
 // variants of text styles (different font sizes, colors, etc.)
 export const textVariantStyles = {
-	test: css<ITextStylesProps>`
-		font-size: 3rem;
-		font-weight: ${({ $fontWeight }) => $fontWeight || 800};
-		color: ${({ $color }) => $color || '#000'};
-		font-family: ${({ $fontFamily }) => $fontFamily || 'var(--main-font-eng)'};
-		letter-spacing: ${({ $letterSpacing }) => $letterSpacing || 1}px;
-		line-height: ${({ $lineHeight }) => $lineHeight || 1};
-	`,
 	'section-title-lg': css<ITextStylesProps>`
 		font-size: 3rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 800};
@@ -33,6 +25,11 @@ export const textVariantStyles = {
 		font-family: ${({ $fontFamily }) => $fontFamily || 'var(--main-font-eng)'};
 		letter-spacing: ${({ $letterSpacing }) => $letterSpacing || 1}px;
 		line-height: ${({ $lineHeight }) => $lineHeight || 1};
+	`,
+	'article-title-xl': css<ITextStylesProps>`
+		font-size: 3rem;
+		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
+		color: ${({ $color }) => $color || '#000'};
 	`,
 	'article-title-lg': css<ITextStylesProps>`
 		font-size: 2.4rem;
@@ -221,19 +218,19 @@ export const textVariantStyles = {
 		color: ${({ $color }) => $color || '#888'};
 	`,
 	'highlight-meta-lg': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: 1.5rem;
 		color: var(--sub-color-darkgreen);
 		font-weight: 500;
 		letter-spacing: 1px;
 	`,
 	'highlight-meta-md': css<ITextStylesProps>`
-		font-size: 1.3rem;
+		font-size: 1.4rem;
 		color: var(--sub-color-darkgreen);
 		font-weight: 500;
 		letter-spacing: 1px;
 	`,
 	'highlight-meta-sm': css<ITextStylesProps>`
-		font-size: 1.2rem;
+		font-size: 1.3rem;
 		color: var(--sub-color-darkgreen);
 		font-weight: 500;
 		letter-spacing: 1px;
@@ -253,6 +250,7 @@ export interface ITextStylesProps {
 	$minWidth?: string;
 	$height?: string;
 	$minHeight?: string;
+	$flex?: string;
 	$wordBreak?: 'break-all' | 'break-word' | 'keep-all' | 'normal';
 	$margin?: string;
 	$marginBottom?: string;
@@ -288,6 +286,7 @@ export const textStyles = css<ITextStylesProps>`
 	${({ $height }) => $height && `height: ${$height};`}
 	${({ $minWidth }) => $minWidth && `min-width: ${$minWidth};`}
 	${({ $minHeight }) => $minHeight && `min-height: ${$minHeight};`}
+	${({ $flex }) => $flex && `flex: ${$flex};`}
 
 	${({ $margin }) => $margin && `margin: ${$margin};`}
 	${({ $marginTop }) => $marginTop && `margin-top: ${$marginTop};`}
