@@ -1,12 +1,9 @@
-import mongoose, { ConnectOptions } from 'mongoose';
+import mongoose from 'mongoose';
 import logger from '../utils/logger';
 
 const connectDB = async () => {
 	try {
-		await mongoose.connect(process.env.MONGODB_URI!, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		} as ConnectOptions);
+		await mongoose.connect(process.env.MONGODB_URI!);
 
 		logger.info('Connected to MongoDB!🎉');
 	} catch (error) {
