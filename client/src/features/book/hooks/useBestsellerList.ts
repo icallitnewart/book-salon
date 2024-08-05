@@ -13,7 +13,15 @@ function useBestsellerList() {
 	const getNextUpdateTime = () => {
 		const now = new Date();
 		const nextMonday = new Date(now);
-		nextMonday.setDate(now.getDate() + ((1 + 7 - now.getDay()) % 7));
+
+		// 다음주 월요일까지 남은 시간 계산
+		if (now.getDay() === 1) {
+			// 오늘이 월요일인 경우
+			nextMonday.setDate(now.getDate() + 7);
+		} else {
+			nextMonday.setDate(now.getDate() + ((1 + 7 - now.getDay()) % 7));
+		}
+
 		nextMonday.setHours(0, 0, 0, 0);
 		const nextUpdateTime = nextMonday.getTime() - now.getTime();
 
