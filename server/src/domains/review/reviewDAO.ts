@@ -1,5 +1,5 @@
 import { FilterQuery } from 'mongoose';
-import { OrderQuery } from '../../types/review';
+import { SortOption } from '../../types/review';
 import {
 	Review,
 	IReviewInput,
@@ -30,16 +30,16 @@ class ReviewDAO {
 		).populate('user', 'id nickname');
 	}
 
-	async findByOrder(
+	async findBySort(
 		page: number,
 		perPage: number,
-		order: OrderQuery,
+		sort: SortOption,
 		query: FilterQuery<IReviewModel> = {},
 	): Promise<IReviewModel[]> {
 		const skip = (page - 1) * perPage;
 		let sortOption: { [key: string]: 1 | -1 };
 
-		switch (order) {
+		switch (sort) {
 			case 'mostViewed':
 				sortOption = { viewCount: -1, _id: -1 };
 				break;
@@ -47,7 +47,7 @@ class ReviewDAO {
 				sortOption = { createdAt: -1, _id: -1 };
 				break;
 			default:
-				throw new HttpError('유효하지 않은 order입니다.', 400);
+				throw new HttpError('유효하지 않은 sort입니다.', 400);
 		}
 
 		return Review.find(query)
@@ -90,15 +90,15 @@ class ReviewDAO {
 		return Review.countDocuments(query).skip(totalSkip).limit(docsToCount);
 	}
 
-	findByOrderWithCount = async (
+	findBySortWithCount = async (
 		page: number,
 		perPage: number,
 		pageGroupSize: number,
-		order: OrderQuery,
+		sort: SortOption,
 		query: FilterQuery<IReviewModel> = {},
 	): Promise<[IReviewModel[], number]> => {
 		return Promise.all([
-			this.findByOrder(page, perPage, order, query),
+			this.findBySort(page, perPage, sort, query),
 			this.countDocumentsWithLimit(page, perPage, pageGroupSize, query),
 		]);
 	};
@@ -107,10 +107,10 @@ class ReviewDAO {
 		page: number,
 		perPage: number,
 		pageGroupSize: number,
-		order: OrderQuery,
+		sort: SortOption,
 		isbn: string,
 	): Promise<[IReviewModel[], number]> => {
-		return this.findByOrderWithCount(page, perPage, pageGroupSize, order, {
+		return this.findBySortWithCount(page, perPage, pageGroupSize, sort, {
 			'book.isbn': isbn,
 		});
 	};

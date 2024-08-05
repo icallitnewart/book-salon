@@ -2,7 +2,11 @@ import { reviewDAO } from './reviewDAO';
 import { IReviewInput } from './reviewModel';
 import { HttpError } from '../../utils/HttpError';
 
-import { OrderQuery } from '../../types/review';
+import {
+	IGetReviewsByIsbnQuery,
+	IGetReviewsQuery,
+	SortOption,
+} from '../../types/review';
 
 class ReviewService {
 	async createReview(
@@ -62,17 +66,17 @@ class ReviewService {
 		}
 	}
 
-	async getReviews(
+	async getReviews({
 		page = 1,
 		perPage = 10,
 		pageGroupSize = 10,
-		order = 'latest' as OrderQuery,
-	) {
-		const [reviews, remainingItems] = await reviewDAO.findByOrderWithCount(
+		sort = SortOption.LATEST,
+	}: IGetReviewsQuery) {
+		const [reviews, remainingItems] = await reviewDAO.findBySortWithCount(
 			page,
 			perPage,
 			pageGroupSize,
-			order,
+			sort,
 		);
 
 		const pageInfo = this.calculatePagination(
@@ -88,18 +92,18 @@ class ReviewService {
 		};
 	}
 
-	async getReviewsByIsbn(
+	async getReviewsByIsbn({
 		page = 1,
 		perPage = 10,
 		pageGroupSize = 10,
-		order = 'latest' as OrderQuery,
-		isbn: string,
-	) {
+		sort = SortOption.LATEST,
+		isbn,
+	}: IGetReviewsByIsbnQuery) {
 		const [reviews, remainingItems] = await reviewDAO.findByIsbnWithCount(
 			page,
 			perPage,
 			pageGroupSize,
-			order,
+			sort,
 			isbn,
 		);
 

@@ -5,7 +5,12 @@ import { HttpError } from '../../utils/HttpError';
 import { testRegex } from '../../utils/validator';
 import { strToNum } from '../../utils/parser';
 
-import { IGetReviewListQuery, OrderQuery } from '../../types/review';
+import {
+	IGetReviewListQuery,
+	IGetReviewsByIsbnQuery,
+	IGetReviewsQuery,
+	SortOption,
+} from '../../types/review';
 
 class ReviewController {
 	async createReview(req: Request, res: Response) {
@@ -75,24 +80,32 @@ class ReviewController {
 	};
 
 	getReviewList = async (req: Request, res: Response) => {
-		const { perPage, page, pageGroupSize, order } =
+		const { page, perPage, pageGroupSize, sort, isbn } =
 			req.query as IGetReviewListQuery;
 
-		const validatedPerPage = this.validateAndParsePageQuery(perPage, 'perPage');
-		const validatedPage = this.validateAndParsePageQuery(page, 'page');
-		const validatedPageGroupSize = this.validateAndParsePageQuery(
+		const validatedQuery = this.validateReviewListQuery({
+			page,
+			perPage,
 			pageGroupSize,
-			'pageGroupSize',
-		);
-		const validatedOrder = this.validateOrderQuery(order);
+			sort,
+			isbn,
+		});
 
-		const { reviews, pageInfo } = await reviewService.getReviews(
-			validatedPage,
-			validatedPerPage,
-			validatedPageGroupSize,
-			validatedOrder,
-		);
+		let result;
+		const baseQuery: IGetReviewsQuery = {
+			page: validatedQuery.page,
+			perPage: validatedQuery.perPage,
+			pageGroupSize: validatedQuery.pageGroupSize,
+			sort: validatedQuery.sort,
+		};
 
+		if (isbn) {
+			result = await reviewService.getReviewsByIsbn({ ...baseQuery, isbn });
+		} else {
+			result = await reviewService.getReviews(baseQuery);
+		}
+
+		const { reviews, pageInfo } = result;
 		res.status(200).json({
 			result: 'success',
 			reviews,
@@ -100,34 +113,28 @@ class ReviewController {
 		});
 	};
 
-	getReviewListByIsbn = async (req: Request, res: Response) => {
-		const { perPage, page, pageGroupSize, order } =
-			req.query as IGetReviewListQuery;
-		const { isbn } = req.params;
+	private validateReviewListQuery(
+		query: IGetReviewListQuery,
+	): IGetReviewsQuery | IGetReviewsByIsbnQuery {
+		const baseQuery = {
+			page: this.validateAndParsePageQuery(query.page, 'page'),
+			perPage: this.validateAndParsePageQuery(query.perPage, 'perPage'),
+			pageGroupSize: this.validateAndParsePageQuery(
+				query.pageGroupSize,
+				'pageGroupSize',
+			),
+			sort: this.validateSortOption(query.sort),
+		};
 
-		const validatedPerPage = this.validateAndParsePageQuery(perPage, 'perPage');
-		const validatedPage = this.validateAndParsePageQuery(page, 'page');
-		const validatedPageGroupSize = this.validateAndParsePageQuery(
-			pageGroupSize,
-			'pageGroupSize',
-		);
-		const validatedOrder = this.validateOrderQuery(order);
-		const validatedIsbn = this.validateIsbn(isbn);
+		if (query.isbn) {
+			return {
+				...baseQuery,
+				isbn: this.validateIsbn(query.isbn),
+			};
+		}
 
-		const { reviews, pageInfo } = await reviewService.getReviewsByIsbn(
-			validatedPage,
-			validatedPerPage,
-			validatedPageGroupSize,
-			validatedOrder,
-			validatedIsbn,
-		);
-
-		res.status(200).json({
-			result: 'success',
-			reviews,
-			pageInfo,
-		});
-	};
+		return baseQuery;
+	}
 
 	private validateUserId(userId?: string): asserts userId is string {
 		if (!userId) {
@@ -159,19 +166,15 @@ class ReviewController {
 		return parsedQuery;
 	}
 
-	private validateOrderQuery(order?: OrderQuery): OrderQuery | undefined {
-		if (!order) return order;
-		if (!Object.values(OrderQuery).includes(order)) {
-			throw new HttpError('유효하지 않은 리뷰 리스트 order입니다.', 400);
+	private validateSortOption(sort?: SortOption): SortOption | undefined {
+		if (sort === undefined) return sort;
+		if (!Object.values(SortOption).includes(sort)) {
+			throw new HttpError('유효하지 않은 sort입니다.', 400);
 		}
-		return order;
+		return sort;
 	}
 
-	private validateIsbn(isbn?: string): string {
-		if (!isbn) {
-			throw new HttpError('isbn이 존재하지 않습니다.', 400);
-		}
-
+	private validateIsbn(isbn: string): string {
 		if (!testRegex.isbn(isbn)) {
 			throw new HttpError('유효하지 않은 isbn입니다.', 400);
 		}
