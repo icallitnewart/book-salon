@@ -7,6 +7,7 @@ interface IBookCoverWithBackgroundProps {
 	src?: string;
 	alt?: string;
 	$width?: string;
+	$height?: string;
 	$imgWidth?: string;
 }
 
@@ -14,10 +15,11 @@ function BookCoverWithBackground({
 	src,
 	alt,
 	$width = '500px',
+	$height,
 	$imgWidth,
 }: IBookCoverWithBackgroundProps): JSX.Element {
 	return (
-		<BookImageBackground $width={$width}>
+		<BookImageBackground $width={$width} $height={$height}>
 			<BookCoverImage
 				src={src}
 				alt={alt}

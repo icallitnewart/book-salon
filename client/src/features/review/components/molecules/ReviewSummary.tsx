@@ -1,77 +1,70 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
+
+import { stripHtmlTags } from '@utils/dataTransform';
 
 import { Heading4 as Title, Paragraph as Summary, Span } from '@typographies';
 
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	flex: 1;
 	width: 100%;
-	height: 100%;
-
-	&:hover {
-		h4 {
-			color: #666;
-		}
-		p {
-			color: #888;
-			text-decoration: underline;
-		}
-	}
+	padding: 20px 20px;
 `;
 
 const Content = styled.div`
 	width: 100%;
+	height: 100%;
 `;
 
 const MetaInfo = styled.div`
+	display: flex;
+	justify-content: space-between;
 	width: 100%;
-	text-align: right;
-	margin-bottom: 10px;
 `;
 
 interface IReviewSummaryProps {
 	title: string;
 	content: string;
 	nickname: string;
-	link: string;
+	viewCount: number;
 }
 
 function ReviewSummary({
 	title,
 	content,
 	nickname,
-	link,
+	viewCount,
 }: IReviewSummaryProps): JSX.Element {
 	return (
 		<Container>
-			<Link to={link || ''}>
-				<Content>
-					<Title
-						variant="list-title-sm"
-						$color="#333"
-						$lineHeight={1.8}
-						$lineClamp={2}
-						$marginTop="-0.4rem"
-						$ellipsis
-						$marginBottom="8px"
-					>
-						{title}
-					</Title>
-					<Summary
-						variant="list-body-md"
-						$lineClamp={4}
-						$lineHeight={1.8}
-						$ellipsis
-					>
-						{content}
-					</Summary>
-				</Content>
-			</Link>
+			<Content>
+				<Title
+					variant="list-title-sm"
+					$color="#333"
+					$lineHeight={1.8}
+					$lineClamp={2}
+					$marginTop="-0.4rem"
+					$ellipsis
+				>
+					{title}
+				</Title>
+				<Summary
+					variant="list-body-sm"
+					$lineClamp={4}
+					$lineHeight={1.8}
+					$ellipsis
+				>
+					{stripHtmlTags(content)}
+				</Summary>
+			</Content>
 			<MetaInfo>
-				<Span variant="highlight-meta-md">{nickname}</Span>
+				<div>
+					<Span variant="article-meta-md">by </Span>
+					<Span variant="highlight-meta-md">{nickname}</Span>
+				</div>
+				<Span variant="article-meta-md">{viewCount} views</Span>
 			</MetaInfo>
 		</Container>
 	);

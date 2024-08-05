@@ -10,7 +10,7 @@ const Container = styled.div`
 
 const Comment = styled(ParagraphWithStyles)`
 	width: 100%;
-	padding: 20px;
+	padding: 15px 18px;
 
 	border-radius: 7px;
 	background-color: #fbfbfb;
@@ -39,7 +39,7 @@ function ReviewCommentItem({ nickname, date, comment }: IComment): JSX.Element {
 				<Span variant="card-meta-lg">{date}</Span>
 			</MetaInfo>
 			<Comment
-				variant="card-body-lg"
+				variant="article-body-md"
 				$lineHeight={1.6}
 				$textAlign="justify"
 				$marginBottom="10px"
