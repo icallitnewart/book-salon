@@ -1,15 +1,24 @@
+import { typeGuards } from '@typeDefs/typeGuards';
 import { IBookDetail } from './bookData';
 
-export const isValidBookDetail = (book?: IBookDetail): book is IBookDetail => {
+export const isValidBookDetail = (book: unknown): book is IBookDetail => {
 	return (
-		typeof book === 'object' &&
-		typeof book.isbn === 'string' &&
-		typeof book.title === 'string' &&
-		typeof book.author === 'string' &&
-		typeof book.description === 'string' &&
-		typeof book.category === 'string' &&
-		typeof book.cover === 'string' &&
-		typeof book.publisher === 'string' &&
-		typeof book.pubDate === 'string'
+		typeGuards.isObject(book) &&
+		typeGuards.hasKey<IBookDetail, 'isbn'>(book, 'isbn') &&
+		typeGuards.isString(book.isbn) &&
+		typeGuards.hasKey<IBookDetail, 'title'>(book, 'title') &&
+		typeGuards.isString(book.title) &&
+		typeGuards.hasKey<IBookDetail, 'author'>(book, 'author') &&
+		typeGuards.isString(book.author) &&
+		typeGuards.hasKey<IBookDetail, 'description'>(book, 'description') &&
+		typeGuards.isString(book.description) &&
+		typeGuards.hasKey<IBookDetail, 'category'>(book, 'category') &&
+		typeGuards.isString(book.category) &&
+		typeGuards.hasKey<IBookDetail, 'cover'>(book, 'cover') &&
+		typeGuards.isString(book.cover) &&
+		typeGuards.hasKey<IBookDetail, 'publisher'>(book, 'publisher') &&
+		typeGuards.isString(book.publisher) &&
+		typeGuards.hasKey<IBookDetail, 'pubDate'>(book, 'pubDate') &&
+		typeGuards.isString(book.pubDate)
 	);
 };

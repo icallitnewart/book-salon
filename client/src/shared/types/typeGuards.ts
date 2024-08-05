@@ -1,3 +1,5 @@
+import { IPageInfo } from './data';
+
 export const typeGuards = {
 	isString: (value: unknown): value is string => typeof value === 'string',
 	isNumber: (value: unknown): value is number => typeof value === 'number',
@@ -10,4 +12,19 @@ export const typeGuards = {
 	isUndefined: (value: unknown): value is undefined =>
 		typeof value === 'undefined',
 	isNull: (value: unknown): value is null => value === null,
+	hasKey<Obj extends object, K extends string>(
+		obj: unknown,
+		key: K,
+	): obj is Obj & Record<K, unknown> {
+		return typeGuards.isObject(obj) && key in obj;
+	},
+};
+
+export const isValidPageInfo = (pageInfo: unknown): pageInfo is IPageInfo => {
+	return (
+		typeGuards.hasKey<IPageInfo, 'lastPage'>(pageInfo, 'lastPage') &&
+		typeGuards.isNumber(pageInfo.lastPage) &&
+		typeGuards.hasKey<IPageInfo, 'hasNextPage'>(pageInfo, 'hasNextPage') &&
+		typeGuards.isBoolean(pageInfo.hasNextPage)
+	);
 };
