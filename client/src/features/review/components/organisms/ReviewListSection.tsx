@@ -1,5 +1,9 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import { useParams } from 'react-router-dom';
+import { SortTypes } from '@config/query/queryKeys';
+
+import useReviewList from '@features/review/hooks/useReviewList';
 
 import SectionTitleWithHighlight from '@components/molecules/SectionTitleWithHighlight';
 import MoreButtonBox from '@components/molecules/MoreButtonBox';
@@ -11,6 +15,19 @@ const Container = styled.section`
 `;
 
 function ReviewListSection(): JSX.Element {
+	const { isbn } = useParams();
+	const { data: reviews, isPending } = useReviewList(
+		{
+			filters: { isbn },
+			sort: { type: SortTypes.MOST_VIEWED },
+			pagination: { page: 1, perPage: 6, pageGroupSize: 1 },
+		},
+		{
+			select: data => data.reviews,
+			enabled: !!isbn,
+		},
+	);
+
 	return (
 		<Container>
 			<SectionTitleWithHighlight
@@ -18,8 +35,8 @@ function ReviewListSection(): JSX.Element {
 				variantSize="lg"
 				$textAlign="center"
 			/>
-			<ReviewCardList />
-			<MoreButtonBox />
+			<ReviewCardList reviews={reviews} isPending={isPending} />
+			{reviews && reviews.length > 0 && <MoreButtonBox />}
 		</Container>
 	);
 }

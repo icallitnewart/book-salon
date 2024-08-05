@@ -31,3 +31,11 @@ export function convertObjectId<T extends Record<string, any>>(
 
 	return convertId(obj) as WithId<T>;
 }
+
+export function stripHtmlTags(html: string): string {
+	const refinedHtml = html
+		.replace(/<\/p>/g, '</p> ')
+		.replace(/<\/li>/g, '</li> ');
+	const doc = new DOMParser().parseFromString(refinedHtml, 'text/html');
+	return doc.body.textContent || '';
+}

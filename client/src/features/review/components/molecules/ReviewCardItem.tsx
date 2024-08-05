@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { IReviewPreview } from '@features/review/types/reviewData';
+import { ROUTES } from '@constants/routes';
+
+import { stripHtmlTags } from '@utils/dataTransform';
+import { formatISODate } from '@utils/dateFormatter';
 
 import { Heading3, Paragraph, Span } from '@typographies';
 import Divider from '@components/atoms/Divider';
 
 const LinkContainer = styled(Link)`
 	width: calc(100% / 2 - 10px);
-	height: 250px;
+	height: 230px;
 	transition: transform 0.3s;
 	cursor: pointer;
-
-	&:hover {
-		transform: translateY(-5px);
-	}
 `;
 
 const Article = styled.article`
@@ -31,7 +31,7 @@ const Article = styled.article`
 	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.05);
 `;
 
-const AdditionalInfo = styled.div`
+const MetaInfo = styled.div`
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
@@ -49,7 +49,7 @@ function ReviewCardItem({
 	createdAt,
 }: IReviewPreview): JSX.Element {
 	return (
-		<LinkContainer to="/">
+		<LinkContainer to={ROUTES.REVIEW.DETAIL(id)}>
 			<Article>
 				<Heading3 variant="list-title-md" $color="#333" $marginBottom="10px">
 					{title}
@@ -62,15 +62,15 @@ function ReviewCardItem({
 						$ellipsis
 						$lineClamp={3}
 					>
-						{content}
+						{stripHtmlTags(content)}
 					</Paragraph>
 				</Content>
-				<AdditionalInfo>
+				<MetaInfo>
 					<Span variant="highlight-meta-lg">{user.nickname}</Span>
 					<Span variant="list-meta-lg" $color="#999">
-						{createdAt}
+						{createdAt && formatISODate(createdAt)}
 					</Span>
-				</AdditionalInfo>
+				</MetaInfo>
 			</Article>
 		</LinkContainer>
 	);
