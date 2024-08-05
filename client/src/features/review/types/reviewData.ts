@@ -1,5 +1,6 @@
 import { IBookDetail } from '@features/book/types/bookData';
 import { IUserData } from '@features/user/types/userData';
+import { IPageInfo } from '@typeDefs/data';
 
 export interface IReviewTag {
 	id: string;
@@ -33,3 +34,8 @@ export type IReviewPreview = Pick<
 	IReviewDetail,
 	'id' | 'user' | 'title' | 'content' | 'createdAt'
 >;
+
+export interface IReviewList {
+	reviews: IReviewDetail[];
+	pageInfo: IPageInfo;
+}

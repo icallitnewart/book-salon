@@ -1,13 +1,15 @@
-/* eslint-disable no-underscore-dangle */
 import axios from 'axios';
 import authAxios from '@config/axiosInstance/authAxios';
 
+import { IReviewListOptions } from '@config/query/queryKeys';
 import { convertObjectId } from '@utils/dataTransform';
 import { APIS } from '@constants/apis';
+
 import {
 	IReviewDetail,
 	IReviewDetailData,
 	IReviewForm,
+	IReviewList,
 } from '../types/reviewData';
 
 const reviewApis = {
@@ -35,6 +37,19 @@ const reviewApis = {
 	},
 	deleteReview: async (reviewId: string): Promise<void> => {
 		await authAxios.delete(APIS.REVIEW.DELETE(reviewId));
+	},
+	getReviewList: async (options: IReviewListOptions): Promise<IReviewList> => {
+		const response = await axios.get(APIS.REVIEW.LIST(options));
+		const { reviews, pageInfo } = response.data;
+		const refinedReviews: IReviewDetail[] = reviews.map(
+			(review: IReviewDetailData) =>
+				convertObjectId<IReviewDetailData>(review, ['user']),
+		);
+
+		return {
+			reviews: refinedReviews,
+			pageInfo,
+		};
 	},
 };
 

@@ -1,6 +1,10 @@
+import { IReviewListOptions } from '@config/query/queryKeys';
+import { createQueryString, createReviewListQuery } from '@utils/query';
+
 const API_BASE_URL = 'http://localhost:5000/api';
 const USER_BASE_URL = `${API_BASE_URL}/users`;
 const BOOK_BASE_URL = `${API_BASE_URL}/books`;
+const REVIEW_BASE_URL = `${API_BASE_URL}/reviews`;
 
 export const APIS = {
 	USER: {
@@ -16,9 +20,22 @@ export const APIS = {
 		DETAIL: (bookId: string) => `${BOOK_BASE_URL}/detail/${bookId}`,
 	},
 	REVIEW: {
-		ADD: `${API_BASE_URL}/reviews`,
-		DETAIL: (reviewId: string) => `${API_BASE_URL}/reviews/${reviewId}`,
-		UPDATE: (reviewId: string) => `${API_BASE_URL}/reviews/${reviewId}`,
-		DELETE: (reviewId: string) => `${API_BASE_URL}/reviews/${reviewId}`,
+		ADD: `${REVIEW_BASE_URL}`,
+		DETAIL: (reviewId: string) => `${REVIEW_BASE_URL}/${reviewId}`,
+		UPDATE: (reviewId: string) => `${REVIEW_BASE_URL}/${reviewId}`,
+		DELETE: (reviewId: string) => `${REVIEW_BASE_URL}/${reviewId}`,
+		LIST: (options: IReviewListOptions) => {
+			const { filters, sort, pagination } = createReviewListQuery(options);
+
+			const query = createQueryString({
+				sort: sort.type,
+				isbn: filters?.isbn,
+				page: pagination?.page,
+				perPage: pagination?.perPage,
+				pageGroupSize: pagination?.pageGroupSize,
+			});
+
+			return `${API_BASE_URL}/reviews/list?${query}`;
+		},
 	},
 };
