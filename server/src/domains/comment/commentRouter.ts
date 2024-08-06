@@ -8,7 +8,7 @@ const router = express.Router();
  * @swagger
  * /comments/review/{reviewId}:
  *   post:
- *     summary: 도서 리뷰에 대한 댓글 작성
+ *     summary: 도서 리뷰에 대한 댓글 작성 및 총 댓글 수 업데이트
  *     tags: [Comments]
  *     security:
  *       - cookieAuth: []
@@ -38,6 +38,10 @@ const router = express.Router();
  *                   example: success
  *                 comment:
  *                   $ref: '#/components/schemas/Comment'
+ *                 commentCount:
+ *                   type: number
+ *                   description: 업데이트된 총 댓글 수
+ *                   example: 5
  *       400:
  *         description: Bad Request
  *         content:

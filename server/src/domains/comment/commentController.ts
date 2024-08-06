@@ -14,15 +14,17 @@ class CommentController {
 		await this.validateReview(reviewId);
 
 		const commentInput = req.body;
-		const comment = await commentService.createCommentInReview(
-			commentInput,
-			userId,
-			reviewId,
-		);
+		const { comment, commentCount } =
+			await commentService.createCommentInReview(
+				commentInput,
+				userId,
+				reviewId,
+			);
 
 		res.status(201).json({
 			result: 'success',
 			comment,
+			commentCount,
 		});
 	};
 

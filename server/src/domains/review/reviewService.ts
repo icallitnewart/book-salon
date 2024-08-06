@@ -38,10 +38,20 @@ class ReviewService {
 		const review = await reviewDAO.increaseViewCount(reviewId);
 
 		if (!review) {
-			throw new HttpError('리뷰가 존재하지 않습니다.', 404);
+			throw new HttpError('리뷰를 찾을 수 없습니다.', 404);
 		}
 
 		return review.viewCount;
+	}
+
+	async increaseCommentCount(reviewId: string): Promise<number> {
+		const review = await reviewDAO.increaseCommentCount(reviewId);
+
+		if (!review) {
+			throw new HttpError('리뷰를 찾을 수 없습니다.', 404);
+		}
+
+		return review.commentCount;
 	}
 
 	updateReview = async (

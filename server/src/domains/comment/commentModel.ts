@@ -32,6 +32,11 @@ export interface IComment extends Omit<ICommentWithType, 'user'> {
 	updatedAt: Date;
 }
 
+export interface ICommentWithCount {
+	comment: IComment;
+	commentCount: number;
+}
+
 export interface ICommentModel extends IComment, Document {
 	_id: Types.ObjectId;
 }

@@ -1,12 +1,13 @@
+import { reviewService } from '../review/reviewService';
 import { commentDAO } from './commentDAO';
-import { CommentType, IComment, ICommentInput } from './commentModel';
+import { CommentType, ICommentInput, ICommentWithCount } from './commentModel';
 
 class CommentService {
 	async createCommentInReview(
 		commentInput: ICommentInput,
 		userId: string,
 		reviewId: string,
-	): Promise<IComment> {
+	): Promise<ICommentWithCount> {
 		const comment = await commentDAO.createInReview({
 			...commentInput,
 			user: userId,
@@ -16,9 +17,12 @@ class CommentService {
 			},
 		});
 
-		// TODO: 리뷰의 댓글 수 증가 로직 추가
+		const commentCount = await reviewService.increaseCommentCount(reviewId);
 
-		return comment;
+		return {
+			comment,
+			commentCount,
+		};
 	}
 }
 

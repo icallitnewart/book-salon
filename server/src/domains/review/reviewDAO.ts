@@ -25,6 +25,14 @@ class ReviewDAO {
 		);
 	}
 
+	async increaseCommentCount(reviewId: string): Promise<IReviewModel | null> {
+		return Review.findByIdAndUpdate(
+			reviewId,
+			{ $inc: { commentCount: 1 } },
+			{ new: true },
+		);
+	}
+
 	async findBySort(
 		page: number,
 		perPage: number,

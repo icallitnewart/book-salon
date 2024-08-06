@@ -278,6 +278,9 @@ router.patch(
  *                     viewCount:
  *                       type: number
  *                       example: 120
+ *                     commentCount:
+ *                       type: number
+ *                       example: 8
  *                     createdAt:
  *                       type: string
  *                       format: date-time

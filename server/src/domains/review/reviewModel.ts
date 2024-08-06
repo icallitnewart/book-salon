@@ -31,6 +31,7 @@ export interface IReviewInputWithUser extends IReviewInput {
 export interface IReview extends IReviewInput {
 	user: IUser;
 	viewCount: number;
+	commentCount: number;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -78,6 +79,10 @@ export interface IReviewModel extends IReview, Document {}
  *             pubDate:
  *               type: string
  *         viewCount:
+ *           type: number
+ *           minimum: 0
+ *           default: 0
+ *         commentCount:
  *           type: number
  *           minimum: 0
  *           default: 0
@@ -167,6 +172,11 @@ const reviewSchema = new Schema(
 			default: [],
 		},
 		viewCount: {
+			type: Number,
+			default: 0,
+			minimum: 0,
+		},
+		commentCount: {
 			type: Number,
 			default: 0,
 			minimum: 0,
