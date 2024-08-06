@@ -163,6 +163,66 @@ router.get('/list', asyncMiddleware(reviewController.getReviewList));
 
 /**
  * @swagger
+ * /reviews/{reviewId}/view-count:
+ *   patch:
+ *     summary: 도서 리뷰 조회수 증가
+ *     tags: [Reviews]
+ *     parameters:
+ *       - in: path
+ *         name: reviewId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           pattern: '^[0-9a-fA-F]{24}$'
+ *         description: 조회수를 증가시킬 리뷰의 ID (24자리 16진수 MongoDB ObjectId)
+ *     responses:
+ *       200:
+ *         description: 조회수 증가 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *                 viewCount:
+ *                   type: number
+ *                   example: 121
+ *       400:
+ *         description: 유효하지 않은 ReviewId
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: 'error'
+ *                 message:
+ *                   type: string
+ *                   example: 유효하지 않은 reviewId입니다.
+ *       404:
+ *         description: 리뷰를 찾을 수 없음
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: 'error'
+ *                 message:
+ *                   type: string
+ *                   example: 리뷰가 존재하지 않습니다.
+ */
+router.patch(
+	'/:reviewId/view-count',
+	asyncMiddleware(reviewController.increaseViewCount),
+);
+
+/**
+ * @swagger
  * /reviews/{reviewId}:
  *   get:
  *     summary: 도서 리뷰 상세 조회
@@ -188,18 +248,44 @@ router.get('/list', asyncMiddleware(reviewController.getReviewList));
  *                   example: success
  *                 review:
  *                   type: object
- *                   example:
- *                     _id: "60a9a1c1f2d3b12f3c8d0f1e"
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                       example: "60a9a1c1f2d3b12f3c8d0f1e"
  *                     user:
- *                       _id: "60a9a1c1f2d3b12f3c8d0f1c"
- *                       nickname: "책벌레123"
- *                     title: "반전이 엄청난 추리소설 추천"
- *                     content: "읽는 내내 몰입하게 만드는 소설이었습니다."
- *                     rating: 5
- *                     tags: ["스릴러", "추리소설"]
- *                     viewCount: 120
- *                     createdAt: "2023-05-20T15:30:00Z"
- *                     updatedAt: "2023-05-20T15:30:00Z"
+ *                       type: object
+ *                       properties:
+ *                         _id:
+ *                           type: string
+ *                           example: "60a9a1c1f2d3b12f3c8d0f1c"
+ *                         nickname:
+ *                           type: string
+ *                           example: "책벌레123"
+ *                     title:
+ *                       type: string
+ *                       example: "반전이 엄청난 추리소설 추천"
+ *                     content:
+ *                       type: string
+ *                       example: "읽는 내내 몰입하게 만드는 소설이었습니다."
+ *                     rating:
+ *                       type: number
+ *                       example: 5
+ *                     tags:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                       example: ["스릴러", "추리소설"]
+ *                     viewCount:
+ *                       type: number
+ *                       example: 120
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2023-05-20T15:30:00Z"
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2023-05-20T15:30:00Z"
  *       400:
  *         description: Invalid ReviewId
  *         content:

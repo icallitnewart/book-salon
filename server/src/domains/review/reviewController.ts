@@ -36,12 +36,26 @@ class ReviewController {
 			throw new HttpError('유효하지 않은 reviewId입니다.', 400);
 		}
 
-		const review =
-			await reviewService.getReviewWithViewCountIncrement(reviewId);
+		const review = await reviewService.getReview(reviewId);
 
 		res.status(200).json({
 			result: 'success',
 			review,
+		});
+	}
+
+	async increaseViewCount(req: Request, res: Response) {
+		const { reviewId } = req.params;
+
+		if (!reviewId || !isValidObjectId(reviewId)) {
+			throw new HttpError('유효하지 않은 reviewId입니다.', 400);
+		}
+
+		const viewCount = await reviewService.increaseViewCount(reviewId);
+
+		res.status(200).json({
+			result: 'success',
+			viewCount,
 		});
 	}
 

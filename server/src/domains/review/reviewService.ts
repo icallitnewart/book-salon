@@ -1,5 +1,5 @@
 import { reviewDAO } from './reviewDAO';
-import { IReviewInput } from './reviewModel';
+import { IReviewInput, IReviewModel } from './reviewModel';
 import { HttpError } from '../../utils/HttpError';
 
 import {
@@ -24,14 +24,24 @@ class ReviewService {
 		return reviewId;
 	}
 
-	async getReviewWithViewCountIncrement(reviewId: string) {
-		const review = await reviewDAO.findByIdAndIncreaseViewCount(reviewId);
+	async getReview(reviewId: string): Promise<IReviewModel> {
+		const review = await reviewDAO.findById(reviewId);
 
 		if (!review) {
 			throw new HttpError('리뷰를 찾을 수 없습니다.', 404);
 		}
 
 		return review;
+	}
+
+	async increaseViewCount(reviewId: string): Promise<number> {
+		const review = await reviewDAO.increaseViewCount(reviewId);
+
+		if (!review) {
+			throw new HttpError('리뷰가 존재하지 않습니다.', 404);
+		}
+
+		return review.viewCount;
 	}
 
 	updateReview = async (
