@@ -28,6 +28,26 @@ class CommentController {
 		});
 	};
 
+	updateCommentInReview = async (req: Request, res: Response) => {
+		const { userId } = req;
+		this.validateUserId(userId);
+
+		const { commentId } = req.params;
+		this.validateCommentId(commentId);
+
+		const commentInput = req.body;
+		const comment = await commentService.updateCommentInReview(
+			commentInput,
+			userId,
+			commentId,
+		);
+
+		res.status(200).json({
+			result: 'success',
+			comment,
+		});
+	};
+
 	private validateUserId(userId?: string): asserts userId is string {
 		if (!userId) {
 			throw new HttpError('userId가 존재하지 않습니다.', 401);
@@ -37,6 +57,12 @@ class CommentController {
 	private validateReviewId(reviewId?: string): asserts reviewId is string {
 		if (!reviewId || !isValidObjectId(reviewId)) {
 			throw new HttpError('유효하지 않은 reviewId입니다.', 400);
+		}
+	}
+
+	private validateCommentId(commentId?: string): asserts commentId is string {
+		if (!commentId || !isValidObjectId(commentId)) {
+			throw new HttpError('유효하지 않은 commentId입니다.', 400);
 		}
 	}
 
