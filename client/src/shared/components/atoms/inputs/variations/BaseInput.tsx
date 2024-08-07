@@ -12,7 +12,8 @@ const StyledInput = styled.input<IInputStylesProps>`
 `;
 
 export interface IInputProps extends IInputStylesProps {
-	type: string;
+	as?: 'input' | 'textarea';
+	type?: string;
 	id: string;
 	name: string;
 	value: string;
@@ -27,6 +28,7 @@ export interface IInputProps extends IInputStylesProps {
 }
 
 export default function BaseInput({
+	as = 'input',
 	variant,
 	type,
 	id,
@@ -41,6 +43,8 @@ export default function BaseInput({
 	className,
 	$width,
 	$height,
+	$minHeight,
+	$maxHeight,
 	$padding,
 	$margin,
 	$border,
@@ -57,6 +61,7 @@ export default function BaseInput({
 }: IInputProps): JSX.Element {
 	return (
 		<StyledInput
+			as={as}
 			type={type}
 			id={id}
 			name={name}
@@ -71,6 +76,8 @@ export default function BaseInput({
 			$variant={variant}
 			$width={$width}
 			$height={$height}
+			$minHeight={$minHeight}
+			$maxHeight={$maxHeight}
 			$padding={$padding}
 			$margin={$margin}
 			$border={$border}
@@ -84,6 +91,7 @@ export default function BaseInput({
 			$bgColor={$bgColor}
 			$placeholderColor={$placeholderColor}
 			$focusBorderColor={$focusBorderColor}
+			$isTextarea={as === 'textarea'}
 		/>
 	);
 }

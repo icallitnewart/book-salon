@@ -27,6 +27,8 @@ export const inputVariantStyles = {
 export interface IInputStylesProps {
 	$width?: string;
 	$height?: string;
+	$minHeight?: string;
+	$maxHeight?: string;
 	$padding?: string;
 	$margin?: string;
 
@@ -44,6 +46,7 @@ export interface IInputStylesProps {
 	$placeholderColor?: string;
 	$focusBorderColor?: string;
 
+	$isTextarea?: boolean;
 	$variant?: keyof typeof inputVariantStyles;
 }
 
@@ -51,6 +54,8 @@ export const inputStyles = css<IInputStylesProps>`
 	width: ${({ $width }) => $width || '100%'};
 	${({ $height }) => $height && `height: ${$height};`}
 	${({ $height }) => $height && `line-height: ${$height};`}
+	${({ $minHeight }) => $minHeight && `min-height: ${$minHeight};`}
+	${({ $maxHeight }) => $maxHeight && `max-height: ${$maxHeight};`}
 	padding: ${({ $padding }) => $padding || '0px 15px'};
 	${({ $margin }) => $margin && `margin: ${$margin};`}
 	${({ $boxShadow }) => $boxShadow && `box-shadow: ${$boxShadow};`}
@@ -73,5 +78,11 @@ export const inputStyles = css<IInputStylesProps>`
 		color: ${({ $placeholderColor }) => $placeholderColor || '#999'};
 	}
 
+	${({ $isTextarea }) =>
+		$isTextarea &&
+		css`
+			resize: none;
+			overflow-y: hidden;
+		`}
 	${({ $variant }) => $variant && inputVariantStyles[$variant]}
 `;

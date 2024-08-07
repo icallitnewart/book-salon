@@ -3,5 +3,16 @@ import {
 	PrimaryInput,
 	PrimaryInputWithStyles,
 } from './variations/PrimaryInput';
+import {
+	PrimaryTextarea,
+	PrimaryTextareaWithStyles,
+} from './variations/PrimaryTextArea';
 
-export { BaseInput, BaseInputWithStyles, PrimaryInput, PrimaryInputWithStyles };
+export {
+	BaseInput,
+	BaseInputWithStyles,
+	PrimaryInput,
+	PrimaryInputWithStyles,
+	PrimaryTextarea,
+	PrimaryTextareaWithStyles,
+};
