@@ -4,14 +4,18 @@ import styled from 'styled-components';
 import { Span } from '@typographies';
 import ReviewMetaButton from '../atoms/ReviewMetaButton';
 
-const Container = styled.div`
-	width: 100%;
+interface IContainerStyleProps {
+	$width?: string;
+}
+
+const Container = styled.div<IContainerStyleProps>`
+	width: ${({ $width }: IContainerStyleProps) => $width || '100%'};
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
 `;
 
-interface IReviewEditDeleteButtonsProps {
+interface IReviewEditDeleteButtonsProps extends IContainerStyleProps {
 	variantType: 'article' | 'card';
 	variantSize: 'sm' | 'md' | 'lg';
 	// TODO: 필수 값으로 변경
@@ -24,9 +28,10 @@ function ReviewEditDeleteButtons({
 	variantSize,
 	handleEdit = () => {},
 	handleDelete = () => {},
+	$width,
 }: IReviewEditDeleteButtonsProps): JSX.Element {
 	return (
-		<Container>
+		<Container $width={$width}>
 			<ReviewMetaButton
 				variantType={variantType}
 				variantSize={variantSize}

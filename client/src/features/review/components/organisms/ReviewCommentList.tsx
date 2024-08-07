@@ -1,6 +1,10 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
+import useReviewCommentList from '@features/review/hooks/useReviewCommentList';
+
+import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
 import { ParagraphWithStyles } from '@typographies';
 import ReviewCommentItem from '../molecules/ReviewCommentItem';
 
@@ -19,33 +23,23 @@ const EmptyAlert = styled(ParagraphWithStyles)`
 	padding: 10px;
 `;
 
-interface IComment {
-	id?: number;
-	nickname: string;
-	date: string;
-	comment: string;
-}
-
-const comments: IComment[] = [
-	{
-		id: 1,
-		nickname: 'icallitnewart',
-		date: '2024년 5월 9일',
-		comment: `우리가 당연하게 여기는 것들에 대해 다시 생각해보게 만드는 책인 것
-					같아요. 불확실한 세상에서 의미를 찾는다는 주제도 깊이 있어 보입니다.`,
-	},
-];
-
 function ReviewCommentList(): JSX.Element {
+	const { reviewId } = useParams();
+	const { data: comments, isPending } = useReviewCommentList(reviewId);
+
+	if (isPending || !comments) {
+		return <p>Loading..</p>;
+	}
+
 	return (
 		<Container>
 			{comments.length > 0 ? (
 				comments.map(item => (
 					<ReviewCommentItem
 						key={item.id}
-						nickname={item.nickname}
-						date={item.date}
-						comment={item.comment}
+						author={item.user}
+						createdAt={item.createdAt}
+						content={item.content}
 					/>
 				))
 			) : (
@@ -57,4 +51,6 @@ function ReviewCommentList(): JSX.Element {
 	);
 }
 
-export default ReviewCommentList;
+export default withAsyncBoundary(ReviewCommentList, {
+	SuspenseFallback: null,
+});

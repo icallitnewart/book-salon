@@ -8,3 +8,12 @@ export interface IPageOptions {
 	perPage?: number;
 	pageGroupSize?: number;
 }
+
+export enum ICommentType {
+	REVIEW = 'Reviews',
+}
+
+export interface ICommentTarget {
+	type: ICommentType;
+	id: string;
+}

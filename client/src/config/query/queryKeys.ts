@@ -50,4 +50,12 @@ export const reviewKeys = {
 
 		return ['reviews', 'list', options] as const;
 	},
+	addComment: (reviewId?: string) =>
+		['reviews', 'comments', 'add', reviewId] as const,
+	updateComment: (commentId?: string) =>
+		['reviews', 'comments', 'update', commentId] as const,
+	deleteComment: (commentId?: string) =>
+		['reviews', 'comments', 'delete', commentId] as const,
+	commentList: (reviewId?: string) =>
+		['reviews', 'comments', 'list', reviewId] as const,
 };

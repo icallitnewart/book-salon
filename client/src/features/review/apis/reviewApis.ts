@@ -11,6 +11,7 @@ import {
 	IReviewForm,
 	IReviewList,
 } from '../types/reviewData';
+import { IReviewComment } from '../types/reviewCommentData';
 
 const reviewApis = {
 	addReview: async (formData: IReviewForm): Promise<string> => {
@@ -50,6 +51,16 @@ const reviewApis = {
 			reviews: refinedReviews,
 			pageInfo,
 		};
+	},
+	getReviewCommentList: async (reviewId: string): Promise<IReviewComment[]> => {
+		const response = await axios.get(APIS.REVIEW.COMMENT_LIST(reviewId));
+		const { comments } = response.data;
+		const refinedComments: IReviewComment[] = comments.map(
+			(comment: IReviewComment) =>
+				convertObjectId<IReviewComment>(comment, ['user']),
+		);
+
+		return refinedComments;
 	},
 };
 

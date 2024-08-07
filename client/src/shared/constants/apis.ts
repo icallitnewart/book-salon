@@ -5,6 +5,8 @@ const API_BASE_URL = 'http://localhost:5000/api';
 const USER_BASE_URL = `${API_BASE_URL}/users`;
 const BOOK_BASE_URL = `${API_BASE_URL}/books`;
 const REVIEW_BASE_URL = `${API_BASE_URL}/reviews`;
+const COMMENT_BASE_URL = `${API_BASE_URL}/comments`;
+const REVIEW_COMMENT_BASE_URL = `${COMMENT_BASE_URL}/review`;
 
 export const APIS = {
 	USER: {
@@ -37,5 +39,7 @@ export const APIS = {
 
 			return `${API_BASE_URL}/reviews/list?${query}`;
 		},
+		COMMENT_LIST: (reviewId: string) =>
+			`${REVIEW_COMMENT_BASE_URL}/${reviewId}`,
 	},
 };

@@ -1,14 +1,18 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { ParagraphWithStyles, Span } from '@typographies';
+import { IUserData } from '@features/user/types/userData';
+import useAuthUser from '@features/user/hooks/useAuthUser';
+
+import { ParagraphWithStyles } from '@typographies';
 import ReviewEditDeleteButtons from './ReviewEditDeleteButtons';
+import ReviewAuthorWithDate from './ReviewAuthorWithDate';
 
 const Container = styled.div`
-	padding: 10px;
+	padding: 3px 10px;
 `;
 
-const Comment = styled(ParagraphWithStyles)`
+const Content = styled(ParagraphWithStyles)`
 	width: 100%;
 	padding: 15px 18px;
 
@@ -22,23 +26,41 @@ const MetaInfo = styled.div`
 	display: flex;
 	justify-content: space-between;
 	padding: 0px 5px;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 `;
 
-interface IComment {
-	nickname: string;
-	date: string;
-	comment: string;
+interface IReviewCommentItemProps {
+	author: IUserData;
+	createdAt: string;
+	content: string;
 }
 
-function ReviewCommentItem({ nickname, date, comment }: IComment): JSX.Element {
+function ReviewCommentItem({
+	author,
+	createdAt,
+	content,
+}: IReviewCommentItemProps): JSX.Element {
+	const { data: userId } = useAuthUser({
+		select: data => data?.user?.id,
+	});
+
 	return (
 		<Container>
 			<MetaInfo>
-				<Span variant="highlight-meta-lg">{nickname}</Span>
-				<Span variant="card-meta-lg">{date}</Span>
+				<ReviewAuthorWithDate
+					author={author.nickname}
+					date={createdAt}
+					$flex={1}
+				/>
+				{userId === author.id && (
+					<ReviewEditDeleteButtons
+						variantType="card"
+						variantSize="md"
+						$width="auto"
+					/>
+				)}
 			</MetaInfo>
-			<Comment
+			<Content
 				variant="article-body-md"
 				$lineHeight={1.6}
 				$textAlign="justify"
@@ -46,9 +68,8 @@ function ReviewCommentItem({ nickname, date, comment }: IComment): JSX.Element {
 				$color="#555"
 				$fontWeight={400}
 			>
-				{comment}
-			</Comment>
-			<ReviewEditDeleteButtons variantType="card" variantSize="md" />
+				{content}
+			</Content>
 		</Container>
 	);
 }
