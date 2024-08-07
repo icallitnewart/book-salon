@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Paragraph as TotalComment } from '@typographies';
 import ReviewCommentTextAreaWithButton from '../molecules/ReviewCommentTextAreaWithButton';
+import ReviewTotalComment from '../molecules/ReviewTotalComment';
 import ReviewCommentList from './ReviewCommentList';
 
 const Container = styled.div`
@@ -14,13 +14,7 @@ const Container = styled.div`
 function ReviewCommentBox(): JSX.Element {
 	return (
 		<Container>
-			<TotalComment
-				variant="article-title-sm"
-				$lineHeight={1.8}
-				$margin="6px 8px"
-			>
-				댓글 0
-			</TotalComment>
+			<ReviewTotalComment />
 			<ReviewCommentList />
 			<ReviewCommentTextAreaWithButton />
 		</Container>

@@ -24,6 +24,7 @@ export interface IReviewDetailData extends Omit<IReviewForm, 'id'> {
 	_id: string;
 	user: IUserData;
 	viewCount: number;
+	commentCount: number;
 	createdAt: string;
 	updatedAt: string;
 }
