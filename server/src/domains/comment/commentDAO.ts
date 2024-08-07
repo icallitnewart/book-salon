@@ -60,7 +60,7 @@ class CommentDAO {
 			'target.item': Types.ObjectId.createFromHexString(targetItemId),
 		})
 			.populate('user', 'id nickname')
-			.sort({ createdAt: -1 });
+			.sort({ createdAt: 1 });
 	}
 
 	async populateCommentInReview(commentId: string): Promise<ICommentModel> {
