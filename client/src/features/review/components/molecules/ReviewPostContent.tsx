@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { formatISODate } from '@utils/dateFormatter';
 import { ROUTES } from '@constants/routes';
 import useAuthUser from '@features/user/hooks/useAuthUser';
 
@@ -10,6 +9,7 @@ import { Heading3 as Title, Span, SanitisedHTML } from '@typographies';
 import Divider from '@components/atoms/Divider';
 import ReviewTagList from './ReviewTagList';
 import ReviewEditDeleteButtons from './ReviewEditDeleteButtons';
+import ReviewAuthorWithDate from './ReviewAuthorWithDate';
 
 import useDeleteReview from '../../hooks/useDeleteReview';
 import useReviewDetail from '../../hooks/useReviewDetail';
@@ -70,13 +70,11 @@ function ReviewPostContent(): JSX.Element {
 			</Title>
 			<Divider $margin="13px 0px 8px" />
 			<MetaInfo $marginBottom="15px">
-				<Span variant="highlight-meta-lg">{review?.user.nickname}</Span>
-				<Span variant="article-meta-lg" $margin="0px 3px">
-					·
-				</Span>
-				<Span variant="article-meta-lg" $flex="1">
-					{review && formatISODate(review.createdAt)}
-				</Span>
+				<ReviewAuthorWithDate
+					author={review?.user.nickname}
+					date={review?.createdAt}
+					variantSize="lg"
+				/>
 				<Span variant="article-meta-lg">조회수 {review?.viewCount}</Span>
 			</MetaInfo>
 			<SanitisedHTML
