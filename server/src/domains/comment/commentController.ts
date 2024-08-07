@@ -48,6 +48,24 @@ class CommentController {
 		});
 	};
 
+	deleteCommentInReview = async (req: Request, res: Response) => {
+		const { userId } = req;
+		this.validateUserId(userId);
+
+		const { commentId } = req.params;
+		this.validateCommentId(commentId);
+
+		const commentCount = await commentService.deleteCommentInReview(
+			commentId,
+			userId,
+		);
+
+		res.status(200).json({
+			result: 'success',
+			commentCount,
+		});
+	};
+
 	private validateUserId(userId?: string): asserts userId is string {
 		if (!userId) {
 			throw new HttpError('userId가 존재하지 않습니다.', 401);

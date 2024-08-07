@@ -42,6 +42,10 @@ class CommentDAO {
 		return populatedComment;
 	};
 
+	async deleteInReview(commentId: string): Promise<ICommentModel | null> {
+		return Comment.findByIdAndDelete(commentId);
+	}
+
 	async findById(commentId: string): Promise<ICommentModel | null> {
 		return Comment.findById(commentId).populate('user', 'id nickname');
 	}

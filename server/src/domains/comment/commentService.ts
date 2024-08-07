@@ -41,6 +41,23 @@ class CommentService {
 		return comment;
 	};
 
+	async deleteCommentInReview(
+		commentId: string,
+		userId: string,
+	): Promise<number> {
+		await this.validateCommentOwnership(commentId, userId);
+		const deletedComment = await commentDAO.deleteInReview(commentId);
+
+		if (!deletedComment) {
+			throw new HttpError('삭제할 댓글을 찾을 수 없습니다.', 404);
+		}
+
+		const targetReviewId = deletedComment.target.item.toString();
+		const commentCount =
+			await reviewService.decreaseCommentCount(targetReviewId);
+		return commentCount;
+	}
+
 	private async validateCommentOwnership(
 		commentId: string,
 		userId: string,
@@ -52,7 +69,7 @@ class CommentService {
 		}
 
 		if (comment.user.id.toString() !== userId) {
-			throw new HttpError('댓글 작성자만 수정할 수 있습니다.', 403);
+			throw new HttpError('댓글 작성자가 아닙니다.', 403);
 		}
 	}
 }
