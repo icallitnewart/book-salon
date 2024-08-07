@@ -33,6 +33,14 @@ class ReviewDAO {
 		);
 	}
 
+	async decreaseCommentCount(reviewId: string): Promise<IReviewModel | null> {
+		return Review.findByIdAndUpdate(
+			reviewId,
+			{ $inc: { commentCount: -1 } },
+			{ new: true },
+		);
+	}
+
 	async findBySort(
 		page: number,
 		perPage: number,

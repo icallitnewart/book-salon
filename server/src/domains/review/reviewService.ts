@@ -54,6 +54,16 @@ class ReviewService {
 		return review.commentCount;
 	}
 
+	async decreaseCommentCount(reviewId: string): Promise<number> {
+		const review = await reviewDAO.decreaseCommentCount(reviewId);
+
+		if (!review) {
+			throw new HttpError('리뷰를 찾을 수 없습니다.', 404);
+		}
+
+		return review.commentCount;
+	}
+
 	updateReview = async (
 		reviewId: string,
 		reviewData: Partial<IReviewInput>,
