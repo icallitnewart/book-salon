@@ -11,7 +11,11 @@ import {
 	IReviewForm,
 	IReviewList,
 } from '../types/reviewData';
-import { IReviewComment } from '../types/reviewCommentData';
+import {
+	IReviewComment,
+	IReviewCommentForm,
+	IReviewCommentWithCount,
+} from '../types/reviewCommentData';
 
 const reviewApis = {
 	addReview: async (formData: IReviewForm): Promise<string> => {
@@ -61,6 +65,22 @@ const reviewApis = {
 		);
 
 		return refinedComments;
+	},
+	addReviewComment: async (
+		formData: IReviewCommentForm,
+		reviewId: string,
+	): Promise<IReviewCommentWithCount> => {
+		const response = await authAxios.post(
+			APIS.REVIEW.ADD_COMMENT(reviewId),
+			formData,
+		);
+		const { comment, commentCount } = response.data;
+		const refinedComments = convertObjectId<IReviewComment>(comment, ['user']);
+
+		return {
+			comment: refinedComments,
+			commentCount,
+		};
 	},
 };
 

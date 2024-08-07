@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ReviewCommentTextAreaWithButton from '../molecules/ReviewCommentTextAreaWithButton';
+import ReviewCommentForm from '../molecules/ReviewCommentForm';
 import ReviewTotalComment from '../molecules/ReviewTotalComment';
 import ReviewCommentList from './ReviewCommentList';
 
@@ -16,7 +16,7 @@ function ReviewCommentBox(): JSX.Element {
 		<Container>
 			<ReviewTotalComment />
 			<ReviewCommentList />
-			<ReviewCommentTextAreaWithButton />
+			<ReviewCommentForm />
 		</Container>
 	);
 }

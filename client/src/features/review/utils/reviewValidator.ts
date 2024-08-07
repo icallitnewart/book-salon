@@ -40,3 +40,7 @@ export const validateReviewBook = (bookData?: IBookDetail): string => {
 		)
 	);
 };
+
+export const validateReviewCommentContent = (content: string): string => {
+	return validatorWithError.requireValue(content, '댓글 내용');
+};
