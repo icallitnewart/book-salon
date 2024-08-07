@@ -318,4 +318,64 @@ router.delete(
 	asyncMiddleware(commentController.deleteCommentInReview),
 );
 
+/**
+ * @swagger
+ * /comments/review/{reviewId}:
+ *   get:
+ *     summary: 도서 리뷰에 대한 댓글 리스트 조회
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: reviewId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 리뷰 ID
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *                 comments:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Comment'
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 유효하지 않은 reviewId입니다.
+ *       404:
+ *         description: Not Found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: review가 존재하지 않습니다.
+ */
+router.get(
+	'/review/:reviewId',
+	asyncMiddleware(commentController.getCommentListInReview),
+);
+
 export default router;

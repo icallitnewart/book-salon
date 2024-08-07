@@ -1,6 +1,7 @@
 import { Types } from 'mongoose';
 import {
 	Comment,
+	CommentType,
 	ICommentInput,
 	ICommentModel,
 	ICommentWithType,
@@ -48,6 +49,18 @@ class CommentDAO {
 
 	async findById(commentId: string): Promise<ICommentModel | null> {
 		return Comment.findById(commentId).populate('user', 'id nickname');
+	}
+
+	async findAllByTargetItem(
+		targetType: CommentType,
+		targetItemId: string,
+	): Promise<ICommentModel[]> {
+		return Comment.find({
+			'target.type': targetType,
+			'target.item': Types.ObjectId.createFromHexString(targetItemId),
+		})
+			.populate('user', 'id nickname')
+			.sort({ createdAt: -1 });
 	}
 
 	async populateCommentInReview(commentId: string): Promise<ICommentModel> {

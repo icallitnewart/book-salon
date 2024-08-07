@@ -66,6 +66,19 @@ class CommentController {
 		});
 	};
 
+	getCommentListInReview = async (req: Request, res: Response) => {
+		const { reviewId } = req.params;
+		this.validateReviewId(reviewId);
+		this.validateReview(reviewId);
+
+		const comments = await commentService.getCommentListInReview(reviewId);
+
+		res.status(200).json({
+			result: 'success',
+			comments,
+		});
+	};
+
 	private validateUserId(userId?: string): asserts userId is string {
 		if (!userId) {
 			throw new HttpError('userId가 존재하지 않습니다.', 401);

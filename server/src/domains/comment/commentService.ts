@@ -58,6 +58,15 @@ class CommentService {
 		return commentCount;
 	}
 
+	async getCommentListInReview(reviewId: string): Promise<IComment[]> {
+		const comments = await commentDAO.findAllByTargetItem(
+			CommentType.REVIEW,
+			reviewId,
+		);
+
+		return comments;
+	}
+
 	private async validateCommentOwnership(
 		commentId: string,
 		userId: string,
