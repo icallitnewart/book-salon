@@ -18,9 +18,8 @@ const Container = styled.div<IContainerStyleProps>`
 interface IReviewEditDeleteButtonsProps extends IContainerStyleProps {
 	variantType: 'article' | 'card';
 	variantSize: 'sm' | 'md' | 'lg';
-	// TODO: 필수 값으로 변경
-	handleEdit?: () => void;
-	handleDelete?: () => void;
+	handleEdit: () => void;
+	handleDelete: () => void;
 }
 
 function ReviewEditDeleteButtons({

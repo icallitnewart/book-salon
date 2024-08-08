@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
 import { IUserData } from '@features/user/types/userData';
@@ -7,6 +7,7 @@ import useAuthUser from '@features/user/hooks/useAuthUser';
 import { ParagraphWithStyles } from '@typographies';
 import ReviewEditDeleteButtons from './ReviewEditDeleteButtons';
 import ReviewAuthorWithDate from './ReviewAuthorWithDate';
+import ReviewCommentEditModalTemplate from '../templates/ReviewCommentEditModalTemplate';
 
 const Container = styled.div`
 	padding: 3px 10px;
@@ -15,6 +16,7 @@ const Container = styled.div`
 const Content = styled(ParagraphWithStyles)`
 	width: 100%;
 	padding: 15px 18px;
+	margin-bottom: 10px;
 
 	border-radius: 7px;
 	background-color: #fbfbfb;
@@ -41,9 +43,16 @@ function ReviewCommentItem({
 	createdAt,
 	content,
 }: IReviewCommentItemProps): JSX.Element {
+	const [isEditMode, setIsEditMode] = useState(false);
 	const { data: userId } = useAuthUser({
 		select: data => data?.user?.id,
 	});
+
+	const handleEdit = () => {
+		setIsEditMode(true);
+	};
+
+	const handleDelete = () => {};
 
 	return (
 		<Container>
@@ -58,19 +67,19 @@ function ReviewCommentItem({
 						variantType="card"
 						variantSize="md"
 						$width="auto"
+						handleEdit={handleEdit}
+						handleDelete={handleDelete}
 					/>
 				)}
 			</MetaInfo>
-			<Content
-				variant="article-body-md"
-				$lineHeight={1.6}
-				$textAlign="justify"
-				$marginBottom="10px"
-				$color="#555"
-				$fontWeight={400}
-			>
-				{content}
-			</Content>
+			<Content>{content}</Content>
+			{isEditMode && (
+				<ReviewCommentEditModalTemplate
+					content={content}
+					isOpen={isEditMode}
+					closeModal={() => setIsEditMode(false)}
+				/>
+			)}
 		</Container>
 	);
 }
