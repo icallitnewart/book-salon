@@ -20,6 +20,7 @@ const Content = styled(ParagraphWithStyles)`
 	background-color: #fbfbfb;
 	border: 1px solid #eee;
 	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.05);
+	white-space: pre-wrap;
 `;
 
 const MetaInfo = styled.div`
