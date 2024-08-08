@@ -1,8 +1,9 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import useInput from '@hooks/useInput';
+import useAuthUser from '@features/user/hooks/useAuthUser';
 import useAddReviewComment from '@features/review/hooks/useAddReviewComment';
 import { validateReviewCommentContent } from '@features/review/utils/reviewValidator';
 
@@ -10,6 +11,7 @@ import {
 	IReviewCommentForm,
 	IReviewCommentWithCount,
 } from '@features/review/types/reviewCommentData';
+import { ROUTES } from '@constants/routes';
 
 import { PrimaryButton } from '@buttons';
 import { PrimaryTextarea } from '@inputs';
@@ -24,7 +26,12 @@ const Form = styled.form`
 
 function ReviewCommentForm(): JSX.Element {
 	const { reviewId } = useParams();
+	const navigate = useNavigate();
+	const location = useLocation();
 	const content = useInput('');
+	const { data: isAuth } = useAuthUser({
+		select: data => data.isAuth,
+	});
 	const { addReviewComment, initialiseQueryAfterMutation } =
 		useAddReviewComment(reviewId);
 
@@ -39,8 +46,19 @@ function ReviewCommentForm(): JSX.Element {
 		return true;
 	};
 
+	const redirectToLogin = () => {
+		navigate(ROUTES.USER.LOGIN, {
+			state: { from: { pathname: location.pathname } },
+		});
+	};
+
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
+		if (!isAuth) {
+			redirectToLogin();
+			return;
+		}
 
 		const isSubmit = checkValidation();
 		if (!isSubmit) return;
@@ -68,8 +86,13 @@ function ReviewCommentForm(): JSX.Element {
 				onChange={content.handleChange}
 				id="content"
 				name="content"
-				placeholder="리뷰에 대한 댓글을 입력해주세요."
+				placeholder={
+					isAuth
+						? '리뷰에 대한 댓글을 입력해주세요.'
+						: '로그인 후 댓글을 작성할 수 있습니다.'
+				}
 				ariaLabel="리뷰에 대한 댓글 입력"
+				disabled={!isAuth}
 				$minHeight="50px"
 				$height="auto"
 			/>
