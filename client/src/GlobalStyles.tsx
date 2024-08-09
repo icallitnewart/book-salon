@@ -14,6 +14,8 @@ const GlobalStyles = createGlobalStyle`
 
     --main-font-eng: 'Montserrat', sans-serif;
     --main-font-kor: 'Noto Sans KR', sans-serif;
+
+    --header-height: 80px;
   }
 
   html {

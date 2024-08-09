@@ -19,11 +19,12 @@ interface IContentStyleProps {
 
 const Content = styled.main<IContentStyleProps>`
 	position: relative;
-	top: 100px;
+	top: var(--header-height);
 	display: grid;
 	grid-template-rows: 1fr;
 	width: ${({ $width }) => $width || '1200px'};
-	min-height: calc(100vh - 100px);
+	// TODO: footer 높이만큼 빼기
+	min-height: calc(100vh - var(--header-height));
 `;
 
 interface IPageTemplateProps extends IContentStyleProps {

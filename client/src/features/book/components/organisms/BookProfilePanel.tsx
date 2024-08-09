@@ -16,7 +16,7 @@ import BookInfoTextWithLabel from '../molecules/BookInfoTextWithLabel';
 
 const Container = styled.div`
 	position: sticky;
-	top: 130px; // TODO: 변수화 (Header 높이 + 30px)
+	top: calc(var(--header-height) + 30px);
 	width: 100%;
 	height: 500px;
 `;

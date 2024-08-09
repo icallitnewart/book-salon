@@ -12,7 +12,7 @@ const Container = styled.header`
 	justify-content: center;
 	width: 100%;
 	min-width: var(--desktop-screen-width);
-	height: 100px;
+	height: var(--header-height);
 
 	background-color: #fff;
 	border-bottom: 1px solid #eee;
