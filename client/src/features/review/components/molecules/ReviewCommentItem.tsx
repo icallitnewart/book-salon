@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { IUserData } from '@features/user/types/userData';
+import { IReviewCommentCount } from '@features/review/types/reviewCommentData';
+
 import useAuthUser from '@features/user/hooks/useAuthUser';
+import useDeleteReviewComment from '@features/review/hooks/useDeleteReviewComment';
 
 import { ParagraphWithStyles } from '@typographies';
 import ReviewEditDeleteButtons from './ReviewEditDeleteButtons';
@@ -45,7 +49,10 @@ function ReviewCommentItem({
 	createdAt,
 	content,
 }: IReviewCommentItemProps): JSX.Element {
+	const { reviewId } = useParams();
 	const [isEditMode, setIsEditMode] = useState(false);
+	const { deleteReviewComment, initaliseQueryAfterMutation } =
+		useDeleteReviewComment(id, reviewId);
 	const { data: userId } = useAuthUser({
 		select: data => data?.user?.id,
 	});
@@ -54,7 +61,19 @@ function ReviewCommentItem({
 		setIsEditMode(true);
 	};
 
-	const handleDelete = () => {};
+	const handleDelete = () => {
+		if (window.confirm('정말 삭제하시겠습니까?')) {
+			deleteReviewComment(undefined, {
+				onSuccess: ({ commentCount }: IReviewCommentCount) => {
+					alert('댓글이 삭제되었습니다.');
+					initaliseQueryAfterMutation(commentCount);
+				},
+				onError: () => {
+					alert('댓글 삭제에 실패했습니다. 다시 시도해주세요.');
+				},
+			});
+		}
+	};
 
 	return (
 		<Container>

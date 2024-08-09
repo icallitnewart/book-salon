@@ -17,7 +17,10 @@ export interface IReviewCommentData extends Omit<IReviewComment, 'id'> {
 	_id: string;
 }
 
-export interface IReviewCommentWithCount {
-	comment: IReviewComment;
+export interface IReviewCommentCount {
 	commentCount: number;
+}
+
+export interface IReviewCommentWithCount extends IReviewCommentCount {
+	comment: IReviewComment;
 }

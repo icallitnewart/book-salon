@@ -44,5 +44,7 @@ export const APIS = {
 		ADD_COMMENT: (reviewId: string) => `${REVIEW_COMMENT_BASE_URL}/${reviewId}`,
 		UPDATE_COMMENT: (commentId: string) =>
 			`${REVIEW_COMMENT_BASE_URL}/${commentId}`,
+		DELETE_COMMENT: (commentId: string) =>
+			`${REVIEW_COMMENT_BASE_URL}/${commentId}`,
 	},
 };

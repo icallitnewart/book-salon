@@ -13,6 +13,7 @@ import {
 } from '../types/reviewData';
 import {
 	IReviewComment,
+	IReviewCommentCount,
 	IReviewCommentForm,
 	IReviewCommentWithCount,
 } from '../types/reviewCommentData';
@@ -93,6 +94,15 @@ const reviewApis = {
 		const { comment } = response.data;
 
 		return convertObjectId<IReviewComment>(comment, ['user']);
+	},
+	deleteReviewComment: async (
+		commentId: string,
+	): Promise<IReviewCommentCount> => {
+		const response = await authAxios.delete(
+			APIS.REVIEW.DELETE_COMMENT(commentId),
+		);
+
+		return response.data;
 	},
 };
 
