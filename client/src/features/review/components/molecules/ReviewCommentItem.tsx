@@ -33,12 +33,14 @@ const MetaInfo = styled.div`
 `;
 
 interface IReviewCommentItemProps {
+	id: string;
 	author: IUserData;
 	createdAt: string;
 	content: string;
 }
 
 function ReviewCommentItem({
+	id,
 	author,
 	createdAt,
 	content,
@@ -78,6 +80,7 @@ function ReviewCommentItem({
 					content={content}
 					isOpen={isEditMode}
 					closeModal={() => setIsEditMode(false)}
+					commentId={id}
 				/>
 			)}
 		</Container>

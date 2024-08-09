@@ -37,6 +37,7 @@ function ReviewCommentList(): JSX.Element {
 				comments.map(item => (
 					<ReviewCommentItem
 						key={item.id}
+						id={item.id}
 						author={item.user}
 						createdAt={item.createdAt}
 						content={item.content}

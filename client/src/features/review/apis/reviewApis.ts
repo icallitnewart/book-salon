@@ -82,6 +82,18 @@ const reviewApis = {
 			commentCount,
 		};
 	},
+	updateReviewComment: async (
+		formData: IReviewCommentForm,
+		commentId: string,
+	): Promise<IReviewComment> => {
+		const response = await authAxios.patch(
+			APIS.REVIEW.UPDATE_COMMENT(commentId),
+			formData,
+		);
+		const { comment } = response.data;
+
+		return convertObjectId<IReviewComment>(comment, ['user']);
+	},
 };
 
 export default reviewApis;
