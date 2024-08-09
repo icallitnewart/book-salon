@@ -25,6 +25,8 @@ export const APIS = {
 		ADD: `${REVIEW_BASE_URL}`,
 		DETAIL: (reviewId: string) => `${REVIEW_BASE_URL}/${reviewId}`,
 		UPDATE: (reviewId: string) => `${REVIEW_BASE_URL}/${reviewId}`,
+		UPDATE_VIEW_COUNT: (reviewId: string) =>
+			`${REVIEW_BASE_URL}/${reviewId}/view-count`,
 		DELETE: (reviewId: string) => `${REVIEW_BASE_URL}/${reviewId}`,
 		LIST: (options: IReviewListOptions) => {
 			const { filters, sort, pagination } = createReviewListQuery(options);

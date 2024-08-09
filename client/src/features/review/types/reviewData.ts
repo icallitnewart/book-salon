@@ -20,10 +20,15 @@ export interface IReviewForm extends IReviewInput {
 	book: IBookDetail;
 }
 
-export interface IReviewDetailData extends Omit<IReviewForm, 'id'> {
+export interface IReviewViewCount {
+	viewCount: number;
+}
+
+export interface IReviewDetailData
+	extends Omit<IReviewForm, 'id'>,
+		IReviewViewCount {
 	_id: string;
 	user: IUserData;
-	viewCount: number;
 	commentCount: number;
 	createdAt: string;
 	updatedAt: string;

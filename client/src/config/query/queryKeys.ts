@@ -40,6 +40,8 @@ export const reviewKeys = {
 	add: ['reviews', 'add'] as const,
 	detail: (reviewId?: string) => ['reviews', 'detail', reviewId] as const,
 	update: (reviewId?: string) => ['reviews', 'update', reviewId] as const,
+	updateViewCount: (reviewId?: string) =>
+		['reviews', 'updateViewCount', reviewId] as const,
 	delete: (reviewId?: string) => ['reviews', 'delete', reviewId] as const,
 	list: ({ filters, sort, pagination }: IReviewListOptions) => {
 		const options = {

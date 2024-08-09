@@ -3,7 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { ROUTES } from '@constants/routes';
+import useEffectOnce from '@hooks/useEffectOnce';
 import useAuthUser from '@features/user/hooks/useAuthUser';
+import useUpdateReviewViewCount from '@features/review/hooks/useUpdateReviewViewCount';
 
 import { Heading3 as Title, Span, SanitisedHTML } from '@typographies';
 import Divider from '@components/atoms/Divider';
@@ -38,6 +40,7 @@ function ReviewPostContent(): JSX.Element {
 	const { reviewId } = useParams();
 	const { data: review } = useReviewDetail(reviewId);
 	const { deleteReview } = useDeleteReview(reviewId);
+	const { updateReviewViewCount } = useUpdateReviewViewCount(reviewId);
 	const { data: userId } = useAuthUser({
 		select: data => data.user?.id,
 	});
@@ -59,6 +62,12 @@ function ReviewPostContent(): JSX.Element {
 			});
 		}
 	};
+
+	useEffectOnce(() => {
+		if (reviewId) {
+			updateReviewViewCount();
+		}
+	}, [reviewId, updateReviewViewCount]);
 
 	return (
 		<Container>

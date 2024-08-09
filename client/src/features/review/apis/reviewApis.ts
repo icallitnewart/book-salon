@@ -10,6 +10,7 @@ import {
 	IReviewDetailData,
 	IReviewForm,
 	IReviewList,
+	IReviewViewCount,
 } from '../types/reviewData';
 import {
 	IReviewComment,
@@ -40,6 +41,12 @@ const reviewApis = {
 		const { review } = response.data;
 
 		return convertObjectId<IReviewDetailData>(review, ['user']);
+	},
+	updateReviewViewCount: async (
+		reviewId: string,
+	): Promise<IReviewViewCount> => {
+		const response = await axios.patch(APIS.REVIEW.UPDATE_VIEW_COUNT(reviewId));
+		return response.data;
 	},
 	deleteReview: async (reviewId: string): Promise<void> => {
 		await authAxios.delete(APIS.REVIEW.DELETE(reviewId));
