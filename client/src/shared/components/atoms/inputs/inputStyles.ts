@@ -22,6 +22,10 @@ export const inputVariantStyles = {
 		border: 1px solid var(--sub-color-green);
 		outline: none;
 	`,
+	invisible: css<IInputStylesProps>`
+		border: none;
+		outline: none;
+	`,
 };
 
 export interface IInputStylesProps {

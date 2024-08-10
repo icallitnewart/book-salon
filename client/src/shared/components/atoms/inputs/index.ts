@@ -7,6 +7,10 @@ import {
 	PrimaryTextarea,
 	PrimaryTextareaWithStyles,
 } from './variations/PrimaryTextArea';
+import {
+	InvisibleInput,
+	InvisibleInputWithStyles,
+} from './variations/InvisibleInput';
 
 export {
 	BaseInput,
@@ -15,4 +19,6 @@ export {
 	PrimaryInputWithStyles,
 	PrimaryTextarea,
 	PrimaryTextareaWithStyles,
+	InvisibleInput,
+	InvisibleInputWithStyles,
 };
