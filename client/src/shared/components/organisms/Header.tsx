@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import Logo from '../atoms/Logo';
-import SearchBar from '../molecules/SearchBar';
+import HeaderSearchBar from '../molecules/HeaderSearchBar';
 import Navigation from '../molecules/Navigation';
 
 const Container = styled.header`
@@ -20,7 +20,7 @@ const Container = styled.header`
 
 const Wrapper = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 350px 1fr;
 	align-items: center;
 	width: var(--desktop-screen-width);
 	height: 100%;
@@ -31,7 +31,7 @@ function Header(): JSX.Element {
 		<Container>
 			<Wrapper>
 				<Logo />
-				<SearchBar />
+				<HeaderSearchBar />
 				<Navigation />
 			</Wrapper>
 		</Container>
