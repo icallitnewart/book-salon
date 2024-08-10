@@ -1,3 +1,8 @@
+export enum SearchOptionType {
+	BOOK = 'BOOK',
+	REVIEW = 'REVIEW',
+}
+
 export interface IPageInfo {
 	lastPage: number;
 	hasNextPage: boolean;

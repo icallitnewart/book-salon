@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 
 import { ReactComponent as SearchSvg } from '@assets/svg/search_sm.svg';
 import { Paragraph } from '@typographies';
+import SearchModalTemplate from '@components/templates/SearchModalTemplate';
 
 const Container = styled.div`
 	position: relative;
@@ -27,12 +28,20 @@ const SearchIcon = styled(SearchSvg)`
 `;
 
 function HeaderSearchBar(): JSX.Element {
+	const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+
 	return (
-		<Container>
+		<Container onClick={() => setIsSearchModalOpen(true)}>
 			<Paragraph variant="article-body-md" $color="#999">
 				도서나 리뷰를 검색하실 수 있어요!
 			</Paragraph>
 			<SearchIcon />
+			{isSearchModalOpen && (
+				<SearchModalTemplate
+					isOpen={isSearchModalOpen}
+					closeModal={() => setIsSearchModalOpen(false)}
+				/>
+			)}
 		</Container>
 	);
 }
