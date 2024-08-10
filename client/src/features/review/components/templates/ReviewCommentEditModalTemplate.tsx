@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ModalTemplate from '@components/templates/ModalTemplate';
+import ModalLayoutTemplate from '@components/templates/ModalLayoutTemplate';
 import ReviewCommentEditForm from '../molecules/ReviewCommentEditForm';
 
 interface IReviewCommentEditTemplateProps {
@@ -17,13 +17,13 @@ function ReviewCommentEditModalTemplate({
 	commentId,
 }: IReviewCommentEditTemplateProps): JSX.Element {
 	return (
-		<ModalTemplate isOpen={isOpen}>
+		<ModalLayoutTemplate isOpen={isOpen} closeModal={closeModal}>
 			<ReviewCommentEditForm
 				content={content}
 				closeModal={closeModal}
 				commentId={commentId}
 			/>
-		</ModalTemplate>
+		</ModalLayoutTemplate>
 	);
 }
 
