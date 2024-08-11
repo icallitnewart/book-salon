@@ -3,6 +3,8 @@ import { styled } from 'styled-components';
 
 import { IBookDetailPartial } from '@features/book/types/bookData';
 
+import { formatISODate } from '@utils/dateFormatter';
+
 import Divider from '@components/atoms/Divider';
 import {
 	Heading1 as BookInfoTitle,
@@ -31,20 +33,23 @@ function BookInfoTextBox({
 }: IBookDetailPartial): JSX.Element {
 	return (
 		<Container>
-			<BookInfoCategory variant="article-meta-md" $marginBottom="5px">
+			<BookInfoCategory variant="article-meta-lg" $marginBottom="5px">
 				{category?.replaceAll('>', ' > ')}
 			</BookInfoCategory>
 			<BookInfoTitle
 				variant="article-title-md"
 				$letterSpacing={1}
-				$lineHeight={1.7}
+				$lineHeight={1.5}
 			>
 				{title}
 			</BookInfoTitle>
 			<Divider $margin="15px 0px 10px" />
 			<BookInfoDescription label="저자" text={author} />
 			<BookInfoDescription label="출판사" text={publisher} />
-			<BookInfoDescription label="출판일자" text={pubDate} />
+			<BookInfoDescription
+				label="출판일자"
+				text={pubDate && formatISODate(pubDate, false)}
+			/>
 			<BookInfoDescription label="ISBN" text={isbn} />
 			<BookInfoDescription label="설명" text={description} />
 		</Container>
