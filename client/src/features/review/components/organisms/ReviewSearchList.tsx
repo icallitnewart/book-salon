@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { styled } from 'styled-components';
 
 import { IReviewDetail } from '@features/review/types/reviewData';
@@ -11,7 +11,7 @@ import ReviewSearchItem from '../molecules/ReviewSearchItem';
 
 const Container = styled.ul`
 	width: 100%;
-	height: calc(100% - 30px);
+	flex: 1;
 	overflow-y: auto;
 
 	&::-webkit-scrollbar {
