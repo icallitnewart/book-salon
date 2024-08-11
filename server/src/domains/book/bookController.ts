@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import { bookService, IBestsellerWeek } from './bookService';
+import { ISearchBooksQuery } from '../../types/book';
 
 import { HttpError } from '../../utils/HttpError';
 import { isNumber, isUndefined } from '../../utils/typeGuard';
@@ -45,6 +46,25 @@ class BookController {
 		});
 	}
 
+	searchBooks = async (req: Request, res: Response) => {
+		const { searchTerm } = req.params;
+		if (!searchTerm) {
+			throw new HttpError('검색어가 제공되지 않았습니다.', 400);
+		}
+
+		const query = req.query as unknown as ISearchBooksQuery;
+		if (!this.isValidSearchBooksQuery(query)) {
+			throw new HttpError('잘못된 쿼리 형식입니다.', 400);
+		}
+
+		const books = await bookService.searchBooks(searchTerm, query);
+
+		res.json({
+			result: 'success',
+			books,
+		});
+	};
+
 	private parseBestsellerQuery(
 		query: Required<IBestsellerQuery>,
 	): IBestsellerWeek | undefined {
@@ -56,6 +76,22 @@ class BookController {
 			month: strToNum(month),
 			week: strToNum(week),
 		};
+	}
+
+	private isValidSearchBooksQuery(
+		query: ISearchBooksQuery,
+	): query is ISearchBooksQuery {
+		const { maxResults, startPage } = query;
+
+		const isValidNumber = (value: string) => {
+			const numericValue = strToNum(value);
+			return isNumber(numericValue) && numericValue > 0;
+		};
+
+		if (maxResults && !isValidNumber(maxResults)) return false;
+		if (startPage && !isValidNumber(startPage)) return false;
+
+		return true;
 	}
 
 	private isValidBestsellerQuery(

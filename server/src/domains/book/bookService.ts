@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import API_URL from '../../constants/api';
 import { ERROR_MESSAGE } from '../../constants/errorMessage';
+import { ISearchBooksQuery } from '../../types/book';
 
 import { testRegex } from '../../utils/validator';
 import { HttpError } from '../../utils/HttpError';
@@ -14,7 +15,12 @@ export interface IBestsellerWeek {
 
 class BookService {
 	constructor() {
-		const { TTB_KEY, ALADIN_BASE_API_URL, ALADIN_LIST_API_URL } = process.env;
+		const {
+			TTB_KEY,
+			ALADIN_BASE_API_URL,
+			ALADIN_LIST_API_URL,
+			ALADIN_SEARCH_API_URL,
+		} = process.env;
 
 		if (!TTB_KEY) {
 			throw new Error(ERROR_MESSAGE.ENV_MISSING.TTB_KEY);
@@ -26,6 +32,10 @@ class BookService {
 
 		if (!ALADIN_LIST_API_URL) {
 			throw new Error(ERROR_MESSAGE.ENV_MISSING.ALADIN_LIST_API_URL);
+		}
+
+		if (!ALADIN_SEARCH_API_URL) {
+			throw new Error(ERROR_MESSAGE.ENV_MISSING.ALADIN_SEARCH_API_URL);
 		}
 	}
 
@@ -76,6 +86,32 @@ class BookService {
 		}
 
 		return data.item[0];
+	}
+
+	async searchBooks(searchTerm: string, query: ISearchBooksQuery) {
+		const baseUrl = API_URL.ALADIN_SEARCH_BOOKS;
+		const params = new URLSearchParams({
+			Query: searchTerm,
+			QueryType: 'Keyword',
+		});
+
+		const { maxResults, startPage } = query;
+		if (maxResults) params.append('MaxResults', maxResults);
+		if (startPage) params.append('Start', startPage);
+
+		const url = `${baseUrl}&${params.toString()}`;
+
+		const { data } = await axios.get(url);
+
+		if (data.errorMessage) {
+			throw new HttpError(data.errorMessage, 400);
+		}
+
+		if (!data.item) {
+			throw new HttpError('데이터를 찾을 수 없습니다.', 404);
+		}
+
+		return data.item;
 	}
 }
 
