@@ -53,7 +53,7 @@ const ArrowUpIcon = styled(ArrowUpSvg)`
 
 const SelectOptionList = styled.ul`
 	position: absolute;
-	top: 52px;
+	top: 47px;
 	left: 0px;
 	width: 110px;
 
