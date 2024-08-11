@@ -23,3 +23,8 @@ export interface IBookData extends Omit<IBookDetail, 'category' | 'isbn'> {
 	categoryName: string;
 	isbn13: string;
 }
+
+export interface IBookPageOptions {
+	maxResults?: number;
+	startPage?: number;
+}

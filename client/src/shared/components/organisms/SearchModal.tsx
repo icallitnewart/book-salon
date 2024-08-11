@@ -49,7 +49,7 @@ function SearchModal({ closeModal }: ISearchModalProps): JSX.Element {
 
 		switch (option) {
 			case SearchOptionType.BOOK:
-				return <BookSearchList closeModal={closeModal} />;
+				return <BookSearchList closeModal={closeModal} searchTerm={term} />;
 			case SearchOptionType.REVIEW:
 				return <ReviewSearchList closeModal={closeModal} searchTerm={term} />;
 			default:

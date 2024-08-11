@@ -1,5 +1,8 @@
 import { IReviewListOptions } from '@config/query/queryKeys';
+
 import { IPageOptions } from '@typeDefs/data';
+import { IBookPageOptions } from '@features/book/types/bookData';
+
 import { createQueryString, createReviewListQuery } from '@utils/query';
 
 const API_BASE_URL = 'http://localhost:5000/api';
@@ -21,6 +24,15 @@ export const APIS = {
 	BOOK: {
 		BESTSELLER: `${BOOK_BASE_URL}/bestseller`,
 		DETAIL: (bookId: string) => `${BOOK_BASE_URL}/detail/${bookId}`,
+		SEARCH: (searchTerm: string, pageOptions?: IBookPageOptions) => {
+			const pagination = pageOptions ?? null;
+			const query = createQueryString({
+				maxResults: pagination?.maxResults,
+				startPage: pagination?.startPage,
+			});
+
+			return `${BOOK_BASE_URL}/search/${searchTerm}?${query}`;
+		},
 	},
 	REVIEW: {
 		ADD: `${REVIEW_BASE_URL}`,

@@ -33,6 +33,7 @@ export const bookKeys = {
 	all: ['books'] as const,
 	bestseller: ['books', 'bestseller'] as const,
 	detail: (isbn?: string) => ['books', 'detail', isbn] as const,
+	search: (searchTerm?: string) => ['books', 'search', searchTerm] as const,
 };
 
 export const reviewKeys = {
