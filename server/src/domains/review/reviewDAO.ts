@@ -125,6 +125,37 @@ class ReviewDAO {
 			'book.isbn': isbn,
 		});
 	};
+
+	async findByQuery(
+		page: number,
+		perPage: number,
+		query: FilterQuery<IReviewModel> = {},
+	): Promise<IReviewModel[]> {
+		const skip = (page - 1) * perPage;
+
+		return Review.find(query)
+			.skip(skip)
+			.limit(perPage)
+			.populate('user', 'id nickname')
+			.lean();
+	}
+
+	findBySearchTermWithCount = async (
+		page: number,
+		perPage: number,
+		pageGroupSize: number,
+		searchTerm: string,
+	): Promise<[IReviewModel[], number]> => {
+		const searchRegex = new RegExp(searchTerm, 'i');
+		const query = {
+			$or: [{ title: searchRegex }, { content: searchRegex }],
+		};
+
+		return Promise.all([
+			this.findByQuery(page, perPage, query),
+			this.countDocumentsWithLimit(page, perPage, pageGroupSize, query),
+		]);
+	};
 }
 
 export const reviewDAO = new ReviewDAO();

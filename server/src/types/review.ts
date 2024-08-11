@@ -21,3 +21,19 @@ export interface IGetReviewsQuery {
 export interface IGetReviewsByIsbnQuery extends IGetReviewsQuery {
 	isbn: string;
 }
+
+export interface ISearchReviewsQuery {
+	page?: string;
+	perPage?: string;
+	pageGroupSize?: string;
+}
+
+export interface ISearchReviewsParsedQuery {
+	page?: number;
+	perPage?: number;
+	pageGroupSize?: number;
+}
+
+export interface ISearchReviews extends ISearchReviewsParsedQuery {
+	searchTerm: string;
+}

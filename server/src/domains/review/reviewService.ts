@@ -5,6 +5,7 @@ import { HttpError } from '../../utils/HttpError';
 import {
 	IGetReviewsByIsbnQuery,
 	IGetReviewsQuery,
+	ISearchReviews,
 	SortOption,
 } from '../../types/review';
 
@@ -135,6 +136,32 @@ class ReviewService {
 			pageGroupSize,
 			sort,
 			isbn,
+		);
+
+		const pageInfo = this.calculatePagination(
+			remainingItems,
+			page,
+			perPage,
+			pageGroupSize,
+		);
+
+		return {
+			reviews,
+			pageInfo,
+		};
+	}
+
+	async searchReviews({
+		page = 1,
+		perPage = 10,
+		pageGroupSize = 10,
+		searchTerm,
+	}: ISearchReviews) {
+		const [reviews, remainingItems] = await reviewDAO.findBySearchTermWithCount(
+			page,
+			perPage,
+			pageGroupSize,
+			searchTerm,
 		);
 
 		const pageInfo = this.calculatePagination(

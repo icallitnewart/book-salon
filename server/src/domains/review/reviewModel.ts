@@ -222,5 +222,6 @@ const reviewSchema = new Schema(
 reviewSchema.index({ user: 1 });
 reviewSchema.index({ createdAt: -1, _id: -1 });
 reviewSchema.index({ viewCount: -1, _id: -1 });
+reviewSchema.index({ title: 'text', content: 'text' });
 
 export const Review = model<IReviewModel>('Reviews', reviewSchema);

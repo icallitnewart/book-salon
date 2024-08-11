@@ -540,4 +540,107 @@ router.delete(
 	asyncMiddleware(reviewController.deleteReview),
 );
 
+/**
+ * @swagger
+ * /reviews/search/{searchTerm}:
+ *   get:
+ *     summary: 도서 리뷰 검색
+ *     tags: [Reviews]
+ *     parameters:
+ *       - in: path
+ *         name: searchTerm
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 검색어
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *         description: "페이지 번호 (기본값: 1)"
+ *       - in: query
+ *         name: perPage
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *         description: "페이지당 리뷰 수 (기본값: 10)"
+ *       - in: query
+ *         name: pageGroupSize
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *         description: "한 그룹의 페이지 수 (기본값: 10)"
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *                 reviews:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Review'
+ *                 pageInfo:
+ *                   type: object
+ *                   properties:
+ *                     lastPage:
+ *                       type: integer
+ *                       example: 5
+ *                     hasNextPage:
+ *                       type: boolean
+ *                       example: true
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *             examples:
+ *               Invalid SearchTerm:
+ *                 value:
+ *                   result: error
+ *                   message: searchTerm이 존재하지 않습니다.
+ *               Invalid Page:
+ *                 value:
+ *                   result: error
+ *                   message: page 쿼리는 1 이상의 숫자여야 합니다.
+ *               Invalid PerPage:
+ *                 value:
+ *                   result: error
+ *                   message: perPage 쿼리는 1 이상의 숫자여야 합니다.
+ *               Invalid PageGroupSize:
+ *                 value:
+ *                   result: error
+ *                   message: pageGroupSize 쿼리는 1 이상의 숫자여야 합니다.
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 서버 내부 오류가 발생했습니다.
+ */
+router.get(
+	'/search/:searchTerm',
+	asyncMiddleware(reviewController.searchReviews),
+);
+
 export default router;

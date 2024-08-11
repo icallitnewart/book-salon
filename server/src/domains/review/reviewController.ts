@@ -9,6 +9,8 @@ import {
 	IGetReviewListQuery,
 	IGetReviewsByIsbnQuery,
 	IGetReviewsQuery,
+	ISearchReviewsParsedQuery,
+	ISearchReviewsQuery,
 	SortOption,
 } from '../../types/review';
 
@@ -126,6 +128,48 @@ class ReviewController {
 			pageInfo,
 		});
 	};
+
+	searchReviews = async (req: Request, res: Response) => {
+		const { searchTerm } = req.params;
+		if (!searchTerm) {
+			throw new HttpError('searchTerm이 존재하지 않습니다.', 400);
+		}
+
+		const { page, perPage, pageGroupSize } = req.query as ISearchReviewsQuery;
+
+		const validatedQuery = this.validateSearchQuery({
+			page,
+			perPage,
+			pageGroupSize,
+		});
+
+		const result = await reviewService.searchReviews({
+			...validatedQuery,
+			searchTerm,
+		});
+
+		const { reviews, pageInfo } = result;
+		res.status(200).json({
+			result: 'success',
+			reviews,
+			pageInfo,
+		});
+	};
+
+	private validateSearchQuery({
+		page,
+		perPage,
+		pageGroupSize,
+	}: ISearchReviewsQuery): ISearchReviewsParsedQuery {
+		return {
+			page: this.validateAndParsePageQuery(page, 'page'),
+			perPage: this.validateAndParsePageQuery(perPage, 'perPage'),
+			pageGroupSize: this.validateAndParsePageQuery(
+				pageGroupSize,
+				'pageGroupSize',
+			),
+		};
+	}
 
 	private validateReviewListQuery(
 		query: IGetReviewListQuery,
