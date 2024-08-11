@@ -43,12 +43,15 @@ interface ISearchModalProps {
 
 function SearchModal({ closeModal }: ISearchModalProps): JSX.Element {
 	const [selectedOption, setSelectedOption] = useState(SearchOptionType.BOOK);
-	const renderSearchList = (option: SearchOptionType) => {
+	const [searchTerm, setSearchTerm] = useState('');
+	const renderSearchList = (option: SearchOptionType, term?: string) => {
+		if (!term) return null;
+
 		switch (option) {
 			case SearchOptionType.BOOK:
 				return <BookSearchList closeModal={closeModal} />;
 			case SearchOptionType.REVIEW:
-				return <ReviewSearchList closeModal={closeModal} />;
+				return <ReviewSearchList closeModal={closeModal} searchTerm={term} />;
 			default:
 				return null;
 		}
@@ -59,8 +62,9 @@ function SearchModal({ closeModal }: ISearchModalProps): JSX.Element {
 			<ModalSearchBar
 				selectedOption={selectedOption}
 				changeSelectedOption={setSelectedOption}
+				searchByTerm={setSearchTerm}
 			/>
-			{renderSearchList(selectedOption)}
+			{renderSearchList(selectedOption, searchTerm)}
 			<ShortcutInfo variant="list-meta-sm" $color="#888">
 				<InfoText>[↑or↓] 이동</InfoText>
 				<InfoText>[Enter] 선택 </InfoText>

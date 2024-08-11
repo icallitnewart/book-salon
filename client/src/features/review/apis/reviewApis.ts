@@ -5,6 +5,7 @@ import { IReviewListOptions } from '@config/query/queryKeys';
 import { convertObjectId } from '@utils/dataTransform';
 import { APIS } from '@constants/apis';
 
+import { IPageOptions } from '@typeDefs/data';
 import {
 	IReviewDetail,
 	IReviewDetailData,
@@ -74,6 +75,25 @@ const reviewApis = {
 
 		return refinedComments;
 	},
+	searchReviews: async (
+		searchTerm: string,
+		pagination?: IPageOptions,
+	): Promise<IReviewList> => {
+		const response = await axios.get(
+			APIS.REVIEW.SEARCH(searchTerm, pagination),
+		);
+		const { reviews, pageInfo } = response.data;
+		const refinedReviews: IReviewDetail[] = reviews.map(
+			(review: IReviewDetailData) =>
+				convertObjectId<IReviewDetailData>(review, ['user']),
+		);
+
+		return {
+			reviews: refinedReviews,
+			pageInfo,
+		};
+	},
+
 	addReviewComment: async (
 		formData: IReviewCommentForm,
 		reviewId: string,

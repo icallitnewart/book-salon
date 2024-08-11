@@ -45,16 +45,25 @@ const searchPlaceholder = {
 interface IModalSearchBarProps {
 	selectedOption: SearchOptionType;
 	changeSelectedOption: React.Dispatch<React.SetStateAction<SearchOptionType>>;
+	searchByTerm: (searchTerm: string) => void;
 }
 
 function ModalSearchBar({
 	selectedOption,
 	changeSelectedOption,
+	searchByTerm,
 }: IModalSearchBarProps): JSX.Element {
 	const { value, handleChange } = useInput('');
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
+		if (value.trim() === '') {
+			alert('검색어를 입력해주세요');
+			return;
+		}
+
+		searchByTerm(value);
 	};
 
 	return (

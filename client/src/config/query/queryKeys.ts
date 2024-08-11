@@ -52,6 +52,7 @@ export const reviewKeys = {
 
 		return ['reviews', 'list', options] as const;
 	},
+	search: (searchTerm?: string) => ['reviews', 'search', searchTerm] as const,
 	addComment: (reviewId?: string) =>
 		['reviews', 'comments', 'add', reviewId] as const,
 	updateComment: (commentId?: string) =>

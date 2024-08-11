@@ -1,4 +1,5 @@
 import { IReviewListOptions } from '@config/query/queryKeys';
+import { IPageOptions } from '@typeDefs/data';
 import { createQueryString, createReviewListQuery } from '@utils/query';
 
 const API_BASE_URL = 'http://localhost:5000/api';
@@ -40,6 +41,16 @@ export const APIS = {
 			});
 
 			return `${API_BASE_URL}/reviews/list?${query}`;
+		},
+		SEARCH: (searchTerm: string, pageOptions?: IPageOptions) => {
+			const pagination = pageOptions ?? null;
+			const query = createQueryString({
+				page: pagination?.page,
+				perPage: pagination?.perPage,
+				pageGroupSize: pagination?.pageGroupSize,
+			});
+
+			return `${REVIEW_BASE_URL}/search/${searchTerm}?${query}`;
 		},
 		COMMENT_LIST: (reviewId: string) =>
 			`${REVIEW_COMMENT_BASE_URL}/${reviewId}`,
