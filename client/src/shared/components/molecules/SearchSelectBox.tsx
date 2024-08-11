@@ -16,7 +16,7 @@ const Container = styled.div`
 	cursor: pointer;
 `;
 
-const SelectedOption = styled.div<{ isOptionListOpen: boolean }>`
+const SelectedOption = styled.div<{ $isOptionListOpen: boolean }>`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -24,8 +24,8 @@ const SelectedOption = styled.div<{ isOptionListOpen: boolean }>`
 	height: 100%;
 	padding: 0px 8px 0px 10px;
 
-	${({ isOptionListOpen }) =>
-		isOptionListOpen &&
+	${({ $isOptionListOpen }) =>
+		$isOptionListOpen &&
 		css`
 			svg {
 				color: #666;
@@ -105,7 +105,7 @@ function SearchSelectBox({
 		<Container>
 			<SelectedOption
 				onClick={handleClickOptionList}
-				isOptionListOpen={isOptionListOpen}
+				$isOptionListOpen={isOptionListOpen}
 			>
 				<Span
 					variant="article-subtitle-sm"
