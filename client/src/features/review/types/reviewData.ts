@@ -38,7 +38,7 @@ export type IReviewDetail = Omit<IReviewDetailData, '_id'> & { id: string };
 
 export type IReviewPreview = Pick<
 	IReviewDetail,
-	'id' | 'user' | 'title' | 'content' | 'createdAt'
+	'id' | 'user' | 'title' | 'content' | 'createdAt' | 'viewCount'
 >;
 
 export interface IReviewList {

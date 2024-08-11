@@ -6,14 +6,15 @@ import { IReviewPreview } from '@features/review/types/reviewData';
 import { ROUTES } from '@constants/routes';
 
 import { stripHtmlTags } from '@utils/dataTransform';
-import { formatISODate } from '@utils/dateFormatter';
 
-import { Heading3, Paragraph, Span } from '@typographies';
+import { Heading3, Paragraph } from '@typographies';
 import Divider from '@components/atoms/Divider';
+import ReviewAuthorWithDate from './ReviewAuthorWithDate';
+import ReviewViewCount from './ReviewViewCount';
 
 const LinkContainer = styled(Link)`
 	width: calc(100% / 2 - 10px);
-	height: 230px;
+	height: 220px;
 	transition: transform 0.3s;
 	cursor: pointer;
 `;
@@ -23,7 +24,7 @@ const Article = styled.article`
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
-	padding: 35px 30px 30px;
+	padding: 25px 30px;
 
 	border-radius: 10px;
 	border: 1px solid #eee;
@@ -34,7 +35,10 @@ const Article = styled.article`
 const MetaInfo = styled.div`
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	width: 100%;
+
+	margin-bottom: 5px;
 `;
 
 const Content = styled.div`
@@ -47,29 +51,34 @@ function ReviewCardItem({
 	title,
 	content,
 	createdAt,
+	viewCount,
 }: IReviewPreview): JSX.Element {
 	return (
 		<LinkContainer to={ROUTES.REVIEW.DETAIL(id)}>
 			<Article>
-				<Heading3 variant="list-title-md" $color="#333" $marginBottom="10px">
+				<Heading3
+					variant="list-title-lg"
+					$color="#333"
+					$marginBottom="8px"
+					$lineClamp={1}
+					$ellipsis
+				>
 					{title}
 				</Heading3>
-				<Divider $marginTop="1px" $marginBottom="10px" />
+				<Divider $marginBottom="10px" />
 				<Content>
 					<Paragraph
 						variant="list-body-lg"
 						$lineHeight={1.7}
 						$ellipsis
-						$lineClamp={3}
+						$lineClamp={2}
 					>
 						{stripHtmlTags(content)}
 					</Paragraph>
 				</Content>
 				<MetaInfo>
-					<Span variant="highlight-meta-lg">{user.nickname}</Span>
-					<Span variant="list-meta-lg" $color="#999">
-						{createdAt && formatISODate(createdAt)}
-					</Span>
+					<ReviewAuthorWithDate author={user.nickname} date={createdAt} />
+					<ReviewViewCount viewCount={viewCount} variantSize="lg" />
 				</MetaInfo>
 			</Article>
 		</LinkContainer>
