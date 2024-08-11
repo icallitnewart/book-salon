@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 
 import { ParagraphWithStyles } from '@typographies';
 import BookSearchList from '@features/book/components/organisms/BookSearchList';
+import ReviewSearchList from '@features/review/components/organisms/ReviewSearchList';
 import ModalSearchBar from './ModalSearchBar';
 
 const Container = styled.div`
@@ -42,7 +43,8 @@ function SearchModal({ closeModal }: ISearchModalProps): JSX.Element {
 	return (
 		<Container>
 			<ModalSearchBar />
-			<BookSearchList closeModal={closeModal} />
+			{/* <BookSearchList closeModal={closeModal} /> */}
+			<ReviewSearchList closeModal={closeModal} />
 			<ShortcutInfo variant="list-meta-sm" $color="#888">
 				<InfoText>[↑or↓] 이동</InfoText>
 				<InfoText>[Enter] 선택 </InfoText>
