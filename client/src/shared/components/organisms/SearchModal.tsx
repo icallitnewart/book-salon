@@ -2,6 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import { ParagraphWithStyles } from '@typographies';
+import BookSearchList from '@features/book/components/organisms/BookSearchList';
 import ModalSearchBar from './ModalSearchBar';
 
 const Container = styled.div`
@@ -33,10 +34,15 @@ const InfoText = styled.span`
 	}
 `;
 
-function SearchModal(): JSX.Element {
+interface ISearchModalProps {
+	closeModal: () => void;
+}
+
+function SearchModal({ closeModal }: ISearchModalProps): JSX.Element {
 	return (
 		<Container>
 			<ModalSearchBar />
+			<BookSearchList closeModal={closeModal} />
 			<ShortcutInfo variant="list-meta-sm" $color="#888">
 				<InfoText>[↑or↓] 이동</InfoText>
 				<InfoText>[Enter] 선택 </InfoText>

@@ -14,7 +14,7 @@ function SearchModalTemplate({
 }: ISearchModalTemplateProps): JSX.Element {
 	return (
 		<ModalLayoutTemplate isOpen={isOpen} closeModal={closeModal}>
-			<SearchModal />
+			<SearchModal closeModal={closeModal} />
 		</ModalLayoutTemplate>
 	);
 }
