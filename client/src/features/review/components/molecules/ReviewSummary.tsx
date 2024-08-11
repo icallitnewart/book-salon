@@ -4,13 +4,14 @@ import { styled } from 'styled-components';
 import { stripHtmlTags } from '@utils/dataTransform';
 
 import { Heading4 as Title, Paragraph as Summary, Span } from '@typographies';
+import ReviewViewCount from './ReviewViewCount';
 
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 1;
 	width: 100%;
-	padding: 20px 20px;
+	padding: 15px 20px;
 `;
 
 const Content = styled.div`
@@ -43,17 +44,17 @@ function ReviewSummary({
 				<Title
 					variant="list-title-sm"
 					$color="#333"
-					$lineHeight={1.8}
-					$lineClamp={2}
-					$marginTop="-0.4rem"
+					$lineHeight={1.5}
+					$lineClamp={1}
+					$marginBottom="5px"
 					$ellipsis
 				>
 					{title}
 				</Title>
 				<Summary
 					variant="list-body-sm"
-					$lineClamp={4}
-					$lineHeight={1.8}
+					$lineClamp={2}
+					$lineHeight={1.7}
 					$ellipsis
 				>
 					{stripHtmlTags(content)}
@@ -64,7 +65,7 @@ function ReviewSummary({
 					<Span variant="article-meta-md">by </Span>
 					<Span variant="highlight-meta-md">{nickname}</Span>
 				</div>
-				<Span variant="article-meta-md">{viewCount} views</Span>
+				<ReviewViewCount viewCount={viewCount} variantSize="md" />
 			</MetaInfo>
 		</Container>
 	);
