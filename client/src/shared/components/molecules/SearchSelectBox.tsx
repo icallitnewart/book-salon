@@ -122,7 +122,10 @@ function SearchSelectBox({
 			{isOptionListOpen && (
 				<SelectOptionList>
 					{Object.values(SearchOptionType).map(option => (
-						<SelectOptionItem onClick={() => handleClickOptionItem(option)}>
+						<SelectOptionItem
+							key={option}
+							onClick={() => handleClickOptionItem(option)}
+						>
 							<Span
 								variant="article-body-lg"
 								$fontFamily="var(--main-font-eng)"
