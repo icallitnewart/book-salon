@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 
 import useInput from '@hooks/useInput';
@@ -42,9 +42,16 @@ const searchPlaceholder = {
 	[SearchOptionType.REVIEW]: '리뷰 제목이나 내용을 검색해주세요',
 };
 
-function ModalSearchBar(): JSX.Element {
+interface IModalSearchBarProps {
+	selectedOption: SearchOptionType;
+	changeSelectedOption: React.Dispatch<React.SetStateAction<SearchOptionType>>;
+}
+
+function ModalSearchBar({
+	selectedOption,
+	changeSelectedOption,
+}: IModalSearchBarProps): JSX.Element {
 	const { value, handleChange } = useInput('');
-	const [selectedOption, setSelectedOption] = useState(SearchOptionType.BOOK);
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -54,7 +61,7 @@ function ModalSearchBar(): JSX.Element {
 		<Form onSubmit={handleSubmit}>
 			<SearchSelectBox
 				selectedOption={selectedOption}
-				changeSelectedOption={setSelectedOption}
+				changeSelectedOption={changeSelectedOption}
 			/>
 			<SearchInput
 				id="search"

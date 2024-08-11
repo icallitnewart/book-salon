@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
+
+import { SearchOptionType } from '@typeDefs/data';
 
 import { ParagraphWithStyles } from '@typographies';
 import BookSearchList from '@features/book/components/organisms/BookSearchList';
@@ -40,11 +42,25 @@ interface ISearchModalProps {
 }
 
 function SearchModal({ closeModal }: ISearchModalProps): JSX.Element {
+	const [selectedOption, setSelectedOption] = useState(SearchOptionType.BOOK);
+	const renderSearchList = (option: SearchOptionType) => {
+		switch (option) {
+			case SearchOptionType.BOOK:
+				return <BookSearchList closeModal={closeModal} />;
+			case SearchOptionType.REVIEW:
+				return <ReviewSearchList closeModal={closeModal} />;
+			default:
+				return null;
+		}
+	};
+
 	return (
 		<Container>
-			<ModalSearchBar />
-			{/* <BookSearchList closeModal={closeModal} /> */}
-			<ReviewSearchList closeModal={closeModal} />
+			<ModalSearchBar
+				selectedOption={selectedOption}
+				changeSelectedOption={setSelectedOption}
+			/>
+			{renderSearchList(selectedOption)}
 			<ShortcutInfo variant="list-meta-sm" $color="#888">
 				<InfoText>[↑or↓] 이동</InfoText>
 				<InfoText>[Enter] 선택 </InfoText>
