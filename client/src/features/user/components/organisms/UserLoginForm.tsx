@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { handleApiError } from '@utils/errorHandler';
@@ -8,6 +8,7 @@ import { ROUTES } from '@constants/routes';
 import useInputWithError from '@hooks/useInputWithError';
 
 import { PrimaryButton } from '@buttons';
+import { Span } from '@typographies';
 import UserErrorMessage from '../atoms/UserErrorMessage';
 import UserFormField from '../molecules/UserFormField';
 
@@ -29,6 +30,14 @@ const ButtonContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 5px 0px;
+	margin-bottom: 20px;
+`;
+
+const LinkContainer = styled(Link)`
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	text-decoration: underline;
 `;
 
 function UserLoginForm(): JSX.Element {
@@ -106,6 +115,9 @@ function UserLoginForm(): JSX.Element {
 				<PrimaryButton type="submit">로그인</PrimaryButton>
 				{isError && loginError && <UserErrorMessage error={loginError} />}
 			</ButtonContainer>
+			<LinkContainer to={ROUTES.USER.REGISTER}>
+				<Span variant="article-meta-md">아직 회원이 아니신가요?</Span>
+			</LinkContainer>
 		</Form>
 	);
 }
