@@ -7,7 +7,7 @@ import BookProfilePreview from './BookProfilePreview';
 const Article = styled.article`
 	width: calc(100% / 6);
 	max-width: 134px;
-	height: 300px;
+	height: 310px;
 `;
 
 function BookBestsellerCardItem({
@@ -24,7 +24,7 @@ function BookBestsellerCardItem({
 				cover={cover}
 				link={link}
 				$width="134px"
-				$titleMargin="13px 0 8px"
+				$titleMargin="13px 0 6px"
 				$imgBorderRadius="5px"
 			/>
 		</Article>
