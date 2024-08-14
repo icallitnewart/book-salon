@@ -92,6 +92,7 @@ function ReviewPostContent(): JSX.Element {
 				$lineHeight={1.8}
 				$minHeight="200px"
 				$textAlign="justify"
+				$marginBottom="30px"
 			/>
 			{review?.user.id === userId && (
 				<ReviewEditDeleteButtons
