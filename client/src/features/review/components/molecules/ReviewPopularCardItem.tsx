@@ -49,6 +49,7 @@ function ReviewPopularCardItem({ review }: IReviewPopularCardItemProps) {
 					content={review.content}
 					nickname={review.user.nickname}
 					viewCount={review.viewCount}
+					commentCount={review.commentCount}
 				/>
 			</StyledLink>
 		</Container>

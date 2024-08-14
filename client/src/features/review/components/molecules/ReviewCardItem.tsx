@@ -11,6 +11,7 @@ import { Heading3, Paragraph } from '@typographies';
 import Divider from '@components/atoms/Divider';
 import ReviewAuthorWithDate from './ReviewAuthorWithDate';
 import ReviewViewCount from './ReviewViewCount';
+import ReviewCommentCount from './ReviewCommentCount';
 
 const LinkContainer = styled(Link)`
 	width: calc(100% / 2 - 10px);
@@ -41,9 +42,18 @@ const MetaInfo = styled.div`
 	margin-bottom: 5px;
 `;
 
+const NumberInfo = styled.div`
+	display: inline-flex;
+	gap: 10px;
+`;
+
 const Content = styled.div`
 	flex: 1;
 `;
+
+interface IReviewCardItemProps extends IReviewPreview {
+	commentCount: number;
+}
 
 function ReviewCardItem({
 	id,
@@ -52,7 +62,8 @@ function ReviewCardItem({
 	content,
 	createdAt,
 	viewCount,
-}: IReviewPreview): JSX.Element {
+	commentCount,
+}: IReviewCardItemProps): JSX.Element {
 	return (
 		<LinkContainer to={ROUTES.REVIEW.DETAIL(id)}>
 			<Article>
@@ -71,14 +82,17 @@ function ReviewCardItem({
 						variant="list-body-lg"
 						$lineHeight={1.7}
 						$ellipsis
-						$lineClamp={2}
+						$lineClamp={3}
 					>
 						{stripHtmlTags(content)}
 					</Paragraph>
 				</Content>
 				<MetaInfo>
 					<ReviewAuthorWithDate author={user.nickname} date={createdAt} />
-					<ReviewViewCount viewCount={viewCount} variantSize="lg" />
+					<NumberInfo>
+						<ReviewViewCount viewCount={viewCount} variantSize="lg" />
+						<ReviewCommentCount commentCount={commentCount} variantSize="lg" />
+					</NumberInfo>
 				</MetaInfo>
 			</Article>
 		</LinkContainer>

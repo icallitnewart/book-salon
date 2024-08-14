@@ -5,6 +5,7 @@ import { stripHtmlTags } from '@utils/dataTransform';
 
 import { Heading4 as Title, Paragraph as Summary, Span } from '@typographies';
 import ReviewViewCount from './ReviewViewCount';
+import ReviewCommentCount from './ReviewCommentCount';
 
 const Container = styled.div`
 	display: flex;
@@ -25,11 +26,17 @@ const MetaInfo = styled.div`
 	width: 100%;
 `;
 
+const NumberInfo = styled.div`
+	display: inline-flex;
+	gap: 10px;
+`;
+
 interface IReviewSummaryProps {
 	title: string;
 	content: string;
 	nickname: string;
 	viewCount: number;
+	commentCount: number;
 }
 
 function ReviewSummary({
@@ -37,6 +44,7 @@ function ReviewSummary({
 	content,
 	nickname,
 	viewCount,
+	commentCount,
 }: IReviewSummaryProps): JSX.Element {
 	return (
 		<Container>
@@ -65,7 +73,10 @@ function ReviewSummary({
 					<Span variant="article-meta-md">by </Span>
 					<Span variant="highlight-meta-md">{nickname}</Span>
 				</div>
-				<ReviewViewCount viewCount={viewCount} variantSize="md" />
+				<NumberInfo>
+					<ReviewViewCount viewCount={viewCount} variantSize="md" />
+					<ReviewCommentCount commentCount={commentCount} variantSize="md" />
+				</NumberInfo>
 			</MetaInfo>
 		</Container>
 	);

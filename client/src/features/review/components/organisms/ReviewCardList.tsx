@@ -42,6 +42,7 @@ function ReviewCardList({
 						content={review.content}
 						createdAt={review.createdAt}
 						viewCount={review.viewCount}
+						commentCount={review.commentCount}
 					/>
 				))
 			) : (
