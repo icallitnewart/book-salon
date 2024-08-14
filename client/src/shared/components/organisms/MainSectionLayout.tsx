@@ -5,7 +5,7 @@ import SectionTitleWithHighlight from '../molecules/SectionTitleWithHighlight';
 
 const Container = styled.section`
 	width: 100%;
-	padding: 60px 0px;
+	padding: 40px 0px;
 `;
 
 interface IMainSectionLayoutProps {
