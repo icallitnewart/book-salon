@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import BookBestsellerCardList from '@features/book/components/organisms/BookBestsellerCardList';
-import ReviewPopularCardList from '@features/review/components/organisms/ReviewPopularCardList';
+import ReviewCardList from '@features/review/components/organisms/ReviewCardList';
 import MainSectionLayout from '../organisms/MainSectionLayout';
 
 const Container = styled.div`
@@ -16,7 +16,7 @@ function MainTemplate(): JSX.Element {
 				<BookBestsellerCardList />
 			</MainSectionLayout>
 			<MainSectionLayout title="Popular reviews">
-				<ReviewPopularCardList />
+				<ReviewCardList />
 			</MainSectionLayout>
 		</Container>
 	);

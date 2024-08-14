@@ -1,30 +1,29 @@
 import React from 'react';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
-import { IReviewDetail } from '@features/review/types/reviewData';
+import { SortTypes } from '@config/query/queryKeys';
+import useReviewList from '@features/review/hooks/useReviewList';
 
-import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
-import EmptyAlert from '@components/molecules/EmptyAlert';
 import ReviewCardItem from '../molecules/ReviewCardItem';
 
 const Container = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
-	gap: 20px;
+	gap: 30px;
 	width: 100%;
-	min-height: 300px;
 `;
 
-interface IReviewCardListProps {
-	reviews?: IReviewDetail[];
-	isPending: boolean;
-}
+function ReviewCardList(): JSX.Element {
+	const { data: reviews, isPending } = useReviewList(
+		{
+			sort: { type: SortTypes.MOST_VIEWED },
+			pagination: { perPage: 6, pageGroupSize: 1 },
+		},
+		{
+			select: data => data.reviews,
+		},
+	);
 
-function ReviewCardList({
-	reviews,
-	isPending,
-}: IReviewCardListProps): JSX.Element {
 	// TODO: Skeleton UI로 대체
 	if (isPending || !reviews) {
 		return <p>Loading...</p>;
@@ -32,26 +31,12 @@ function ReviewCardList({
 
 	return (
 		<Container>
-			{reviews.length > 0 ? (
+			{reviews.length > 0 &&
 				reviews.map(review => (
-					<ReviewCardItem
-						key={review.id}
-						id={review.id}
-						user={review.user}
-						title={review.title}
-						content={review.content}
-						createdAt={review.createdAt}
-						viewCount={review.viewCount}
-						commentCount={review.commentCount}
-					/>
-				))
-			) : (
-				<EmptyAlert />
-			)}
+					<ReviewCardItem key={review.id} review={review} />
+				))}
 		</Container>
 	);
 }
 
-export default withAsyncBoundary(ReviewCardList, {
-	SuspenseFallback: null,
-});
+export default ReviewCardList;

@@ -1,101 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { IReviewPreview } from '@features/review/types/reviewData';
+import { IReviewDetail } from '@features/review/types/reviewData';
 import { ROUTES } from '@constants/routes';
 
-import { stripHtmlTags } from '@utils/dataTransform';
+import BookPreviewImage from '@features/book/components/molecules/BookPreviewImage';
+import ReviewSummary from './ReviewSummary';
 
-import { Heading3, Paragraph } from '@typographies';
-import Divider from '@components/atoms/Divider';
-import ReviewAuthorWithDate from './ReviewAuthorWithDate';
-import ReviewViewCount from './ReviewViewCount';
-import ReviewCommentCount from './ReviewCommentCount';
+const Container = styled.article`
+	width: calc(100% / 3 - 25px);
+	height: 370px;
 
-const LinkContainer = styled(Link)`
-	width: calc(100% / 2 - 10px);
-	height: 220px;
-	transition: transform 0.3s;
-	cursor: pointer;
+	background-color: #fff;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+	border: 1px solid #efefef;
+	border-radius: 5px;
 `;
 
-const Article = styled.article`
+const StyledLink = styled(Link)`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
-	padding: 25px 30px;
-
-	border-radius: 10px;
-	border: 1px solid #eee;
-	background-color: #fff;
-	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.05);
 `;
 
-const MetaInfo = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-
-	margin-bottom: 5px;
-`;
-
-const NumberInfo = styled.div`
-	display: inline-flex;
-	gap: 10px;
-`;
-
-const Content = styled.div`
-	flex: 1;
-`;
-
-interface IReviewCardItemProps extends IReviewPreview {
-	commentCount: number;
+interface IReviewCardItemProps {
+	review: IReviewDetail;
 }
 
-function ReviewCardItem({
-	id,
-	user,
-	title,
-	content,
-	createdAt,
-	viewCount,
-	commentCount,
-}: IReviewCardItemProps): JSX.Element {
+function ReviewCardItem({ review }: IReviewCardItemProps) {
+	const [isHovered, setIsHovered] = useState(false);
 	return (
-		<LinkContainer to={ROUTES.REVIEW.DETAIL(id)}>
-			<Article>
-				<Heading3
-					variant="list-title-lg"
-					$color="#333"
-					$marginBottom="8px"
-					$lineClamp={1}
-					$ellipsis
-				>
-					{title}
-				</Heading3>
-				<Divider $marginBottom="10px" />
-				<Content>
-					<Paragraph
-						variant="list-body-lg"
-						$lineHeight={1.7}
-						$ellipsis
-						$lineClamp={3}
-					>
-						{stripHtmlTags(content)}
-					</Paragraph>
-				</Content>
-				<MetaInfo>
-					<ReviewAuthorWithDate author={user.nickname} date={createdAt} />
-					<NumberInfo>
-						<ReviewViewCount viewCount={viewCount} variantSize="lg" />
-						<ReviewCommentCount commentCount={commentCount} variantSize="lg" />
-					</NumberInfo>
-				</MetaInfo>
-			</Article>
-		</LinkContainer>
+		<Container
+			onMouseOver={() => setIsHovered(true)}
+			onMouseOut={() => setIsHovered(false)}
+		>
+			<StyledLink to={ROUTES.REVIEW.DETAIL(review.id)}>
+				<BookPreviewImage
+					title={review.book.title}
+					cover={review.book.cover}
+					author={review.book.author}
+					publisher={review.book.publisher}
+					isHovered={isHovered}
+				/>
+				<ReviewSummary
+					title={review.title}
+					content={review.content}
+					nickname={review.user.nickname}
+					viewCount={review.viewCount}
+					commentCount={review.commentCount}
+				/>
+			</StyledLink>
+		</Container>
 	);
 }
 

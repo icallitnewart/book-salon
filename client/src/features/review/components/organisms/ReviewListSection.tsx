@@ -7,7 +7,7 @@ import useReviewList from '@features/review/hooks/useReviewList';
 
 import SectionTitleWithHighlight from '@components/molecules/SectionTitleWithHighlight';
 import MoreButtonBox from '@components/molecules/MoreButtonBox';
-import ReviewCardList from './ReviewCardList';
+import ReviewCompactCardList from './ReviewCompactCardList';
 
 const Container = styled.section`
 	width: 100%;
@@ -35,7 +35,7 @@ function ReviewListSection(): JSX.Element {
 				variantSize="lg"
 				$textAlign="center"
 			/>
-			<ReviewCardList reviews={reviews} isPending={isPending} />
+			<ReviewCompactCardList reviews={reviews} isPending={isPending} />
 			{reviews && reviews.length > 0 && <MoreButtonBox />}
 		</Container>
 	);
