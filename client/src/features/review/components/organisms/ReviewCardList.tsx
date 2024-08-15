@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { SortTypes } from '@config/query/queryKeys';
-import useReviewList from '@features/review/hooks/useReviewList';
+import { IReviewDetail } from '@features/review/types/reviewData';
 
 import ReviewCardItem from '../molecules/ReviewCardItem';
 
@@ -13,22 +12,11 @@ const Container = styled.div`
 	width: 100%;
 `;
 
-function ReviewCardList(): JSX.Element {
-	const { data: reviews, isPending } = useReviewList(
-		{
-			sort: { type: SortTypes.MOST_VIEWED },
-			pagination: { perPage: 6, pageGroupSize: 1 },
-		},
-		{
-			select: data => data.reviews,
-		},
-	);
+interface IReviewCardListProps {
+	reviews: IReviewDetail[];
+}
 
-	// TODO: Skeleton UI로 대체
-	if (isPending || !reviews) {
-		return <p>Loading...</p>;
-	}
-
+function ReviewCardList({ reviews }: IReviewCardListProps): JSX.Element {
 	return (
 		<Container>
 			{reviews.length > 0 &&
