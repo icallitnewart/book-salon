@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useMemo } from 'react';
 import { styled } from 'styled-components';
 
 import { IBookDetail } from '@features/book/types/bookData';
 
+import useInfiniteScroll from '@hooks/useInfiniteScroll';
 import useSearchBook from '@features/book/hooks/useSearchBook';
 
 import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
+import withPaginationObserver from '@components/organisms/withPaginationObserver';
 import Loader from '@components/molecules/Loader';
 import BookSearchItem from '../molecules/BookSearchItem';
 
@@ -31,7 +33,7 @@ const Container = styled.ul`
 	}
 `;
 
-const PaginationObserver = styled.li`
+const ObserverContainer = styled.li`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -50,48 +52,37 @@ function BookSearchList({
 }: IBookSearchListProps): JSX.Element {
 	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
 		useSearchBook(searchTerm, { maxResults: 5, startPage: 1 });
-	const observerTargetRef = useRef(null);
+	const observerRef = useInfiniteScroll({
+		hasNextPage,
+		isFetchingNextPage,
+		fetchNextPage,
+	});
+	const books = useMemo(() => {
+		return data?.pages.flatMap(page => page) || [];
+	}, [data]);
 
-	useEffect(() => {
-		const observer = new IntersectionObserver(
-			entries => {
-				if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-					fetchNextPage();
-				}
-			},
-			{ threshold: 0.5 },
-		);
-
-		if (observerTargetRef.current) {
-			observer.observe(observerTargetRef.current);
-		}
-
-		return () => observer.disconnect();
-	}, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+	const PaginationObserver = withPaginationObserver({
+		Component: ObserverContainer,
+		observerRef,
+		isFetchingNextPage,
+		loader: <Loader />,
+	});
 
 	return (
 		<Container>
-			{data?.pages.map(page => (
-				<React.Fragment key={page[0].isbn}>
-					{page.map((book: IBookDetail) => (
-						<BookSearchItem
-							key={book.isbn}
-							cover={book.cover}
-							title={book.title}
-							author={book.author}
-							publisher={book.publisher}
-							pubDate={book.pubDate}
-							isbn={book.isbn}
-							closeModal={closeModal}
-						/>
-					))}
-				</React.Fragment>
+			{books.map((book: IBookDetail) => (
+				<BookSearchItem
+					key={book.isbn}
+					cover={book.cover}
+					title={book.title}
+					author={book.author}
+					publisher={book.publisher}
+					pubDate={book.pubDate}
+					isbn={book.isbn}
+					closeModal={closeModal}
+				/>
 			))}
-			{hasNextPage && (
-				<PaginationObserver ref={observerTargetRef}>
-					{isFetchingNextPage && <Loader />}
-				</PaginationObserver>
-			)}
+			{hasNextPage && <PaginationObserver />}
 		</Container>
 	);
 }
