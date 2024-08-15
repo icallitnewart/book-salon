@@ -23,7 +23,10 @@ import {
 import useBookDetail from '@features/book/hooks/useBookDetail';
 
 import { PrimaryInput as ReviewTitleInput } from '@inputs';
-import { PrimaryButton as SubmitButton } from '@buttons';
+import {
+	PrimaryButton as SubmitButton,
+	SecondaryButton as CancelButton,
+} from '@buttons';
 import ReviewTagInputWithButton from '../molecules/ReviewTagInputWithButton';
 import ReviewTextEditor from '../atoms/ReviewTextEditor';
 
@@ -46,6 +49,7 @@ const ButtonBox = styled.div`
 	justify-content: center;
 	width: 100%;
 	padding: 20px 0px;
+	gap: 0px 15px;
 `;
 
 function ReviewForm<T extends boolean>({
@@ -119,6 +123,14 @@ function ReviewForm<T extends boolean>({
 		});
 	};
 
+	const handleCancel = () => {
+		if (
+			window.confirm('작성 중인 내용은 저장되지 않습니다. 정말 나가시겠어요?')
+		) {
+			navigate(-1);
+		}
+	};
+
 	useEffect(() => {
 		if (initialData) {
 			setTitle(initialData.title);
@@ -150,6 +162,9 @@ function ReviewForm<T extends boolean>({
 					handleChange={(value: string) => setContent(value)}
 				/>
 				<ButtonBox>
+					<CancelButton type="button" $width="140px" onClick={handleCancel}>
+						취소
+					</CancelButton>
 					<SubmitButton type="submit" $width="140px">
 						{isEditMode ? '수정하기' : '리뷰 등록'}
 					</SubmitButton>
