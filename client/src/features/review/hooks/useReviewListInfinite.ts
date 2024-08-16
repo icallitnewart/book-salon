@@ -2,6 +2,8 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { queryClient } from '@config/query/queryClient';
 
 import { IReviewListOptions, reviewKeys } from '@config/query/queryKeys';
+import { TIME_MS } from '@constants/time';
+
 import reviewApis from '../apis/reviewApis';
 
 function useReviewListInfinite({
@@ -33,6 +35,8 @@ function useReviewListInfinite({
 			const { hasNextPage, lastPage } = pageInfo;
 			return hasNextPage ? lastPage + 1 : undefined;
 		},
+		staleTime: 0,
+		gcTime: TIME_MS.MINUTE,
 		throwOnError: true,
 	});
 }

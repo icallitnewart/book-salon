@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useQueryClient } from '@tanstack/react-query';
 
-import { SortTypes } from '@config/query/queryKeys';
+import { reviewKeys, SortTypes } from '@config/query/queryKeys';
 
 import ReviewListSection from '../organisms/ReviewListSection';
 import ReviewListSortTab from '../molecules/ReviewListSortTab';
@@ -14,15 +15,25 @@ const Container = styled.div`
 `;
 
 function ReviewListTemplate(): JSX.Element {
+	const queryClient = useQueryClient();
 	const [sortOption, setSortOption] = useState(SortTypes.LATEST);
+
+	const switchSortOption = (newSortOption: SortTypes) => {
+		setSortOption(newSortOption);
+		queryClient.resetQueries({
+			queryKey: reviewKeys.list({
+				sort: { type: newSortOption },
+			}),
+		});
+	};
 
 	return (
 		<Container>
 			<ReviewListSortTab
 				sortOption={sortOption}
-				switchSortOption={setSortOption}
+				switchSortOption={switchSortOption}
 			/>
-			<ReviewListSection />
+			<ReviewListSection sortOption={sortOption} />
 		</Container>
 	);
 }

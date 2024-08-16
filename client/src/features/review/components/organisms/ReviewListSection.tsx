@@ -16,14 +16,20 @@ const Container = styled.section`
 	margin-bottom: 70px;
 `;
 
-function ReviewListSection(): JSX.Element {
+interface IReviewListSectionProps {
+	sortOption: SortTypes;
+}
+
+function ReviewListSection({
+	sortOption,
+}: IReviewListSectionProps): JSX.Element {
 	const perPage = useCalculatePerPage({
 		itemHeight: 400,
 		itemsPerRow: 3,
 	});
 	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
 		useReviewListInfinite({
-			sort: { type: SortTypes.LATEST },
+			sort: { type: sortOption },
 			pagination: { perPage },
 		});
 
