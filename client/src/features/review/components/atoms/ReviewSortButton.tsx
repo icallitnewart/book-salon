@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
 import { SortTypes } from '@config/query/queryKeys';
 
@@ -24,6 +24,14 @@ const SortButton = styled.button<ISortButtonStyleProps>`
 	${({ $isActive }) =>
 		$isActive && 'box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15)'};
 	cursor: pointer;
+
+	${({ $isActive }) =>
+		!$isActive &&
+		css`
+			&:hover {
+				color: var(--sub-color-darkgreen);
+			}
+		`}
 `;
 
 const sortText = {
