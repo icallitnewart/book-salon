@@ -6,7 +6,7 @@ import ReviewCardList from './ReviewCardList';
 
 import useReviewList from '../../hooks/useReviewList';
 
-function ReviewPopularSection() {
+function ReviewPopularCardList() {
 	const { data: reviews, isPending } = useReviewList(
 		{
 			sort: { type: SortTypes.MOST_VIEWED },
@@ -24,6 +24,6 @@ function ReviewPopularSection() {
 	return <ReviewCardList reviews={reviews} />;
 }
 
-export default withAsyncBoundary(ReviewPopularSection, {
+export default withAsyncBoundary(ReviewPopularCardList, {
 	SuspenseFallback: null,
 });

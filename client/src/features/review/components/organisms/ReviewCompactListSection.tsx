@@ -14,7 +14,7 @@ const Container = styled.section`
 	padding: 50px 0px;
 `;
 
-function ReviewListSection(): JSX.Element {
+function ReviewCompactListSection(): JSX.Element {
 	const { isbn } = useParams();
 	const { data: reviews, isPending } = useReviewList(
 		{
@@ -41,4 +41,4 @@ function ReviewListSection(): JSX.Element {
 	);
 }
 
-export default ReviewListSection;
+export default ReviewCompactListSection;
