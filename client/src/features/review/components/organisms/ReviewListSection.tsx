@@ -13,7 +13,7 @@ const Container = styled.section`
 	flex-wrap: wrap;
 	gap: 30px;
 	width: 100%;
-	padding: 60px 0px 80px;
+	margin-bottom: 70px;
 `;
 
 function ReviewListSection(): JSX.Element {
