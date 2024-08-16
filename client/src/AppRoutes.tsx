@@ -16,6 +16,7 @@ import BookDetailPage from '@pages/BookDetailPage';
 import ReviewDetailPage from '@pages/ReviewDetailPage';
 import ReviewAddPage from '@pages/ReviewAddPage';
 import ReviewEditPage from '@pages/ReviewEditPage';
+import ReviewListPage from '@pages/ReviewListPage';
 
 const routes = [
 	{
@@ -71,6 +72,12 @@ const routes = [
 		path: ROUTES.REVIEW.EDIT(),
 		authType: AUTH_TYPES.PRIVATE,
 		element: <ReviewEditPage />,
+	},
+	{
+		name: '리뷰 목록',
+		path: ROUTES.REVIEW.LIST,
+		authType: AUTH_TYPES.PUBLIC,
+		element: <ReviewListPage />,
 	},
 ];
 
