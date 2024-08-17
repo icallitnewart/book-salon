@@ -18,6 +18,8 @@ export const typeGuards = {
 	): obj is Obj & Record<K, unknown> {
 		return typeGuards.isObject(obj) && key in obj;
 	},
+	isStringArray: (value: string | string[]): value is string[] =>
+		Array.isArray(value),
 };
 
 export const isValidPageInfo = (pageInfo: unknown): pageInfo is IPageInfo => {

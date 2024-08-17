@@ -39,3 +39,27 @@ export function stripHtmlTags(html: string): string {
 	const doc = new DOMParser().parseFromString(refinedHtml, 'text/html');
 	return doc.body.textContent || '';
 }
+
+interface IPrepareTextForHighlightProps {
+	text: string;
+	searchTerm: string;
+	startLength: number;
+}
+
+export function prepareTextForHighlight({
+	text,
+	searchTerm,
+	startLength,
+}: IPrepareTextForHighlightProps): string | string[] {
+	const index = text.toLowerCase().indexOf(searchTerm.toLowerCase());
+	const isSearchTerm = index !== -1;
+	if (!isSearchTerm) return text;
+
+	const startIdx = Math.max(0, index - startLength);
+	let preview = text.slice(startIdx);
+
+	if (startIdx > 0) preview = `...${preview}`;
+
+	const parts = preview.split(new RegExp(`(${searchTerm})`, 'gi'));
+	return parts;
+}

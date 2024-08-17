@@ -43,7 +43,7 @@ const ObserverContainer = styled.li`
 
 interface IReviewSearchListProps {
 	closeModal: () => void;
-	searchTerm?: string;
+	searchTerm: string;
 }
 
 function ReviewSearchList({
@@ -82,6 +82,7 @@ function ReviewSearchList({
 					rating={review.rating}
 					tags={review.tags}
 					book={review.book}
+					searchTerm={searchTerm}
 					closeModal={closeModal}
 				/>
 			))}

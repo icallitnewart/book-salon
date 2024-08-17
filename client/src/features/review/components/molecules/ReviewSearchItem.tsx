@@ -13,6 +13,7 @@ import {
 	Heading3 as ReviewTitle,
 	Paragraph as ReviewContent,
 } from '@typographies';
+import HighlightedExcerpt from '@components/molecules/HighlightedExcerpt';
 import ReviewRatingDisplay from './ReviewRatingDisplay';
 import ReviewTagList from './ReviewTagList';
 import ReviewAuthorWithDate from './ReviewAuthorWithDate';
@@ -62,6 +63,7 @@ const ContentWrapper = styled.div`
 interface IReviewSearchItemProps extends IReviewPreview {
 	book: IBookDetail;
 	tags: string[];
+	searchTerm: string;
 	closeModal: () => void;
 }
 
@@ -73,6 +75,7 @@ function ReviewSearchItem({
 	rating,
 	createdAt,
 	tags,
+	searchTerm,
 	book,
 	closeModal,
 }: IReviewSearchItemProps): JSX.Element {
@@ -101,7 +104,11 @@ function ReviewSearchItem({
 						$lineClamp={1}
 						$ellipsis
 					>
-						{title}
+						<HighlightedExcerpt
+							text={title}
+							searchTerm={searchTerm}
+							startLength={20}
+						/>
 					</ReviewTitle>
 					<ReviewRatingWithAuthor>
 						<ReviewAuthorWithDate
@@ -118,7 +125,10 @@ function ReviewSearchItem({
 							$ellipsis
 							$lineClamp={2}
 						>
-							{stripHtmlTags(content)}
+							<HighlightedExcerpt
+								text={stripHtmlTags(content)}
+								searchTerm={searchTerm}
+							/>
 						</ReviewContent>
 					</ContentWrapper>
 					<ReviewTagList tags={tags} variantSize="sm" />
