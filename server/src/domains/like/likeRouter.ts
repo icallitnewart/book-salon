@@ -104,4 +104,79 @@ router.post(
 	asyncMiddleware(likeController.addBookLike),
 );
 
+/**
+ * @swagger
+ * /likes/book/{isbn}:
+ *   delete:
+ *     summary: 도서 좋아요 삭제
+ *     tags: [Likes]
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: isbn
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 도서의 ISBN
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *                 liked:
+ *                   type: boolean
+ *                   example: false
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 좋아요를 누르지 않은 책입니다.
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: userId가 존재하지 않습니다.
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 좋아요 삭제에 실패했습니다.
+ */
+router.delete(
+	'/book/:isbn',
+	authMiddleware(),
+	asyncMiddleware(likeController.removeBookLike),
+);
+
 export default router;

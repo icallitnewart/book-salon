@@ -21,6 +21,21 @@ class LikeController {
 		});
 	};
 
+	removeBookLike = async (req: Request, res: Response) => {
+		const { userId } = req;
+		this.validateUserId(userId);
+
+		const { isbn } = req.params;
+		this.validateIsbn(isbn);
+
+		const isDeleted = await likeService.removeBookLike(userId, isbn);
+
+		res.status(200).json({
+			result: 'success',
+			liked: !isDeleted,
+		});
+	};
+
 	private validateUserId(userId?: string): asserts userId is string {
 		if (!userId) {
 			throw new HttpError('userId가 존재하지 않습니다.', 401);
