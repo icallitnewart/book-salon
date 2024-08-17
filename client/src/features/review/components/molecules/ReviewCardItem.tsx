@@ -43,6 +43,7 @@ function ReviewCardItem({ review }: IReviewCardItemProps): JSX.Element {
 					author={review.book.author}
 					publisher={review.book.publisher}
 					isHovered={isHovered}
+					$bgBorderRadius="5px 5px 0 0"
 				/>
 				<ReviewSummary
 					title={review.title}

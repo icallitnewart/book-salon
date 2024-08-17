@@ -78,6 +78,7 @@ interface IBookPreviewImageProps {
 	author: string;
 	publisher: string;
 	isHovered: boolean;
+	$bgBorderRadius?: string;
 }
 
 function BookPreviewImage({
@@ -86,6 +87,7 @@ function BookPreviewImage({
 	author,
 	publisher,
 	isHovered,
+	$bgBorderRadius,
 }: IBookPreviewImageProps) {
 	return (
 		<Container $isHovered={isHovered}>
@@ -94,6 +96,7 @@ function BookPreviewImage({
 				$width="100%"
 				$imgWidth="120px"
 				$height="100%"
+				$bgBorderRadius={$bgBorderRadius}
 			/>
 			<HoverTextBox>
 				<Heading3

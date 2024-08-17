@@ -6,6 +6,7 @@ interface IContainerStyleProps {
 	$width?: string;
 	$height?: string;
 	$aspectRatio?: string;
+	$bgBorderRadius?: string;
 }
 
 const Container = styled.div<IContainerStyleProps>`
@@ -16,7 +17,7 @@ const Container = styled.div<IContainerStyleProps>`
 	width: ${({ $width }) => $width || '100%'};
 	aspect-ratio: ${({ $aspectRatio }) => $aspectRatio || '1 / 1'};
 	${({ $height }) => $height && `height: ${$height};`}
-	border-radius: 5px;
+	border-radius: ${({ $bgBorderRadius }) => $bgBorderRadius || '5px'};
 	background-color: ${({ $color }) => $color || '#f5f4f3'};
 `;
 
@@ -30,6 +31,7 @@ function BookImageBackground({
 	$width,
 	$height,
 	$aspectRatio,
+	$bgBorderRadius,
 }: IBookImageBackgroundProps): JSX.Element {
 	return (
 		<Container
@@ -37,6 +39,7 @@ function BookImageBackground({
 			$width={$width}
 			$height={$height}
 			$aspectRatio={$aspectRatio}
+			$bgBorderRadius={$bgBorderRadius}
 		>
 			{children}
 		</Container>
