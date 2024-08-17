@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
 
 import useInput from '@hooks/useInput';
+import useDebounce from '@hooks/useDebounce';
 
 import { SearchOptionType } from '@typeDefs/data';
 
@@ -54,6 +55,7 @@ function ModalSearchBar({
 	searchByTerm,
 }: IModalSearchBarProps): JSX.Element {
 	const { value, handleChange } = useInput('');
+	const debouncedValue = useDebounce(value, 300);
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -65,6 +67,10 @@ function ModalSearchBar({
 
 		searchByTerm(value);
 	};
+
+	useEffect(() => {
+		searchByTerm(debouncedValue);
+	}, [debouncedValue, searchByTerm]);
 
 	return (
 		<Form onSubmit={handleSubmit}>
