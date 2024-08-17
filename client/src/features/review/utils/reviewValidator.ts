@@ -25,7 +25,8 @@ export const validateReviewContent = (content: string): string => {
 
 export const validateReviewRating = (rating: number): string => {
 	return (
-		validatorWithError.requireValue(rating.toString(), '평점') ||
+		validatorWithError.requireValue(rating.toString(), '별점') ||
+		validatorWithError.forbidZero(rating, '별점') ||
 		validatorWithError.limitRange(rating, 0.5, 5)
 	);
 };

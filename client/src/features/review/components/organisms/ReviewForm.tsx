@@ -24,14 +24,15 @@ import useBookDetail from '@features/book/hooks/useBookDetail';
 
 import { PrimaryInput as ReviewTitleInput } from '@inputs';
 import {
-	PrimaryButton as SubmitButton,
+	PrimaryButton as SaveButton,
 	SecondaryButton as CancelButton,
 } from '@buttons';
+import ReviewRatingModalTemplate from '../templates/ReviewRatingModalTemplate';
 import ReviewTagInputWithButton from '../molecules/ReviewTagInputWithButton';
 import ReviewTextEditor from '../atoms/ReviewTextEditor';
 
 import { REVIEW_MAX_LEN } from '../../constants/limits';
-import { IReviewForm, IReviewInput, IReviewTags } from '../../types/reviewData';
+import { IReviewInput, IReviewTags } from '../../types/reviewData';
 
 const Container = styled.div`
 	width: 100%;
@@ -52,6 +53,10 @@ const ButtonBox = styled.div`
 	gap: 0px 15px;
 `;
 
+interface IReviewInputOptional extends Omit<IReviewInput, 'rating'> {
+	rating?: number;
+}
+
 function ReviewForm<T extends boolean>({
 	isEditMode,
 	submitMutation,
@@ -61,6 +66,7 @@ function ReviewForm<T extends boolean>({
 	const { isbn } = useParams();
 	const { data: book } = useBookDetail(isbn || initialData?.book.isbn);
 
+	const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [tags, setTags] = useState<IReviewTags>([]);
@@ -73,16 +79,13 @@ function ReviewForm<T extends boolean>({
 		setTags(prev => prev.filter(tag => tag.id !== id));
 	};
 
-	const checkValidation = (
-		inputData: IReviewInput,
-		bookData?: IBookDetail,
-	): bookData is IBookDetail => {
+	const checkInputValidation = (inputData: IReviewInputOptional) => {
 		const error =
 			validateReviewTitle(inputData.title) ||
 			(tags.length > 0 && validateReviewTags(inputData.tags)) ||
 			validateReviewContent(inputData.content) ||
-			validateReviewRating(inputData.rating) ||
-			validateReviewBook(bookData);
+			(inputData.rating !== undefined &&
+				validateReviewRating(inputData.rating));
 
 		if (error) {
 			alert(error);
@@ -92,21 +95,46 @@ function ReviewForm<T extends boolean>({
 		return true;
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const checkBookValidation = (
+		bookData?: IBookDetail,
+	): bookData is IBookDetail => {
+		const error = validateReviewBook(bookData);
 
-		const inputData: IReviewInput = {
+		if (error) {
+			alert(error);
+			return false;
+		}
+
+		return true;
+	};
+
+	const getInputData = (): IReviewInputOptional => {
+		return {
 			title,
 			content,
 			tags: removeIdsFromTags(tags),
-			rating: 5,
 		};
+	};
 
-		const isSubmit = checkValidation(inputData, book);
-		if (!isSubmit) return;
+	const validateAndOpenRatingModal = () => {
+		const inputData = getInputData();
+		const isInputValid = checkInputValidation(inputData);
+		if (!isInputValid) return;
 
-		const formData: IReviewForm = {
+		setIsRatingModalOpen(true);
+	};
+
+	const handleSubmit = (rating: number) => {
+		const isBookValid = checkBookValidation(book);
+		if (!isBookValid) return;
+
+		const inputData = getInputData();
+		const isInputValid = checkInputValidation({ ...inputData, rating });
+		if (!isInputValid) return;
+
+		const formData = {
 			...inputData,
+			rating,
 			book,
 		};
 
@@ -141,7 +169,7 @@ function ReviewForm<T extends boolean>({
 
 	return (
 		<Container>
-			<Form onSubmit={handleSubmit}>
+			<Form>
 				<ReviewTitleInput
 					type="text"
 					id="title"
@@ -165,11 +193,23 @@ function ReviewForm<T extends boolean>({
 					<CancelButton type="button" $width="140px" onClick={handleCancel}>
 						취소
 					</CancelButton>
-					<SubmitButton type="submit" $width="140px">
-						{isEditMode ? '수정하기' : '리뷰 등록'}
-					</SubmitButton>
+					<SaveButton
+						type="button"
+						$width="140px"
+						onClick={validateAndOpenRatingModal}
+					>
+						{isEditMode ? '수정' : '저장'}
+					</SaveButton>
 				</ButtonBox>
 			</Form>
+			{isRatingModalOpen && (
+				<ReviewRatingModalTemplate
+					isOpen={isRatingModalOpen}
+					closeModal={() => setIsRatingModalOpen(false)}
+					handleSubmit={handleSubmit}
+					initialRating={initialData?.rating}
+				/>
+			)}
 		</Container>
 	);
 }

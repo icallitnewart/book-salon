@@ -49,6 +49,9 @@ export const validator = {
 		const alphabetRegex = /[a-zA-Z]/;
 		return alphabetRegex.test(value);
 	},
+	isZero: (value: number): boolean => {
+		return value === 0;
+	},
 };
 
 export const validatorWithError = {
@@ -129,5 +132,9 @@ export const validatorWithError = {
 	): string => {
 		const errMsg = `${name}가 유효하지 않은 형식입니다.`;
 		return typeGuard(object) ? '' : errMsg;
+	},
+	forbidZero: (value: number, name: string): string => {
+		const errMsg = `${name}은 0보다 커야합니다.`;
+		return validator.isZero(value) ? errMsg : '';
 	},
 };
