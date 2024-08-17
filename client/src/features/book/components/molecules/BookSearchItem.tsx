@@ -31,6 +31,7 @@ const Wrapper = styled.div`
 `;
 
 interface IBookSearchItemProps extends IBookDetailPartial {
+	searchTerm: string;
 	closeModal: () => void;
 }
 
@@ -41,6 +42,7 @@ function BookSearchItem({
 	publisher,
 	pubDate,
 	isbn,
+	searchTerm,
 	closeModal,
 }: IBookSearchItemProps): JSX.Element {
 	const navigate = useNavigate();
@@ -66,6 +68,7 @@ function BookSearchItem({
 					publisher={publisher}
 					pubDate={pubDate}
 					isbn={isbn}
+					searchTerm={searchTerm}
 				/>
 			</Wrapper>
 		</Container>

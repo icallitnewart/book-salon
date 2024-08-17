@@ -2,6 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import { ParagraphWithStyles, SpanWithStyles } from '@typographies';
+import HighlightedExcerpt from '@components/molecules/HighlightedExcerpt';
 
 interface IContainerStyleProps {
 	$margin?: string;
@@ -27,6 +28,7 @@ interface IBookInfoWithFieldProps {
 	variantType?: 'article' | 'card';
 	labelWidth?: string;
 	margin?: string;
+	searchTerm?: string;
 }
 
 function BookInfoTextWithLabel({
@@ -36,6 +38,7 @@ function BookInfoTextWithLabel({
 	variantSize = 'md',
 	variantType = 'article',
 	margin,
+	searchTerm,
 }: IBookInfoWithFieldProps): JSX.Element {
 	return (
 		<Container $margin={margin}>
@@ -50,7 +53,11 @@ function BookInfoTextWithLabel({
 				variant={`${variantType}-body-${variantSize}`}
 				$lineHeight={1.7}
 			>
-				{text || ''}
+				{searchTerm ? (
+					<HighlightedExcerpt text={text || ''} searchTerm={searchTerm} />
+				) : (
+					text || ''
+				)}
 			</BookInfoText>
 		</Container>
 	);

@@ -6,6 +6,7 @@ import { IBookDetailPartial } from '@features/book/types/bookData';
 import { formatISODate } from '@utils/dateFormatter';
 
 import { Heading2 as BookInfoTitle } from '@typographies';
+import HighlightedExcerpt from '@components/molecules/HighlightedExcerpt';
 import BookInfoTextWithLabel from '../molecules/BookInfoTextWithLabel';
 
 const Container = styled.div`
@@ -29,13 +30,18 @@ const BookInfoDescription = styled(BookInfoTextWithLabel).attrs({
 	variantSize: 'sm',
 })``;
 
+interface IBookInfoTextBoxCompactProps extends IBookDetailPartial {
+	searchTerm: string;
+}
+
 function BookInfoTextBoxCompact({
 	title,
 	author,
 	publisher,
 	pubDate,
 	isbn,
-}: IBookDetailPartial): JSX.Element {
+	searchTerm,
+}: IBookInfoTextBoxCompactProps): JSX.Element {
 	return (
 		<Container>
 			<BookInfoTitleBox>
@@ -46,10 +52,10 @@ function BookInfoTextBoxCompact({
 					$lineClamp={2}
 					$ellipsis
 				>
-					{title}
+					<HighlightedExcerpt text={title || ''} searchTerm={searchTerm} />
 				</BookInfoTitle>
 			</BookInfoTitleBox>
-			<BookInfoDescription label="저자" text={author} />
+			<BookInfoDescription label="저자" text={author} searchTerm={searchTerm} />
 			<BookInfoDescription label="출판사" text={publisher} />
 			<BookInfoDescription
 				label="출판일자"

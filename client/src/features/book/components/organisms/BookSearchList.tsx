@@ -43,7 +43,7 @@ const ObserverContainer = styled.li`
 
 interface IBookSearchListProps {
 	closeModal: () => void;
-	searchTerm?: string;
+	searchTerm: string;
 }
 
 function BookSearchList({
@@ -79,6 +79,7 @@ function BookSearchList({
 					publisher={book.publisher}
 					pubDate={book.pubDate}
 					isbn={book.isbn}
+					searchTerm={searchTerm}
 					closeModal={closeModal}
 				/>
 			))}
