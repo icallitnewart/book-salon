@@ -79,6 +79,8 @@ function ReviewSearchList({
 					user={review.user}
 					createdAt={review.createdAt}
 					viewCount={review.viewCount}
+					rating={review.rating}
+					tags={review.tags}
 					book={review.book}
 					closeModal={closeModal}
 				/>

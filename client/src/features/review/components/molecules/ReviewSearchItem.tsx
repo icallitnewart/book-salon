@@ -9,7 +9,13 @@ import { ROUTES } from '@constants/routes';
 import { stripHtmlTags } from '@utils/dataTransform';
 
 import BookCoverImage from '@features/book/components/atoms/BookCoverImage';
-import { Heading3, Paragraph } from '@typographies';
+import {
+	Heading3 as ReviewTitle,
+	Paragraph as ReviewContent,
+} from '@typographies';
+import ReviewRatingDisplay from './ReviewRatingDisplay';
+import ReviewTagList from './ReviewTagList';
+import ReviewAuthorWithDate from './ReviewAuthorWithDate';
 
 const Container = styled.li`
 	width: 100%;
@@ -42,19 +48,31 @@ const ReviewInfoTextBox = styled.div`
 	padding: 20px 0px 20px 30px;
 `;
 
-const Content = styled.div`
+const ReviewRatingWithAuthor = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 6px;
+`;
+
+const ContentWrapper = styled.div`
 	flex: 1;
 `;
 
 interface IReviewSearchItemProps extends IReviewPreview {
 	book: IBookDetail;
+	tags: string[];
 	closeModal: () => void;
 }
 
 function ReviewSearchItem({
 	id,
 	title,
+	user,
 	content,
+	rating,
+	createdAt,
+	tags,
 	book,
 	closeModal,
 }: IReviewSearchItemProps): JSX.Element {
@@ -76,25 +94,34 @@ function ReviewSearchItem({
 					$borderRadius="3px"
 				/>
 				<ReviewInfoTextBox>
-					<Heading3
+					<ReviewTitle
 						variant="list-title-sm"
 						$color="#333"
-						$marginBottom="5px"
-						$lineClamp={2}
+						$marginBottom="3px"
+						$lineClamp={1}
 						$ellipsis
 					>
 						{title}
-					</Heading3>
-					<Content>
-						<Paragraph
+					</ReviewTitle>
+					<ReviewRatingWithAuthor>
+						<ReviewAuthorWithDate
+							author={user?.nickname}
+							date={createdAt}
+							variantSize="sm"
+						/>
+						<ReviewRatingDisplay rating={rating} />
+					</ReviewRatingWithAuthor>
+					<ContentWrapper>
+						<ReviewContent
 							variant="list-body-md"
-							$lineHeight={1.7}
+							$lineHeight={1.6}
 							$ellipsis
-							$lineClamp={3}
+							$lineClamp={2}
 						>
 							{stripHtmlTags(content)}
-						</Paragraph>
-					</Content>
+						</ReviewContent>
+					</ContentWrapper>
+					<ReviewTagList tags={tags} variantSize="sm" />
 				</ReviewInfoTextBox>
 			</Wrapper>
 		</Container>

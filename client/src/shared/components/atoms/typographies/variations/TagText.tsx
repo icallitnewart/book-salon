@@ -5,7 +5,7 @@ import { SpanWithStyles } from './TextElements';
 
 const Text = styled(SpanWithStyles)`
 	display: inline-block;
-	background-color: #f0f0f0;
+	background-color: #f3f4f5;
 	padding: 0px 4px;
 	border-radius: 3px;
 

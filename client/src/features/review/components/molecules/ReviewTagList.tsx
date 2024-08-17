@@ -11,14 +11,18 @@ const Container = styled.div`
 
 interface IReviewTagListProps {
 	tags?: string[];
+	variantSize?: 'sm' | 'md' | 'lg';
 }
 
-function ReviewTagList({ tags }: IReviewTagListProps): JSX.Element {
+function ReviewTagList({
+	tags,
+	variantSize = 'lg',
+}: IReviewTagListProps): JSX.Element {
 	return (
 		<Container>
 			{tags &&
 				tags.map(tag => (
-					<ReviewTagItem key={nanoid()} variantSize="lg">
+					<ReviewTagItem key={nanoid()} variantSize={variantSize}>
 						{tag}
 					</ReviewTagItem>
 				))}
