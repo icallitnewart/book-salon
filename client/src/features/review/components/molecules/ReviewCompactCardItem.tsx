@@ -9,13 +9,12 @@ import { stripHtmlTags } from '@utils/dataTransform';
 
 import { Heading3, Paragraph } from '@typographies';
 import Divider from '@components/atoms/Divider';
-import ReviewAuthorWithDate from './ReviewAuthorWithDate';
-import ReviewViewCount from './ReviewViewCount';
-import ReviewCommentCount from './ReviewCommentCount';
+import ReviewAuthorWithCount from './ReviewAuthorWithCount';
+import ReviewRatingWithDate from './ReviewRatingWithDate';
 
 const LinkContainer = styled(Link)`
 	width: calc(100% / 2 - 10px);
-	height: 220px;
+	height: 250px;
 	transition: transform 0.3s;
 	cursor: pointer;
 `;
@@ -25,26 +24,12 @@ const Article = styled.article`
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
-	padding: 25px 30px;
+	padding: 27px 32px;
 
 	border-radius: 10px;
 	border: 1px solid #eee;
 	background-color: #fff;
 	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.05);
-`;
-
-const MetaInfo = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-
-	margin-bottom: 5px;
-`;
-
-const NumberInfo = styled.div`
-	display: inline-flex;
-	gap: 10px;
 `;
 
 const Content = styled.div`
@@ -53,6 +38,7 @@ const Content = styled.div`
 
 interface IReviewCompactCardItemProps extends IReviewPreview {
 	commentCount: number;
+	rating: number;
 }
 
 function ReviewCompactCardItem({
@@ -62,6 +48,7 @@ function ReviewCompactCardItem({
 	content,
 	createdAt,
 	viewCount,
+	rating,
 	commentCount,
 }: IReviewCompactCardItemProps): JSX.Element {
 	return (
@@ -70,13 +57,18 @@ function ReviewCompactCardItem({
 				<Heading3
 					variant="list-title-lg"
 					$color="#333"
-					$marginBottom="8px"
+					$marginBottom="10px"
 					$lineClamp={1}
 					$ellipsis
 				>
 					{title}
 				</Heading3>
-				<Divider $marginBottom="10px" />
+				<Divider $marginBottom="7px" />
+				<ReviewRatingWithDate
+					rating={rating}
+					date={createdAt}
+					$marginBottom="5px"
+				/>
 				<Content>
 					<Paragraph
 						variant="list-body-lg"
@@ -87,13 +79,12 @@ function ReviewCompactCardItem({
 						{stripHtmlTags(content)}
 					</Paragraph>
 				</Content>
-				<MetaInfo>
-					<ReviewAuthorWithDate author={user.nickname} date={createdAt} />
-					<NumberInfo>
-						<ReviewViewCount viewCount={viewCount} variantSize="lg" />
-						<ReviewCommentCount commentCount={commentCount} variantSize="lg" />
-					</NumberInfo>
-				</MetaInfo>
+				<ReviewAuthorWithCount
+					author={user.nickname}
+					viewCount={viewCount}
+					commentCount={commentCount}
+					variantSize="lg"
+				/>
 			</Article>
 		</LinkContainer>
 	);

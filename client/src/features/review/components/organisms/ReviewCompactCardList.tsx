@@ -43,6 +43,7 @@ function ReviewCompactCardList({
 						createdAt={review.createdAt}
 						viewCount={review.viewCount}
 						commentCount={review.commentCount}
+						rating={review.rating}
 					/>
 				))
 			) : (
