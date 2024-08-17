@@ -27,15 +27,12 @@ function ReviewListSection({
 		itemHeight: 400,
 		itemsPerRow: 3,
 	});
-	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+	const { reviews, fetchNextPage, hasNextPage, isFetchingNextPage } =
 		useReviewListInfinite({
 			sort: { type: sortOption },
 			pagination: { perPage },
+			isInfiniteEnabled: true,
 		});
-
-	const reviews = useMemo(() => {
-		return data?.pages.flatMap(page => page.reviews) || [];
-	}, [data]);
 
 	return (
 		<Container>

@@ -6,20 +6,21 @@ import { TIME_MS } from '@constants/time';
 
 import reviewApis from '../apis/reviewApis';
 
-function useReviewListInfinite({
+function useReviewList({
 	filters,
 	sort,
 	pagination,
+	isInfiniteEnabled,
 }: IReviewListOptions) {
-	return useInfiniteQuery({
-		queryKey: reviewKeys.list({ filters, sort, pagination }),
+	const query = useInfiniteQuery({
+		queryKey: reviewKeys.list({ filters, sort }),
 		queryFn: async ({ pageParam = 1 }) => {
 			const data = await reviewApis.getReviewList({
 				filters,
 				sort,
 				pagination: {
 					...pagination,
-					page: pageParam,
+					page: pageParam as unknown as number,
 					pageGroupSize: 1,
 				},
 			});
@@ -32,6 +33,7 @@ function useReviewListInfinite({
 		},
 		initialPageParam: 1,
 		getNextPageParam: ({ pageInfo }) => {
+			if (!isInfiniteEnabled) return undefined;
 			const { hasNextPage, lastPage } = pageInfo;
 			return hasNextPage ? lastPage + 1 : undefined;
 		},
@@ -39,6 +41,11 @@ function useReviewListInfinite({
 		gcTime: TIME_MS.MINUTE,
 		throwOnError: true,
 	});
+
+	return {
+		...query,
+		reviews: query.data?.pages.flatMap(page => page.reviews) || [],
+	};
 }
 
-export default useReviewListInfinite;
+export default useReviewList;

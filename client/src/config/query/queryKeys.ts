@@ -17,6 +17,7 @@ export interface IReviewListOptions {
 	filters?: IFilterOptions;
 	sort?: ISortOptions;
 	pagination?: IPageOptions;
+	isInfiniteEnabled?: boolean;
 }
 
 export const userKeys = {
@@ -44,11 +45,10 @@ export const reviewKeys = {
 	updateViewCount: (reviewId?: string) =>
 		['reviews', 'updateViewCount', reviewId] as const,
 	delete: (reviewId?: string) => ['reviews', 'delete', reviewId] as const,
-	list: ({ filters, sort, pagination }: IReviewListOptions) => {
+	list: ({ filters, sort }: IReviewListOptions) => {
 		const options = {
 			filters: filters ?? null,
 			sort: sort ?? { type: SortTypes.LATEST },
-			page: pagination?.page ?? 1,
 		};
 
 		return ['reviews', 'list', options] as const;
