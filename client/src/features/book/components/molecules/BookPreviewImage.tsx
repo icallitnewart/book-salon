@@ -38,7 +38,7 @@ interface IIsHoveredStyle {
 const Container = styled.div<IIsHoveredStyle>`
 	position: relative;
 	width: 100%;
-	height: 60%;
+	height: 56%;
 
 	img {
 		transition: transform 700ms;
@@ -78,7 +78,6 @@ interface IBookPreviewImageProps {
 	author: string;
 	publisher: string;
 	isHovered: boolean;
-	$bgBorderRadius?: string;
 }
 
 function BookPreviewImage({
@@ -87,7 +86,6 @@ function BookPreviewImage({
 	author,
 	publisher,
 	isHovered,
-	$bgBorderRadius,
 }: IBookPreviewImageProps) {
 	return (
 		<Container $isHovered={isHovered}>
@@ -96,7 +94,7 @@ function BookPreviewImage({
 				$width="100%"
 				$imgWidth="120px"
 				$height="100%"
-				$bgBorderRadius={$bgBorderRadius}
+				$bgBorderRadius="5px 5px 0 0"
 			/>
 			<HoverTextBox>
 				<Heading3

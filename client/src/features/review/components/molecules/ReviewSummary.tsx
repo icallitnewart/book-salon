@@ -3,16 +3,16 @@ import { styled } from 'styled-components';
 
 import { stripHtmlTags } from '@utils/dataTransform';
 
-import { Heading4 as Title, Paragraph as Summary, Span } from '@typographies';
-import ReviewViewCount from './ReviewViewCount';
-import ReviewCommentCount from './ReviewCommentCount';
+import { Heading4 as Title, Paragraph as Summary } from '@typographies';
+import ReviewRatingWithDate from './ReviewRatingWithDate';
+import ReviewAuthorWithCount from './ReviewAuthorWithCount';
 
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 1;
 	width: 100%;
-	padding: 15px 20px;
+	padding: 20px 20px;
 `;
 
 const Content = styled.div`
@@ -20,21 +20,12 @@ const Content = styled.div`
 	height: 100%;
 `;
 
-const MetaInfo = styled.div`
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-`;
-
-const NumberInfo = styled.div`
-	display: inline-flex;
-	gap: 10px;
-`;
-
 interface IReviewSummaryProps {
 	title: string;
 	content: string;
 	nickname: string;
+	rating: number;
+	date: string;
 	viewCount: number;
 	commentCount: number;
 }
@@ -43,6 +34,8 @@ function ReviewSummary({
 	title,
 	content,
 	nickname,
+	rating,
+	date,
 	viewCount,
 	commentCount,
 }: IReviewSummaryProps): JSX.Element {
@@ -54,11 +47,12 @@ function ReviewSummary({
 					$color="#333"
 					$lineHeight={1.5}
 					$lineClamp={1}
-					$marginBottom="5px"
+					$marginBottom="4px"
 					$ellipsis
 				>
 					{title}
 				</Title>
+				<ReviewRatingWithDate rating={rating} date={date} $marginBottom="6px" />
 				<Summary
 					variant="list-body-sm"
 					$lineClamp={2}
@@ -68,16 +62,11 @@ function ReviewSummary({
 					{stripHtmlTags(content)}
 				</Summary>
 			</Content>
-			<MetaInfo>
-				<div>
-					<Span variant="article-meta-md">by </Span>
-					<Span variant="highlight-meta-md">{nickname}</Span>
-				</div>
-				<NumberInfo>
-					<ReviewViewCount viewCount={viewCount} variantSize="md" />
-					<ReviewCommentCount commentCount={commentCount} variantSize="md" />
-				</NumberInfo>
-			</MetaInfo>
+			<ReviewAuthorWithCount
+				author={nickname}
+				viewCount={viewCount}
+				commentCount={commentCount}
+			/>
 		</Container>
 	);
 }

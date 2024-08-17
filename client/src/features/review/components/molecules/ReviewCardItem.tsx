@@ -10,7 +10,7 @@ import ReviewSummary from './ReviewSummary';
 
 const Container = styled.article`
 	width: calc(100% / 3 - 20px);
-	height: 370px;
+	height: 400px;
 
 	background-color: #fff;
 	box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.04);
@@ -43,12 +43,13 @@ function ReviewCardItem({ review }: IReviewCardItemProps): JSX.Element {
 					author={review.book.author}
 					publisher={review.book.publisher}
 					isHovered={isHovered}
-					$bgBorderRadius="5px 5px 0 0"
 				/>
 				<ReviewSummary
 					title={review.title}
 					content={review.content}
 					nickname={review.user.nickname}
+					rating={review.rating}
+					date={review.createdAt}
 					viewCount={review.viewCount}
 					commentCount={review.commentCount}
 				/>
