@@ -36,6 +36,21 @@ class LikeController {
 		});
 	};
 
+	checkBookLike = async (req: Request, res: Response) => {
+		const { userId } = req;
+		this.validateUserId(userId);
+
+		const { isbn } = req.params;
+		this.validateIsbn(isbn);
+
+		const isLiked = await likeService.checkBookLike(userId, isbn);
+
+		res.status(200).json({
+			result: 'success',
+			liked: isLiked,
+		});
+	};
+
 	private validateUserId(userId?: string): asserts userId is string {
 		if (!userId) {
 			throw new HttpError('userId가 존재하지 않습니다.', 401);

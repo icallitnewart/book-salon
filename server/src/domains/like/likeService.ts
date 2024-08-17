@@ -32,6 +32,11 @@ class LikeService {
 
 		return isDeleted;
 	}
+
+	async checkBookLike(userId: string, isbn: string): Promise<boolean> {
+		const isLiked = await likeDAO.checkExistence(userId, LikeType.BOOK, isbn);
+		return isLiked;
+	}
 }
 
 export const likeService = new LikeService();

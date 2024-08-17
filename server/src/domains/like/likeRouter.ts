@@ -179,4 +179,67 @@ router.delete(
 	asyncMiddleware(likeController.removeBookLike),
 );
 
+/**
+ * @swagger
+ * /likes/book/{isbn}:
+ *   get:
+ *     summary: 특정 도서에 대한 사용자의 좋아요 상태 확인
+ *     tags: [Likes]
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: isbn
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 확인할 도서의 ISBN
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: success
+ *                 liked:
+ *                   type: boolean
+ *                   description: 사용자가 해당 도서를 좋아요 했는지 여부
+ *                   example: true
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 유효하지 않은 ISBN입니다.
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: 인증되지 않은 사용자입니다.
+ */
+router.get(
+	'/book/:isbn',
+	authMiddleware(),
+	asyncMiddleware(likeController.checkBookLike),
+);
+
 export default router;
