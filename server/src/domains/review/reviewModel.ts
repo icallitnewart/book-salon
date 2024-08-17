@@ -106,7 +106,7 @@ export interface IReviewModel extends IReview, Document {}
  *           type: string
  *         rating:
  *           type: number
- *           minimum: 1
+ *           minimum: 0.5
  *           maximum: 5
  *         tags:
  *           type: array
@@ -164,7 +164,7 @@ const reviewSchema = new Schema(
 		rating: {
 			type: Number,
 			required: true,
-			min: 1,
+			min: 0.5,
 			max: 5,
 		},
 		tags: {
