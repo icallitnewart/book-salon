@@ -11,6 +11,7 @@ import userRouter from './domains/user/userRouter';
 import bookRouter from './domains/book/bookRouter';
 import reviewRouter from './domains/review/reviewRouter';
 import commentRouter from './domains/comment/commentRouter';
+import likeRouter from './domains/like/likeRouter';
 
 const app = express();
 const corsOptions = {
@@ -29,6 +30,7 @@ app.use('/api/users', userRouter);
 app.use('/api/books', bookRouter);
 app.use('/api/reviews', reviewRouter);
 app.use('/api/comments', commentRouter);
+app.use('/api/likes', likeRouter);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(errorMiddleware);
