@@ -1,9 +1,15 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 
 import useAuthUser from '@features/user/hooks/useAuthUser';
+import useLikeBook from '@features/book/hooks/useLikeBook';
+import useBookDetail from '@features/book/hooks/useBookDetail';
 import useCheckBookLike from '@features/book/hooks/useCheckBookLike';
+
+import { ROUTES } from '@constants/routes';
+import { isValidBookDetail } from '@features/book/types/bookTypeGuards';
+import { IBookDetail } from '@features/book/types/bookData';
 
 import { ReactComponent as HeartSvg } from '@assets/svg/heart.svg';
 import { SecondaryButtonWithStyles } from '@buttons';
@@ -44,15 +50,56 @@ const HeartIcon = styled(HeartSvg)<IHeartIconStyleProps>`
 `;
 
 function BookLikeButton(): JSX.Element {
+	const navigate = useNavigate();
+	const location = useLocation();
 	const { isbn } = useParams();
 	const { data: isAuth } = useAuthUser({
 		select: data => data.isAuth,
 	});
 	const { data: isLiked } = useCheckBookLike(isbn, isAuth);
+	const { data: book } = useBookDetail(isbn);
+	const { likeBook } = useLikeBook(isbn);
+
+	const checkValidation = (bookData?: unknown): bookData is IBookDetail => {
+		if (!isValidBookDetail(bookData)) {
+			alert('오류가 발생하였습니다.');
+			return false;
+		}
+
+		return true;
+	};
+
+	const redirectToLogin = () => {
+		if (
+			window.confirm(
+				'로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?',
+			)
+		) {
+			navigate(ROUTES.USER.LOGIN, {
+				state: { from: { pathname: location.pathname } },
+			});
+		}
+	};
+
+	const handleClick = () => {
+		if (!isAuth) {
+			redirectToLogin();
+			return;
+		}
+
+		const isSubmit = checkValidation(book);
+		if (!isSubmit) return;
+		likeBook(book, {
+			onError: () => {
+				alert('좋아요 등록에 실패했습니다. 다시 시도해주세요.');
+			},
+		});
+	};
 
 	return (
 		<StyledButton
 			type="button"
+			onClick={handleClick}
 			$width="120px"
 			$hoverTextColor="#fff"
 			$isLiked={!!isLiked}

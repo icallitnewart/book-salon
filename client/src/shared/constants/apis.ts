@@ -36,6 +36,7 @@ export const APIS = {
 			return `${BOOK_BASE_URL}/search/${searchTerm}?${query}`;
 		},
 		CHECK_LIKE: (isbn: string) => `${BOOK_LIKE_BASE_URL}/${isbn}`,
+		LIKE: `${BOOK_LIKE_BASE_URL}`,
 	},
 	REVIEW: {
 		ADD: `${REVIEW_BASE_URL}`,

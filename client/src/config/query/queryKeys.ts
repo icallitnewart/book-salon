@@ -36,6 +36,7 @@ export const bookKeys = {
 	detail: (isbn?: string) => ['books', 'detail', isbn] as const,
 	search: (searchTerm?: string) => ['books', 'search', searchTerm] as const,
 	checkLike: (isbn?: string) => ['books', 'checkLike', isbn] as const,
+	like: (isbn?: string) => ['books', 'like', isbn] as const,
 };
 
 export const reviewKeys = {

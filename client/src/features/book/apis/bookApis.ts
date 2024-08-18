@@ -1,7 +1,7 @@
 import axios from 'axios';
+import authAxios from '@config/axiosInstance/authAxios';
 
 import { APIS } from '@constants/apis';
-import authAxios from '@config/axiosInstance/authAxios';
 import { IBookData, IBookDetail, IBookPageOptions } from '../types/bookData';
 
 import { refineBookData } from '../utils/bookDataHandler';
@@ -27,6 +27,10 @@ const bookApis = {
 	},
 	checkLike: async (isbn: string) => {
 		const response = await authAxios.get(APIS.BOOK.CHECK_LIKE(isbn));
+		return response.data.liked;
+	},
+	likeBook: async (bookData: IBookDetail) => {
+		const response = await authAxios.post(APIS.BOOK.LIKE, bookData);
 		return response.data.liked;
 	},
 };
