@@ -37,6 +37,7 @@ export const APIS = {
 		},
 		CHECK_LIKE: (isbn: string) => `${BOOK_LIKE_BASE_URL}/${isbn}`,
 		LIKE: `${BOOK_LIKE_BASE_URL}`,
+		UNLIKE: (isbn: string) => `${BOOK_LIKE_BASE_URL}/${isbn}`,
 	},
 	REVIEW: {
 		ADD: `${REVIEW_BASE_URL}`,

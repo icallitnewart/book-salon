@@ -33,6 +33,10 @@ const bookApis = {
 		const response = await authAxios.post(APIS.BOOK.LIKE, bookData);
 		return response.data.liked;
 	},
+	unlikeBook: async (isbn: string) => {
+		const response = await authAxios.delete(APIS.BOOK.UNLIKE(isbn));
+		return response.data.liked;
+	},
 };
 
 export default bookApis;

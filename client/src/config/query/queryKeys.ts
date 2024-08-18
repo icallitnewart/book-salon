@@ -37,6 +37,7 @@ export const bookKeys = {
 	search: (searchTerm?: string) => ['books', 'search', searchTerm] as const,
 	checkLike: (isbn?: string) => ['books', 'checkLike', isbn] as const,
 	like: (isbn?: string) => ['books', 'like', isbn] as const,
+	unlike: (isbn?: string) => ['books', 'unlike', isbn] as const,
 };
 
 export const reviewKeys = {

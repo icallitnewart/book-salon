@@ -4,6 +4,7 @@ import styled, { css, keyframes } from 'styled-components';
 
 import useAuthUser from '@features/user/hooks/useAuthUser';
 import useLikeBook from '@features/book/hooks/useLikeBook';
+import useUnlikeBook from '@features/book/hooks/useUnlikeBook';
 import useBookDetail from '@features/book/hooks/useBookDetail';
 import useCheckBookLike from '@features/book/hooks/useCheckBookLike';
 
@@ -59,6 +60,7 @@ function BookLikeButton(): JSX.Element {
 	const { data: isLiked } = useCheckBookLike(isbn, isAuth);
 	const { data: book } = useBookDetail(isbn);
 	const { likeBook } = useLikeBook(isbn);
+	const { unlikeBook } = useUnlikeBook(isbn);
 
 	const checkValidation = (bookData?: unknown): bookData is IBookDetail => {
 		if (!isValidBookDetail(bookData)) {
@@ -89,11 +91,20 @@ function BookLikeButton(): JSX.Element {
 
 		const isSubmit = checkValidation(book);
 		if (!isSubmit) return;
-		likeBook(book, {
-			onError: () => {
-				alert('좋아요 등록에 실패했습니다. 다시 시도해주세요.');
-			},
-		});
+
+		if (isLiked) {
+			unlikeBook(undefined, {
+				onError: () => {
+					alert('좋아요 취소에 실패했습니다. 다시 시도해주세요.');
+				},
+			});
+		} else {
+			likeBook(book, {
+				onError: () => {
+					alert('좋아요 등록에 실패했습니다. 다시 시도해주세요.');
+				},
+			});
+		}
 	};
 
 	return (
