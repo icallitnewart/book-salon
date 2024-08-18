@@ -11,6 +11,8 @@ const BOOK_BASE_URL = `${API_BASE_URL}/books`;
 const REVIEW_BASE_URL = `${API_BASE_URL}/reviews`;
 const COMMENT_BASE_URL = `${API_BASE_URL}/comments`;
 const REVIEW_COMMENT_BASE_URL = `${COMMENT_BASE_URL}/review`;
+const LIKE_BASE_URL = `${API_BASE_URL}/likes`;
+const BOOK_LIKE_BASE_URL = `${LIKE_BASE_URL}/book`;
 
 export const APIS = {
 	USER: {
@@ -23,7 +25,7 @@ export const APIS = {
 	},
 	BOOK: {
 		BESTSELLER: `${BOOK_BASE_URL}/bestseller`,
-		DETAIL: (bookId: string) => `${BOOK_BASE_URL}/detail/${bookId}`,
+		DETAIL: (isbn: string) => `${BOOK_BASE_URL}/detail/${isbn}`,
 		SEARCH: (searchTerm: string, pageOptions?: IBookPageOptions) => {
 			const pagination = pageOptions ?? null;
 			const query = createQueryString({
@@ -33,6 +35,7 @@ export const APIS = {
 
 			return `${BOOK_BASE_URL}/search/${searchTerm}?${query}`;
 		},
+		CHECK_LIKE: (isbn: string) => `${BOOK_LIKE_BASE_URL}/${isbn}`,
 	},
 	REVIEW: {
 		ADD: `${REVIEW_BASE_URL}`,
