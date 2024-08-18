@@ -11,11 +11,16 @@ function useLikeBook(isbn?: string) {
 		queryClient.invalidateQueries({ queryKey: bookKeys.checkLike(isbn) });
 	};
 
+	const removeLikedBookListQuery = () => {
+		queryClient.removeQueries({ queryKey: bookKeys.likeList });
+	};
+
 	const mutation = useMutation({
 		mutationKey: bookKeys.like(isbn),
 		mutationFn: (bookData: IBookDetail) => bookApis.likeBook(bookData),
 		onSuccess: () => {
 			invalidateBookLikeQuery();
+			removeLikedBookListQuery();
 		},
 	});
 

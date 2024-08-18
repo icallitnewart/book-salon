@@ -10,6 +10,10 @@ function useUnlikeBook(isbn?: string) {
 		queryClient.invalidateQueries({ queryKey: bookKeys.checkLike(isbn) });
 	};
 
+	const removeLikedBookListQuery = () => {
+		queryClient.removeQueries({ queryKey: bookKeys.likeList });
+	};
+
 	const mutation = useMutation({
 		mutationKey: bookKeys.unlike(isbn),
 		mutationFn: async () => {
@@ -21,6 +25,7 @@ function useUnlikeBook(isbn?: string) {
 		},
 		onSuccess: () => {
 			invalidateBookLikeQuery();
+			removeLikedBookListQuery();
 		},
 	});
 
