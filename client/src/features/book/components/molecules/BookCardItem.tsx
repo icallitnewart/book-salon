@@ -10,7 +10,7 @@ const Article = styled.article`
 	height: 310px;
 `;
 
-function BookBestsellerCardItem({
+function BookCardItem({
 	title,
 	author,
 	cover,
@@ -31,4 +31,4 @@ function BookBestsellerCardItem({
 	);
 }
 
-export default BookBestsellerCardItem;
+export default BookCardItem;

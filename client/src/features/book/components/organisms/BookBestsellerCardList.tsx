@@ -5,7 +5,7 @@ import { ROUTES } from '@constants/routes';
 
 import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
 import EmptyAlert from '@components/molecules/EmptyAlert';
-import BookBestsellerCardItem from '../molecules/BookBestsellerCardItem';
+import BookCardItem from '../molecules/BookCardItem';
 
 import useBestsellerList from '../../hooks/useBestsellerList';
 
@@ -37,7 +37,7 @@ function BookBestsellerCardList(): JSX.Element {
 		<Container>
 			{books.slice(0, 7).map((book: IBestSellerBook) => {
 				return (
-					<BookBestsellerCardItem
+					<BookCardItem
 						key={book.isbn}
 						title={book.title}
 						author={book.author}
