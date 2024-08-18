@@ -12,6 +12,7 @@ export const ROUTES = {
 	},
 	BOOK: {
 		DETAIL: (isbn?: string) => `${BOOK_BASE_URL}/detail/${isbn || ':isbn'}`,
+		LIKED_LIST: `${BOOK_BASE_URL}/like/me`,
 	},
 	REVIEW: {
 		LIST: `${BOOK_REVIEW_URL}/list`,

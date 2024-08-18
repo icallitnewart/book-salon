@@ -17,6 +17,7 @@ import ReviewDetailPage from '@pages/ReviewDetailPage';
 import ReviewAddPage from '@pages/ReviewAddPage';
 import ReviewEditPage from '@pages/ReviewEditPage';
 import ReviewListPage from '@pages/ReviewListPage';
+import LikedBookPage from '@pages/LikedBookPage';
 
 const routes = [
 	{
@@ -78,6 +79,12 @@ const routes = [
 		path: ROUTES.REVIEW.LIST,
 		authType: AUTH_TYPES.PUBLIC,
 		element: <ReviewListPage />,
+	},
+	{
+		name: '찜한 도서 목록',
+		path: ROUTES.BOOK.LIKED_LIST,
+		authType: AUTH_TYPES.PRIVATE,
+		element: <LikedBookPage />,
 	},
 ];
 
