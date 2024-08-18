@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { bookKeys } from '@config/query/queryKeys';
 
 import { IPageOptions } from '@typeDefs/data';
@@ -10,7 +10,7 @@ interface IUseLikedBookListProps {
 }
 
 function useLikedBookList({ pagination }: IUseLikedBookListProps) {
-	const query = useInfiniteQuery({
+	const query = useSuspenseInfiniteQuery({
 		queryKey: bookKeys.likeList,
 		queryFn: ({ pageParam = 1 }) => {
 			return bookApis.getLikedBookList({
@@ -24,12 +24,11 @@ function useLikedBookList({ pagination }: IUseLikedBookListProps) {
 			const { hasNextPage, lastPage } = pageInfo;
 			return hasNextPage ? lastPage + 1 : undefined;
 		},
-		throwOnError: true,
 	});
 
 	return {
 		...query,
-		books: query.data?.pages.flatMap(page => page.books) || [],
+		books: query.data?.pages.flatMap(page => page.books),
 	};
 }
 
