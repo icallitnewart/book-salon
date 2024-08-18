@@ -17,7 +17,7 @@ interface IContentStyleProps {
 	$width?: string;
 }
 
-const Content = styled.main<IContentStyleProps>`
+const Content = styled.div<IContentStyleProps>`
 	position: relative;
 	top: var(--header-height);
 	display: grid;
