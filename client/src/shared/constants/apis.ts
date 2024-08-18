@@ -38,6 +38,16 @@ export const APIS = {
 		CHECK_LIKE: (isbn: string) => `${BOOK_LIKE_BASE_URL}/${isbn}`,
 		LIKE: `${BOOK_LIKE_BASE_URL}`,
 		UNLIKE: (isbn: string) => `${BOOK_LIKE_BASE_URL}/${isbn}`,
+		MY_LIKE_LIST: (pageOptions: IPageOptions) => {
+			const pagination = pageOptions ?? null;
+			const query = createQueryString({
+				page: pagination?.page,
+				perPage: pagination?.perPage,
+				pageGroupSize: pagination?.pageGroupSize,
+			});
+
+			return `${BOOK_LIKE_BASE_URL}/me?${query}`;
+		},
 	},
 	REVIEW: {
 		ADD: `${REVIEW_BASE_URL}`,

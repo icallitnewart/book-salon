@@ -2,6 +2,7 @@ import axios from 'axios';
 import authAxios from '@config/axiosInstance/authAxios';
 
 import { APIS } from '@constants/apis';
+import { IPageOptions } from '@typeDefs/data';
 import { IBookData, IBookDetail, IBookPageOptions } from '../types/bookData';
 
 import { refineBookData } from '../utils/bookDataHandler';
@@ -36,6 +37,10 @@ const bookApis = {
 	unlikeBook: async (isbn: string) => {
 		const response = await authAxios.delete(APIS.BOOK.UNLIKE(isbn));
 		return response.data.liked;
+	},
+	getLikedBookList: async (pageOptions: IPageOptions) => {
+		const response = await authAxios.get(APIS.BOOK.MY_LIKE_LIST(pageOptions));
+		return response.data;
 	},
 };
 
