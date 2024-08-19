@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
+import { nanoid } from 'nanoid';
 
 import { IReviewDetail } from '@features/review/types/reviewData';
 
@@ -73,5 +74,15 @@ function ReviewCardList({
 		</Container>
 	);
 }
+
+ReviewCardList.Skeleton = function (): JSX.Element {
+	return (
+		<Container>
+			{Array.from({ length: 6 }).map(_ => (
+				<ReviewCardItem.Skeleton key={nanoid()} />
+			))}
+		</Container>
+	);
+};
 
 export default ReviewCardList;

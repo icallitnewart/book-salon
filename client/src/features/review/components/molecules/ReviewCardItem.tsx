@@ -58,4 +58,13 @@ function ReviewCardItem({ review }: IReviewCardItemProps): JSX.Element {
 	);
 }
 
+ReviewCardItem.Skeleton = function (): JSX.Element {
+	return (
+		<Container>
+			<BookPreviewImage.Skeleton />
+			<ReviewSummary.Skeleton />
+		</Container>
+	);
+};
+
 export default ReviewCardItem;
