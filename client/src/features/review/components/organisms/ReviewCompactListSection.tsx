@@ -5,12 +5,14 @@ import { SortTypes } from '@config/query/queryKeys';
 
 import useReviewList from '@features/review/hooks/useReviewList';
 
+import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
 import SectionTitleWithHighlight from '@components/molecules/SectionTitleWithHighlight';
 import MoreButtonBox from '@components/molecules/MoreButtonBox';
 import ReviewCompactCardList from './ReviewCompactCardList';
 
 const Container = styled.section`
 	width: 100%;
+	height: 100%;
 	padding: 50px 0px;
 `;
 
@@ -20,7 +22,7 @@ function ReviewCompactListSection(): JSX.Element {
 		{
 			filters: { isbn },
 			sort: { type: SortTypes.MOST_VIEWED },
-			pagination: { page: 1, perPage: 6, pageGroupSize: 1 },
+			pagination: { page: 1, perPage: 100, pageGroupSize: 1 },
 		},
 		{
 			select: data => data.reviews,
@@ -36,9 +38,12 @@ function ReviewCompactListSection(): JSX.Element {
 				$textAlign="center"
 			/>
 			<ReviewCompactCardList reviews={reviews} isPending={isPending} />
-			{reviews && reviews.length > 0 && <MoreButtonBox />}
+			{/* TODO: 더보기 버튼 수정 예정 */}
+			{/* {data?.pageInfo.hasNextPage && <MoreButtonBox />} */}
 		</Container>
 	);
 }
 
-export default ReviewCompactListSection;
+export default withAsyncBoundary(ReviewCompactListSection, {
+	SuspenseFallback: null,
+});
