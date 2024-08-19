@@ -1,9 +1,9 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import { nanoid } from 'nanoid';
 
 import { IReviewDetail } from '@features/review/types/reviewData';
 
-import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
 import EmptyAlert from '@components/molecules/EmptyAlert';
 import ReviewCompactCardItem from '../molecules/ReviewCompactCardItem';
 
@@ -13,7 +13,6 @@ const Container = styled.div`
 	justify-content: space-between;
 	gap: 20px;
 	width: 100%;
-	min-height: 300px;
 `;
 
 interface IReviewCompactCardListProps {
@@ -25,9 +24,8 @@ function ReviewCompactCardList({
 	reviews,
 	isPending,
 }: IReviewCompactCardListProps): JSX.Element {
-	// TODO: Skeleton UI로 대체
 	if (isPending || !reviews) {
-		return <p>Loading...</p>;
+		return <ReviewCompactCardList.Skeleton />;
 	}
 
 	return (
@@ -53,6 +51,14 @@ function ReviewCompactCardList({
 	);
 }
 
-export default withAsyncBoundary(ReviewCompactCardList, {
-	SuspenseFallback: null,
-});
+ReviewCompactCardList.Skeleton = function (): JSX.Element {
+	return (
+		<Container>
+			{Array.from({ length: 6 }).map(_ => (
+				<ReviewCompactCardItem.Skeleton key={nanoid()} />
+			))}
+		</Container>
+	);
+};
+
+export default ReviewCompactCardList;
