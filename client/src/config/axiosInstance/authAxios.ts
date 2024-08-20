@@ -9,7 +9,7 @@ import { ROUTES } from '@constants/routes';
 const LOGIN_ERROR_MESSAGE = '로그인이 필요한 서비스입니다.';
 
 const authAxios = axios.create({
-	baseURL: process.env.REACT_APP_API_URL,
+	baseURL: process.env.REACT_APP_API_BASE_URL,
 	withCredentials: true,
 });
 
