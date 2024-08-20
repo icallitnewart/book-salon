@@ -1,0 +1,22 @@
+{
+  "name": "book-salon",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "client/**/*.{js,jsx,ts,tsx}": [
+      "npm --prefix client run lint:fix",
+      "npm --prefix client run prettier"
+    ],
+    "server/**/*.{js,ts}": [
+      "npm --prefix server run lint:fix",
+      "npm --prefix server run prettier"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.5"
+  }
+}

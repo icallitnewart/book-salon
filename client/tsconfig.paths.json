@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@config/*": ["config/*"],
+      "@redux/*": ["redux/*"],
+      "@assets/*": ["assets/*"],
+      "@features/*": ["features/*"],
+      "@pages/*": ["pages/*"],
+      "@buttons": ["shared/components/atoms/buttons/index"],
+      "@typographies": ["shared/components/atoms/typographies/index"],
+      "@inputs": ["shared/components/atoms/inputs/index"],
+      "@components/*": ["shared/components/*"],
+      "@constants/*": ["shared/constants/*"],
+      "@typeDefs/*": ["shared/types/*"],
+      "@hooks/*": ["shared/hooks/*"],
+      "@utils/*": ["shared/utils/*"],
+    },
+	}
+}
