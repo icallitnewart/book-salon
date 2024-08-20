@@ -14,7 +14,7 @@ import likeRouter from './domains/like/likeRouter';
 
 const app = express();
 const corsOptions = {
-	origin: ['http://localhost:3000', 'https://book-salon.vercel.app/'],
+	origin: ['http://localhost:3000', 'https://book-salon.vercel.app'],
 	credentials: true,
 	optionsSuccessStatus: 200,
 };
