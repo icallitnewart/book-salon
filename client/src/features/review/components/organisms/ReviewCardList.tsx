@@ -53,7 +53,7 @@ function ReviewCardList({
 			Component: ObserverContainer,
 			observerRef,
 			isFetchingNextPage: !!isFetchingNextPage,
-			loader: <Loader />,
+			loader: <ReviewCardList.Skeleton />,
 		});
 	}, [fetchNextPage, isFetchingNextPage, observerRef]);
 
