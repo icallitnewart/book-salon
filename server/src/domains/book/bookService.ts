@@ -50,6 +50,9 @@ class BookService {
 			url += date;
 		}
 
+		const date = `&Year=2024&Month=01&Week=1`;
+		url += date;
+
 		const { data } = await axios.get(url);
 
 		if (data.errorMessage) {
