@@ -5,23 +5,31 @@ import ReviewCompactListSection from '@features/review/components/organisms/Revi
 import BookInfoSection from '../organisms/BookInfoSection';
 
 const Container = styled.div`
+	display: flex;
+	flex-direction: column;
 	width: 100%;
 `;
 
-const Background = styled.div`
+interface IBackgroundStyleProps {
+	$flex?: string;
+}
+
+const Background = styled.div<IBackgroundStyleProps>`
 	width: 100%;
 	background-color: #f8f8f8;
+	${({ $flex }) => $flex && `flex: ${$flex};`}
 
 	box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 
 interface IWrapperStyleProps {
 	$minHeight?: string;
+	$flex?: string;
 }
 
 const Wrapper = styled.div<IWrapperStyleProps>`
 	width: var(--desktop-screen-width);
-	${({ $minHeight }) => `min-height: ${$minHeight};`}
+	${({ $minHeight }) => $minHeight && `min-height: ${$minHeight};`}
 	margin: 0 auto;
 `;
 
@@ -31,7 +39,7 @@ function BookDetailTemplate(): JSX.Element {
 			<Wrapper $minHeight="600px">
 				<BookInfoSection />
 			</Wrapper>
-			<Background>
+			<Background $flex="1">
 				<Wrapper>
 					<ReviewCompactListSection />
 				</Wrapper>

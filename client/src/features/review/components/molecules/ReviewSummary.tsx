@@ -1,5 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import { stripHtmlTags } from '@utils/dataTransform';
 
@@ -70,5 +72,25 @@ function ReviewSummary({
 		</Container>
 	);
 }
+
+const SkeletonWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	gap: 15px;
+`;
+
+ReviewSummary.Skeleton = function (): JSX.Element {
+	return (
+		<Container>
+			<SkeletonWrapper>
+				<Skeleton width="100%" height={32} />
+				<Skeleton width="100%" height={22} />
+				<Skeleton width="100%" height={22} />
+			</SkeletonWrapper>
+		</Container>
+	);
+};
 
 export default ReviewSummary;

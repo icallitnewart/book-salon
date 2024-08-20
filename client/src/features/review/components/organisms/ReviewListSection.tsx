@@ -1,8 +1,9 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { SortTypes } from '@config/query/queryKeys';
 
+import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
 import useCalculatePerPage from '@hooks/useCalculatedPerPage';
 import useReviewListInfinite from '../../hooks/useReviewListInfinite';
 
@@ -46,4 +47,6 @@ function ReviewListSection({
 	);
 }
 
-export default ReviewListSection;
+export default withAsyncBoundary(ReviewListSection, {
+	SuspenseFallback: <ReviewCardList.Skeleton />,
+});

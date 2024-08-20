@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { queryClient } from '@config/query/queryClient';
 
 import { IReviewListOptions, reviewKeys } from '@config/query/queryKeys';
@@ -12,7 +12,7 @@ function useReviewList({
 	pagination,
 	isInfiniteEnabled,
 }: IReviewListOptions) {
-	const query = useInfiniteQuery({
+	const query = useSuspenseInfiniteQuery({
 		queryKey: reviewKeys.list({ filters, sort }),
 		queryFn: async ({ pageParam = 1 }) => {
 			const data = await reviewApis.getReviewList({
@@ -39,7 +39,6 @@ function useReviewList({
 		},
 		staleTime: 0,
 		gcTime: TIME_MS.MINUTE,
-		throwOnError: true,
 	});
 
 	return {

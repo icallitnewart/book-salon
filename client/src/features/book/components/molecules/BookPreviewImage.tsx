@@ -1,5 +1,7 @@
 import React from 'react';
 import { css, styled } from 'styled-components';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import { Heading3, Paragraph } from '@typographies';
 import BookCoverWithBackground from './BookCoverWithBackground';
@@ -120,5 +122,13 @@ function BookPreviewImage({
 		</Container>
 	);
 }
+
+BookPreviewImage.Skeleton = function (): JSX.Element {
+	return (
+		<Container $isHovered={false}>
+			<Skeleton width="100%" height="100%" />
+		</Container>
+	);
+};
 
 export default BookPreviewImage;
