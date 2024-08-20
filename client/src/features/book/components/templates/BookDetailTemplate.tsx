@@ -24,11 +24,13 @@ const Background = styled.div<IBackgroundStyleProps>`
 
 interface IWrapperStyleProps {
 	$minHeight?: string;
-	$flex?: string;
+	$height?: string;
 }
 
 const Wrapper = styled.div<IWrapperStyleProps>`
+	display: flex;
 	width: var(--desktop-screen-width);
+	${({ $height }) => $height && `height: ${$height};`}
 	${({ $minHeight }) => $minHeight && `min-height: ${$minHeight};`}
 	margin: 0 auto;
 `;
@@ -40,7 +42,7 @@ function BookDetailTemplate(): JSX.Element {
 				<BookInfoSection />
 			</Wrapper>
 			<Background $flex="1">
-				<Wrapper>
+				<Wrapper $height="100%">
 					<ReviewCompactListSection />
 				</Wrapper>
 			</Background>
