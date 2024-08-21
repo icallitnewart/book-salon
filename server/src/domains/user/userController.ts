@@ -3,6 +3,8 @@ import { IUserInput, IUserModel } from './userModel';
 import { userService } from './userService';
 import { HttpError } from '../../utils/HttpError';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 class UserController {
 	async registerUser(req: Request, res: Response) {
 		const userInput = req.body as IUserInput;
@@ -19,8 +21,8 @@ class UserController {
 
 		res.cookie('token', token, {
 			httpOnly: true,
-			secure: false, // TODO: 추후 true로 변경
-			sameSite: 'strict',
+			secure: isProduction,
+			sameSite: isProduction ? 'none' : 'lax',
 			maxAge: 3600000, // 1시간 (60분 * 60초 * 1000밀리초)
 		});
 
@@ -33,8 +35,8 @@ class UserController {
 	async logoutUser(req: Request, res: Response) {
 		res.clearCookie('token', {
 			httpOnly: true,
-			secure: false, // TODO: 추후 true로 변경
-			sameSite: 'strict',
+			secure: isProduction,
+			sameSite: isProduction ? 'none' : 'lax',
 		});
 
 		res.json({
