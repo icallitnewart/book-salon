@@ -9,6 +9,10 @@ const swaggerDefinition = {
 	},
 	servers: [
 		{
+			url: `https://book-salon-a68d69588b16.herokuapp.com/api`,
+			description: 'Production server',
+		},
+		{
 			url: `http://localhost:5000/api`,
 			description: 'Development server',
 		},
