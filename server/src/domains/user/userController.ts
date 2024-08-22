@@ -22,7 +22,7 @@ class UserController {
 		res.cookie('token', token, {
 			httpOnly: true,
 			secure: isProduction,
-			sameSite: 'lax',
+			sameSite: isProduction ? 'none' : 'lax',
 			maxAge: 3600000, // 1시간 (60분 * 60초 * 1000밀리초)
 		});
 
@@ -36,7 +36,7 @@ class UserController {
 		res.clearCookie('token', {
 			httpOnly: true,
 			secure: isProduction,
-			sameSite: 'lax',
+			sameSite: isProduction ? 'none' : 'lax',
 		});
 
 		res.json({
