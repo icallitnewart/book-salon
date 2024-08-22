@@ -61,6 +61,7 @@ function ReviewForm<T extends boolean>({
 	isEditMode,
 	submitMutation,
 	initialData,
+	isPending,
 }: IReviewFormProps<T>): JSX.Element {
 	const navigate = useNavigate();
 	const { isbn } = useParams();
@@ -207,6 +208,7 @@ function ReviewForm<T extends boolean>({
 					isOpen={isRatingModalOpen}
 					closeModal={() => setIsRatingModalOpen(false)}
 					handleSubmit={handleSubmit}
+					isPending={isPending}
 					initialRating={initialData?.rating}
 				/>
 			)}

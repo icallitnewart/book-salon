@@ -32,7 +32,7 @@ function ReviewCommentForm(): JSX.Element {
 	const { data: isAuth } = useAuthUser({
 		select: data => data.isAuth,
 	});
-	const { addReviewComment, initialiseQueryAfterMutation } =
+	const { addReviewComment, initialiseQueryAfterMutation, isPending } =
 		useAddReviewComment(reviewId);
 
 	const checkValidation = () => {
@@ -96,7 +96,7 @@ function ReviewCommentForm(): JSX.Element {
 				$minHeight="50px"
 				$height="auto"
 			/>
-			<PrimaryButton type="submit" $width="100px">
+			<PrimaryButton type="submit" $width="100px" isPending={isPending}>
 				작성
 			</PrimaryButton>
 		</Form>

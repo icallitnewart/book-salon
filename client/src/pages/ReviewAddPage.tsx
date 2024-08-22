@@ -5,13 +5,14 @@ import ReviewFormTemplate from '@features/review/components/templates/ReviewForm
 import useAddReview from '@features/review/hooks/useAddReview';
 
 function ReviewAddPage(): JSX.Element {
-	const { addReview } = useAddReview();
+	const { addReview, isPending } = useAddReview();
 
 	return (
 		<PageTemplate>
 			<ReviewFormTemplate<false>
 				isEditMode={false}
 				submitMutation={addReview}
+				isPending={isPending}
 			/>
 		</PageTemplate>
 	);

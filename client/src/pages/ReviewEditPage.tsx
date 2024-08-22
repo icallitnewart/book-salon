@@ -9,7 +9,7 @@ import ReviewFormTemplate from '@features/review/components/templates/ReviewForm
 
 function ReviewEditPage(): JSX.Element {
 	const { reviewId } = useParams();
-	const { updateReview } = useUpdateReview(reviewId);
+	const { updateReview, isPending } = useUpdateReview(reviewId);
 	const { data } = useReviewDetail(reviewId);
 
 	return (
@@ -18,6 +18,7 @@ function ReviewEditPage(): JSX.Element {
 				isEditMode
 				submitMutation={updateReview}
 				initialData={data}
+				isPending={isPending}
 			/>
 		</PageTemplate>
 	);

@@ -8,6 +8,7 @@ import ReviewRatingModal from '../organisms/ReviewRatingModal';
 interface IReviewRatingModalTemplateProps extends IModalProps {
 	handleSubmit: (rating: number) => void;
 	initialRating?: number;
+	isPending?: boolean;
 }
 
 function ReviewRatingModalTemplate({
@@ -15,6 +16,7 @@ function ReviewRatingModalTemplate({
 	closeModal,
 	handleSubmit,
 	initialRating,
+	isPending,
 }: IReviewRatingModalTemplateProps): JSX.Element {
 	return (
 		<ModalLayoutTemplate isOpen={isOpen} closeModal={closeModal}>
@@ -22,6 +24,7 @@ function ReviewRatingModalTemplate({
 				closeModal={closeModal}
 				handleSubmit={handleSubmit}
 				initialRating={initialRating}
+				isPending={isPending}
 			/>
 		</ModalLayoutTemplate>
 	);

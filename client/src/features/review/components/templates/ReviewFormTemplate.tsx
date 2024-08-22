@@ -18,6 +18,7 @@ function ReviewFormTemplate<T extends boolean>({
 	isEditMode,
 	submitMutation,
 	initialData,
+	isPending,
 }: IReviewFormTemplateProps<T>): JSX.Element {
 	return (
 		<BookProfileLayoutTemplate>
@@ -35,6 +36,7 @@ function ReviewFormTemplate<T extends boolean>({
 					isEditMode={isEditMode}
 					submitMutation={submitMutation}
 					initialData={initialData}
+					isPending={isPending}
 				/>
 			</Container>
 		</BookProfileLayoutTemplate>

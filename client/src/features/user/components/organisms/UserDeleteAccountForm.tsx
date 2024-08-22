@@ -38,7 +38,8 @@ function UserDeleteAccountForm({
 	closeUserDeleteAccountForm,
 }: IUserDeleteAccountFormProps): JSX.Element {
 	const navigate = useNavigate();
-	const { deleteUser, initialiseQueriesAfterMutation } = useDeleteUser();
+	const { deleteUser, initialiseQueriesAfterMutation, isPending } =
+		useDeleteUser();
 	const password = useInputWithError('', validateVerifyPassword);
 
 	const checkValidation = (): boolean => {
@@ -93,7 +94,11 @@ function UserDeleteAccountForm({
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<SubmitButton type="submit" $hoverBgColor="crimson">
+				<SubmitButton
+					type="submit"
+					$hoverBgColor="crimson"
+					isPending={isPending}
+				>
 					확인
 				</SubmitButton>
 				<CancelButton type="button" onClick={closeUserDeleteAccountForm}>
