@@ -9,6 +9,7 @@ import useSearchReview from '@features/review/hooks/useSearchReview';
 import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
 import withPaginationObserver from '@components/organisms/withPaginationObserver';
 import Loader from '@components/molecules/Loader';
+import SearchEmptyAlert from '@components/molecules/SearchEmptyAlert';
 import ReviewSearchItem from '../molecules/ReviewSearchItem';
 
 const Container = styled.ul`
@@ -50,7 +51,7 @@ function ReviewSearchList({
 	closeModal,
 	searchTerm,
 }: IReviewSearchListProps): JSX.Element {
-	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+	const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
 		useSearchReview(searchTerm, { perPage: 5 });
 	const observerRef = useInfiniteScroll({
 		hasNextPage,
@@ -67,6 +68,10 @@ function ReviewSearchList({
 		isFetchingNextPage,
 		loader: <Loader />,
 	});
+
+	if (!isPending && reviews.length === 0) {
+		return <SearchEmptyAlert searchTerm={searchTerm} />;
+	}
 
 	return (
 		<Container>

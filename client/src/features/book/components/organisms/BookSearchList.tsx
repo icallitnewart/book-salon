@@ -9,6 +9,7 @@ import useSearchBook from '@features/book/hooks/useSearchBook';
 import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
 import withPaginationObserver from '@components/organisms/withPaginationObserver';
 import Loader from '@components/molecules/Loader';
+import SearchEmptyAlert from '@components/molecules/SearchEmptyAlert';
 import BookSearchItem from '../molecules/BookSearchItem';
 
 const Container = styled.ul`
@@ -50,7 +51,7 @@ function BookSearchList({
 	closeModal,
 	searchTerm,
 }: IBookSearchListProps): JSX.Element {
-	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+	const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
 		useSearchBook(searchTerm, { maxResults: 5, startPage: 1 });
 	const observerRef = useInfiniteScroll({
 		hasNextPage,
@@ -67,6 +68,10 @@ function BookSearchList({
 		isFetchingNextPage,
 		loader: <Loader />,
 	});
+
+	if (!isPending && books.length === 0) {
+		return <SearchEmptyAlert searchTerm={searchTerm} />;
+	}
 
 	return (
 		<Container>
