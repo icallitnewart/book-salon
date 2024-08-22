@@ -9,7 +9,8 @@ import { SubtleButton } from '@buttons';
 
 function UserLogoutButton() {
 	const navigate = useNavigate();
-	const { logoutUser, initialiseQueriesAfterMutation } = useLogoutUser();
+	const { logoutUser, initialiseQueriesAfterMutation, isPending } =
+		useLogoutUser();
 
 	const handleLogout = () => {
 		logoutUser(undefined, {
@@ -29,7 +30,7 @@ function UserLogoutButton() {
 	};
 
 	return (
-		<SubtleButton type="button" onClick={handleLogout}>
+		<SubtleButton type="button" onClick={handleLogout} isPending={isPending}>
 			로그아웃
 		</SubtleButton>
 	);

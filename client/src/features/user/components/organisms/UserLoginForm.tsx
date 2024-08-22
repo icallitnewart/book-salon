@@ -43,7 +43,7 @@ const LinkContainer = styled(Link)`
 function UserLoginForm(): JSX.Element {
 	const location = useLocation();
 	const navigate = useNavigate();
-	const { loginUser, isError, updateAuthQueryDataAfterMutation } =
+	const { loginUser, isError, isPending, updateAuthQueryDataAfterMutation } =
 		useLoginUser();
 	const [loginError, setLoginError] = React.useState('');
 	const email = useInputWithError('', validateEmail);
@@ -112,7 +112,9 @@ function UserLoginForm(): JSX.Element {
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<PrimaryButton type="submit">로그인</PrimaryButton>
+				<PrimaryButton type="submit" isPending={isPending}>
+					로그인
+				</PrimaryButton>
 				{isError && loginError && <UserErrorMessage error={loginError} />}
 			</ButtonContainer>
 			<LinkContainer to={ROUTES.USER.REGISTER}>

@@ -23,12 +23,14 @@ interface IReviewRatingModalProps {
 	closeModal: () => void;
 	handleSubmit: (rating: number) => void;
 	initialRating?: number;
+	isPending?: boolean;
 }
 
 function ReviewRatingModal({
 	closeModal,
 	handleSubmit,
 	initialRating,
+	isPending,
 }: IReviewRatingModalProps): JSX.Element {
 	const [rating, setRating] = useState(initialRating || 0);
 
@@ -48,7 +50,12 @@ function ReviewRatingModal({
 				<SubtleButton onClick={closeModal} $hoverBgColor="none">
 					취소
 				</SubtleButton>
-				<PrimaryButton onClick={() => handleSubmit(rating)}>등록</PrimaryButton>
+				<PrimaryButton
+					onClick={() => handleSubmit(rating)}
+					isPending={isPending}
+				>
+					등록
+				</PrimaryButton>
 			</ButtonContainer>
 		</Container>
 	);

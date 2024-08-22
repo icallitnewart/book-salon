@@ -7,9 +7,11 @@ import { ReactComponent as LogoSvg } from '@assets/svg/logo.svg';
 
 function Logo(): JSX.Element {
 	return (
-		<Link to={ROUTES.MAIN}>
-			<LogoSvg />
-		</Link>
+		<div>
+			<Link to={ROUTES.MAIN}>
+				<LogoSvg />
+			</Link>
+		</div>
 	);
 }
 

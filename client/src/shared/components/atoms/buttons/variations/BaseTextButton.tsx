@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Loader from '@components/molecules/Loader';
+
 import {
 	ITextButtonStylesProps,
 	textButtonStyles,
@@ -16,6 +18,8 @@ export interface IBaseTextButtonProps extends ITextButtonStylesProps {
 	className?: string;
 	children: React.ReactNode;
 	onClick?: () => void;
+	disabled?: boolean;
+	isPending?: boolean;
 	type?: 'button' | 'submit' | 'reset';
 	variant?: keyof typeof textButtonVariantStyles;
 }
@@ -27,6 +31,8 @@ export default function BaseTextButton({
 	type = 'button',
 	variant,
 	onClick = () => {},
+	disabled = false,
+	isPending = false,
 	$bgColor,
 	$color,
 	$hoverBgColor,
@@ -49,6 +55,7 @@ export default function BaseTextButton({
 			className={className}
 			onClick={onClick}
 			type={type}
+			disabled={disabled || isPending}
 			$variant={variant}
 			$bgColor={$bgColor}
 			$color={$color}
@@ -66,7 +73,7 @@ export default function BaseTextButton({
 			$padding={$padding}
 			$margin={$margin}
 		>
-			{children}
+			{isPending ? <Loader $size="sm" $isDarkBg /> : children}
 		</StyledButton>
 	);
 }

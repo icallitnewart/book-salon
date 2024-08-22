@@ -35,7 +35,7 @@ const ButtonContainer = styled.div`
 
 function UserRegisterForm(): JSX.Element {
 	const navigate = useNavigate();
-	const { registerUser } = useRegisterUser();
+	const { registerUser, isPending } = useRegisterUser();
 	const email = useInputWithError('', validateEmail);
 	const nickname = useInputWithError('', validateNickname);
 	const password = useInputWithError('', validatePassword);
@@ -122,7 +122,9 @@ function UserRegisterForm(): JSX.Element {
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<SecondaryButton type="submit">가입하기</SecondaryButton>
+				<SecondaryButton type="submit" isPending={isPending}>
+					가입하기
+				</SecondaryButton>
 			</ButtonContainer>
 		</Form>
 	);

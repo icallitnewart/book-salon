@@ -46,7 +46,8 @@ function UserProfileEditForm({
 	openUserDeleteAccountForm,
 }: IUserProfileEditFormProps): JSX.Element {
 	const navigate = useNavigate();
-	const { updateUser, updateAuthQueryDataAfterMutation } = useUpdateUser();
+	const { updateUser, updateAuthQueryDataAfterMutation, isPending } =
+		useUpdateUser();
 	const { data: user } = useAuthUser({
 		select: data => data.user,
 	});
@@ -162,7 +163,9 @@ function UserProfileEditForm({
 				/>
 			</InputContainer>
 			<ButtonContainer>
-				<EditButton type="submit">수정하기</EditButton>
+				<EditButton type="submit" isPending={isPending}>
+					수정하기
+				</EditButton>
 				<DeleteButton
 					type="button"
 					$hoverBgColor="crimson"
