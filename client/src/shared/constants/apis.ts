@@ -5,7 +5,10 @@ import { IBookPageOptions } from '@features/book/types/bookData';
 
 import { createQueryString, createReviewListQuery } from '@utils/query';
 
-const API_BASE_URL = `${process.env.REACT_APP_API_BASE_URL}/api`;
+const isDevelopment = process.env.NODE_ENV === 'development';
+const API_BASE_URL = isDevelopment
+	? `${process.env.REACT_APP_API_BASE_URL}/api`
+	: '/api';
 const USER_BASE_URL = `${API_BASE_URL}/users`;
 const BOOK_BASE_URL = `${API_BASE_URL}/books`;
 const REVIEW_BASE_URL = `${API_BASE_URL}/reviews`;
