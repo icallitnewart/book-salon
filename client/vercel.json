@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://book-salon-a68d69588b16.herokuapp.com/:path*"
+    }
+  ]
+}
