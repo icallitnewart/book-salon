@@ -3,6 +3,12 @@ import { styled } from 'styled-components';
 
 import ReviewRatingStar from '../atoms/ReviewRatingStar';
 
+const sizes = {
+	sm: '12px',
+	md: '14px',
+	lg: '26px',
+};
+
 interface IContainerStyleProps {
 	$starSize?: 'sm' | 'md' | 'lg';
 }
@@ -13,8 +19,8 @@ const Container = styled.div<IContainerStyleProps>`
 	gap: 3px;
 
 	svg {
-		width: ${({ $starSize }) => ($starSize === 'sm' ? '12px' : '14px')};
-		height: ${({ $starSize }) => ($starSize === 'sm' ? '12px' : '14px')};
+		width: ${({ $starSize }) => $starSize && sizes[$starSize]};
+		height: ${({ $starSize }) => $starSize && sizes[$starSize]};
 
 		color: #fdee1e;
 		stroke: #555;

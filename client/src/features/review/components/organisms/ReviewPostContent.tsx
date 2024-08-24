@@ -5,14 +5,15 @@ import { styled } from 'styled-components';
 import { ROUTES } from '@constants/routes';
 import useEffectOnce from '@hooks/useEffectOnce';
 import useAuthUser from '@features/user/hooks/useAuthUser';
-import useUpdateReviewViewCount from '@features/review/hooks/useUpdateReviewViewCount';
 
 import { Heading3 as Title, Span, SanitisedHTML } from '@typographies';
 import Divider from '@components/atoms/Divider';
-import ReviewTagList from './ReviewTagList';
-import ReviewEditDeleteButtons from './ReviewEditDeleteButtons';
-import ReviewAuthorWithDate from './ReviewAuthorWithDate';
+import ReviewTagList from '../molecules/ReviewTagList';
+import ReviewPostRatingBox from '../molecules/ReviewPostRatingBox';
+import ReviewEditDeleteButtons from '../molecules/ReviewEditDeleteButtons';
+import ReviewAuthorWithDate from '../molecules/ReviewAuthorWithDate';
 
+import useUpdateReviewViewCount from '../../hooks/useUpdateReviewViewCount';
 import useDeleteReview from '../../hooks/useDeleteReview';
 import useReviewDetail from '../../hooks/useReviewDetail';
 
@@ -80,7 +81,7 @@ function ReviewPostContent(): JSX.Element {
 			<Divider $margin="13px 0px 8px" />
 			<MetaInfo $marginBottom="15px">
 				<ReviewAuthorWithDate
-					author={review?.user.nickname}
+					author={review?.user?.nickname}
 					date={review?.createdAt}
 					variantSize="lg"
 				/>
@@ -90,10 +91,10 @@ function ReviewPostContent(): JSX.Element {
 				html={review?.content}
 				variant="article-body-lg"
 				$lineHeight={1.8}
-				$minHeight="200px"
 				$textAlign="justify"
-				$marginBottom="30px"
+				$marginBottom="50px"
 			/>
+			{review?.rating && <ReviewPostRatingBox rating={review.rating} />}
 			{review?.user.id === userId && (
 				<ReviewEditDeleteButtons
 					variantType="article"

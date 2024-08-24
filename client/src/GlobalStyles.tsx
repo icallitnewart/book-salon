@@ -11,6 +11,7 @@ const GlobalStyles = createGlobalStyle`
 		--main-color-black: #000000;
 		--sub-color-green: #00f799;
     --sub-color-darkgreen: #0EBF7C;
+    --bg-color-grey-1: #f8f8f8;
 
     --main-font-eng: 'Montserrat', sans-serif;
     --main-font-kor: 'Noto Sans KR', sans-serif;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ReviewPostContent from '../molecules/ReviewPostContent';
+import ReviewPostContent from './ReviewPostContent';
 import ReviewCommentBox from './ReviewCommentBox';
 
 const Container = styled.section`
