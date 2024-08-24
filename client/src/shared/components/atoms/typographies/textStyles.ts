@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 // variants of text styles (different font sizes, colors, etc.)
 export const textVariantStyles = {
 	'section-title-lg': css<ITextStylesProps>`
-		font-size: 3rem;
+		font-size: ${({ $fontSize }) => $fontSize || 3}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 800};
 		color: ${({ $color }) => $color || '#000'};
 		font-family: ${({ $fontFamily }) => $fontFamily || 'var(--main-font-eng)'};
@@ -11,7 +11,7 @@ export const textVariantStyles = {
 		line-height: ${({ $lineHeight }) => $lineHeight || 1};
 	`,
 	'section-title-md': css<ITextStylesProps>`
-		font-size: 2.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 2.4}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 800};
 		color: ${({ $color }) => $color || '#000'};
 		font-family: ${({ $fontFamily }) => $fontFamily || 'var(--main-font-eng)'};
@@ -19,7 +19,7 @@ export const textVariantStyles = {
 		line-height: ${({ $lineHeight }) => $lineHeight || 1};
 	`,
 	'section-title-sm': css<ITextStylesProps>`
-		font-size: 2rem;
+		font-size: ${({ $fontSize }) => $fontSize || 2}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 800};
 		color: ${({ $color }) => $color || '#000'};
 		font-family: ${({ $fontFamily }) => $fontFamily || 'var(--main-font-eng)'};
@@ -27,210 +27,210 @@ export const textVariantStyles = {
 		line-height: ${({ $lineHeight }) => $lineHeight || 1};
 	`,
 	'article-title-xl': css<ITextStylesProps>`
-		font-size: 3rem;
+		font-size: ${({ $fontSize }) => $fontSize || 3}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#000'};
 	`,
 	'article-title-lg': css<ITextStylesProps>`
-		font-size: 2.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 2.4}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#000'};
 	`,
 	'article-title-md': css<ITextStylesProps>`
-		font-size: 2.2rem;
+		font-size: ${({ $fontSize }) => $fontSize || 2.2}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#000'};
 	`,
 	'article-title-sm': css<ITextStylesProps>`
-		font-size: 2rem;
+		font-size: ${({ $fontSize }) => $fontSize || 2}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#000'};
 	`,
 	'article-subtitle-lg': css<ITextStylesProps>`
-		font-size: 2rem;
+		font-size: ${({ $fontSize }) => $fontSize || 2}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 500};
 		color: ${({ $color }) => $color || '#444'};
 	`,
 	'article-subtitle-md': css<ITextStylesProps>`
-		font-size: 1.8rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.8}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 500};
 		color: ${({ $color }) => $color || '#444'};
 	`,
 	'article-subtitle-sm': css<ITextStylesProps>`
-		font-size: 1.6rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.6}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 500};
 		color: ${({ $color }) => $color || '#444'};
 	`,
 	'article-body-lg': css<ITextStylesProps>`
-		font-size: 1.6rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.6}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 400};
 		color: ${({ $color }) => $color || '#444'};
 	`,
 	'article-body-md': css<ITextStylesProps>`
-		font-size: 1.5rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.5}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 400};
 		color: ${({ $color }) => $color || '#444'};
 	`,
 	'article-body-sm': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.4}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 400};
 		color: ${({ $color }) => $color || '#444'};
 	`,
 	'article-field-lg': css<ITextStylesProps>`
-		font-size: 1.6rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.6}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#222'};
 	`,
 	'article-field-md': css<ITextStylesProps>`
-		font-size: 1.5rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.5}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#222'};
 	`,
 	'article-field-sm': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.4}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#222'};
 	`,
 	'article-meta-lg': css<ITextStylesProps>`
-		font-size: 1.5rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.5}rem;
 		color: ${({ $color }) => $color || '#888'};
 	`,
 	'article-meta-md': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.4}rem;
 		color: ${({ $color }) => $color || '#888'};
 	`,
 	'article-meta-sm': css<ITextStylesProps>`
-		font-size: 1.3rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.3}rem;
 		color: ${({ $color }) => $color || '#888'};
 	`,
 	'card-title-lg': css<ITextStylesProps>`
-		font-size: 1.6rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.6}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#333'};
 	`,
 	'card-title-md': css<ITextStylesProps>`
-		font-size: 1.5rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.5}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#333'};
 	`,
 	'card-title-sm': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.4}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#333'};
 	`,
 	'card-title-xs': css<ITextStylesProps>`
-		font-size: 1.3rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.3}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#333'};
 	`,
 	'card-subtitle-lg': css<ITextStylesProps>`
-		font-size: 1.5rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.5}rem;
 		color: ${({ $color }) => $color || '#555'};
 	`,
 	'card-subtitle-md': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.4}rem;
 		color: ${({ $color }) => $color || '#555'};
 	`,
 	'card-subtitle-sm': css<ITextStylesProps>`
-		font-size: 1.3rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.3}rem;
 		color: ${({ $color }) => $color || '#555'};
 	`,
 	'card-subtitle-xs': css<ITextStylesProps>`
-		font-size: 1.2rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.2}rem;
 		color: ${({ $color }) => $color || '#555'};
 	`, // 제거
 	'card-field-lg': css<ITextStylesProps>`
-		font-size: 1.6rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.6}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#555'};
 	`,
 	'card-field-md': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.4}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#555'};
 	`,
 	'card-field-sm': css<ITextStylesProps>`
-		font-size: 1.2rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.2}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#555'};
 	`,
 	'card-body-lg': css<ITextStylesProps>`
-		font-size: 1.6rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.6}rem;
 		color: ${({ $color }) => $color || '#222'};
 	`,
 	'card-body-md': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.4}rem;
 		color: ${({ $color }) => $color || '#222'};
 	`,
 	'card-body-sm': css<ITextStylesProps>`
-		font-size: 1.2rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.2}rem;
 		color: ${({ $color }) => $color || '#222'};
 	`,
 	'card-meta-lg': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.4}rem;
 		color: ${({ $color }) => $color || '#888'};
 	`,
 	'card-meta-md': css<ITextStylesProps>`
-		font-size: 1.3rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.3}rem;
 		color: ${({ $color }) => $color || '#888'};
 	`,
 	'card-meta-sm': css<ITextStylesProps>`
-		font-size: 1.2rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.2}rem;
 		color: ${({ $color }) => $color || '#888'};
 	`,
 	'list-title-lg': css<ITextStylesProps>`
-		font-size: 2rem;
+		font-size: ${({ $fontSize }) => $fontSize || 2}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#000'};
 	`,
 	'list-title-md': css<ITextStylesProps>`
-		font-size: 1.8rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.8}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#000'};
 	`,
 	'list-title-sm': css<ITextStylesProps>`
-		font-size: 1.6rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.6}rem;
 		font-weight: ${({ $fontWeight }) => $fontWeight || 600};
 		color: ${({ $color }) => $color || '#000'};
 	`,
 	'list-body-lg': css<ITextStylesProps>`
-		font-size: 1.6rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.6}rem;
 		color: ${({ $color }) => $color || '#444'};
 	`,
 	'list-body-md': css<ITextStylesProps>`
-		font-size: 1.5rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.5}rem;
 		color: ${({ $color }) => $color || '#444'};
 	`,
 	'list-body-sm': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.4}rem;
 		color: ${({ $color }) => $color || '#444'};
 	`,
 	'list-meta-lg': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.4}rem;
 		color: ${({ $color }) => $color || '#888'};
 	`,
 	'list-meta-md': css<ITextStylesProps>`
-		font-size: 1.3rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.3}rem;
 		color: ${({ $color }) => $color || '#888'};
 	`,
 	'list-meta-sm': css<ITextStylesProps>`
-		font-size: 1.2rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.2}rem;
 		color: ${({ $color }) => $color || '#888'};
 	`,
 	'highlight-meta-lg': css<ITextStylesProps>`
-		font-size: 1.5rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.5}rem;
 		color: var(--sub-color-darkgreen);
 		font-weight: 500;
 		letter-spacing: 1px;
 	`,
 	'highlight-meta-md': css<ITextStylesProps>`
-		font-size: 1.4rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.4}rem;
 		color: var(--sub-color-darkgreen);
 		font-weight: 500;
 		letter-spacing: 1px;
 	`,
 	'highlight-meta-sm': css<ITextStylesProps>`
-		font-size: 1.3rem;
+		font-size: ${({ $fontSize }) => $fontSize || 1.3}rem;
 		color: var(--sub-color-darkgreen);
 		font-weight: 500;
 		letter-spacing: 1px;
