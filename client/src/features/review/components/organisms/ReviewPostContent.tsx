@@ -95,7 +95,7 @@ function ReviewPostContent(): JSX.Element {
 				$marginBottom="50px"
 			/>
 			{review?.rating && <ReviewPostRatingBox rating={review.rating} />}
-			{review?.user.id === userId && (
+			{review?.user?.id === userId && (
 				<ReviewEditDeleteButtons
 					variantType="article"
 					variantSize="lg"
