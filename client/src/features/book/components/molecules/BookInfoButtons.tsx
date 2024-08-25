@@ -11,6 +11,7 @@ const ButtonContainer = styled.div`
 
 	width: 100%;
 	height: 50px;
+	margin-bottom: 15px;
 `;
 
 function BookInfoButtons(): JSX.Element {
