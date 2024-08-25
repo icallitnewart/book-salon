@@ -6,6 +6,7 @@ import { ROUTES } from '@constants/routes';
 import useEffectOnce from '@hooks/useEffectOnce';
 import useAuthUser from '@features/user/hooks/useAuthUser';
 
+import Skeleton from '@components/atoms/Skeleton';
 import { Heading3 as Title, Span, SanitisedHTML } from '@typographies';
 import Divider from '@components/atoms/Divider';
 import ReviewTagList from '../molecules/ReviewTagList';
@@ -70,6 +71,10 @@ function ReviewPostContent(): JSX.Element {
 		}
 	}, [reviewId, updateReviewViewCount]);
 
+	if (!review) {
+		return <ReviewPostContent.Skeleton />;
+	}
+
 	return (
 		<Container>
 			<MetaInfo $marginBottom="7px">
@@ -106,5 +111,37 @@ function ReviewPostContent(): JSX.Element {
 		</Container>
 	);
 }
+
+const TagListSkeletonWrapper = styled.div`
+	display: flex;
+	gap: 10px;
+	width: 100%;
+	margin-bottom: 10px;
+`;
+
+ReviewPostContent.Skeleton = function (): JSX.Element {
+	return (
+		<Container>
+			<TagListSkeletonWrapper>
+				<Skeleton width="70px" height={20} />
+				<Skeleton width="100px" height={20} />
+				<Skeleton width="80px" height={20} />
+				<Skeleton width="90px" height={20} />
+			</TagListSkeletonWrapper>
+			<Skeleton width="100%" height={50} />
+			<Divider $margin="13px 0px 8px" />
+			<MetaInfo $marginBottom="20px">
+				<Skeleton width="150px" height={20} />
+				<Skeleton width="100px" height={20} />
+			</MetaInfo>
+			<Skeleton width="100%" height={25} $marginBottom="15px" />
+			<Skeleton width="100%" height={25} $marginBottom="15px" />
+			<Skeleton width="100%" height={25} $marginBottom="15px" />
+			<Skeleton width="100%" height={25} $marginBottom="15px" />
+			<Skeleton width="100%" height={25} $marginBottom="15px" />
+			<Skeleton width="60%" height={25} $marginBottom="15px" />
+		</Container>
+	);
+};
 
 export default ReviewPostContent;
