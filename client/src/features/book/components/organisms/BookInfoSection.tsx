@@ -16,28 +16,36 @@ const Container = styled.section`
 
 function BookInfoSection(): JSX.Element {
 	const { isbn } = useParams();
-	const { data: book, isPending } = useBookDetail(isbn);
+	const { data: book } = useBookDetail(isbn);
 
-	if (isPending) {
-		// TODO: 각 컴포넌트에 전달하여 Skeleton UI로 대체
-		return <Container>Loading...</Container>;
+	if (!book) {
+		return <BookInfoSection.Skeleton />;
 	}
 
 	return (
 		<Container>
-			<BookCoverWithBackground src={book?.cover} alt={book?.title} />
+			<BookCoverWithBackground src={book.cover} alt={book.title} />
 			<BookInfoContent
-				title={book?.title}
-				author={book?.author}
-				category={book?.category}
-				publisher={book?.publisher}
-				pubDate={book?.pubDate}
-				isbn={book?.isbn}
-				description={book?.description}
+				title={book.title}
+				author={book.author}
+				category={book.category}
+				publisher={book.publisher}
+				pubDate={book.pubDate}
+				isbn={book.isbn}
+				description={book.description}
 			/>
 		</Container>
 	);
 }
+
+BookInfoSection.Skeleton = function (): JSX.Element {
+	return (
+		<Container>
+			<BookCoverWithBackground $imgWidth="200px" $imgHeight="300px" />
+			<BookInfoContent.Skeleton />
+		</Container>
+	);
+};
 
 export default withAsyncBoundary(BookInfoSection, {
 	SuspenseFallback: null,

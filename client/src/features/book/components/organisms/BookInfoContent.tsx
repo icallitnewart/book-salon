@@ -39,4 +39,12 @@ function BookInfoContent({
 	);
 }
 
+BookInfoContent.Skeleton = function (): JSX.Element {
+	return (
+		<Container>
+			<BookInfoTextBox.Skeleton />
+		</Container>
+	);
+};
+
 export default BookInfoContent;

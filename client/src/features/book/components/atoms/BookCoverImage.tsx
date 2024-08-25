@@ -1,6 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
+import Skeleton from '@components/atoms/Skeleton';
+
 interface IImageStyleProps {
 	$width?: string;
 	$height?: string;
@@ -30,6 +32,10 @@ function BookCoverImage({
 	$boxShadow,
 	$borderRadius,
 }: IBookCoverImageProps): JSX.Element {
+	if (!src) {
+		return <Skeleton width={$width} height={$height} />;
+	}
+
 	return (
 		<Image
 			src={src}

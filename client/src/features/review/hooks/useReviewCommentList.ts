@@ -1,11 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { reviewKeys } from '@config/query/queryKeys';
 
 import { TIME_MS } from '@constants/time';
 import reviewApis from '../apis/reviewApis';
 
 function useReviewCommentList(reviewId?: string) {
-	return useQuery({
+	return useSuspenseQuery({
 		queryKey: reviewKeys.commentList(reviewId),
 		queryFn: async () => {
 			if (!reviewId) {
@@ -14,10 +14,8 @@ function useReviewCommentList(reviewId?: string) {
 
 			return reviewApis.getReviewCommentList(reviewId);
 		},
-		enabled: !!reviewId,
 		staleTime: TIME_MS.MINUTE,
 		gcTime: TIME_MS.MINUTE * 3,
-		throwOnError: true,
 	});
 }
 
