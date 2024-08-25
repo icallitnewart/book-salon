@@ -8,9 +8,10 @@ import { IBookDetail } from '@features/book/types/bookData';
 import useBookDetail from '@features/book/hooks/useBookDetail';
 import useReviewDetail from '@features/review/hooks/useReviewDetail';
 
-import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
-import Loader from '@components/molecules/Loader';
 import { Heading2 as BookTitle } from '@typographies';
+import Skeleton from '@components/atoms/Skeleton';
+import Loader from '@components/molecules/Loader';
+import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
 import BookCoverWithBackground from '../molecules/BookCoverWithBackground';
 import BookInfoTextWithLabel from '../molecules/BookInfoTextWithLabel';
 
@@ -63,6 +64,30 @@ function BookProfileDetail({ book }: { book?: IBookDetail }): JSX.Element {
 		</Container>
 	);
 }
+
+BookProfileDetail.Skeleton = function (): JSX.Element {
+	return (
+		<Container>
+			<BookCoverWithBackground
+				$width="100%"
+				$imgWidth="135px"
+				$imgHeight="201px"
+			/>
+			<BookInfoTextBox>
+				<Skeleton
+					width="100%"
+					height={30}
+					$marginBottom="15px"
+					$marginTop="20px"
+				/>
+				<Skeleton width="100%" height={20} $marginBottom="10px" />
+				<Skeleton width="100%" height={20} $marginBottom="10px" />
+				<Skeleton width="100%" height={20} $marginBottom="10px" />
+				<Skeleton width="100%" height={20} $marginBottom="10px" />
+			</BookInfoTextBox>
+		</Container>
+	);
+};
 
 function DBBookProfile({ reviewId }: { reviewId: string }): JSX.Element {
 	const { data: review } = useReviewDetail(reviewId);
