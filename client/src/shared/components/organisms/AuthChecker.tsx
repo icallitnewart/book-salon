@@ -7,6 +7,8 @@ import { AUTH_TYPES } from '@constants/auth';
 import useDelayedLoading from '@features/user/hooks/useDelayedLoading';
 import useAuthUser from '@features/user/hooks/useAuthUser';
 
+import Loader from '@components/molecules/Loader';
+
 interface IAuthCheckerProps {
 	children: JSX.Element;
 	type: keyof typeof AUTH_TYPES;
@@ -28,7 +30,7 @@ function AuthChecker({ children, type }: IAuthCheckerProps): JSX.Element {
 
 	if (isLoading || isLoading === null) {
 		if (showLoader) {
-			return <div>Loading....</div>;
+			return <Loader />;
 		}
 
 		return <div />;
