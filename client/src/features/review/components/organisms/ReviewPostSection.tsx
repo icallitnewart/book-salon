@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ReviewPostContent from './ReviewPostContent';
-import ReviewCommentBox from './ReviewCommentBox';
+import ReviewCommentSection from './ReviewCommentSection';
 
 const Container = styled.section`
 	display: flex;
@@ -15,7 +15,7 @@ function ReviewPostSection(): JSX.Element {
 	return (
 		<Container>
 			<ReviewPostContent />
-			<ReviewCommentBox />
+			<ReviewCommentSection />
 		</Container>
 	);
 }
