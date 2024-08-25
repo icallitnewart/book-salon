@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { ROUTES } from '@constants/routes';
 import { IBookDetail } from '@features/book/types/bookData';
@@ -10,8 +10,6 @@ import useReviewDetail from '@features/review/hooks/useReviewDetail';
 
 import { Heading2 as BookTitle } from '@typographies';
 import Skeleton from '@components/atoms/Skeleton';
-import Loader from '@components/molecules/Loader';
-import withAsyncBoundary from '@components/organisms/withAsyncBoundary';
 import BookCoverWithBackground from '../molecules/BookCoverWithBackground';
 import BookInfoTextWithLabel from '../molecules/BookInfoTextWithLabel';
 
@@ -35,31 +33,31 @@ const BookInfoDescription = styled(BookInfoTextWithLabel).attrs({
 	margin: '4px 0px',
 })``;
 
-function BookProfileDetail({ book }: { book?: IBookDetail }): JSX.Element {
+function BookProfileDetail({ book }: { book: IBookDetail }): JSX.Element {
 	return (
 		<Container>
-			<Link to={ROUTES.BOOK.DETAIL(book?.isbn)}>
+			<Link to={ROUTES.BOOK.DETAIL(book.isbn)}>
 				<BookCoverWithBackground
-					src={book?.cover}
-					alt={book?.title}
+					src={book.cover}
+					alt={book.title}
 					$width="100%"
 					$imgWidth="45%"
 				/>
 			</Link>
 			<BookInfoTextBox>
-				<Link to={ROUTES.BOOK.DETAIL(book?.isbn)}>
+				<Link to={ROUTES.BOOK.DETAIL(book.isbn)}>
 					<BookTitle
 						variant="card-title-lg"
 						$margin="15px 0 7px"
 						$lineHeight={1.8}
 					>
-						{book?.title}
+						{book.title}
 					</BookTitle>
 				</Link>
-				<BookInfoDescription label="저자" text={book?.author} />
-				<BookInfoDescription label="카테고리" text={book?.category} />
-				<BookInfoDescription label="출판사" text={book?.publisher} />
-				<BookInfoDescription label="출판일" text={book?.pubDate} />
+				<BookInfoDescription label="저자" text={book.author} />
+				<BookInfoDescription label="카테고리" text={book.category} />
+				<BookInfoDescription label="출판사" text={book.publisher} />
+				<BookInfoDescription label="출판일" text={book.pubDate} />
 			</BookInfoTextBox>
 		</Container>
 	);
@@ -91,11 +89,21 @@ BookProfileDetail.Skeleton = function (): JSX.Element {
 
 function DBBookProfile({ reviewId }: { reviewId: string }): JSX.Element {
 	const { data: review } = useReviewDetail(reviewId);
-	return <BookProfileDetail book={review?.book} />;
+
+	if (!review || !review.book) {
+		return <BookProfileDetail.Skeleton />;
+	}
+
+	return <BookProfileDetail book={review.book} />;
 }
 
 function FetchedBookProfile({ isbn }: { isbn: string }): JSX.Element {
 	const { data: book } = useBookDetail(isbn);
+
+	if (!book) {
+		return <BookProfileDetail.Skeleton />;
+	}
+
 	return <BookProfileDetail book={book} />;
 }
 
@@ -110,10 +118,8 @@ function BookProfilePanel(): JSX.Element {
 		return <FetchedBookProfile isbn={isbn} />;
 	}
 
-	// TODO: Skeleton UI로 대체
-	return <Loader />;
+	// TODO: Error 페이지로 리다이렉트
+	return <Navigate to=".." replace />;
 }
 
-export default withAsyncBoundary(BookProfilePanel, {
-	SuspenseFallback: null,
-});
+export default BookProfilePanel;
